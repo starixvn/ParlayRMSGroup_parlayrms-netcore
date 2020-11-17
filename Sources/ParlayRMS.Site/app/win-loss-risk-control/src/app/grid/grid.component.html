@@ -6,6 +6,6 @@
   </div>
 </ng-template>
 <div class="d-inline-block">
-  <nap-breadcrumb [items]="breadcrumbItems" (itemClick)="onBreadcrumbItemClick($event)" [toolboxTemplate]="breadcrumbToolboxTemplate" [hidden]="breadcrumbItems === undefined || breadcrumbItems === null || breadcrumbItems.length === 0"></nap-breadcrumb>
+  <nap-breadcrumb *ngIf="breadcrumbItems.length>0" [items]="breadcrumbItems" (itemClick)="onBreadcrumbItemClick($event)" [toolboxTemplate]="breadcrumbToolboxTemplate" [hidden]="breadcrumbItems === undefined || breadcrumbItems === null || breadcrumbItems.length === 0"></nap-breadcrumb>
   <div #container></div>
 </div>

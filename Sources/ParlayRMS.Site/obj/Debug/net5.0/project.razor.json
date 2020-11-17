@@ -15601,6 +15601,17 @@
     "CSharpLanguageVersion": 900
   },
   "RootNamespace": "ParlayRMS.Site",
-  "Documents": [],
+  "Documents": [
+    {
+      "FilePath": "d:\\Projects\\Olympus\\parlayrms-netcore\\Sources\\ParlayRMS.Site\\wwwroot\\win-loss-risk-control\\index.cshtml",
+      "TargetPath": "wwwroot\\win-loss-risk-control\\index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\Projects\\Olympus\\parlayrms-netcore\\Sources\\ParlayRMS.Site\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    }
+  ],
   "SerializationFormat": "0.2"
 }

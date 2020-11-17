@@ -4,14 +4,37 @@
 body {
   padding-top: 2.5rem;
 }
+.navbar {
+  background: #10243c !important;
+  color: white;
 
-.navbar-brand {
-  .logo {
-    background-image: url("assets/logo.png");
-    height: 16px;
-    width: 147px;
+  .navbar-brand {
+    .logo {
+      background: url("assets/logo.png") no-repeat left transparent;
+      margin: 0 10px 0 0;
+      padding-top: 10px;
+      padding-right: 20px;
+      height: 30px;
+      width: 111px;
+    }
+    border-right: 1px solid #4a5e75 !important;
   }
 }
+
+.nap-header {
+  margin-bottom: 2px;
+  padding-top: 0;
+  background: url("assets/header.png") repeat-x center center transparent;
+  height: 31px;
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    width: 70%;
+    color: #242323;
+    margin: 10px 0 0 10px;
+  }
+}
+
 
 .spinner-loading {
     background-image: url("assets/spinner.gif");
@@ -95,10 +118,3 @@ body {
     }
 }
 
-.nap-control .dropdown-menu {
-    .ngb-dp-arrow, .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number, .btn-light {
-         width: 2rem !important;
-        height: 2rem !important;
-        line-height: 1.6rem !important;
-    }
-}

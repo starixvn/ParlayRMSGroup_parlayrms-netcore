@@ -13,6 +13,7 @@ import { CompanyTreeviewPipe } from './filter/company-treeview.pipe';
 import { SportTreeviewPipe } from './filter/sport-treeview.pipe';
 import { ParlayTreeviewPipe } from './filter/parlay-treeview.pipe';
 import { GridModule } from './grid/grid.module';
+import { CustomNavbarService } from './custom-navbar-service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,10 @@ import { GridModule } from './grid/grid.module';
     ToastModule,
     TreeviewModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: NavbarService, useClass: CustomNavbarService },
+    ToastService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

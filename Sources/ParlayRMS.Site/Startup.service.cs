@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using AutoMapper;
 using Fanex.Data;
 using Fanex.Data.Repository;
@@ -13,9 +14,13 @@ using Fanex.Logging.Extensions.Database;
 using Fanex.Logging.Sentry;
 using Fanex.RemotingRef;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
 using ParlayRMS.WinLossRiskControl.Requests;
 using ParlayRMS.WinLossRiskControl.Services;
@@ -48,7 +53,7 @@ namespace ParlayRMS.Site
             {
                 var mapperConfig = new MapperConfiguration(mc =>
                 {
-                    mc.AddProfile(new MappingProfile());
+                    mc.AddProfile(new WinLossMappingProfile());
                 });
 
                 return mapperConfig.CreateMapper();
@@ -89,6 +94,38 @@ namespace ParlayRMS.Site
             ExceptionHandler
                 .UseConfig(new LoggingConfiguration())
                 .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+        }
+
+        private void ConfigureAuthentication(IServiceCollection services)
+        {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                        .AddCookie(options =>
+                        {
+                            options.LoginPath = Configuration.GetSection("AuthSettings:LoginPath").Value;
+                            options.LogoutPath = Configuration.GetSection("AuthSettings:LogoutPath").Value;
+                            options.ExpireTimeSpan = TimeSpan.FromMinutes(int.Parse(Configuration.GetSection("AuthSettings:CookieTimeOut").Value));
+                            options.Cookie = new CookieBuilder
+                            {
+                                Name = "Fanex.ParlayRMS.Cookie",
+                                SecurePolicy = CookieSecurePolicy.SameAsRequest
+                            };
+                            options.Events.OnSigningOut = context =>
+                            {
+                                context.Response.Redirect(options.LoginPath);
+                                return Task.CompletedTask;
+                            };
+                        });
+        }
+
+        private void ConfigureAuthorization(IServiceCollection services)
+        {
+            services.AddControllers(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
     }
 }

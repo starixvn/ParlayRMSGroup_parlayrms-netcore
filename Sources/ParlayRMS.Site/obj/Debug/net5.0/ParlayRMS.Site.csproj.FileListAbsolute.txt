@@ -73,3 +73,14 @@ D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\bin\Debug\net5.0\ap
 D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\bin\Debug\net5.0\app\win-loss-risk-control\tsconfig.json
 D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\bin\Debug\net5.0\app\win-loss-risk-control\tsconfig.spec.json
 D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\bin\Debug\net5.0\app\win-loss-risk-control\tslint.json
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\bin\Debug\net5.0\ParlayRMS.Site.Views.dll
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\bin\Debug\net5.0\ParlayRMS.Site.Views.pdb
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.RazorAssemblyInfo.cache
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.RazorAssemblyInfo.cs
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.TagHelpers.input.cache
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.TagHelpers.output.cache
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.RazorCoreGenerate.cache
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\Razor\wwwroot\win-loss-risk-control\index.cshtml.g.cs
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.RazorTargetAssemblyInfo.cs
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\ParlayRMS.Site.Views.pdb
+D:\Projects\Olympus\parlayrms-netcore\Sources\ParlayRMS.Site\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs

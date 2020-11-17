@@ -1,0 +1,21 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/observable/of';
+import { HttpService } from 'nap-components/http';
+import { NavbarService, UserMenu, Menu, Navbar } from 'nap-components/navbar';
+
+@Injectable()
+export class CustomNavbarService extends NavbarService {
+    menus: Menu[];
+    constructor(
+        private customHttpService: HttpService
+    ) {
+        super(customHttpService);
+    }
+
+    query(): any {
+      return this.menus;
+    }
+}

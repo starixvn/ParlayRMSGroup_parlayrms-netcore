@@ -16,25 +16,12 @@ namespace ParlayRMS.WinLossRiskControl
         }
 
         [Route("get-site")]
-        public async Task<ActionResult> GetSite(WinLossRequest request) {
-            // var request = new SiteWinLossRequest {
-            //     FromDate ="2020-09-01",// Convert.ToDateTime("2020-09-01"),
-            //     ToDate = "2020-11-01",//Convert.ToDateTime("2020-11-01"),
-            //     Company = "",
-            //     ParlayType = "1,2,3,4",
-            //     SportType = "1, -1, -2, -3"
-            // };
-            return Ok(await mediator.Send(request).ConfigureAwait(false));
-        } 
+        public async Task<ActionResult> GetSite(WinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
         [Route("company-win-loss")]
-        public async Task<ActionResult> GetCompany(CompanyWinLossRequest request) {
-            return Ok(await mediator.Send(request).ConfigureAwait(false));
-        } 
+        public async Task<ActionResult> GetCompany(CompanyWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
         [Route("agent-win-loss")]
-        public async Task<ActionResult> GetAgent(AgentWinLossRequest request) {
-            return Ok(await mediator.Send(request).ConfigureAwait(false));
-        } 
+        public async Task<ActionResult> GetAgent(AgentWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
     }
 }

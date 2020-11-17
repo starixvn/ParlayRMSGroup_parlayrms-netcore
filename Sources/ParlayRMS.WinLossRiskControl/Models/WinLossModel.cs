@@ -64,7 +64,7 @@ namespace ParlayRMS.WinLossRiskControl.Models
             this.Commission += site.Commission;
             this.RealIncome += site.RealIncome;
             this.RealTurnover += site.RealTurnover;
-            this.Margin = (this.RealIncome/this.RealTurnover) * 100;
+            this.Margin = this.RealTurnover > 0 ? (this.RealIncome/this.RealTurnover) * 100 : 0;
         }
     }
 }

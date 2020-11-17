@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using ParlayRMS.WinLossRiskControl.Criteria;
 using ParlayRMS.WinLossRiskControl.Models;
 using ParlayRMS.WinLossRiskControl.Requests;
 using ParlayRMS.WinLossRiskControl.Services;
@@ -24,14 +22,13 @@ namespace ParlayRMS.WinLossRiskControl.Handlers
 
         public async Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
         {
-            var criteria =  mapper.Map<WinLossCriteria>(request);
-            return await service.GetSites(criteria);
+            return await service.GetSites(request);
         }     
 
         public async Task<WinLossModel> Handle(CompanyWinLossRequest request, CancellationToken cancellationToken)
         {
-            var criteria =  mapper.Map<CompanyWinLossCriteria>(request);
-            return await service.GetCompanyWinLoss(criteria);
+           
+            return await service.GetCompanyWinLoss(request);
         }   
         
         public async Task<AgentWinLossModel> Handle(AgentWinLossRequest request, CancellationToken cancellationToken)

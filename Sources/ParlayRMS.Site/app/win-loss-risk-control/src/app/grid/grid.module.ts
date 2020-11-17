@@ -7,11 +7,15 @@ import { SiteGridComponent } from './site-grid/site-grid.component';
 import { NumberFormatModule } from 'nap-components/number-format';
 import { BreadcrumbModule } from 'nap-components/breadcrumb';
 import { PaginationService, PaginationConfig, PaginationModule } from 'nap-components/pagination';
-import { CompanyGridComponent } from './company-grid/company-grid.component';
-import { CompanyGridService } from './company-grid/company-grid.service';
+import { SuperGridComponent } from './super-grid/super-grid.component';
+import { SuperGridService } from './super-grid/super-grid.service';
 import { MemberGridComponent } from './member-grid/member-grid.component';
 import { MemberGridService } from './member-grid/member-grid.service';
 import { CustomPaginationConfig } from '../common/config';
+import { MasterGridComponent } from './master-grid/master-grid.component';
+import { AgentGridComponent } from './agent-grid/agent-grid.component';
+import { MasterGridService } from './master-grid/master-grid.service';
+import { AgentGridService } from './agent-grid/agent-grid.service';
 
 @NgModule({
     imports: [
@@ -24,7 +28,9 @@ import { CustomPaginationConfig } from '../common/config';
     declarations: [
         GridComponent,
         SiteGridComponent,
-        CompanyGridComponent,
+        SuperGridComponent,
+        MasterGridComponent,
+        AgentGridComponent,
         MemberGridComponent
     ],
     exports: [
@@ -33,7 +39,9 @@ import { CustomPaginationConfig } from '../common/config';
     providers: [
         GridService,
         SiteGridService,
-        CompanyGridService,
+        SuperGridService,
+        MasterGridService,
+        AgentGridService,
         MemberGridService,
         PaginationService,
         PaginationConfig,

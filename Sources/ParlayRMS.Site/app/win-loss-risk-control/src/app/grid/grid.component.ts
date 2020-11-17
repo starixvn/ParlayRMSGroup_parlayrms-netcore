@@ -11,14 +11,14 @@ import {
     OnDestroy,
     OnChanges,
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { FilterModel } from '../filter/filter.model';
-import { SiteGridComponent } from './site-grid/site-grid.component';
-import { CompanyGridComponent } from './company-grid/company-grid.component';
 import { Grid, GridType } from './grid.model';
 import { GridService } from './grid.service';
-import { Subject } from 'rxjs/Subject';
+import { SiteGridComponent } from './site-grid/site-grid.component';
+import { SuperGridComponent } from './super-grid/super-grid.component';
 import { MemberGridComponent } from './member-grid/member-grid.component';
+import { MasterGridComponent } from './master-grid/master-grid.component';
+import { AgentGridComponent } from './agent-grid/agent-grid.component';
 
 @Component({
     selector: 'app-grid',
@@ -26,7 +26,9 @@ import { MemberGridComponent } from './member-grid/member-grid.component';
     styleUrls: ['./grid.component.scss'],
     entryComponents: [
         SiteGridComponent,
-        CompanyGridComponent, 
+        SuperGridComponent, 
+        MasterGridComponent,
+        AgentGridComponent,
         MemberGridComponent
     ]
 })
@@ -35,12 +37,7 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild('container', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
     gridType = GridType.Site;
     breadcrumbItems: string[];
-    private showSiteGridSubscription: Subscription;
-    private showCompanyGridSubscription: Subscription;
-    private showMemberGridSubscription: Subscription;
-    private latestComponent: ComponentRef<Grid>;
     private components: ComponentRef<Grid>[] = [];
-    private filterChanging: boolean;
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -48,49 +45,40 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
         private gridService: GridService) { }
 
     ngOnInit() {
-        this.gridService.siteGridSubject = new Subject<number>();
-        this.gridService.companyGridSubject = new Subject<number>();
-        this.gridService.memberGridSubject = new Subject<number>();
-
-        this.showSiteGridSubscription = this.gridService.siteGridSubject.subscribe(() => this.showSiteGridCompleted());
-        this.showCompanyGridSubscription = this.gridService.companyGridSubject.subscribe(() => this.generateCompanyGrid());
-        this.showMemberGridSubscription = this.gridService.memberGridSubject.subscribe(() => this.generateMemberGrid());
+        this.gridService.generate = (gridType: GridType) => this.generate(gridType);
     }
 
     ngOnChanges() {
-        this.filterChanging = true;
+        this.breadcrumbItems = [];
+        while (this.components.length) {
+            const component = this.components.pop();
+            component.destroy();
+        }
+
+        this.gridType = GridType.Site;
         this.gridService.filterModel = this.filterModel;
-        this.latestComponent = this.createGridComponent();
+        this.createGridComponent();
     }
 
     ngOnDestroy() {
-        this.clear();
-        this.showSiteGridSubscription.unsubscribe();
-        this.showCompanyGridSubscription.unsubscribe();
-        this.showMemberGridSubscription.unsubscribe();
-    }
-
-    private clear() {
         this.container.clear();
-        this.components = [];
     }
 
-    private generateCompanyGrid() {
-        this.gridType = GridType.Company;
-        this.latestComponent = this.createGridComponent();
-    }
-
-    private generateMemberGrid() {
-        this.gridType = GridType.Member;
-        this.latestComponent = this.createGridComponent();
+    private generate(gridType: GridType) {
+        this.gridType = gridType;
+        this.createGridComponent();
     }
 
     private getComponentFactory(): ComponentFactory<Grid> {
         switch (this.gridType) {
             case GridType.Site:
                 return this.componentFactoryResolver.resolveComponentFactory(SiteGridComponent);
-            case GridType.Company:
-                return this.componentFactoryResolver.resolveComponentFactory(CompanyGridComponent);
+            case GridType.Super:
+                return this.componentFactoryResolver.resolveComponentFactory(SuperGridComponent);
+            case GridType.Master:
+                return this.componentFactoryResolver.resolveComponentFactory(MasterGridComponent);
+            case GridType.Agent:
+                return this.componentFactoryResolver.resolveComponentFactory(AgentGridComponent);
             case GridType.Member:
                 return this.componentFactoryResolver.resolveComponentFactory(MemberGridComponent);
           
@@ -99,42 +87,30 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    private createGridComponent(): ComponentRef<Grid> {
+    private createGridComponent() {
         const factory = this.getComponentFactory();
         const component = this.container.createComponent(factory);
+        this.components.push(component);
+
         const grid = component.instance;
-        grid.query();
-        return component;
+        this.gridService.activeGrid = grid;
+        grid.query().subscribe({
+            complete: () => this.showGridAndBreadcrumb()
+        });
     }
 
-    private showSiteGridCompleted() {
-        if (this.filterChanging) {
-          let removeIndex = 0;
-          switch (this.gridType) {
-            case GridType.Site:
-              removeIndex = 0;
-              break;
-            case GridType.Company:
-              removeIndex = 1;
-              break;
-          }
-          this.destroyComponentsFrom(removeIndex);
-        }
-
-        this.components.push(this.latestComponent);
-        this.filterChanging = false;
-        this.showGridAndBreadcrumb();
-    }
 
     private destroyComponentsFrom(index: number) {
-        while (this.components.length - 1 >= index) {
+        while (this.components.length - 1 > index) {
             const component = this.components.pop();
             component.destroy();
         }
+
+        this.gridService.activeGrid = this.components[this.components.length - 1].instance;
+        this.showGridAndBreadcrumb();
     }
 
     private showGridAndBreadcrumb() {
-        this.gridService.activeGrid = this.components[this.components.length - 1].instance;
         this.updateBreadcrumb();
         this.showOnlyLastGrid();
     }
@@ -158,16 +134,16 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
 
-    onBreadcrumbItemClick(event: Event) {
-        this.gridType = GridType.Company;
-        this.destroyComponentsFrom(1);
-        this.showGridAndBreadcrumb();
+    onBreadcrumbItemClick(event: number) {
+        this.destroyComponentsFrom(event);
+        this.showGridAndBreadcrumb()
     }
 
     exportExcel() {
         if (this.components.length === 0) {
             return;
         }
+
         const component = this.components[this.components.length - 1];
         const grid = component.instance;
         grid.exportExcel();

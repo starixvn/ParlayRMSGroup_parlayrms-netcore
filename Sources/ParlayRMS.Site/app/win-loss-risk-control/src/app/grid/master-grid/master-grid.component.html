@@ -15,7 +15,7 @@
 <ng-template #thead>
   <thead>
       <tr>
-          <th>Site/Username</th>
+          <th>Master</th>
           <th>No. Member</th>
           <th>Bet Count</th>
           <th>Member Win Loss</th>
@@ -29,7 +29,7 @@
   </thead>
 </ng-template>
 <ng-template #rowItem let-item="item">
-  <td><a href="javascript:;" (click)="drillDown(item.username, item.custId, item.roleId)">{{ item.username }}</a></td>
+  <td><a href="javascript:;" (click)="showAgent(item.username, item.custId)">{{ item.username }}</a></td>
   <td class="text-right" [napDecimalFormat]="item.noMember"></td>
   <td class="text-right" [napDecimalFormat]="item.betCount"></td>
   <td [ngClass]="{'red': item.memberWinLoss > 0, 'text-right' : 1}" [napDecimalFormat]="item.memberWinLoss"></td>

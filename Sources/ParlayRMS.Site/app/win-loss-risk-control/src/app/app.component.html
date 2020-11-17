@@ -1,3 +1,12 @@
-<app-filter (generated)="generate($event)"></app-filter>
-<nap-toast></nap-toast>
-<app-grid *ngIf="filterModel" [filterModel]="filterModel"></app-grid>
+<nap-navbar></nap-navbar>
+<div>
+  <div class="nap-header">
+    <div class="title">
+      Win Loss Risk Control
+    </div>
+  </div>
+  <app-filter (generated)="generate($event)"></app-filter>
+  <nap-toast></nap-toast>
+  <app-grid *ngIf="filterModel" [filterModel]="filterModel"></app-grid>
+</div>
+<nap-spinner></nap-spinner>

@@ -1,12 +1,16 @@
+import { Observable } from "rxjs/Observable";
+
 export enum GridType {
     Site,
-    Company,
+    Super,
+    Master,
+    Agent,
     Member
 }
 
 export interface Grid {
     hasExcel: boolean;
     title: string;
-    query(): void;
+    query(): Observable<any>;
     exportExcel(): void;
 }

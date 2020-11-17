@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
+    "postbuild": "gulp --path \"../../wwwroot/win-loss-risk-control\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,7 +24,10 @@
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
     "@types/lodash": "^4.14.165",
     "bootstrap": "^4.5.3",
+    "cheerio": "^1.0.0-rc.3",
+    "ejs": "^3.1.5",
     "font-awesome": "^4.7.0",
+    "gulp": "^4.0.2",
     "moment": "^2.29.1",
     "nap-components": "^6.1.4",
     "nap-theme": "^6.1.0",

@@ -3,11 +3,11 @@ import * as _ from 'lodash';
 import { Grid } from '../grid.model';
 import { GridService } from '../grid.service';
 import { MemberGridService } from './member-grid.service';
-import { WinLossModel } from 'src/app/common/win-loss.model';
 import { PaginatePipe, PaginationInstance, PaginationService as NgxPaginationService } from 'ngx-pagination';
 import { PaginationService } from 'nap-components/pagination';
 import { MemberWinLossModel } from './member-grid.model';
 import { CustomPaginationConfig } from 'src/app/common/config';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-member-grid',
@@ -32,11 +32,14 @@ export class MemberGridComponent implements Grid {
         const pagingConfig = new CustomPaginationConfig();
         this.gridService.filterModel.pageIndex = 1;
         this.gridService.filterModel.pageSize = pagingConfig.itemsPerPage;
-        this.memberGridService.query().subscribe(data => {
-            this.winLoss = data;
-            this.gridService.siteGridSubject.next(0);
-            this.paginationInstance = this.paginationService.createPaginationInstance(this.winLoss.totalRecords);
-            this.onPageChange();
+
+        return new Observable(observer => {
+            this.memberGridService.query().subscribe(data => {
+                this.winLoss = data;
+                this.paginationInstance = this.paginationService.createPaginationInstance(this.winLoss.totalRecords);
+                this.onPageChange();
+                observer.complete();
+            });
         });
     }
 
@@ -53,7 +56,7 @@ export class MemberGridComponent implements Grid {
     }
 
     get title(): string {
-      return this.gridService.username;
+      return this.memberGridService.model.username;
     }
 
     onPageChange() {
@@ -61,22 +64,22 @@ export class MemberGridComponent implements Grid {
     }
     
     private createPaging() {
-    if (this.gridService.filterModel.isPageChanged) {
-        this.gridService.filterModel.pageIndex = this.paginationInstance.currentPage;
-        this.gridService.filterModel.pageSize = this.paginationInstance.itemsPerPage;
+        if (this.gridService.filterModel.isPageChanged) {
+            this.gridService.filterModel.pageIndex = this.paginationInstance.currentPage;
+            this.gridService.filterModel.pageSize = this.paginationInstance.itemsPerPage;
 
-        this.memberGridService.query().subscribe(data => {
-        this.winLoss = data;
+            this.memberGridService.query().subscribe(data => {
+            this.winLoss = data;
+            this.createPagingTransform();
+            });
+        }
+
         this.createPagingTransform();
-        });
-    }
-
-    this.createPagingTransform();
     }
 
     private createPagingTransform() {
-    const paginateData = this.paginatePipe.transform(this.winLoss.rows, this.paginationInstance);
-    this.winLoss.rows = _.cloneDeep(paginateData);
-    this.gridService.filterModel.isPageChanged = true;
+        const paginateData = this.paginatePipe.transform(this.winLoss.rows, this.paginationInstance);
+        this.winLoss.rows = _.cloneDeep(paginateData);
+        this.gridService.filterModel.isPageChanged = true;
     }
 }

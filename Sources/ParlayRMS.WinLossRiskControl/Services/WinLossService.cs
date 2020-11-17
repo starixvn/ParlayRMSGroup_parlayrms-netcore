@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,9 +10,9 @@ namespace ParlayRMS.WinLossRiskControl.Services
 {
     public interface WinLossService
     {
-        Task<WinLossModel> GetSites(ICriteria criteria);
+        Task<WinLossModel> GetSites(WinLossRequest request);
 
-        Task<WinLossModel> GetCompanyWinLoss(ICriteria criteria);
+        Task<WinLossModel> GetCompanyWinLoss(CompanyWinLossRequest request);
 
         Task<AgentWinLossModel> GetAgentWinLoss(AgentWinLossRequest request);
     }
@@ -28,8 +27,9 @@ namespace ParlayRMS.WinLossRiskControl.Services
             this.mapper = mapper;
         }
 
-        public async Task<WinLossModel> GetSites(ICriteria criteria)
+        public async Task<WinLossModel> GetSites(WinLossRequest request)
         {
+             var criteria =  mapper.Map<WinLossCriteria>(request);
             var sites = await repository.FetchAsync<WinLossModel>(criteria);
             var listSiteName = sites.GroupBy(row => row.IsDeposit).Distinct();
             var data = new WinLossModel();
@@ -43,6 +43,7 @@ namespace ParlayRMS.WinLossRiskControl.Services
                     currentSite.Rows.Add(row);
                     currentSite.SumTotal(row);
                 }
+
                 data.Rows.Add(currentSite);
                 data.SumTotal(currentSite);
             }
@@ -50,7 +51,8 @@ namespace ParlayRMS.WinLossRiskControl.Services
             return data;
         }
 
-        public async Task<WinLossModel> GetCompanyWinLoss(ICriteria criteria) {
+        public async Task<WinLossModel> GetCompanyWinLoss(CompanyWinLossRequest request) {
+             var criteria =  mapper.Map<CompanyWinLossCriteria>(request);
             var list = await repository.FetchAsync<WinLossModel>(criteria);
             var data = new WinLossModel();
             foreach (var row in list) {
@@ -69,6 +71,7 @@ namespace ParlayRMS.WinLossRiskControl.Services
                 data.Rows.Add(row);
                 data.SumTotal(row);
             }
+            
             data.TotalRecords = result.Item2.FirstOrDefault();
             return data;
         }

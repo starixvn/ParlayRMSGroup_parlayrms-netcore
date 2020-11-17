@@ -35,7 +35,7 @@
   </td>
   <ng-template #drillDown>
     <td>
-      <a href="javascript:;" (click)="drillDownReport(item.username, item.isDeposit)">{{ item.username }}</a>
+      <a href="javascript:;" (click)="showSuperOrAgent(item.username, item.isDeposit)">{{ item.username }}</a>
     </td>
   </ng-template>
   <td class="text-right" [napDecimalFormat]="item.noMember"></td>

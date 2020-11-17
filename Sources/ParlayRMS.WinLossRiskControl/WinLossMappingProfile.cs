@@ -2,11 +2,11 @@ using AutoMapper;
 using ParlayRMS.WinLossRiskControl.Criteria;
 using ParlayRMS.WinLossRiskControl.Requests;
 
-namespace ParlayRMS.Site
+namespace ParlayRMS.WinLossRiskControl
 {
-    public class MappingProfile : Profile 
+    public class WinLossMappingProfile : Profile 
     {
-        public MappingProfile()
+        public WinLossMappingProfile()
         {
             CreateMap<WinLossRequest, WinLossCriteria>();
             CreateMap<CompanyWinLossRequest, CompanyWinLossCriteria>();

@@ -4,7 +4,7 @@
       <div class="nap-group">
         <label class="width-50">Company</label>
         <div class="nap-control">
-          <ngx-dropdown-treeview [items]="company | companyTreeview:company"
+          <ngx-dropdown-treeview [items]="company|companyTreeview"
             [config]="companyConfig" (selectedChange)="selectedCompany = $event">
           </ngx-dropdown-treeview>
         </div>
@@ -38,7 +38,7 @@
       <div class="nap-group">
         <label class="width-50">Parlay type</label>
         <div class="nap-control">
-          <ngx-dropdown-treeview [items]="parlayType | parlayTreeview:parlayType"
+          <ngx-dropdown-treeview [items]="parlayType | parlayTreeview"
           [config]="parlayTypeConfig" (selectedChange)="selectedParlayType = $event">
         </ngx-dropdown-treeview>
         </div>
@@ -49,7 +49,7 @@
       <div class="nap-group">
         <label class="width-50">Sports type</label>
         <div class="nap-control">
-          <ngx-dropdown-treeview [items]="sportsType | sportTreeview:sportsType"
+          <ngx-dropdown-treeview [items]="sportsType | sportTreeview"
           [config]="sportsTypeConfig" (selectedChange)="selectedSportsType = $event">
         </ngx-dropdown-treeview>
         </div>

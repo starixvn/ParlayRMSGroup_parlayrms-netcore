@@ -18,13 +18,14 @@ namespace ParlayRMS.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            ConfigureAuthentication(services);
             ConfigureNapServices(services);
             
             ConfigureFanex();
 
-            services.AddControllers();
-           
+            services.AddSession();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +36,10 @@ namespace ParlayRMS.Site
            
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
