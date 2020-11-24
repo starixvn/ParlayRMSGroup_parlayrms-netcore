@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
+    <ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
   </ItemGroup>
 
 </Project>

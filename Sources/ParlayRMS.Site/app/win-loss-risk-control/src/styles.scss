@@ -35,7 +35,6 @@ body {
   }
 }
 
-
 .spinner-loading {
     background-image: url("assets/spinner.gif");
 }
@@ -45,10 +44,9 @@ body {
     background: #3f536b !important;
   }
 }
-.breadcrumb-container {
-  background: #454513 !important;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+
+.nap-icon-breadcrumb-excel {
+  margin: 5px 5px 0 0;
 }
 
 .form-control+.input-group-addon:not(:first-child) {

@@ -44,10 +44,11 @@ export class FilterComponent implements OnInit {
   });
   public selectedSportsType: string[] = [];
 
-  fromDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.today);
-  minStartDate: NapDateStruct;
-  maxEndDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.today);
-  toDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.today);
+  fromDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.yesterday);
+  toDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.yesterday);
+
+  minStartDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.yesterday.add(-6, 'month'));
+  maxEndDate: NapDateStruct = DateHelper.convertMomentToDateStruct(CONFIG.date.yesterday);
 
   constructor(
     private readonly filterService: FilterService,
@@ -102,9 +103,9 @@ export class FilterComponent implements OnInit {
   private createModel(): FilterModel {
     const fromDate = DateHelper.convertDateStructToMoment(this.fromDate);
     const toDate = DateHelper.convertDateStructToMoment(this.toDate);
-    
+
     const model: FilterModel = {
-      custId: 0, 
+      custId: 0,
       roleId: 0,
       fromDate: DateHelper.formatMomentDate(fromDate, DateFormat.Date),
       toDate: DateHelper.formatMomentDate(toDate, DateFormat.Date),

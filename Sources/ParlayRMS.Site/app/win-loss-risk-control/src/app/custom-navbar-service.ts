@@ -8,14 +8,24 @@ import { NavbarService, UserMenu, Menu, Navbar } from 'nap-components/navbar';
 
 @Injectable()
 export class CustomNavbarService extends NavbarService {
-    menus: Menu[];
+    userMenus: UserMenu[] = [];
     constructor(
         private customHttpService: HttpService
     ) {
         super(customHttpService);
     }
 
-    query(): any {
-      return this.menus;
-    }
+    query(): Observable<Navbar> {
+      const url = 'api/application/header';
+      return this.customHttpService.post<Navbar>(url).pipe(map(data => {
+          this.userMenus = [
+              {
+                  name: 'Sign Out',
+                  link: '/UserLogin/Login/LogOut'
+              }
+          ];
+
+          return data;
+      }));
+  }
 }
