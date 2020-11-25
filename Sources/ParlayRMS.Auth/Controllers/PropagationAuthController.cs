@@ -37,6 +37,18 @@ namespace ParlayRMS.Auth.Controllers
             return RedirectToAction("Login", "BackPropagationAuth");
         }
 
+#if DEBUG
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> FakeLogin()
+        {
+            var loginResult = new UserLoginResult { Username = "sa", UserId = 8 };
+            await CreateAuthInfo(loginResult);
+
+            return RedirectToAction("Index", "Home");
+        }
+#endif
+
         private async Task CreateAuthInfo(UserLoginResult loginResult)
         {
             var claims = new List<Claim>
