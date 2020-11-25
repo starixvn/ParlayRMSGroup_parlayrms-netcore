@@ -66,6 +66,11 @@ namespace ParlayRMS.Auth.Controllers
         public async Task<IActionResult> Logout(string redirectUrl)
         {
             await HttpContext.SignOutAsync();
+            if (string.IsNullOrEmpty(redirectUrl))
+            {
+                return RedirectToAction("ExpiredSession", "Home");
+            }
+
             redirectUrl = WebUtility.UrlDecode(redirectUrl);
             return Redirect(redirectUrl);
         }
