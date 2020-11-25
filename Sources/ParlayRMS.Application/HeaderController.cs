@@ -14,7 +14,6 @@ namespace ParlayRMS.Application
         {
             var header = new Header
             {
-                Username = "Kaden",
                 Menus = new List<Menu>(),
             };
 

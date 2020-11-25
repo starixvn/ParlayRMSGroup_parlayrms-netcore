@@ -13,7 +13,6 @@ import { CompanyTreeviewPipe } from './filter/company-treeview.pipe';
 import { SportTreeviewPipe } from './filter/sport-treeview.pipe';
 import { ParlayTreeviewPipe } from './filter/parlay-treeview.pipe';
 import { GridModule } from './grid/grid.module';
-import { CustomNavbarService } from './custom-navbar-service';
 import * as moment from 'moment';
 import { AppService } from './app.service';
 import { CONFIG, DateConfig } from './common/config';
@@ -38,7 +37,6 @@ import { CONFIG, DateConfig } from './common/config';
     TreeviewModule.forRoot()
   ],
   providers: [
-    { provide: NavbarService, useClass: CustomNavbarService },
     ToastService,
     AppService,
     {

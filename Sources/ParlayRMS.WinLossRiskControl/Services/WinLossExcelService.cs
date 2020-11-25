@@ -11,9 +11,8 @@ namespace ParlayRMS.WinLossRiskControl.Services
         ExcelPackage Build(WinLossExcelModel model);
     }
 
-     public class WinLossExcelServiceImp : WinLossExcelService
+    public class WinLossExcelServiceImp : WinLossExcelService
     {
-
         private ExcelWorksheet actual;
 
         private ExcelWorksheet totalSheet;
@@ -33,7 +32,7 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
         private void LoadTemplate()
         {
-            var templateAbsolutelyPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\ExcelTemplate\\WinLossRiskControl\\member-win-loss.xlsx";
+            var templateAbsolutelyPath = $"{Environment.CurrentDirectory}\\ExcelTemplate\\WinLossRiskControl\\member-win-loss.xlsx";
             using (var stream = new FileStream(templateAbsolutelyPath, FileMode.Open, FileAccess.Read))
             {
                 ExcelPackage = new ExcelPackage(stream);

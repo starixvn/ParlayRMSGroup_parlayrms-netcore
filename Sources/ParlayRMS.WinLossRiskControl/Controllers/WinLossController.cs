@@ -10,6 +10,7 @@ namespace ParlayRMS.WinLossRiskControl
     public class WinLossController : ControllerBase
     {
         private readonly IMediator mediator;
+
         public WinLossController(IMediator mediator)
         {
             this.mediator = mediator;
@@ -26,6 +27,5 @@ namespace ParlayRMS.WinLossRiskControl
 
         [Route("agent-win-loss-excel")]
         public async Task<ActionResult> ExcelAgent(AgentWinLossExcelRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
-
     }
 }

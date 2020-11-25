@@ -12,9 +12,16 @@
     <EmbeddedResource Remove="app\**" />
     <None Remove="app\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
+  </ItemGroup>
  <ItemGroup>
     <Content Include="App_Data\SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

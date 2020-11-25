@@ -5,7 +5,7 @@ using ParlayRMS.WinLossRiskControl.Requests;
 
 namespace ParlayRMS.WinLossRiskControl
 {
-    public class WinLossMappingProfile : Profile 
+    public class WinLossMappingProfile : Profile
     {
         public WinLossMappingProfile()
         {
@@ -13,9 +13,8 @@ namespace ParlayRMS.WinLossRiskControl
             CreateMap<CompanyWinLossRequest, CompanyWinLossCriteria>();
             CreateMap<AgentWinLossRequest, AgentWinLossCriteria>();
 
-            CreateMap<WinLossRequest, AgentWinLossExcelRequest>();
-            CreateMap<WinLossModel, WinLossExcelModel>();
+            CreateMap<AgentWinLossExcelRequest, AgentWinLossRequest>();
+            CreateMap<AgentWinLossModel, WinLossExcelModel>();
         }
-        
     }
 }

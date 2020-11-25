@@ -10,6 +10,7 @@ namespace ParlayRMS.WinLossRiskControl.Controllers
     public class FilterController : ControllerBase
     {
         private readonly IMediator mediator;
+
         public FilterController(IMediator mediator)
         {
             this.mediator = mediator;

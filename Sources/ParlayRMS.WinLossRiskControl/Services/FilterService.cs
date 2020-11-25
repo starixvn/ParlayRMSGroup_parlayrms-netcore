@@ -11,26 +11,32 @@ namespace ParlayRMS.WinLossRiskControl.Services
     public interface FilterService
     {
         Task<List<CompanyModel>> GetCompany();
+
         Task<List<ParlayTypeModel>> GetParlayTypes();
+
         Task<List<SportModel>> GetSports();
-    } 
-    
-    public class  FilterServiceImp : FilterService
+    }
+
+    public class FilterServiceImp : FilterService
     {
         private const string LanguageCode = "en";
         private readonly IRemotingRefService remotingRefService;
         private readonly IDynamicRepository repository;
+
         public FilterServiceImp(IDynamicRepository repository, IRemotingRefService remotingRefService)
         {
             this.repository = repository;
             this.remotingRefService = remotingRefService;
         }
 
-        public async Task<List<CompanyModel>> GetCompany() {
+        public async Task<List<CompanyModel>> GetCompany()
+        {
             var criteria = new CompanyCriteria();
             return (await repository.FetchAsync<CompanyModel>(criteria)).ToList();
         }
-        public Task<List<ParlayTypeModel>> GetParlayTypes() {
+
+        public Task<List<ParlayTypeModel>> GetParlayTypes()
+        {
             var palarTypes = new List<ParlayTypeModel>()
             {
                 new ParlayTypeModel { Name = "Mix Parlay", Id = 1 },
@@ -41,7 +47,9 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
             return Task.FromResult(palarTypes);
         }
-        public Task<List<SportModel>> GetSports() {
+
+        public Task<List<SportModel>> GetSports()
+        {
             var otherSports = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
             var listSports = new List<SportModel>();
             listSports.Add(CreateSport(1, "Soccer only", 0));
@@ -58,7 +66,8 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
         private SportModel CreateSport(int sportId, int groupId)
         {
-            return new SportModel {
+            return new SportModel
+            {
                 SportId = sportId,
                 SportName = remotingRefService.GetSportName(sportId.ToString(), LanguageCode),
                 SportGroup = groupId
@@ -67,7 +76,8 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
         private SportModel CreateSport(int sportId, string sportName, int groupId)
         {
-            return new SportModel {
+            return new SportModel
+            {
                 SportId = sportId,
                 SportName = sportName,
                 SportGroup = groupId
