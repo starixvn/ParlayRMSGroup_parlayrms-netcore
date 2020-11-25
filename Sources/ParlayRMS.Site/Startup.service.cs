@@ -40,10 +40,12 @@ namespace ParlayRMS.Site
             services.AddSingleton<IMediator, Mediator>();
             services.AddMediatR(typeof(FilterHandler).Assembly);
             services.AddMediatR(typeof(ReportHandler).Assembly);
+            services.AddMediatR(typeof(ReportExcelHandler).Assembly);
            
             services.AddSingleton(CreateMapper);
 
             services.AddSingleton<WinLossService, WinLossServiceImp>();
+             services.AddSingleton<WinLossExcelService, WinLossExcelServiceImp>();
             services.AddSingleton<FilterService, FilterServiceImp>();
         }
 

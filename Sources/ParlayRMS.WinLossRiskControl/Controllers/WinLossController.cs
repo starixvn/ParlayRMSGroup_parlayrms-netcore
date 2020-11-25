@@ -23,5 +23,9 @@ namespace ParlayRMS.WinLossRiskControl
 
         [Route("agent-win-loss")]
         public async Task<ActionResult> GetAgent(AgentWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+
+        [Route("agent-win-loss-excel")]
+        public async Task<ActionResult> ExcelAgent(AgentWinLossExcelRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+
     }
 }

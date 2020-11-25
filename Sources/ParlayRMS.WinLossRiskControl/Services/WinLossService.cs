@@ -29,7 +29,7 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
         public async Task<WinLossModel> GetSites(WinLossRequest request)
         {
-             var criteria =  mapper.Map<WinLossCriteria>(request);
+            var criteria =  mapper.Map<WinLossCriteria>(request);
             var sites = await repository.FetchAsync<WinLossModel>(criteria);
             var listSiteName = sites.GroupBy(row => row.IsDeposit).Distinct();
             var data = new WinLossModel();
@@ -52,7 +52,7 @@ namespace ParlayRMS.WinLossRiskControl.Services
         }
 
         public async Task<WinLossModel> GetCompanyWinLoss(CompanyWinLossRequest request) {
-             var criteria =  mapper.Map<CompanyWinLossCriteria>(request);
+            var criteria =  mapper.Map<CompanyWinLossCriteria>(request);
             var list = await repository.FetchAsync<WinLossModel>(criteria);
             var data = new WinLossModel();
             foreach (var row in list) {
@@ -64,7 +64,7 @@ namespace ParlayRMS.WinLossRiskControl.Services
         }
 
         public async Task<AgentWinLossModel> GetAgentWinLoss(AgentWinLossRequest request) {
-             var criteria =  mapper.Map<AgentWinLossCriteria>(request);
+            var criteria =  mapper.Map<AgentWinLossCriteria>(request);
             var result = await repository.FetchMultipleAsync<WinLossModel, int>(criteria);
             var data = new AgentWinLossModel();
             foreach (var row in result.Item1) {

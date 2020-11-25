@@ -19,7 +19,7 @@ export class MemberGridComponent implements Grid {
     public winLoss: MemberWinLossModel;
     paginationInstance: PaginationInstance;
     private paginatePipe: PaginatePipe;
-    
+
     constructor(
         private gridService: GridService,
         private memberGridService: MemberGridService,
@@ -44,7 +44,7 @@ export class MemberGridComponent implements Grid {
     }
 
     exportExcel() {
-      //this.ticketService.exportExcel();
+      this.memberGridService.exportExcel();
     }
 
     get hasExcel(): boolean {
@@ -62,7 +62,7 @@ export class MemberGridComponent implements Grid {
     onPageChange() {
         this.createPaging();
     }
-    
+
     private createPaging() {
         if (this.gridService.filterModel.isPageChanged) {
             this.gridService.filterModel.pageIndex = this.paginationInstance.currentPage;

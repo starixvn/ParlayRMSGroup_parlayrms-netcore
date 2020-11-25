@@ -1,6 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using ParlayRMS.WinLossRiskControl.Models;
 using ParlayRMS.WinLossRiskControl.Requests;
@@ -12,12 +11,10 @@ namespace ParlayRMS.WinLossRiskControl.Handlers
                                 IRequestHandler<CompanyWinLossRequest, WinLossModel>,
                                 IRequestHandler<AgentWinLossRequest, AgentWinLossModel>
     {
-        private readonly IMapper mapper;
         private readonly WinLossService service;
-        public ReportHandler(WinLossService service,  IMapper mapper)
+        public ReportHandler(WinLossService service)
         {
             this.service = service;
-            this.mapper = mapper;
         }
 
         public async Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)

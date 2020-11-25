@@ -1,5 +1,6 @@
 using AutoMapper;
 using ParlayRMS.WinLossRiskControl.Criteria;
+using ParlayRMS.WinLossRiskControl.Models;
 using ParlayRMS.WinLossRiskControl.Requests;
 
 namespace ParlayRMS.WinLossRiskControl
@@ -11,6 +12,9 @@ namespace ParlayRMS.WinLossRiskControl
             CreateMap<WinLossRequest, WinLossCriteria>();
             CreateMap<CompanyWinLossRequest, CompanyWinLossCriteria>();
             CreateMap<AgentWinLossRequest, AgentWinLossCriteria>();
+
+            CreateMap<WinLossRequest, AgentWinLossExcelRequest>();
+            CreateMap<WinLossModel, WinLossExcelModel>();
         }
         
     }

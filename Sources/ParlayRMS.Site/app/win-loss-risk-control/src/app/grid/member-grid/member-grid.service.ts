@@ -4,7 +4,6 @@ import { HttpService } from 'nap-components/http';
 import { GridService } from '../grid.service';
 import { Observable } from 'rxjs/Observable';
 import { Helper } from 'nap-components/helper';
-import { WinLossModel } from 'src/app/common/win-loss.model';
 import { MemberGridModel, MemberWinLossModel } from './member-grid.model';
 import { Role } from 'src/app/common/role.model';
 
@@ -34,12 +33,13 @@ export class MemberGridService {
             pageIndex: filterModel.pageIndex
         };
     }
-    // exportExcel() {
-    //     const queryModel = this.gridService.filterModel;
-    //     const winlostDate = moment(queryModel.winlostDate).format('YYYY_MM_DD');
-    //     this.httpService.download('api/voiding-settled-tickets/products-excel', queryModel).subscribe(response => {
-    //         const fileName = `Voiding_Settled_Tickets_Report_For_${winlostDate}.xlsx`;
-    //         Helper.downloadFile(response, fileName);
-    //     });
-    // }
+    exportExcel() {
+        const queryModel = this.createQueryModel();
+        const fromDate = moment(queryModel.fromDate).format('YYYY_MM_DD');
+        const toDate = moment(queryModel.toDate).format('YYYY_MM_DD');
+        this.httpService.download('api/win-loss-risk-control/agent-win-loss-excel', queryModel).subscribe(response => {
+            const fileName = `Member_Win_Loss_From_${fromDate}_To_${toDate}.xlsx`;
+            Helper.downloadFile(response, fileName);
+        });
+    }
 }
