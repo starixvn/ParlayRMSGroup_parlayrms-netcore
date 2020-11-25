@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using ParlayRMS.Site.CrossCuttingConcern;
 
 namespace ParlayRMS.Site
 {
@@ -18,12 +18,16 @@ namespace ParlayRMS.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureCORS(services);
             ConfigureAuthentication(services);
+            ConfigureAuthorization(services);
+            ConfigureRedis(services);
+            ConfigureSession(services);
+
             ConfigureNapServices(services);
-            
             ConfigureFanex();
 
-            services.AddSession();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -31,24 +35,24 @@ namespace ParlayRMS.Site
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           
-            app.UseDeveloperExceptionPage();
-           
-            app.UseHttpsRedirection();
 
+            app.UseDeveloperExceptionPage();
+
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseSession();
             app.UseRouting();
-
+            app.UseCors();
+            app.UseMiddleware<ErrorHandler>();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

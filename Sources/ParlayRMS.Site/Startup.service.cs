@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
+using Fanex.Caching.Redis;
 using Fanex.Data;
 using Fanex.Data.Repository;
 using Fanex.Data.SqlServer;
@@ -22,9 +18,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
-using ParlayRMS.WinLossRiskControl.Requests;
 using ParlayRMS.WinLossRiskControl.Services;
 using Sentry;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ParlayRMS.Site
 {
@@ -41,7 +40,7 @@ namespace ParlayRMS.Site
             services.AddMediatR(typeof(FilterHandler).Assembly);
             services.AddMediatR(typeof(ReportHandler).Assembly);
             services.AddMediatR(typeof(ReportExcelHandler).Assembly);
-           
+
             services.AddSingleton(CreateMapper);
 
             services.AddSingleton<WinLossService, WinLossServiceImp>();
@@ -92,7 +91,7 @@ namespace ParlayRMS.Site
             .ConnectTo(new Uri(Configuration.GetSection("RemotingRef").Value))
             .FromApplication(Configuration.GetSection("LogCategory").Value)
             .SupportOnlyDefaultLanguage();
-                               
+
             ExceptionHandler
                 .UseConfig(new LoggingConfiguration())
                 .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
@@ -119,6 +118,28 @@ namespace ParlayRMS.Site
                         });
         }
 
+        private void ConfigureRedis(IServiceCollection services)
+        {
+            var redisConfig = Configuration.GetSection("AuthSettings:RedisConfig").Value;
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = redisConfig;
+                options.InstanceName = $"Fanex.ParlayRMS.Session-";
+            });
+
+            services.AddRedisCache(Configuration.GetSection("fanex.caching.redis"));
+        }
+
+        private void ConfigureSession(IServiceCollection services)
+        {
+            services.AddSession(options =>
+            {
+                options.Cookie.IsEssential = true;
+                options.IdleTimeout = TimeSpan.FromMinutes(int.Parse(Configuration.GetSection("AuthSettings:SessionTimeOut").Value));
+                options.Cookie.Name = "Fanex.ParlayRMS.Session";
+            });
+        }
+
         private void ConfigureAuthorization(IServiceCollection services)
         {
             services.AddControllers(config =>
@@ -127,6 +148,14 @@ namespace ParlayRMS.Site
                                  .RequireAuthenticatedUser()
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
+            });
+        }
+
+        private void ConfigureCORS(IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin());
             });
         }
     }
