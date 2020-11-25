@@ -1,4 +1,4 @@
-namespace ParlayRMS.Auth.Criteria
+namespace ParlayRMS.Auth.Model
 {
     using Fanex.Data.Repository;
 

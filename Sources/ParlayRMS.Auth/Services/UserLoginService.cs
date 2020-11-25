@@ -1,13 +1,13 @@
 using Fanex.Data.Repository;
 using Newtonsoft.Json;
-using ParlayRMS.Auth.Criteria;
+using ParlayRMS.Auth.Model;
 using System.Threading.Tasks;
 
 namespace ParlayRMS.Auth.Services
 {
     public interface UserLoginService
     {
-        Task<bool> Login(string parameters);
+        Task<UserLoginResult> Login(string parameters);
     }
 
     public class UserLoginServiceImp : UserLoginService
@@ -19,11 +19,16 @@ namespace ParlayRMS.Auth.Services
             this.repository = repository;
         }
 
-        public async Task<bool> Login(string parameters)
+        public async Task<UserLoginResult> Login(string parameters)
         {
             var command = JsonConvert.DeserializeObject<UserLoginCommand>(parameters);
             await repository.ExecuteAsync(command);
-            return command.CustId > 0;
+
+            return new UserLoginResult
+            {
+                UserId = command.CustId,
+                Username = command.Username
+            };
         }
     }
 }

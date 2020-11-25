@@ -18,13 +18,6 @@ export class CustomNavbarService extends NavbarService {
     query(): Observable<Navbar> {
       const url = 'api/application/header';
       return this.customHttpService.post<Navbar>(url).pipe(map(data => {
-          this.userMenus = [
-              {
-                  name: 'Sign Out',
-                  link: '/UserLogin/Login/LogOut'
-              }
-          ];
-
           return data;
       }));
   }

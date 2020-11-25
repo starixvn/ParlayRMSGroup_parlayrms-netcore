@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ParlayRMS.Auth.Model;
 using ParlayRMS.Auth.Services;
+using System.Collections.Generic;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ParlayRMS.Auth.Controllers
@@ -21,13 +26,36 @@ namespace ParlayRMS.Auth.Controllers
         {
             var loginResult = await userLoginService.Login(loginParameters);
 
-            if (loginResult)
+            if (loginResult.UserId > 0)
             {
                 redirectUrl = WebUtility.UrlDecode(redirectUrl);
+                await CreateAuthInfo(loginResult);
+
                 return Redirect(redirectUrl);
             }
 
             return RedirectToAction("Login", "BackPropagationAuth");
+        }
+
+        private async Task CreateAuthInfo(UserLoginResult loginResult)
+        {
+            var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, loginResult.Username),
+                            new Claim(ClaimTypes.NameIdentifier, loginResult.UserId.ToString())
+                        };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Logout(string redirectUrl)
+        {
+            await HttpContext.SignOutAsync();
+            redirectUrl = WebUtility.UrlDecode(redirectUrl);
+            return Redirect(redirectUrl);
         }
     }
 }

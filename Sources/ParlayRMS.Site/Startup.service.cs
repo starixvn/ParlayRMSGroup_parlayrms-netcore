@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParlayRMS.Auth.Services;
 using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
 using ParlayRMS.WinLossRiskControl.Services;
@@ -42,10 +43,14 @@ namespace ParlayRMS.Site
             services.AddMediatR(typeof(ReportExcelHandler).Assembly);
 
             services.AddSingleton(CreateMapper);
+        }
 
-            services.AddSingleton<WinLossService, WinLossServiceImp>();
-             services.AddSingleton<WinLossExcelService, WinLossExcelServiceImp>();
-            services.AddSingleton<FilterService, FilterServiceImp>();
+        private static void ConfigureWinLossRiskControlServices(IServiceCollection services)
+        {
+            services.AddTransient<WinLossService, WinLossServiceImp>();
+            services.AddTransient<WinLossExcelService, WinLossExcelServiceImp>();
+            services.AddTransient<FilterService, FilterServiceImp>();
+            services.AddTransient<UserLoginService, UserLoginServiceImp>();
         }
 
         private IMapper CreateMapper
@@ -60,6 +65,7 @@ namespace ParlayRMS.Site
                 return mapperConfig.CreateMapper();
             }
         }
+
         private void ConfigureFanex()
         {
             var connections = Configuration.GetSection("ConnectionStrings")

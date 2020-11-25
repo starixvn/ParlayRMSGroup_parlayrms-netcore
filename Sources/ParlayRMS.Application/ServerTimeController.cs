@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ParlayRMS.Application
 {
+    [AllowAnonymous]
     [ApiController]
     public class ServerTimeController : ControllerBase
     {

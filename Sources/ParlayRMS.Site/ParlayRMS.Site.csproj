@@ -2,7 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="app\**" />
+    <Content Remove="app\**" />
+    <EmbeddedResource Remove="app\**" />
+    <None Remove="app\**" />
+  </ItemGroup>
  <ItemGroup>
     <Content Include="App_Data\SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -25,6 +34,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
     <ProjectReference Include="..\ParlayRMS.Auth\ParlayRMS.Auth.csproj" />
     <ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
   </ItemGroup>

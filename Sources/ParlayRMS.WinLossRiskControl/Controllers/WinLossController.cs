@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.WinLossRiskControl.Requests;
+using System.Threading.Tasks;
 
 namespace ParlayRMS.WinLossRiskControl
 {
