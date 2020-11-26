@@ -1,12 +1,10 @@
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.WinLossRiskControl.Requests;
 using System.Threading.Tasks;
 
 namespace ParlayRMS.WinLossRiskControl
 {
-    [AllowAnonymous]
     [ApiController]
     [Route("api/win-loss-risk-control")]
     public class WinLossController : ControllerBase
