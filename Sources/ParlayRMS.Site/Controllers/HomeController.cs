@@ -10,17 +10,11 @@ namespace ParlayRMS.Site.Controllers
         {
             return View();
         }
-
         [AllowAnonymous]
         public IActionResult ExpiredSession()
         {
             return View();
 
-        }
-        [Route("win-loss-risk-control")]
-        public IActionResult WinLossRiskControl()
-        {
-            return View("~/wwwroot/win-loss-risk-control/index.cshtml");
         }
     }
 }
