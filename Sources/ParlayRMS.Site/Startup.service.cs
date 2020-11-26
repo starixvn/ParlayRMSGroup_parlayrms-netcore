@@ -161,7 +161,7 @@ namespace ParlayRMS.Site
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin());
+                options.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
         }
     }
