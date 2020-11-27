@@ -30,7 +30,7 @@ namespace ParlayRMS.Site
 {
     public partial class Startup
     {
-        private void ConfigureNapServices(IServiceCollection services)
+        private static void ConfigureNapServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IDynamicRepository, DynamicRepository>();
@@ -53,7 +53,7 @@ namespace ParlayRMS.Site
             services.AddTransient<UserLoginService, UserLoginServiceImp>();
         }
 
-        private IMapper CreateMapper
+        private static IMapper CreateMapper
         {
             get
             {
@@ -146,7 +146,7 @@ namespace ParlayRMS.Site
             });
         }
 
-        private void ConfigureAuthorization(IServiceCollection services)
+        private static void ConfigureAuthorization(IServiceCollection services)
         {
             services.AddControllers(config =>
             {
@@ -157,11 +157,11 @@ namespace ParlayRMS.Site
             });
         }
 
-        private void ConfigureCORS(IServiceCollection services)
+        private static void ConfigureCORS(IServiceCollection services)
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin().AllowAnyMethod());
             });
         }
     }

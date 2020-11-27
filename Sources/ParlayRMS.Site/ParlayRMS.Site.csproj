@@ -45,5 +45,4 @@
     <ProjectReference Include="..\ParlayRMS.Auth\ParlayRMS.Auth.csproj" />
     <ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
   </ItemGroup>
-
 </Project>

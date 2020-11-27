@@ -38,6 +38,7 @@ namespace ParlayRMS.Auth.Controllers
         }
 
 #if DEBUG
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> FakeLogin()
@@ -47,6 +48,7 @@ namespace ParlayRMS.Auth.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
 #endif
 
         private async Task CreateAuthInfo(UserLoginResult loginResult)
@@ -58,7 +60,7 @@ namespace ParlayRMS.Auth.Controllers
                         };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new[] { identity }));
         }
 
         [AllowAnonymous]
