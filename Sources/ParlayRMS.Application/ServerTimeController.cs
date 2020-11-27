@@ -8,7 +8,11 @@ namespace ParlayRMS.Application
     [ApiController]
     public class ServerTimeController : ControllerBase
     {
-        [Route("api/application/today"), HttpPost]
-        public ActionResult Today() => Ok(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day));
+        [Route("api/application/today"), HttpPost, HttpGet]
+        public ActionResult Today() => Ok(DateTime.Today);
+
+        [Route("api/application/now"), HttpPost, HttpGet]
+        public ActionResult Now() => Ok(DateTime.Now);
+
     }
 }
