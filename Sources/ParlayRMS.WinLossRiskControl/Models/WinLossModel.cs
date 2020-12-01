@@ -5,25 +5,34 @@ namespace ParlayRMS.WinLossRiskControl.Models
     public class WinLossModel
     {
         private string username;
-        public string Username {
-             get{
-                if(string.IsNullOrWhiteSpace(username))
-                { 
-                    switch(IsDeposit)
+
+        private decimal margin;
+
+        public string Username
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                {
+                    switch (IsDeposit)
                     {
                         case true:
                             return "Licensee Group";
+
                         case false:
                             return "MBC Group";
+
                         default:
                             return "Grand Total";
                     }
                 }
-                else {
+                else
+                {
                     return username;
                 }
             }
-            set {
+            set
+            {
                 username = value;
             }
         }
@@ -44,16 +53,26 @@ namespace ParlayRMS.WinLossRiskControl.Models
 
         public decimal ExtraPT { get; set; }
 
-        public decimal Commission { get; set;}
+        public decimal Commission { get; set; }
 
-        public decimal RealIncome { get; set;}
+        public decimal RealIncome { get; set; }
 
-        public decimal RealTurnover { get; set;}
+        public decimal RealTurnover { get; set; }
 
-        public decimal Margin { get; set;}
+        public decimal Margin
+        {
+            get
+            {
+                return this.RealTurnover > 0 ? (this.RealIncome / this.RealTurnover) * 100 : 0;
+            }
+            set
+            {
+                margin = value;
+            }
+        }
 
-        public List<WinLossModel> Rows { get; set; }  =  new List<WinLossModel>();
-        
+        public List<WinLossModel> Rows { get; set; } = new List<WinLossModel>();
+
         public void SumTotal(WinLossModel site)
         {
             this.NoMember += site.NoMember;
@@ -64,7 +83,7 @@ namespace ParlayRMS.WinLossRiskControl.Models
             this.Commission += site.Commission;
             this.RealIncome += site.RealIncome;
             this.RealTurnover += site.RealTurnover;
-            this.Margin = this.RealTurnover > 0 ? (this.RealIncome/this.RealTurnover) * 100 : 0;
+            this.Margin = this.RealTurnover > 0 ? (this.RealIncome / this.RealTurnover) * 100 : 0;
         }
     }
 }

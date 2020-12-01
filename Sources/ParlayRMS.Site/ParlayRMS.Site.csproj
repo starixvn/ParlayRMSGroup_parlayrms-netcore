@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
+    <None Remove="ExcelTemplate\WinLossRiskControl\Member.xlsx" />
   </ItemGroup>
  <ItemGroup>
     <Content Include="App_Data\SpName.xml">

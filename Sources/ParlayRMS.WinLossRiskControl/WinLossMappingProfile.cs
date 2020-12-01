@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using ParlayRMS.WinLossRiskControl.Criteria;
 using ParlayRMS.WinLossRiskControl.Models;
@@ -15,6 +16,7 @@ namespace ParlayRMS.WinLossRiskControl
 
             CreateMap<AgentWinLossExcelRequest, AgentWinLossRequest>();
             CreateMap<AgentWinLossModel, WinLossExcelModel>();
+            CreateMap<List<WinLossModel>, List<WinLossExcelModel>>();
         }
     }
 }

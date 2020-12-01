@@ -38,8 +38,8 @@ namespace ParlayRMS.WinLossRiskControl.Handlers
         {
             var request = mapper.Map<AgentWinLossRequest>(excelRequest);
             var data = await service.GetAgentWinLoss(request);
-            var excelData = mapper.Map<WinLossExcelModel>(data);
-            var excelPackage = excelService.Build(excelData);
+            //var excelData = mapper.Map<WinLossExcelModel>(data);
+            var excelPackage = excelService.Build(excelRequest.BreadCrumb, data);
             return excelPackage;
         }
     }

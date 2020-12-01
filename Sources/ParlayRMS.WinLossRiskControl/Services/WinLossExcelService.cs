@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using AutoMapper;
 using Epplus.Mapper.Extensions;
 using OfficeOpenXml;
 using ParlayRMS.WinLossRiskControl.Models;
@@ -8,12 +10,14 @@ namespace ParlayRMS.WinLossRiskControl.Services
 {
     public interface WinLossExcelService
     {
-        ExcelPackage Build(WinLossExcelModel model);
+        ExcelPackage Build(string title, AgentWinLossModel model);
     }
 
     public class WinLossExcelServiceImp : WinLossExcelService
     {
-        private ExcelWorksheet actual;
+        private readonly IMapper mapper;
+
+        private ExcelWorksheet sheet;
 
         private ExcelWorksheet totalSheet;
 
@@ -21,24 +25,52 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
         private ExcelPackage ExcelPackage { get; set; }
 
-        public ExcelPackage Build(WinLossExcelModel model)
+        public WinLossExcelServiceImp(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        public ExcelPackage Build(string title, AgentWinLossModel model)
         {
             LoadTemplate();
-            //actual.ApplyVertical(model.Rows, StartRowIndex);
-            // ClearTemplate();
+            BuilTitle(title);
+            BuildRow(model);
+            BuildTotal(model);
+            ClearTemplate();
             return ExcelPackage;
+        }
+
+        private void BuildRow(AgentWinLossModel model)
+        {
+            var excelData = mapper.Map<WinLossExcelModel>(model);
+            sheet.ApplyVertical(excelData.Rows, StartRowIndex);
+        }
+
+        private void BuildTotal(AgentWinLossModel model)
+        {
+            var excelData = mapper.Map<WinLossExcelModel>(model);
+            sheet.ApplyModel(totalSheet, excelData, StartRowIndex + model.Rows.Count);
         }
 
         private void LoadTemplate()
         {
-            var templateAbsolutelyPath = $"{AppDomain.CurrentDomain.BaseDirectory}ExcelTemplate\\WinLossRiskControl\\member-win-loss.xlsx";
-            using (var stream = new FileStream(templateAbsolutelyPath, FileMode.Open, FileAccess.Read))
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "WinLossRiskControl", "member-win-loss.xlsx");
+
+            //var existingFile = new FileInfo(filePath);
+            //using (ExcelPackage = new ExcelPackage(existingFile))
+            //{
+            //    sheet = ExcelPackage.Workbook.Worksheets.Copy("ItemTemplate", "Result");
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 ExcelPackage = new ExcelPackage(stream);
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                actual = ExcelPackage.Workbook.Worksheets.Copy("ItemTemplate", "Result");
+                sheet = ExcelPackage.Workbook.Worksheets.Copy("ItemTemplate", "Result");
                 totalSheet = ExcelPackage.Workbook.Worksheets["TotalTemplate"];
             }
+        }
+
+        private void BuilTitle(string title)
+        {
+            sheet.Cells["A1:I1"].Value = title;
         }
 
         private void ClearTemplate()

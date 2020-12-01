@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ParlayRMS.WinLossRiskControl.Epplus;
 using ParlayRMS.WinLossRiskControl.Requests;
 using System.Threading.Tasks;
 
@@ -17,15 +18,19 @@ namespace ParlayRMS.WinLossRiskControl
         }
 
         [Route("get-site")]
-        public async Task<ActionResult> GetSite(WinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+        public async Task<IActionResult> GetSite(WinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
         [Route("company-win-loss")]
-        public async Task<ActionResult> GetCompany(CompanyWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+        public async Task<IActionResult> GetCompany(CompanyWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
         [Route("agent-win-loss")]
-        public async Task<ActionResult> GetAgent(AgentWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+        public async Task<IActionResult> GetAgent(AgentWinLossRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
         [Route("agent-win-loss-excel")]
-        public async Task<ActionResult> ExcelAgent(AgentWinLossExcelRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+        public async Task<IActionResult> ExcelAgent(AgentWinLossExcelRequest request)
+        {
+            var excelPackage = await mediator.Send(request);
+            return new EpplusExcelResult(excelPackage);
+        }
     }
 }
