@@ -14,14 +14,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx" />
+    <None Remove="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx" />
     <None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
     <None Remove="ExcelTemplate\WinLossRiskControl\Member.xlsx" />
+    <None Remove="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx" />
   </ItemGroup>
  <ItemGroup>
     <Content Include="App_Data\SpName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

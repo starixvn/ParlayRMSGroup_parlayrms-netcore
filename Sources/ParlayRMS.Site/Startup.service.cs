@@ -21,6 +21,7 @@ using ParlayRMS.Auth.Services;
 using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
 using ParlayRMS.WinLossRiskControl.Services;
+using ParlayRMS.WinLossRiskControl.Shared;
 using Sentry;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,7 @@ namespace ParlayRMS.Site
 
         private static void ConfigureWinLossRiskControlServices(IServiceCollection services)
         {
+            services.AddTransient<WinLossExcelBuilder, WinLossExcelBuilderImp>();
             services.AddTransient<WinLossService, WinLossServiceImp>();
             services.AddTransient<WinLossExcelService, WinLossExcelServiceImp>();
             services.AddTransient<FilterService, FilterServiceImp>();

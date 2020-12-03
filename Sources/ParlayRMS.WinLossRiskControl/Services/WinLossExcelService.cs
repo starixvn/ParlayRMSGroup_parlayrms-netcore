@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using AutoMapper;
@@ -11,7 +10,11 @@ namespace ParlayRMS.WinLossRiskControl.Services
 {
     public interface WinLossExcelService
     {
-        ExcelPackage Build(string title, AgentWinLossModel model);
+        //ExcelPackage CreateExcelPackageMaster(string title, WinLossModel model);
+
+        ExcelPackage CreateExcelPackageSuper(string title, WinLossModel model);
+
+        ExcelPackage CreateExcelPackageMember(string title, WinLossModel model);
     }
 
     public class WinLossExcelServiceImp : WinLossExcelService
@@ -24,45 +27,53 @@ namespace ParlayRMS.WinLossRiskControl.Services
 
         private ExcelWorksheet totalSheet;
 
-        private ExcelPackage ExcelPackage { get; set; }
-
         public WinLossExcelServiceImp(IMapper mapper)
         {
             this.mapper = mapper;
         }
 
-        public ExcelPackage Build(string title, AgentWinLossModel model)
+        public ExcelPackage CreateExcelPackageSuper(string title, WinLossModel model)
         {
-            LoadTemplate();
+            var excelPackage = LoadTemplate("super-win-loss.xlsx");
             BuilTitle(title);
-            BuildRow(model.Rows);
-            BuildTotal(model);
-            ClearTemplate();
-            return ExcelPackage;
+            ApplyBody<WinLossModel, WinLossExcelModel>(model.Rows);
+            ApplyTotal<WinLossModel, WinLossExcelModel>(model, StartRowIndex + model.Rows.Count);
+            ClearTemplate(excelPackage);
+            return excelPackage;
         }
 
-        private void BuildRow(List<WinLossModel> model)
+        public ExcelPackage CreateExcelPackageMember(string title, WinLossModel model)
         {
-            var excelData = mapper.Map<List<MemberWinLossExcelModel>>(model);
-            sheet.ApplyVertical(excelData, StartRowIndex);
+            var excelPackage = LoadTemplate("member-win-loss.xlsx");
+            BuilTitle(title);
+            ApplyBody<WinLossModel, MemberWinLossExcelModel>(model.Rows);
+            ApplyTotal<WinLossModel, MemberWinLossExcelModel>(model, StartRowIndex + model.Rows.Count);
+            ClearTemplate(excelPackage);
+            return excelPackage;
         }
 
-        private void BuildTotal(AgentWinLossModel model)
+        private void ApplyBody<T1, T2>(List<T1> result) where T1 : class, new()
         {
-            var excelData = mapper.Map<MemberWinLossExcelModel>(model);
-            var totalIndex = StartRowIndex + model.Rows.Count;
-            sheet.ApplyModel(totalSheet, excelData, totalIndex);
+            var mapperResult = mapper.Map<List<T2>>(result); ;
+            sheet.ApplyVertical(mapperResult, StartRowIndex);
         }
 
-        private void LoadTemplate()
+        private void ApplyTotal<T1, T2>(T1 total, int totalIndex) where T1 : class, new()
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "WinLossRiskControl", "member-win-loss.xlsx");
+            var mapperTotal = mapper.Map<T2>(total);
+            sheet.ApplyModel(totalSheet, mapperTotal, totalIndex);
+        }
+
+        private ExcelPackage LoadTemplate(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "WinLossRiskControl", fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                ExcelPackage = new ExcelPackage(stream);
-                sheet = ExcelPackage.Workbook.Worksheets.Copy("ItemTemplate", "Result");
-                totalSheet = ExcelPackage.Workbook.Worksheets["TotalTemplate"];
+                var excelPackage = new ExcelPackage(stream);
+                sheet = excelPackage.Workbook.Worksheets.Copy("ItemTemplate", "Result");
+                totalSheet = excelPackage.Workbook.Worksheets["TotalTemplate"];
+                return excelPackage;
             }
         }
 
@@ -71,10 +82,10 @@ namespace ParlayRMS.WinLossRiskControl.Services
             sheet.Cells["A1:I1"].Value = title;
         }
 
-        private void ClearTemplate()
+        private static void ClearTemplate(ExcelPackage excelPackage)
         {
-            ExcelPackage.Workbook.Worksheets.Delete("ItemTemplate");
-            ExcelPackage.Workbook.Worksheets.Delete("TotalTemplate");
+            excelPackage.Workbook.Worksheets.Delete("ItemTemplate");
+            excelPackage.Workbook.Worksheets.Delete("TotalTemplate");
         }
     }
 }

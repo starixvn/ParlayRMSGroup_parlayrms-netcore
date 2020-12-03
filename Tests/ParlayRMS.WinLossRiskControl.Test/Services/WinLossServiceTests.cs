@@ -194,7 +194,7 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
             repository.FetchAsync<WinLossModel>(Arg.Any<WinLossCriteria>()).Returns(fakeData);
 
             // Act
-            var actualResults = await service.GetSites(request);
+            var actualResults = await service.SitesWinLoss(request);
 
             // Assert
             var expectedList = ExpectedSiteWinLoss();
@@ -205,12 +205,12 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
         public async Task GetCompanyWinLoss_Always_ReturnsExpectedList()
         {
             // Arrange
-            var request = new CompanyWinLossRequest();
+            var request = new SuperWinLossRequest();
             var fakeData = FakeCompanyWinLoss;
             repository.FetchAsync<WinLossModel>(Arg.Any<CompanyWinLossCriteria>()).Returns(fakeData);
 
             // Act
-            var actualResults = await service.GetCompanyWinLoss(request);
+            var actualResults = await service.SuperWinLoss(request);
 
             // Assert
             var expectedList = ExpectedCompanyWinLoss();
@@ -230,7 +230,7 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
             repository.FetchMultipleAsync<WinLossModel, int>(Arg.Any<AgentWinLossCriteria>()).Returns(fakeData);
 
             // Act
-            var actualResults = await service.GetAgentWinLoss(request);
+            var actualResults = await service.AgentWinLossByMaster(request);
 
             // Assert
             var expectedList = ExpectedAgentWinLoss();

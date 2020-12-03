@@ -1,9 +1,9 @@
 using MediatR;
 using OfficeOpenXml;
 
-namespace ParlayRMS.WinLossRiskControl.Requests
+namespace ParlayRMS.WinLossRiskControl.Requests.Excels
 {
-    public class AgentWinLossExcelRequest : IRequest<ExcelPackage>
+    public class MemberWinLossExcelRequest : IRequest<ExcelPackage>
     {
         public string BreadCrumb { get; set; }
 
