@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using ParlayRMS.Auth.Services;
 using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
@@ -25,7 +24,6 @@ using ParlayRMS.WinLossRiskControl.Shared;
 using Sentry;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,6 +42,7 @@ namespace ParlayRMS.Site
             services.AddMediatR(typeof(FilterHandler).Assembly);
             services.AddMediatR(typeof(ReportHandler).Assembly);
             services.AddMediatR(typeof(ReportExcelHandler).Assembly);
+            services.AddMediatR(typeof(SiteReportExcelHandler).Assembly);
 
             services.AddSingleton(CreateMapper);
         }
@@ -52,7 +51,7 @@ namespace ParlayRMS.Site
         {
             services.AddTransient<WinLossExcelBuilder, WinLossExcelBuilderImp>();
             services.AddTransient<WinLossService, WinLossServiceImp>();
-            services.AddTransient<WinLossExcelService, WinLossExcelServiceImp>();
+            services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
             services.AddTransient<FilterService, FilterServiceImp>();
             services.AddTransient<UserLoginService, UserLoginServiceImp>();
         }

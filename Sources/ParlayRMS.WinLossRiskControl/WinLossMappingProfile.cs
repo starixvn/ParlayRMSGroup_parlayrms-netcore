@@ -17,6 +17,7 @@ namespace ParlayRMS.WinLossRiskControl
             CreateMap<AgentWinLossRequest, CompanyWinLossCriteria>();
             CreateMap<AgentWinLossRequest, AgentWinLossCriteria>();
 
+            CreateMap<SiteWinLossExcelRequest, WinLossRequest>();
             CreateMap<SuperWinLossExcelRequest, SuperWinLossRequest>();
             CreateMap<AgentWinLossExcelRequest, AgentWinLossRequest>();
             CreateMap<MemberWinLossExcelRequest, AgentWinLossRequest>();

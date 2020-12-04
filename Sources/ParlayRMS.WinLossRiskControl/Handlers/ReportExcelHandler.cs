@@ -15,11 +15,9 @@ namespace ParlayRMS.WinLossRiskControl.Handlers
     public class ReportExcelHandler : IRequestHandler<AgentWinLossExcelRequest, ExcelPackage>,
         IRequestHandler<MemberWinLossExcelRequest, ExcelPackage>,
         IRequestHandler<SuperWinLossExcelRequest, ExcelPackage>
-    //IRequestHandler<AgentWinLossRequest, AgentWinLossModel>
     {
         private readonly IMapper mapper;
         private readonly WinLossService service;
-
         private readonly WinLossExcelBuilder excelBuilder;
 
         public ReportExcelHandler(WinLossService service, IMapper mapper, WinLossExcelBuilder excelBuilder)
@@ -28,11 +26,6 @@ namespace ParlayRMS.WinLossRiskControl.Handlers
             this.mapper = mapper;
             this.excelBuilder = excelBuilder;
         }
-
-        // public async Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
-        // {
-        //     return await service.GetSites(request);
-        // }
 
         public async Task<ExcelPackage> Handle(SuperWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
         {

@@ -36,18 +36,18 @@ namespace ParlayRMS.WinLossRiskControl.Shared
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 var excelPackage = new ExcelPackage(stream);
-                bodySheet = excelPackage.Workbook.Worksheets.Copy("ItemTemplate", "Result");
-                totalSheet = excelPackage.Workbook.Worksheets["TotalTemplate"];
+                bodySheet = excelPackage.Workbook.Worksheets.Copy("Item", "Result");
+                totalSheet = excelPackage.Workbook.Worksheets["Total"];
                 return excelPackage;
             }
         }
 
-        private void Build<T>(List<T> list, T total, ExcelSetting setting) where T : class, new()
+        private void Build<T>(List<T> list, T total, ExcelSetting settings) where T : class, new()
         {
-            SetStartRowIndex(setting.StartRowIndex);
-            SetEndRowIndex(setting.StartRowIndex, list.Count);
-            SetSheetName(setting.SheetName);
-            BuilTitle(setting.Title);
+            SetStartRowIndex(settings.StartRowIndex);
+            SetEndRowIndex(settings.StartRowIndex, list.Count);
+            SetSheetName(settings.SheetName);
+            BuilTitle(settings.Title);
             ApplyBody(list);
             ApplyTotal(total);
         }
@@ -84,8 +84,8 @@ namespace ParlayRMS.WinLossRiskControl.Shared
 
         private static void ClearTemplate(ExcelPackage excelPackage)
         {
-            excelPackage.Workbook.Worksheets.Delete("ItemTemplate");
-            excelPackage.Workbook.Worksheets.Delete("TotalTemplate");
+            excelPackage.Workbook.Worksheets.Delete("Item");
+            excelPackage.Workbook.Worksheets.Delete("Total");
         }
     }
 }

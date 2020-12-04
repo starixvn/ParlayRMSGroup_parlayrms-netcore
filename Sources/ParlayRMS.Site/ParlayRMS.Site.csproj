@@ -18,6 +18,7 @@
     <None Remove="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx" />
     <None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
     <None Remove="ExcelTemplate\WinLossRiskControl\Member.xlsx" />
+    <None Remove="ExcelTemplate\WinLossRiskControl\site-win-loss.xlsx" />
     <None Remove="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx" />
   </ItemGroup>
  <ItemGroup>
@@ -31,6 +32,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplate\WinLossRiskControl\site-win-loss.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx">

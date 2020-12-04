@@ -17,6 +17,13 @@ namespace ParlayRMS.WinLossRiskControl.Controllers
             this.mediator = mediator;
         }
 
+        [Route("site-win-loss-excel")]
+        public async Task<IActionResult> ExcelSite(SiteWinLossExcelRequest request)
+        {
+            var excelPackage = await mediator.Send(request);
+            return new EpplusExcelResult(excelPackage);
+        }
+
         [Route("company-win-loss-excel")]
         public async Task<IActionResult> ExcelCompany(SuperWinLossExcelRequest request)
         {

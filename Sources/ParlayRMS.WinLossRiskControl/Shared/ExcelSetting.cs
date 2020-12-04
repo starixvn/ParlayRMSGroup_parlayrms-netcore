@@ -21,9 +21,13 @@ namespace ParlayRMS.WinLossRiskControl.Shared
                 {
                     return "agent-win-loss.xlsx";
                 }
-                else
+                else if (RoleId == 2)
                 {
                     return "member-win-loss.xlsx";
+                }
+                else
+                {
+                    return "site-win-loss.xlsx";
                 }
             }
         }
