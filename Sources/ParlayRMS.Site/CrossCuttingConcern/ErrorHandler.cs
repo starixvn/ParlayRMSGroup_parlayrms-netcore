@@ -24,9 +24,9 @@
             {
                 await next(context);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                await HandleException(context, ex);
+                await HandleException(context, exception);
             }
         }
 
@@ -46,6 +46,10 @@
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
+
+            await context.Response.WriteAsync(exception.Message);
+            await context.Response.WriteAsync("<br/>");
+            await context.Response.WriteAsync(exception.StackTrace);
         }
     }
 }
