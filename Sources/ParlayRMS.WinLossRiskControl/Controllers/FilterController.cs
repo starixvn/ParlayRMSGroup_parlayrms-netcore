@@ -1,4 +1,6 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.WinLossRiskControl.Requests;
 using System.Threading.Tasks;
@@ -6,7 +8,8 @@ using System.Threading.Tasks;
 namespace ParlayRMS.WinLossRiskControl.Controllers
 {
     [ApiController]
-    [Route("api/win-loss-risk-control/filter")]
+    [Route("api/win-loss-risk-control/[controller]")]
+    [EnableCors("AllowOrigin")]
     public class FilterController : ControllerBase
     {
         private readonly IMediator mediator;

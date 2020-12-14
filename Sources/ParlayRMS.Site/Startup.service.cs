@@ -25,12 +25,15 @@ using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ParlayRMS.Site
 {
     public partial class Startup
     {
+        private static readonly string allowOrigin = "AllowOrigin";
+
         private static void ConfigureNapServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -164,7 +167,18 @@ namespace ParlayRMS.Site
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin", o => o.AllowAnyOrigin().AllowAnyMethod());
+                options.AddPolicy(allowOrigin,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:57420", "http://localhost:61034",
+                                            "https://prms-netcore-v1.nexdev.net",
+                                            "https://prms-netcore-v2.nexdev.net",
+                                            "https://prms-netcore-v3.nexdev.net",
+                                            "https://ha.nexdev.net:7301")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .AllowCredentials();
+                    });
             });
         }
     }

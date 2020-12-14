@@ -60,14 +60,14 @@ namespace ParlayRMS.Auth.Controllers
                         };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new[] { identity }));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
         }
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Logout(string redirectUrl)
         {
-            await HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             if (string.IsNullOrEmpty(redirectUrl))
             {
                 return RedirectToAction("ExpiredSession", "Home");

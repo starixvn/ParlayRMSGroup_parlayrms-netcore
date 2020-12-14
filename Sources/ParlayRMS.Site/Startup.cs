@@ -1,5 +1,8 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParlayRMS.Site.CrossCuttingConcern;
@@ -19,16 +22,15 @@ namespace ParlayRMS.Site
         public void ConfigureServices(IServiceCollection services)
         {
             ConfigureCORS(services);
-            ConfigureAuthentication(services);
             ConfigureAuthorization(services);
+            ConfigureAuthentication(services);
             ConfigureRedis(services);
             ConfigureSession(services);
             ConfigureFanex();
             ConfigureNapServices(services);
             ConfigureWinLossRiskControlServices(services);
-
-            services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +43,9 @@ namespace ParlayRMS.Site
             app.UseMiddleware<ErrorHandler>();
             app.UseSession();
             app.UseRouting();
+            app.UseCors(allowOrigin);
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

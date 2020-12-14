@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.WinLossRiskControl.Epplus;
 using ParlayRMS.WinLossRiskControl.Requests.Excels;
@@ -8,6 +9,7 @@ namespace ParlayRMS.WinLossRiskControl.Controllers
 {
     [ApiController]
     [Route("api/win-loss-risk-control")]
+    [EnableCors("AllowOrigin")]
     public class WinLossExcelController
     {
         private readonly IMediator mediator;

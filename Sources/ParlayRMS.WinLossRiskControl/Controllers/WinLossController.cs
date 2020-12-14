@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.WinLossRiskControl.Requests;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace ParlayRMS.WinLossRiskControl
 {
     [ApiController]
     [Route("api/win-loss-risk-control")]
+    [EnableCors("AllowOrigin")]
     public class WinLossController : ControllerBase
     {
         private readonly IMediator mediator;
