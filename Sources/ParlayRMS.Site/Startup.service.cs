@@ -174,7 +174,9 @@ namespace ParlayRMS.Site
                                             "https://prms-netcore-v1.nexdev.net",
                                             "https://prms-netcore-v2.nexdev.net",
                                             "https://prms-netcore-v3.nexdev.net",
-                                            "https://ha.nexdev.net:7301")
+                                            "https://prms.nexdev.net",
+                                            "https://newparlayrms.starixuat.com",
+                                            "https://napparlayrms.starixuat.com")
                               .AllowAnyMethod()
                               .AllowAnyHeader()
                               .AllowCredentials();
