@@ -54,9 +54,9 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
             return model;
         }
 
-        private AgentWinLossModel ExpectedAgentWinLoss()
+        private WinLossModel ExpectedAgentWinLoss()
         {
-            return new AgentWinLossModel
+            return new WinLossModel
             {
                 Username = "Grand Total",
                 NoMember = 3,
