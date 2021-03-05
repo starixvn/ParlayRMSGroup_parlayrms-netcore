@@ -59,6 +59,8 @@ namespace ParlayRMS.WinLossRiskControl.Models
 
         public decimal RealTurnover { get; set; }
 
+        public string Site { get; set; }
+
         public int TotalRecords { get; set; }
 
         public decimal Margin

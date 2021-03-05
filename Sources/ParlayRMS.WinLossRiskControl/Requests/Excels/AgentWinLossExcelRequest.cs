@@ -20,5 +20,7 @@ namespace ParlayRMS.WinLossRiskControl.Requests.Excels
         public int RoleId { get; set; }
 
         public string Company { get; set; }
+
+        public string Site { get; set; }
     }
 }

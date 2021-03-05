@@ -20,6 +20,8 @@ namespace ParlayRMS.WinLossRiskControl.Requests
 
         public int RoleId { get; set; }
 
+        public string Site { get; set; }
+
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
