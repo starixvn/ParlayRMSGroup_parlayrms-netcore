@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
+using Fanex.Caching.Redis;
 using Fanex.Data;
 using Fanex.Data.Repository;
 using Fanex.Data.SqlServer;
@@ -16,21 +12,31 @@ using Fanex.RemotingRef;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParlayRMS.Auth.Services;
 using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
-using ParlayRMS.WinLossRiskControl.Requests;
 using ParlayRMS.WinLossRiskControl.Services;
+using ParlayRMS.WinLossRiskControl.Shared;
 using Sentry;
+using StackExchange.Redis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ParlayRMS.Site
 {
     public partial class Startup
     {
-        private void ConfigureNapServices(IServiceCollection services)
+        private static readonly string allowOrigin = "AllowOrigin";
+
+        private static void ConfigureNapServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IDynamicRepository, DynamicRepository>();
@@ -40,14 +46,22 @@ namespace ParlayRMS.Site
             services.AddSingleton<IMediator, Mediator>();
             services.AddMediatR(typeof(FilterHandler).Assembly);
             services.AddMediatR(typeof(ReportHandler).Assembly);
-           
-            services.AddSingleton(CreateMapper);
+            services.AddMediatR(typeof(ReportExcelHandler).Assembly);
+            services.AddMediatR(typeof(SiteReportExcelHandler).Assembly);
 
-            services.AddSingleton<WinLossService, WinLossServiceImp>();
-            services.AddSingleton<FilterService, FilterServiceImp>();
+            services.AddSingleton(CreateMapper);
         }
 
-        private IMapper CreateMapper
+        private static void ConfigureWinLossRiskControlServices(IServiceCollection services)
+        {
+            services.AddTransient<WinLossExcelBuilder, WinLossExcelBuilderImp>();
+            services.AddTransient<WinLossService, WinLossServiceImp>();
+            services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
+            services.AddTransient<FilterService, FilterServiceImp>();
+            services.AddTransient<UserLoginService, UserLoginServiceImp>();
+        }
+
+        private static IMapper CreateMapper
         {
             get
             {
@@ -59,6 +73,7 @@ namespace ParlayRMS.Site
                 return mapperConfig.CreateMapper();
             }
         }
+
         private void ConfigureFanex()
         {
             var connections = Configuration.GetSection("ConnectionStrings")
@@ -73,7 +88,7 @@ namespace ParlayRMS.Site
               .StartNewSession()
               .Use(connections)
               .WithSqlServer()
-              .UseDefaultDbSettingProvider(resourcePath: "~/App_Data")
+              .UseDefaultDbSettingProvider(resourcePath: Configuration.GetSection("StoredProcedurePath").Value)
               .Run();
 
             LogManager
@@ -90,7 +105,7 @@ namespace ParlayRMS.Site
             .ConnectTo(new Uri(Configuration.GetSection("RemotingRef").Value))
             .FromApplication(Configuration.GetSection("LogCategory").Value)
             .SupportOnlyDefaultLanguage();
-                               
+
             ExceptionHandler
                 .UseConfig(new LoggingConfiguration())
                 .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
@@ -117,7 +132,34 @@ namespace ParlayRMS.Site
                         });
         }
 
-        private void ConfigureAuthorization(IServiceCollection services)
+        private void ConfigureRedis(IServiceCollection services)
+        {
+            var redisConfig = Configuration.GetSection("AuthSettings:RedisConfig").Value;
+            var redis = ConnectionMultiplexer.Connect(redisConfig);
+
+            services.AddDataProtection()
+                .PersistKeysToStackExchangeRedis(redis, "Fanex.ParlayRMS-ProtectionKeys");
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = redisConfig;
+                options.InstanceName = $"Fanex.ParlayRMS.Session-";
+            });
+
+            services.AddRedisCache(Configuration.GetSection("fanex.caching.redis"));
+        }
+
+        private void ConfigureSession(IServiceCollection services)
+        {
+            services.AddSession(options =>
+            {
+                options.Cookie.IsEssential = true;
+                options.IdleTimeout = TimeSpan.FromMinutes(int.Parse(Configuration.GetSection("AuthSettings:SessionTimeOut").Value));
+                options.Cookie.Name = "Fanex.ParlayRMS.Session";
+            });
+        }
+
+        private static void ConfigureAuthorization(IServiceCollection services)
         {
             services.AddControllers(config =>
             {
@@ -125,6 +167,27 @@ namespace ParlayRMS.Site
                                  .RequireAuthenticatedUser()
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
+            });
+        }
+
+        private static void ConfigureCORS(IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(allowOrigin,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:57420", "http://localhost:61034",
+                                            "https://prms-netcore-v1.nexdev.net",
+                                            "https://prms-netcore-v2.nexdev.net",
+                                            "https://prms-netcore-v3.nexdev.net",
+                                            "https://prms.nexdev.net",
+                                            "https://newparlayrms.starixuat.com", "https://napparlayrms.starixuat.com",
+                                            "https://newparlayrms.oneops.net", "https://parlayrms.oneops.net")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .AllowCredentials();
+                    });
             });
         }
     }

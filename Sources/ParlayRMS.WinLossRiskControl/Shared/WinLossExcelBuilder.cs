@@ -1,0 +1,91 @@
+﻿using System.Collections.Generic;
+using System.IO;
+using Epplus.Mapper.Extensions;
+using OfficeOpenXml;
+
+namespace ParlayRMS.WinLossRiskControl.Shared
+{
+    public interface WinLossExcelBuilder
+    {
+        ExcelPackage CreateExcelPackage<T>(List<T> list, T total, ExcelSetting settings) where T : class, new();
+    }
+
+    public class WinLossExcelBuilderImp : WinLossExcelBuilder
+    {
+        private int startRowIndex;
+
+        private int endRowIndex;
+
+        private ExcelWorksheet bodySheet;
+
+        private ExcelWorksheet totalSheet;
+
+        public ExcelPackage CreateExcelPackage<T>(List<T> list, T total, ExcelSetting settings) where T : class, new()
+        {
+            var excelPackage = LoadTemplate(settings.FileName);
+            Build(list, total, settings);
+            ClearTemplate(excelPackage);
+
+            return excelPackage;
+        }
+
+        private ExcelPackage LoadTemplate(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "WinLossRiskControl", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                var excelPackage = new ExcelPackage(stream);
+                bodySheet = excelPackage.Workbook.Worksheets.Copy("Item", "Result");
+                totalSheet = excelPackage.Workbook.Worksheets["Total"];
+                return excelPackage;
+            }
+        }
+
+        private void Build<T>(List<T> list, T total, ExcelSetting settings) where T : class, new()
+        {
+            SetStartRowIndex(settings.StartRowIndex);
+            SetEndRowIndex(settings.StartRowIndex, list.Count);
+            SetSheetName(settings.SheetName);
+            BuilTitle(settings.Title);
+            ApplyBody(list);
+            ApplyTotal(total);
+        }
+
+        private void SetStartRowIndex(int rowIndex)
+        {
+            this.startRowIndex = rowIndex;
+        }
+
+        private void SetEndRowIndex(int rowIndex, int numberBodyItems)
+        {
+            endRowIndex = rowIndex + numberBodyItems;
+        }
+
+        private void SetSheetName(string sheetName)
+        {
+            bodySheet.Name = sheetName;
+        }
+
+        private void BuilTitle(string title)
+        {
+            bodySheet.Cells["A1:I1"].Value = title;
+        }
+
+        private void ApplyBody<T>(List<T> list) where T : class, new()
+        {
+            bodySheet.ApplyVertical(list, startRowIndex);
+        }
+
+        private void ApplyTotal<T>(T total) where T : class, new()
+        {
+            bodySheet.ApplyModel(totalSheet, total, endRowIndex);
+        }
+
+        private static void ClearTemplate(ExcelPackage excelPackage)
+        {
+            excelPackage.Workbook.Worksheets.Delete("Item");
+            excelPackage.Workbook.Worksheets.Delete("Total");
+        }
+    }
+}

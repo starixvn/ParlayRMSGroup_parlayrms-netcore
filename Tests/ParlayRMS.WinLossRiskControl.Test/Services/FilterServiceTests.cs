@@ -17,29 +17,32 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
         private IDynamicRepository repository;
         private IRemotingRefService remotingRefService;
         private FilterService service;
+
         public FilterServiceTests()
         {
             repository = Substitute.For<IDynamicRepository>();
             remotingRefService = Substitute.For<IRemotingRefService>();
             service = new FilterServiceImp(repository, remotingRefService);
         }
-        
+
         private List<ParlayTypeModel> ExpectedListParlayTypes()
         {
             return new List<ParlayTypeModel>()
             {
                 new ParlayTypeModel { Name = "Mix Parlay", Id = 1 },
+                new ParlayTypeModel { Name = "God Of Fortune", Id = 5 },
                 new ParlayTypeModel { Name = "Combo Parlay", Id = 2 },
-                new ParlayTypeModel { Name = "Penalty Shootout Combo", Id = 3 },
-                new ParlayTypeModel { Name = "Single Match Parlay", Id = 4 }
+                new ParlayTypeModel { Name = "Penalty Shootout Combo", Id = 4 },
+                new ParlayTypeModel { Name = "Single Match Parlay", Id = 3 }
             };
         }
+
         [Fact]
         public async Task GetParlayTypes_Always_ReturnsExpectedList()
         {
             // Act
             var actualResults = await service.GetParlayTypes();
-            
+
             // Assert
             var expectedList = ExpectedListParlayTypes();
             AssertExtension.AreEqual(expectedList, actualResults);
@@ -50,9 +53,9 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
         {
             // Act
             var actualResults = await service.GetSports();
-            
+
             // Assert
-            var expectedItems = 15;
+            var expectedItems = 17;
             Assert.Equal(expectedItems, actualResults.Count);
         }
 

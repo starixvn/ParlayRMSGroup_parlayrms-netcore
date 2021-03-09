@@ -4,7 +4,7 @@ using ParlayRMS.WinLossRiskControl.Models;
 
 namespace ParlayRMS.WinLossRiskControl.Requests
 {
-    public class AgentWinLossRequest : IRequest<AgentWinLossModel>
+    public class AgentWinLossRequest : IRequest<WinLossModel>
     {
         public string FromDate { get; set; }
 
@@ -12,11 +12,15 @@ namespace ParlayRMS.WinLossRiskControl.Requests
 
         public string ParlayType { get; set; }
 
-        public string SportType	 { get; set; }
+        public string SportType { get; set; }
+
+        public string Company { get; set; }
 
         public int CustId { get; set; }
 
         public int RoleId { get; set; }
+
+        public string Site { get; set; }
 
         public int PageSize { get; set; }
 

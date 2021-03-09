@@ -3,7 +3,7 @@ using Fanex.Data.Repository;
 
 namespace ParlayRMS.WinLossRiskControl.Criteria
 {
-    public class AgentWinLossCriteria: CriteriaBase
+    public class AgentWinLossCriteria : CriteriaBase
     {
         public DateTime FromDate { get; set; }
 
@@ -17,11 +17,13 @@ namespace ParlayRMS.WinLossRiskControl.Criteria
 
         public int PageIndex { get; set; }
 
-        public int TotalRecords   { get; set; }
+        public int TotalRecords { get; set; }
 
         public string ParlayType { get; set; }
 
-        public string Sporttype	 { get; set; }
+        public string Sporttype { get; set; }
+
+        public string Site { get; set; }
 
         public override string GetSettingKey() => "RMS_Rpt_Winloss_Risk_Control_Agent";
 

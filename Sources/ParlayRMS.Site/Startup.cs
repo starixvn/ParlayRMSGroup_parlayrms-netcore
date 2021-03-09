@@ -1,8 +1,11 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using ParlayRMS.Site.CrossCuttingConcern;
 
 namespace ParlayRMS.Site
 {
@@ -18,37 +21,36 @@ namespace ParlayRMS.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureCORS(services);
+            ConfigureAuthorization(services);
             ConfigureAuthentication(services);
-            ConfigureNapServices(services);
-            
+            ConfigureRedis(services);
+            ConfigureSession(services);
             ConfigureFanex();
-
-            services.AddSession();
-            services.AddControllersWithViews();
+            ConfigureNapServices(services);
+            ConfigureWinLossRiskControlServices(services);
             services.AddRazorPages();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           
             app.UseDeveloperExceptionPage();
-           
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseAuthentication();
+            app.UseMiddleware<ErrorHandler>();
             app.UseSession();
             app.UseRouting();
-
+            app.UseCors(allowOrigin);
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

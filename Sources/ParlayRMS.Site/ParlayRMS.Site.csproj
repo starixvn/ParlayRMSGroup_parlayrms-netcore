@@ -1,29 +1,68 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
- <ItemGroup>
-    <Content Include="App_Data\SpName.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Fanex.Data" Version="4.2.2" />
-    <PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
-    <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
-    <PackageReference Include="Fanex.Logging" Version="2.0.1" />
-    <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
-    <PackageReference Include="Fanex.Logging.Sentry" Version="1.0.6" />
-    <PackageReference Include="Fanex.RemotingRef" Version="1.5.0" />
-    <PackageReference Include="MediatR" Version="9.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
-    <ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	</PropertyGroup>
 
+	<ItemGroup>
+		<Compile Remove="app\**" />
+		<Content Remove="app\**" />
+		<EmbeddedResource Remove="app\**" />
+		<None Remove="app\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx" />
+		<None Remove="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx" />
+		<None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
+		<None Remove="ExcelTemplate\WinLossRiskControl\Member.xlsx" />
+		<None Remove="ExcelTemplate\WinLossRiskControl\site-win-loss.xlsx" />
+		<None Remove="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="App_Data\SpName.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ExcelTemplate\WinLossRiskControl\site-win-loss.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="Fanex.Caching.Redis" Version="2.2.2" />
+		<PackageReference Include="Fanex.Caching.Redis.AspNetCore" Version="2.2.2" />
+		<PackageReference Include="Fanex.Data" Version="4.2.2" />
+		<PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
+		<PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
+		<PackageReference Include="Fanex.Logging" Version="2.0.1" />
+		<PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1-beta1" />
+		<PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
+		<PackageReference Include="Fanex.Logging.Sentry" Version="1.0.6" />
+		<PackageReference Include="Fanex.RemotingRef" Version="1.5.0" />
+		<PackageReference Include="MediatR" Version="9.0.0" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="5.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.0" />
+		<PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
+		<ProjectReference Include="..\ParlayRMS.Auth\ParlayRMS.Auth.csproj" />
+		<ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
+	</ItemGroup>
 </Project>
