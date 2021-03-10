@@ -14,7 +14,6 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
 {
     public class WinLossServiceTests
     {
-        private readonly IMapper mapper;
         private readonly IDynamicRepository repository;
         private WinLossService service;
 
