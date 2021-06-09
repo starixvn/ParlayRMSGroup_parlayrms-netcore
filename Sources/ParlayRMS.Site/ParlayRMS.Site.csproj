@@ -65,4 +65,9 @@
 		<ProjectReference Include="..\ParlayRMS.Auth\ParlayRMS.Auth.csproj" />
 		<ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="appsettings.PROAWS.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 </Project>
