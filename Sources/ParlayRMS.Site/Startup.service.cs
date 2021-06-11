@@ -176,13 +176,11 @@ namespace ParlayRMS.Site
                 options.AddPolicy(allowOrigin,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:57420", "http://localhost:61034",
-                                            "https://prms-netcore-v1.nexdev.net",
-                                            "https://prms-netcore-v2.nexdev.net",
-                                            "https://prms-netcore-v3.nexdev.net",
-                                            "https://prms.nexdev.net",
-                                            "https://newparlayrms.starixuat.com", "https://napparlayrms.starixuat.com",
-                                            "https://newparlayrms.oneops.net", "https://parlayrms.oneops.net")
+                        builder.WithOrigins("http://localhost:57420", "http://localhost:57421", "http://localhost:61034",
+                                            "https://prms.nexdev.net", "https://prms-core.nexdev.net",
+                                            "https://napparlayrms.starixuat.com", "https://prmscore.starixuat.com",
+                                            "https://parlayrms.oneops.net", "https://prmscore.oneops.net",
+                                            "https://parlayrms.sportsfun.app", "https://prmscore.sportsfun.app")
                               .AllowAnyMethod()
                               .AllowAnyHeader()
                               .AllowCredentials();
