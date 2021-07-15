@@ -8,6 +8,8 @@ namespace ParlayRMS.WinLossRiskControl.Models
 
         private decimal margin;
 
+        private string customerClass;
+
         public string Username
         {
             get
@@ -60,6 +62,17 @@ namespace ParlayRMS.WinLossRiskControl.Models
         public decimal RealTurnover { get; set; }
 
         public string Site { get; set; }
+
+        public string CustomerClass
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(customerClass))
+                    return customerClass;
+                else
+                    return "None";
+            }
+        }
 
         public int TotalRecords { get; set; }
 

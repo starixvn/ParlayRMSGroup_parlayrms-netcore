@@ -50,6 +50,7 @@ namespace ParlayRMS.WinLossRiskControl.Shared
             BuilTitle(settings.Title);
             ApplyBody(list);
             ApplyTotal(total);
+            MergeTotalCell(settings.IsMerged);
         }
 
         private void SetStartRowIndex(int rowIndex)
@@ -80,6 +81,14 @@ namespace ParlayRMS.WinLossRiskControl.Shared
         private void ApplyTotal<T>(T total) where T : class, new()
         {
             bodySheet.ApplyModel(totalSheet, total, endRowIndex);
+        }
+
+        public void MergeTotalCell(bool isMerged)
+        {
+            if (isMerged)
+            {
+                bodySheet.Cells[$"A{endRowIndex}:B{endRowIndex}"].Merge = true;
+            }
         }
 
         private static void ClearTemplate(ExcelPackage excelPackage)

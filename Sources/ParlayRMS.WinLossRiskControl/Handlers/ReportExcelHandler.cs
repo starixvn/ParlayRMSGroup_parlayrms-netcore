@@ -65,7 +65,8 @@ namespace ParlayRMS.WinLossRiskControl.Handlers
             var excelSetting = new ExcelSetting
             {
                 Title = excelRequest.BreadCrumb,
-                RoleId = excelRequest.RoleId
+                RoleId = excelRequest.RoleId,
+                IsMerged = true
             };
 
             var request = mapper.Map<AgentWinLossRequest>(excelRequest);

@@ -41,5 +41,7 @@ namespace ParlayRMS.WinLossRiskControl.Shared
         public int RoleId { get; set; }
 
         public string Company { get; set; }
+
+        public bool IsMerged { get; set; } = false;
     }
 }
