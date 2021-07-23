@@ -19,6 +19,8 @@ namespace ParlayRMS.WinLossRiskControl.Requests.Excels
 
         public int RoleId { get; set; }
 
+        public string Site { get; set; }
+
         public int PageSize { get; } = 0;
 
         public int PageIndex { get; } = 0;
