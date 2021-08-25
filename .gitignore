@@ -38,3 +38,6 @@ _Chutzpah*
 *.orig
 /Sources/Sites/stylesheets/Site.css.map
 /Sources/Sites/stylesheets/Site.css
+**/yarn.lock
+**/node_modules/**
+/package-lock.json
