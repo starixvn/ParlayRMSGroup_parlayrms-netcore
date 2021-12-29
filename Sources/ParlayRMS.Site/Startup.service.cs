@@ -28,6 +28,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
+using LeagueEventHandlers = ParlayRMS.LeagueEventControl.Handlers;
 
 namespace ParlayRMS.Site
 {
@@ -48,6 +50,8 @@ namespace ParlayRMS.Site
             services.AddMediatR(typeof(ReportExcelHandler).Assembly);
             services.AddMediatR(typeof(SiteReportExcelHandler).Assembly);
 
+            services.AddMediatR(typeof(LeagueEventHandlers.FilterHandler).Assembly);
+
             services.AddSingleton(CreateMapper);
         }
 
@@ -58,6 +62,11 @@ namespace ParlayRMS.Site
             services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
             services.AddTransient<FilterService, FilterServiceImp>();
             services.AddTransient<UserLoginService, UserLoginServiceImp>();
+        }
+
+        private static void ConfigureLeagueEventControlServices(IServiceCollection services)
+        {
+            services.AddTransient<LeagueEventServices.FilterService, LeagueEventServices.FilterServiceImp>();
         }
 
         private static IMapper CreateMapper

@@ -9,4 +9,7 @@
 		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Agent" SpName="RMS_Rpt_Winloss_Risk_Control_Agent" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 		<Setting Key="RMS_SiteByGroupSel" SpName="RMS_SiteByGroupSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 	</Function>
+	<Function Name="League Event Control">
+		<Setting Key="RMS_LeagueSel" SpName="RMS_LeagueSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+	</Function>
 </Functions>
