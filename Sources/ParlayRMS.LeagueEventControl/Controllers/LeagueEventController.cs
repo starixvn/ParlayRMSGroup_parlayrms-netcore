@@ -23,6 +23,9 @@ namespace ParlayRMS.LeagueEventControl.Controllers
         }
 
         [Route("league-data")]
-        public async Task<ActionResult> League(LeagueDataRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+        public async Task<IActionResult> League(LeagueDataRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+
+        [Route("event")]
+        public async Task<IActionResult> Event(EventRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
     }
 }
