@@ -3,6 +3,7 @@ WORKDIR /src
 
 COPY ./Sources/ParlayRMS.Application ./ParlayRMS.Application
 COPY ./Sources/ParlayRMS.Auth ./ParlayRMS.Auth
+COPY ./Sources/ParlayRMS.LeagueEventControl ./ParlayRMS.LeagueEventControl
 COPY ./Sources/ParlayRMS.WinLossRiskControl ./ParlayRMS.WinLossRiskControl
 COPY ./Sources/ParlayRMS.Site/ParlayRMS.Site.csproj ./ParlayRMS.Site/ParlayRMS.Site.csproj
 
@@ -21,9 +22,6 @@ RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /etc/ssl/openssl.cnf
 RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /usr/lib/ssl/openssl.cnf
 RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /usr/lib/ssl/openssl.cnf
-RUN apt-get install libc6-dev -y
-RUN apt-get install libgdiplus -y
-RUN apt-get update && apt-get install -y libfontconfig1
 
 ENV TZ="America/La_Paz" 
 
