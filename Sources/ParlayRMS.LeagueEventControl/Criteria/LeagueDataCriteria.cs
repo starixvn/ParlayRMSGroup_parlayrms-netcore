@@ -14,7 +14,7 @@ namespace ParlayRMS.LeagueEventControl.Criteria
 
         public int LimitRowCount { get; set; }
 
-        public int CustomerClass { get; set; }
+        public int? CustomerClass { get; set; }
 
         public bool IsViewDetail { get; set; }
 

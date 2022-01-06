@@ -16,7 +16,7 @@ namespace ParlayRMS.LeagueEventControl.Requests
 
         public int LimitRowCount { get; set; }
 
-        public int CustomerClass { get; set; }
+        public int? CustomerClass { get; set; }
 
         public bool IsViewDetail { get; set; }
     }
