@@ -29,6 +29,7 @@ namespace ParlayRMS.Site
             ConfigureFanex();
             ConfigureNapServices(services);
             ConfigureWinLossRiskControlServices(services);
+            ConfigureLeagueEventControlServices(services);
             services.AddRazorPages();
             services.AddControllersWithViews();
         }

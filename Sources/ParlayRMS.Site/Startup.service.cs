@@ -28,6 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
+using LeagueEventHandlers = ParlayRMS.LeagueEventControl.Handlers;
+using ParlayRMS.LeagueEventControl;
 
 namespace ParlayRMS.Site
 {
@@ -48,6 +51,9 @@ namespace ParlayRMS.Site
             services.AddMediatR(typeof(ReportExcelHandler).Assembly);
             services.AddMediatR(typeof(SiteReportExcelHandler).Assembly);
 
+            services.AddMediatR(typeof(LeagueEventHandlers.FilterHandler).Assembly);
+            services.AddMediatR(typeof(LeagueEventHandlers.LeagueEventHandler).Assembly);
+
             services.AddSingleton(CreateMapper);
         }
 
@@ -60,6 +66,12 @@ namespace ParlayRMS.Site
             services.AddTransient<UserLoginService, UserLoginServiceImp>();
         }
 
+        private static void ConfigureLeagueEventControlServices(IServiceCollection services)
+        {
+            services.AddTransient<LeagueEventServices.FilterService, LeagueEventServices.FilterServiceImp>();
+            services.AddTransient<LeagueEventServices.LeagueEventService, LeagueEventServices.LeagueEventServiceImp>();
+        }
+
         private static IMapper CreateMapper
         {
             get
@@ -67,6 +79,7 @@ namespace ParlayRMS.Site
                 var mapperConfig = new MapperConfiguration(mc =>
                 {
                     mc.AddProfile(new WinLossMappingProfile());
+                    mc.AddProfile(new LeagueEventMappingProfile());
                 });
 
                 return mapperConfig.CreateMapper();

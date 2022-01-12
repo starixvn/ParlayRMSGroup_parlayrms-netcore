@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParlayRMS.Auth", "Sources\P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParlayRMS.Application", "Sources\ParlayRMS.Application\ParlayRMS.Application.csproj", "{1424200E-D5D3-47C7-9016-42B8A7FF1776}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParlayRMS.LeagueEventControl", "Sources\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj", "{D09380AB-A852-4098-9BE7-07873044749F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{1424200E-D5D3-47C7-9016-42B8A7FF1776}.Release|x64.Build.0 = Release|Any CPU
 		{1424200E-D5D3-47C7-9016-42B8A7FF1776}.Release|x86.ActiveCfg = Release|Any CPU
 		{1424200E-D5D3-47C7-9016-42B8A7FF1776}.Release|x86.Build.0 = Release|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Debug|x64.Build.0 = Debug|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Debug|x86.Build.0 = Debug|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x64.ActiveCfg = Release|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x64.Build.0 = Release|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +111,7 @@ Global
 		{31E4DDE9-CC64-44F9-A045-AABE52FA53DC} = {380B4BA6-9A90-4EC8-B063-C4F9D7E57725}
 		{FFEE5661-51BC-4B84-834F-A24EBB3A7910} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
 		{1424200E-D5D3-47C7-9016-42B8A7FF1776} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
+		{D09380AB-A852-4098-9BE7-07873044749F} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AA985BF-8C22-476D-A643-3B49F8FFCB6B}
