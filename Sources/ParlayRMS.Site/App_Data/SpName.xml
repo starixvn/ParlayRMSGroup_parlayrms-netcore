@@ -10,7 +10,7 @@
 		<Setting Key="RMS_SiteByGroupSel" SpName="RMS_SiteByGroupSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 	</Function>
 	<Function Name="League Event Control">
-		<Setting Key="RMS_ESport_LeagueSel" SpName="RMS_ESport_LeagueSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Monitor_EventPerformance_Summary" SpName="RMS_Monitor_EventPerformance_Summary" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_ESport_LeagueSel" SpName="RMS_ESport_LeagueSel_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Monitor_EventPerformance_Summary" SpName="RMS_Monitor_EventPerformance_Summary_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 	</Function>
 </Functions>

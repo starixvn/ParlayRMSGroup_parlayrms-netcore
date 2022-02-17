@@ -18,6 +18,8 @@ namespace ParlayRMS.LeagueEventControl.Criteria
 
         public bool IsViewDetail { get; set; }
 
+        public byte SportType { get; set; }
+
         public override string GetSettingKey() => "RMS_Monitor_EventPerformance_Summary";
 
         public override bool IsValid() => true;
