@@ -19,5 +19,7 @@ namespace ParlayRMS.LeagueEventControl.Requests
         public int? CustomerClass { get; set; }
 
         public bool IsViewDetail { get; set; }
+
+        public byte SportType { get; set; }
     }
 }

@@ -17,6 +17,6 @@ namespace ParlayRMS.LeagueEventControl.Handlers
             this.filterService = filterService;
         }
 
-        public Task<IEnumerable<LeagueModel>> Handle(LeagueRequest request, CancellationToken cancellationToken) => filterService.GetLeagues();
+        public Task<IEnumerable<LeagueModel>> Handle(LeagueRequest request, CancellationToken cancellationToken) => filterService.GetLeagues(request);
     }
 }

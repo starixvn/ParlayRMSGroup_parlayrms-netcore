@@ -10,6 +10,7 @@ namespace ParlayRMS.LeagueEventControl
         {
             CreateMap<LeagueDataRequest, LeagueDataCriteria>();
             CreateMap<EventRequest, EventCriteria>();
+            CreateMap<LeagueRequest, LeagueCriteria>();
         }
     }
 }

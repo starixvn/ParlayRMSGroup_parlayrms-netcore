@@ -23,6 +23,6 @@ namespace ParlayRMS.LeagueEventControl.Controllers
         }
 
         [Route("league")]
-        public async Task<ActionResult> League() => Ok(await mediator.Send(new LeagueRequest()));
+        public async Task<ActionResult> League(LeagueRequest request) => Ok(await mediator.Send(request));
     }
 }
