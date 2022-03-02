@@ -12,9 +12,11 @@ namespace ParlayRMS.WinLossRiskControl.Services
     {
         Task<List<CompanyModel>> GetCompany();
 
-        Task<List<ParlayTypeModel>> GetParlayTypes();
+        Task<List<SelectItemModel>> GetParlayTypes();
 
         Task<List<SportModel>> GetSports();
+
+        Task<List<SelectItemModel>> GetComboes();
     }
 
     public class FilterServiceImp : FilterService
@@ -35,15 +37,15 @@ namespace ParlayRMS.WinLossRiskControl.Services
             return (await repository.FetchAsync<CompanyModel>(criteria)).ToList();
         }
 
-        public Task<List<ParlayTypeModel>> GetParlayTypes()
+        public Task<List<SelectItemModel>> GetParlayTypes()
         {
-            var palarTypes = new List<ParlayTypeModel>()
+            var palarTypes = new List<SelectItemModel>()
             {
-                new ParlayTypeModel { Name = "Mix Parlay", Id = 1 },
-                new ParlayTypeModel { Name = "God Of Fortune", Id = 5 },
-                new ParlayTypeModel { Name = "Combo Parlay", Id = 2 },
-                new ParlayTypeModel { Name = "Penalty Shootout Combo", Id = 4 },
-                new ParlayTypeModel { Name = "Single Match Parlay", Id = 3 }
+                new SelectItemModel { Name = "Mix Parlay", Id = 1 },
+                new SelectItemModel { Name = "God Of Fortune", Id = 5 },
+                new SelectItemModel { Name = "Combo Parlay", Id = 2 },
+                new SelectItemModel { Name = "Penalty Shootout Combo", Id = 4 },
+                new SelectItemModel { Name = "Single Match Parlay", Id = 3 }
             };
 
             return Task.FromResult(palarTypes);
@@ -91,6 +93,24 @@ namespace ParlayRMS.WinLossRiskControl.Services
                 SportName = sportName,
                 SportGroup = groupId
             };
+        }
+
+        public Task<List<SelectItemModel>> GetComboes()
+        {
+            var comboes = new List<SelectItemModel>()
+            {
+                new SelectItemModel { Name = "2", Id = 2 },
+                new SelectItemModel { Name = "3", Id = 3 },
+                new SelectItemModel { Name = "4", Id = 4 },
+                new SelectItemModel { Name = "5", Id = 5 },
+                new SelectItemModel { Name = "6", Id = 6 },
+                new SelectItemModel { Name = "7", Id = 7 },
+                new SelectItemModel { Name = "8", Id = 8 },
+                new SelectItemModel { Name = "9", Id = 9 },
+                new SelectItemModel { Name = "10 UP", Id = 10 }
+            };
+
+            return Task.FromResult(comboes);
         }
     }
 }

@@ -1,6 +1,6 @@
-namespace ParlayRMS.WinLossRiskControl.Models
+﻿namespace ParlayRMS.WinLossRiskControl.Models
 {
-    public class ParlayTypeModel
+    public class SelectItemModel
     {
         public string Name { get; set; }
 

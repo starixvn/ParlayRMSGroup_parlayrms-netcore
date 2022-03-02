@@ -4,9 +4,9 @@
 		<Setting Key="RMS_UserLogin" SpName="RMS_UserLogin" DbName="DBCUST.CustDB.bodbRMSNet" />
 	</Function>
 	<Function Name="Win Loss Risk Control">
-		<Setting Key="RMS_Rpt_Winloss_Risk_Control" SpName="RMS_Rpt_Winloss_Risk_Control" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Company" SpName="RMS_Rpt_Winloss_Risk_Control_Company" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Agent" SpName="RMS_Rpt_Winloss_Risk_Control_Agent" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Rpt_Winloss_Risk_Control" SpName="RMS_Rpt_Winloss_Risk_Control_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Company" SpName="RMS_Rpt_Winloss_Risk_Control_Company_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Agent" SpName="RMS_Rpt_Winloss_Risk_Control_Agent_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 		<Setting Key="RMS_SiteByGroupSel" SpName="RMS_SiteByGroupSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 	</Function>
 	<Function Name="League Event Control">
