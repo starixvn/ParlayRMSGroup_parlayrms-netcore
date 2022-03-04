@@ -76,17 +76,6 @@ namespace ParlayRMS.LeagueEventControl.Services
                         index++;
                     }
                 }
-                
-                var fixedBettypeList = item.EventList.Where(x => x.Market != "Others").OrderByDescending(x => x.HomeTotalStake).ToList();
-                awayEventModelList = awayEventModelList.OrderByDescending(x => x.AwayTotalStake).ToList();
-                for (int i = 0; i < fixedBettypeList.Count; i++)
-                {
-                    fixedBettypeList[i].AwayMarket = awayEventModelList[i].AwayMarket;
-                    fixedBettypeList[i].AwayAvgOdds = awayEventModelList[i].AwayAvgOdds;
-                    fixedBettypeList[i].AwayTotalStake = awayEventModelList[i].AwayTotalStake;
-                    fixedBettypeList[i].AwayTotalTicket = awayEventModelList[i].AwayTotalTicket;
-                }    
-                var othersItem = item.EventList.FirstOrDefault(x => x.Market == "Others");
                 eventGroupModel.MatchId = item.MatchId;
                 eventGroupModel.EventList = new();
                 eventGroupModel.EventList.Add(new EventModel
@@ -98,7 +87,9 @@ namespace ParlayRMS.LeagueEventControl.Services
                     HomeName = item.EventList.FirstOrDefault().HomeName,
                     AwayName = item.EventList.FirstOrDefault().AwayName,
                 });
-                eventGroupModel.EventList.AddRange(fixedBettypeList);
+                var sortedFixedBettypeList = SortFixedListBettype(item.EventList, awayEventModelList);
+                eventGroupModel.EventList.AddRange(sortedFixedBettypeList);
+                var othersItem = item.EventList.FirstOrDefault(x => x.Market == "Others");
                 if (othersItem != null)
                 {
                     eventGroupModel.EventList.Add(new EventModel {
@@ -113,6 +104,20 @@ namespace ParlayRMS.LeagueEventControl.Services
                 index = 1;
             }
             return result;
+        }
+
+        private static List<EventModel> SortFixedListBettype(List<EventModel> eventList, List<AwayEventModel> awayEventModelList)
+        {
+            var fixedBettypeList = eventList.Where(x => x.Market != "Others").OrderByDescending(x => x.HomeTotalStake).ToList();
+            awayEventModelList = awayEventModelList.OrderByDescending(x => x.AwayTotalStake).ToList();
+            for (int i = 0; i < fixedBettypeList.Count; i++)
+            {
+                fixedBettypeList[i].AwayMarket = awayEventModelList[i].AwayMarket;
+                fixedBettypeList[i].AwayAvgOdds = awayEventModelList[i].AwayAvgOdds;
+                fixedBettypeList[i].AwayTotalStake = awayEventModelList[i].AwayTotalStake;
+                fixedBettypeList[i].AwayTotalTicket = awayEventModelList[i].AwayTotalTicket;
+            }
+            return fixedBettypeList;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace ParlayRMS.LeagueEventControl.Services
     public interface FilterService
     {
         Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request);
+
+        Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request);
     }
 
     public class FilterServiceImp : FilterService
@@ -29,6 +31,12 @@ namespace ParlayRMS.LeagueEventControl.Services
         {
             var criteria = mapper.Map<LeagueCriteria>(request);
             return dynamicRepository.FetchAsync<LeagueModel>(criteria);
+        }
+
+        public Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request)
+        {
+            var criteria = mapper.Map<BettypeCriteria>(request);
+            return dynamicRepository.FetchAsync<BettypeModel>(criteria);
         }
     }
 }

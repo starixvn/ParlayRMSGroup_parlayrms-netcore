@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Handlers
 {
-    public class FilterHandler : IRequestHandler<LeagueRequest, IEnumerable<LeagueModel>>
+    public class FilterHandler : IRequestHandler<LeagueRequest, IEnumerable<LeagueModel>>,
+                                 IRequestHandler<BettypeRequest, IEnumerable<BettypeModel>>
     {
         private readonly FilterService filterService;
 
@@ -18,5 +19,7 @@ namespace ParlayRMS.LeagueEventControl.Handlers
         }
 
         public Task<IEnumerable<LeagueModel>> Handle(LeagueRequest request, CancellationToken cancellationToken) => filterService.GetLeagues(request);
+
+        public Task<IEnumerable<BettypeModel>> Handle(BettypeRequest request, CancellationToken cancellationToken) => filterService.GetBettypes(request);
     }
 }
