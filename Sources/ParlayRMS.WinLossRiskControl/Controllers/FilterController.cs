@@ -27,5 +27,8 @@ namespace ParlayRMS.WinLossRiskControl.Controllers
 
         [Route("company")]
         public async Task<ActionResult> Company() => Ok(await mediator.Send(new CompanyRequest()));
+
+        [Route("comboes")]
+        public async Task<ActionResult> Comboes() => Ok(await mediator.Send(new ComboRequest()));
     }
 }

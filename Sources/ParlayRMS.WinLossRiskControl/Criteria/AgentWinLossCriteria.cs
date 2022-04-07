@@ -21,6 +21,8 @@ namespace ParlayRMS.WinLossRiskControl.Criteria
 
         public string ParlayType { get; set; }
 
+        public string Selection { get; set; }
+
         public string Sporttype { get; set; }
 
         public string Site { get; set; }

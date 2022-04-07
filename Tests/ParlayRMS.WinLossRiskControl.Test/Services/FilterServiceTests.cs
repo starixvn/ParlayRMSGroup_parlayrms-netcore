@@ -25,15 +25,15 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services
             service = new FilterServiceImp(repository, remotingRefService);
         }
 
-        private List<ParlayTypeModel> ExpectedListParlayTypes()
+        private List<SelectItemModel> ExpectedListParlayTypes()
         {
-            return new List<ParlayTypeModel>()
+            return new List<SelectItemModel>()
             {
-                new ParlayTypeModel { Name = "Mix Parlay", Id = 1 },
-                new ParlayTypeModel { Name = "God Of Fortune", Id = 5 },
-                new ParlayTypeModel { Name = "Combo Parlay", Id = 2 },
-                new ParlayTypeModel { Name = "Penalty Shootout Combo", Id = 4 },
-                new ParlayTypeModel { Name = "Single Match Parlay", Id = 3 }
+                new SelectItemModel { Name = "Mix Parlay", Id = 1 },
+                new SelectItemModel { Name = "God Of Fortune", Id = 5 },
+                new SelectItemModel { Name = "Combo Parlay", Id = 2 },
+                new SelectItemModel { Name = "Penalty Shootout Combo", Id = 4 },
+                new SelectItemModel { Name = "Single Match Parlay", Id = 3 }
             };
         }
 

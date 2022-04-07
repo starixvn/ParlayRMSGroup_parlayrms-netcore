@@ -20,6 +20,10 @@ namespace ParlayRMS.LeagueEventControl.Criteria
 
         public byte SportType { get; set; }
 
+        public string BetTypes { get; set; }
+
+        public string UserName { get; set; }
+
         public override string GetSettingKey() => "RMS_Monitor_EventPerformance_Summary";
 
         public override bool IsValid() => true;

@@ -2,10 +2,6 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.LeagueEventControl.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Controllers
@@ -24,5 +20,8 @@ namespace ParlayRMS.LeagueEventControl.Controllers
 
         [Route("league")]
         public async Task<ActionResult> League(LeagueRequest request) => Ok(await mediator.Send(request));
+
+        [Route("bettype")]
+        public async Task<ActionResult> Bettype(BettypeRequest requestt) => Ok(await mediator.Send(requestt));
     }
 }
