@@ -24,6 +24,8 @@ namespace ParlayRMS.LeagueEventControl.Models
 
         public int AwayTotalTicket { get; set; }
 
+        public bool IsOther { get; set; }
+
         public string AwayMarket { get; set; }
     }
 
