@@ -102,7 +102,7 @@ namespace ParlayRMS.LeagueEventControl.Services
                 );
                 if (moreThanTwoWayBettypeList.Any())
                 {
-                    eventGroupModel.EventList.AddRange(moreThanTwoWayBettypeList);
+                    eventGroupModel.EventList.AddRange(moreThanTwoWayBettypeList.OrderByDescending(x => x.HomeTotalStake));
                 }
                 var othersItem = item.EventList.FirstOrDefault(x => x.Market == Others);
                 if (othersItem != null)
