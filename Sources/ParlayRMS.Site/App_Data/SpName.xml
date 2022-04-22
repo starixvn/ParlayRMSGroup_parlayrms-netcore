@@ -11,7 +11,8 @@
 	</Function>
 	<Function Name="League Event Control">
 		<Setting Key="RMS_ESport_LeagueSel" SpName="RMS_ESport_LeagueSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Monitor_EventPerformance_Summary" SpName="RMS_Monitor_EventPerformance_Summary" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Monitor_EventPerformance_Summary" SpName="RMS_Monitor_EventPerformance_Summary_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 		<Setting Key="RMS_BettypeSel" SpName="RMS_BettypeSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Monitor_EventPerformance_Detail" SpName="RMS_Monitor_EventPerformance_Detail_xtest" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
 	</Function>
 </Functions>

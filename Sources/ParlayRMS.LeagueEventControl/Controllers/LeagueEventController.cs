@@ -1,11 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using ParlayRMS.LeagueEventControl.Epplus;
 using ParlayRMS.LeagueEventControl.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Controllers
@@ -27,5 +24,15 @@ namespace ParlayRMS.LeagueEventControl.Controllers
 
         [Route("event")]
         public async Task<IActionResult> Event(EventRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+
+        [Route("event-detail")]
+        public async Task<IActionResult> EventDetail(EventDetailRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+
+        [Route("export-excel")]
+        public async Task<IActionResult> ExportExcel(ExcelRequest request)
+        {
+            var excelPackage = await mediator.Send(request);
+            return new EpplusExcelResult(excelPackage);
+        }
     }
 }

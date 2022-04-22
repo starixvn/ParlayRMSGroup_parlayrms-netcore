@@ -1,0 +1,26 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
+using System;
+using System.Threading.Tasks;
+
+namespace ParlayRMS.LeagueEventControl.Epplus
+{
+    public class EpplusExcelResult : IActionResult
+    {
+        public ExcelPackage ExcelPackage { get; }
+
+        public EpplusExcelResult(ExcelPackage excelPackage)
+        {
+            this.ExcelPackage = excelPackage;
+        }
+
+        public async Task ExecuteResultAsync(ActionContext context)
+        {
+            var byteArray = await this.ExcelPackage.GetAsByteArrayAsync();
+            var response = context.HttpContext.Response;
+            response.Headers.Add("Content-Type", "application/vnd.ms-excel");
+            response.Headers.Add("Content-Disposition", new[] { "attachment; filename=Excel.xlsx" });
+            await response.Body.WriteAsync(byteArray.AsMemory(0, byteArray.Length));
+        }
+    }
+}
