@@ -13,6 +13,8 @@ namespace ParlayRMS.WinLossRiskControl.Requests.Excels
 
         public string ParlayType { get; set; }
 
+        public string Selection { get; set; }
+
         public string SportType { get; set; }
 
         public int CustId { get; set; }
