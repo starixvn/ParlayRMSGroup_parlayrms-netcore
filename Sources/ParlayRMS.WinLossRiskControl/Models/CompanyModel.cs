@@ -1,4 +1,3 @@
-using System;
 namespace ParlayRMS.WinLossRiskControl.Models
 {
     public class CompanyModel
@@ -6,5 +5,7 @@ namespace ParlayRMS.WinLossRiskControl.Models
         public string Site { get; set; }
 
         public bool IsDeposit { get; set; }
+
+        public bool Checked { get; set; } = true;
     }
 }
