@@ -57,10 +57,23 @@ namespace ParlayRMS.LeagueEventControl.Handlers
                 item.TransDateString = item.TransDate.ToString("MM/dd/yyyy h:mm:ss tt");
                 item.Stake = Math.Round(item.Stake, 2);
                 item.MaxPayOut = Math.Floor(item.MaxPayOut);
-                item.SportTypeName = remotingRefService.GetSportName(item.SportType.ToString(), LanguageCode);
+                item.SportTypeName = GetSportName(item.SportType);
                 item.CustomerClass = string.IsNullOrEmpty(item.CustomerClass) ? "None" : item.CustomerClass;
                 index++;
             }    
+        }
+
+        public string GetSportName(int sportId)
+        {
+            return sportId switch
+            {
+                -1 => "Combined other sports",
+                -2 => "Other sports",
+                -3 => "Combined sports",
+                -4 => "Virtual Soccer",
+                -5 => "Virtual Basketball",
+                _ => remotingRefService.GetSportName(sportId.ToString(), LanguageCode),
+            };
         }
     }
 }
