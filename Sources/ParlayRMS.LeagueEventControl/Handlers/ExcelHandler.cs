@@ -59,11 +59,13 @@ namespace ParlayRMS.LeagueEventControl.Handlers
                 item.MaxPayOut = Math.Floor(item.MaxPayOut);
                 item.SportTypeName = GetSportName(item.SportType);
                 item.CustomerClass = string.IsNullOrEmpty(item.CustomerClass) ? "None" : item.CustomerClass;
+                item.PotentialWinningAmt = Math.Floor(item.PotentialWinningAmt);
+                item.Odds = item.Odds < 10 ? Math.Round(item.Odds, 2) : Math.Floor(item.Odds);
                 index++;
             }    
         }
 
-        public string GetSportName(int sportId)
+        private string GetSportName(int sportId)
         {
             return sportId switch
             {

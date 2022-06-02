@@ -49,7 +49,7 @@ namespace ParlayRMS.LeagueEventControl.Services
             var data = dynamicRepository.Fetch<EventDetailModel>(criteria);
             var (stakeTotal, ticketTotal) = data.Aggregate((Stake: 0m, Ticket: 0), (sums, item) => (sums.Stake + item.Stake, sums.Ticket + item.Ticket));
             result.Add(new EventDetailModel { Stake = stakeTotal, Ticket = ticketTotal });
-            result.AddRange(data);
+            result.AddRange(data.OrderByDescending(x => x.Stake));
             return Task.FromResult(result);
         }
 
@@ -119,6 +119,7 @@ namespace ParlayRMS.LeagueEventControl.Services
                     HomeTotalStake = x.HomeTotalStake + x.AwayTotalStake,
                     HomeTotalTicket = x.HomeTotalTicket + x.AwayTotalTicket,
                     HomeAvgOdds = x.HomeAvgOdds + x.AwayAvgOdds,
+                    Bettype = x.Bettype,
                     IsOther = true
                 }
                 );
