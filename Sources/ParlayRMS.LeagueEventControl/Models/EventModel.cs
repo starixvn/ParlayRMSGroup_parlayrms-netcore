@@ -29,6 +29,8 @@ namespace ParlayRMS.LeagueEventControl.Models
         public string AwayMarket { get; set; }
 
         public int Bettype { get; set; }
+
+        public int AwayBettype { get; set; }
     }
 
     public class EventGroupModel
@@ -49,5 +51,7 @@ namespace ParlayRMS.LeagueEventControl.Models
         public int AwayTotalTicket { get; set; }
 
         public string AwayMarket { get; set; }
+
+        public int AwayBettype { get; set; }
     }
 }

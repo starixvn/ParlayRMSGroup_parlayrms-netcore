@@ -95,7 +95,8 @@ namespace ParlayRMS.LeagueEventControl.Services
                             AwayAvgOdds = eventItem.AwayAvgOdds,
                             AwayMarket = eventItem.AwayMarket,
                             AwayTotalStake = eventItem.AwayTotalStake,
-                            AwayTotalTicket = eventItem.AwayTotalTicket
+                            AwayTotalTicket = eventItem.AwayTotalTicket,
+                            AwayBettype = eventItem.Bettype
                         });
                         index++;
                     }
@@ -156,6 +157,7 @@ namespace ParlayRMS.LeagueEventControl.Services
                 fixedBettypeList[i].AwayAvgOdds = awayEventModelList[i].AwayAvgOdds;
                 fixedBettypeList[i].AwayTotalStake = awayEventModelList[i].AwayTotalStake;
                 fixedBettypeList[i].AwayTotalTicket = awayEventModelList[i].AwayTotalTicket;
+                fixedBettypeList[i].AwayBettype = awayEventModelList[i].AwayBettype;
             }
             return fixedBettypeList;
         }
