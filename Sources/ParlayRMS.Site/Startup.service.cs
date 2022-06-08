@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
 using LeagueEventHandlers = ParlayRMS.LeagueEventControl.Handlers;
 using ParlayRMS.LeagueEventControl;
+using ParlayRMS.LeagueEventControl.Excels;
 
 namespace ParlayRMS.Site
 {
@@ -53,6 +54,9 @@ namespace ParlayRMS.Site
 
             services.AddMediatR(typeof(LeagueEventHandlers.FilterHandler).Assembly);
             services.AddMediatR(typeof(LeagueEventHandlers.LeagueEventHandler).Assembly);
+            services.AddMediatR(typeof(LeagueEventHandlers.EventDetailHandler).Assembly);
+            services.AddMediatR(typeof(LeagueEventHandlers.EventHandler).Assembly);
+            services.AddMediatR(typeof(LeagueEventHandlers.ExcelHandler).Assembly);
 
             services.AddSingleton(CreateMapper);
         }
@@ -70,6 +74,7 @@ namespace ParlayRMS.Site
         {
             services.AddTransient<LeagueEventServices.FilterService, LeagueEventServices.FilterServiceImp>();
             services.AddTransient<LeagueEventServices.LeagueEventService, LeagueEventServices.LeagueEventServiceImp>();
+            services.AddTransient<ExcelBuilder, ExcelBuilderImp>();
         }
 
         private static IMapper CreateMapper

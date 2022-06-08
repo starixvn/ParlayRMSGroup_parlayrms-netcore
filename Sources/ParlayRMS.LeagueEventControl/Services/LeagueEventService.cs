@@ -13,6 +13,8 @@ namespace ParlayRMS.LeagueEventControl.Services
     {
         Task<IEnumerable<LeagueDataModel>> GetLeaguesData(LeagueDataRequest request);
         Task<IEnumerable<EventGroupModel>> GetEvents(EventRequest request);
+        Task<List<EventDetailModel>> GetEventDetail(EventDetailRequest request);
+        Task<IEnumerable<MainTicketModel>> GetMainTickets(ExcelRequest request);
     }
 
     public class LeagueEventServiceImp : LeagueEventService
@@ -40,6 +42,24 @@ namespace ParlayRMS.LeagueEventControl.Services
             return Task.FromResult(eventGroup);
         }
 
+        public Task<List<EventDetailModel>> GetEventDetail(EventDetailRequest request)
+        {
+            var result = new List<EventDetailModel>();
+            var criteria = mapper.Map<EventDetailCriteria>(request);
+            var data = dynamicRepository.Fetch<EventDetailModel>(criteria);
+            var (stakeTotal, ticketTotal) = data.Aggregate((Stake: 0m, Ticket: 0), (sums, item) => (sums.Stake + item.Stake, sums.Ticket + item.Ticket));
+            result.Add(new EventDetailModel { Stake = stakeTotal, Ticket = ticketTotal });
+            result.AddRange(data.OrderByDescending(x => x.Stake));
+            return Task.FromResult(result);
+        }
+
+        public Task<IEnumerable<MainTicketModel>> GetMainTickets(ExcelRequest request)
+        {
+            var criteria = mapper.Map<EventDetailCriteria>(request);
+            var result = dynamicRepository.Fetch<MainTicketModel>(criteria);
+            return Task.FromResult(result);
+        }
+
         private static IEnumerable<EventGroupModel> UpdateModelView(IEnumerable<EventModel> rawData)
         {
             var eventGroup = rawData.GroupBy(x => x.MatchId).Select(x => new EventGroupModel { MatchId = x.Key, EventList = x.ToList() });
@@ -57,6 +77,8 @@ namespace ParlayRMS.LeagueEventControl.Services
                 var subAwayTotalTicket = 0;
                 var eventGroupModel = new EventGroupModel();
                 var awayEventModelList = new List<AwayEventModel>();
+                var homeName = item.EventList.FirstOrDefault().HomeName;
+                var awayName = item.EventList.FirstOrDefault().AwayName;
                 foreach (var eventItem in item.EventList)
                 {
                     totalStake += eventItem.HomeTotalStake + eventItem.AwayTotalStake;
@@ -73,7 +95,8 @@ namespace ParlayRMS.LeagueEventControl.Services
                             AwayAvgOdds = eventItem.AwayAvgOdds,
                             AwayMarket = eventItem.AwayMarket,
                             AwayTotalStake = eventItem.AwayTotalStake,
-                            AwayTotalTicket = eventItem.AwayTotalTicket
+                            AwayTotalTicket = eventItem.AwayTotalTicket,
+                            AwayBettype = eventItem.Bettype
                         });
                         index++;
                     }
@@ -86,8 +109,8 @@ namespace ParlayRMS.LeagueEventControl.Services
                     HomeTotalTicket = subHomeTotalTicket,
                     AwayTotalStake = subAwayTotalStake,
                     AwayTotalTicket = subAwayTotalTicket,
-                    HomeName = item.EventList.FirstOrDefault().HomeName,
-                    AwayName = item.EventList.FirstOrDefault().AwayName,
+                    HomeName = homeName,
+                    AwayName = awayName,
                 });
                 var sortedFixedBettypeList = SortFixedBettypeList(item.EventList, awayEventModelList);
                 eventGroupModel.EventList.AddRange(sortedFixedBettypeList);
@@ -97,6 +120,7 @@ namespace ParlayRMS.LeagueEventControl.Services
                     HomeTotalStake = x.HomeTotalStake + x.AwayTotalStake,
                     HomeTotalTicket = x.HomeTotalTicket + x.AwayTotalTicket,
                     HomeAvgOdds = x.HomeAvgOdds + x.AwayAvgOdds,
+                    Bettype = x.Bettype,
                     IsOther = true
                 }
                 );
@@ -111,7 +135,8 @@ namespace ParlayRMS.LeagueEventControl.Services
                         HomeName = Others,
                         HomeTotalStake = othersItem.HomeTotalStake + othersItem.AwayTotalStake,
                         HomeTotalTicket = othersItem.HomeTotalTicket + othersItem.AwayTotalTicket,
-                        IsOther = true
+                        IsOther = true,
+                        AwayName = $"{homeName} - vs - {awayName}"
                     });
                 }
                 eventGroupModel.EventList.Add(new EventModel { HomeName = "Total", HomeTotalStake = totalStake, HomeTotalTicket = totalTicket });
@@ -122,7 +147,7 @@ namespace ParlayRMS.LeagueEventControl.Services
             return result;
         }
 
-        private static IEnumerable<EventModel> SortFixedBettypeList(IEnumerable<EventModel> eventList, List<AwayEventModel> awayEventModelList)
+        private static List<EventModel> SortFixedBettypeList(List<EventModel> eventList, List<AwayEventModel> awayEventModelList)
         {
             var fixedBettypeList = eventList.Where(x => !x.IsOther).OrderByDescending(x => x.HomeTotalStake).ToList();
             awayEventModelList = awayEventModelList.OrderByDescending(x => x.AwayTotalStake).ToList();
@@ -132,6 +157,7 @@ namespace ParlayRMS.LeagueEventControl.Services
                 fixedBettypeList[i].AwayAvgOdds = awayEventModelList[i].AwayAvgOdds;
                 fixedBettypeList[i].AwayTotalStake = awayEventModelList[i].AwayTotalStake;
                 fixedBettypeList[i].AwayTotalTicket = awayEventModelList[i].AwayTotalTicket;
+                fixedBettypeList[i].AwayBettype = awayEventModelList[i].AwayBettype;
             }
             return fixedBettypeList;
         }
