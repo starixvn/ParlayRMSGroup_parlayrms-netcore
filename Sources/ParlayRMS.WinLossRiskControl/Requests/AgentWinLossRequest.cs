@@ -27,5 +27,7 @@ namespace ParlayRMS.WinLossRiskControl.Requests
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
+
+        public byte LiveStatus { get; set; }
     }
 }
