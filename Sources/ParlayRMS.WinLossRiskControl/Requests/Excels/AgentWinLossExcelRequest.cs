@@ -24,5 +24,7 @@ namespace ParlayRMS.WinLossRiskControl.Requests.Excels
         public string Company { get; set; }
 
         public string Site { get; set; }
+
+        public byte LiveStatus { get; set; }
     }
 }

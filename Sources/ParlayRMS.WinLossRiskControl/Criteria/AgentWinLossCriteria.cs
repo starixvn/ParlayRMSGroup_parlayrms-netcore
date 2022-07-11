@@ -27,6 +27,8 @@ namespace ParlayRMS.WinLossRiskControl.Criteria
 
         public string Site { get; set; }
 
+        public byte LiveStatus { get; set; }
+
         public override string GetSettingKey() => "RMS_Rpt_Winloss_Risk_Control_Agent";
 
         public override bool IsValid() => !string.IsNullOrWhiteSpace(FromDate.ToString()) && !string.IsNullOrWhiteSpace(ToDate.ToString());

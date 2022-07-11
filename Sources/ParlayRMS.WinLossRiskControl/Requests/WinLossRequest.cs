@@ -16,5 +16,7 @@ namespace ParlayRMS.WinLossRiskControl.Requests
         public string Selection { get; set; }
 
         public string SportType	 { get; set; }
+
+        public byte LiveStatus { get; set; }
     }
 }
