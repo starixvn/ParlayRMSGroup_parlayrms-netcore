@@ -11,7 +11,7 @@ namespace ParlayRMS.LeagueEventControl.Models.Excels
         public string TransDateString { get; set; }
 
         [Cell("C3")]
-        public long TransId { get; set; }
+        public string TransId { get; set; }
 
         [Cell("D3")]
         public string Username { get; set; }
