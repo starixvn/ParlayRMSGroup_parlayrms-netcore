@@ -33,10 +33,7 @@ namespace ParlayRMS.WinLossRiskControl.Models
                     return username;
                 }
             }
-            set
-            {
-                username = value;
-            }
+            set => username = value;
         }
 
         public int CustId { get; set; }
@@ -63,29 +60,14 @@ namespace ParlayRMS.WinLossRiskControl.Models
 
         public string Site { get; set; }
 
-        public string CustomerClass
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(customerClass))
-                    return customerClass;
-                else
-                    return "None";
-            }
-        }
+        public string CustomerClass => !string.IsNullOrWhiteSpace(customerClass) ? customerClass : "None";
 
         public int TotalRecords { get; set; }
 
         public decimal Margin
         {
-            get
-            {
-                return this.RealTurnover > 0 ? (this.RealIncome / this.RealTurnover) * 100 : 0;
-            }
-            set
-            {
-                margin = value;
-            }
+            get => this.RealTurnover > 0 ? (this.RealIncome / this.RealTurnover) * 100 : 0;
+            set => margin = value;
         }
 
         public List<WinLossModel> Rows { get; set; } = new List<WinLossModel>();
