@@ -38,4 +38,11 @@
 
         public required string Action { get; set; }
     }
+
+    public class ManageAlertViewModel
+    {
+        public IEnumerable<ManageAlertModel> Items { get; set; }
+
+        public int TotalItems { get; set; }
+    }
 }

@@ -19,7 +19,11 @@ namespace ParlayRMS.ManageAlert.Criteria
         public required string ActionType { get; set; }
 
         public required string TicketStatus { get; set; }
-         
+
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
+
         public override string GetSettingKey() => "RMS_ManageAlert_Alert";
 
         public override bool IsValid() => true;

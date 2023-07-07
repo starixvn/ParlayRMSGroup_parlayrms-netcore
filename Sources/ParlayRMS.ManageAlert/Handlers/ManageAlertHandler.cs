@@ -5,7 +5,7 @@ using ParlayRMS.ManageAlert.Services;
 
 namespace ParlayRMS.ManageAlert.Handlers
 {
-    public class ManageAlertHandler : IRequestHandler<ManageAlertRequest, IEnumerable<ManageAlertModel>>
+    public class ManageAlertHandler : IRequestHandler<ManageAlertRequest, ManageAlertViewModel>
     {
         private readonly ManageAlertService manageAlertService;
 
@@ -14,7 +14,7 @@ namespace ParlayRMS.ManageAlert.Handlers
             this.manageAlertService = manageAlertService;
         }
 
-        public Task<IEnumerable<ManageAlertModel>> Handle(ManageAlertRequest request,
+        public Task<ManageAlertViewModel> Handle(ManageAlertRequest request,
             CancellationToken cancellationToken) => this.manageAlertService.GetAlerts(request);
     }
 }

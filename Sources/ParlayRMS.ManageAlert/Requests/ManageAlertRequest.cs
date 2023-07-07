@@ -3,7 +3,7 @@ using ParlayRMS.ManageAlert.Models;
 
 namespace ParlayRMS.ManageAlert.Requests
 {
-    public class ManageAlertRequest : IRequest<IEnumerable<ManageAlertModel>>
+    public class ManageAlertRequest : IRequest<ManageAlertViewModel>
     {
         public required string FromDate { get; set; }
 
@@ -13,12 +13,16 @@ namespace ParlayRMS.ManageAlert.Requests
 
         public string? Member { get; set; }
 
-        public string? CheckedBy { get; set; }
+        public string? CheckBy { get; set; }
 
         public bool IsNoChecked { get; set; }
 
         public required string ActionType { get; set; }
 
         public required string TicketStatus { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
     }
 }

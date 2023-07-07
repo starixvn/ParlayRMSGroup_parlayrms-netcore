@@ -19,7 +19,7 @@
 
         public string UserName { get; set; }
 
-        public byte CustomerClass { get; set; }
+        public int? CustomerClass { get; set; }
     }
 
     public class PotentialWinningDetailModel : ViewDetailModel

@@ -8,7 +8,7 @@ namespace ParlayRMS.ManageAlert.Services
 {
     public interface ManageAlertService
     {
-        Task<IEnumerable<ManageAlertModel>> GetAlerts(ManageAlertRequest  request);
+        Task<ManageAlertViewModel> GetAlerts(ManageAlertRequest  request);
 
         Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(SimilarTicketDetailRequest request);
 
@@ -30,10 +30,15 @@ namespace ParlayRMS.ManageAlert.Services
             this.mapper = mapper;
         }
 
-        public Task<IEnumerable<ManageAlertModel>> GetAlerts(ManageAlertRequest request)
+        public async Task<ManageAlertViewModel> GetAlerts(ManageAlertRequest request)
         {
             var criteria = mapper.Map<ManageAlertCriteria>(request);
-            return dynamicRepository.FetchAsync<ManageAlertModel>(criteria);
+            var result = await dynamicRepository.FetchMultipleAsync<ManageAlertModel, int>(criteria);
+            return new ManageAlertViewModel
+            {
+                Items = result.firstResultSet,
+                TotalItems = result.secondResultSet.FirstOrDefault()
+            };
         }
 
         public Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(SimilarTicketDetailRequest request)
