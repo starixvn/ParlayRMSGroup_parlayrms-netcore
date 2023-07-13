@@ -2,7 +2,7 @@
 {
     public class ViewDetailModel
     {
-        public long TransId { get; set; }
+        public string TransId { get; set; }
 
         public decimal Stake { get; set; }
 
@@ -11,13 +11,19 @@
         public decimal HouseAmt { get; set; }
 
         public string Status { get; set; }
+
+        public string RefNo { get; set; }
+
+        public int CustId { get; set; }
+
+        public string UserName { get; set; }
+
+        public int BetType { get; set; }
     }
 
     public class SimilarTicketDetailModel : ViewDetailModel
     {
         public string SiteGroup { get; set; }
-
-        public string UserName { get; set; }
 
         public int? CustomerClass { get; set; }
     }
