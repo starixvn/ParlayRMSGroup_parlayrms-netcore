@@ -1,30 +1,39 @@
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using ParlayRMS.Site.CrossCuttingConcern;
+using ParlayRMS.Site.Extensions;
 
-namespace ParlayRMS.Site
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-        .ConfigureAppConfiguration((builderContext, config) =>
-        {
-            var env = builderContext.HostingEnvironment;
+builder.Services.AddCustomCors();
+builder.Services.AddCustomAuthorization();
+builder.Services.AddCustomAuthentication(builder.Configuration);
+builder.Services.AddRedis(builder.Configuration);
+builder.Services.AddCustomSession(builder.Configuration);
+builder.Services.AddFanex(builder.Configuration);
+builder.Services.AddNapServices();
+builder.Services.AddWinLossRiskControlServices();
+builder.Services.AddLeagueEventControlServices();
+builder.Services.AddManageAlertServices();
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
-            config.SetBasePath(env.ContentRootPath);
-            config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+var app = builder.Build();
 
-            config.AddEnvironmentVariables();
-        })
-        .UseUrls($"http://0.0.0.0:5000")
-        .UseStartup<Startup>();
-    }
-}
+app.UseDeveloperExceptionPage();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCookiePolicy();
+app.UseMiddleware<ErrorHandler>();
+app.UseSession();
+app.UseRouting();
+app.UseCors("AllowOrigin");
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+
+#if DEBUG
+app.Run();
+#else
+await app.RunAsync("http://0.0.0.0:5000");
+#endif

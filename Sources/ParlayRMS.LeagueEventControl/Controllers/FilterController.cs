@@ -22,6 +22,6 @@ namespace ParlayRMS.LeagueEventControl.Controllers
         public async Task<ActionResult> League(LeagueRequest request) => Ok(await mediator.Send(request));
 
         [Route("bettype")]
-        public async Task<ActionResult> Bettype(BettypeRequest requestt) => Ok(await mediator.Send(requestt));
+        public async Task<ActionResult> Bettype(BettypeRequest request) => Ok(await mediator.Send(request));
     }
 }

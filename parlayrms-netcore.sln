@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{F468E149-B2C9-4538-A061-CF844BC6E4EC}"
 EndProject
@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParlayRMS.Auth", "Sources\P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParlayRMS.Application", "Sources\ParlayRMS.Application\ParlayRMS.Application.csproj", "{1424200E-D5D3-47C7-9016-42B8A7FF1776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParlayRMS.LeagueEventControl", "Sources\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj", "{D09380AB-A852-4098-9BE7-07873044749F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParlayRMS.LeagueEventControl", "Sources\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj", "{D09380AB-A852-4098-9BE7-07873044749F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParlayRMS.ManageAlert", "Sources\ParlayRMS.ManageAlert\ParlayRMS.ManageAlert.csproj", "{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,18 @@ Global
 		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x64.Build.0 = Release|Any CPU
 		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D09380AB-A852-4098-9BE7-07873044749F}.Release|x86.Build.0 = Release|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Debug|x64.Build.0 = Debug|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Debug|x86.Build.0 = Debug|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Release|x64.ActiveCfg = Release|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Release|x64.Build.0 = Release|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Release|x86.ActiveCfg = Release|Any CPU
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +126,7 @@ Global
 		{FFEE5661-51BC-4B84-834F-A24EBB3A7910} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
 		{1424200E-D5D3-47C7-9016-42B8A7FF1776} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
 		{D09380AB-A852-4098-9BE7-07873044749F} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
+		{1F68DA49-2CBB-42BA-92DD-D1FD661F2023} = {F468E149-B2C9-4538-A061-CF844BC6E4EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AA985BF-8C22-476D-A643-3B49F8FFCB6B}

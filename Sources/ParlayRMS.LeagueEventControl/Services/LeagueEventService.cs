@@ -77,8 +77,8 @@ namespace ParlayRMS.LeagueEventControl.Services
                 var subAwayTotalTicket = 0;
                 var eventGroupModel = new EventGroupModel();
                 var awayEventModelList = new List<AwayEventModel>();
-                var homeName = item.EventList.FirstOrDefault().HomeName;
-                var awayName = item.EventList.FirstOrDefault().AwayName;
+                var homeName = item.EventList.FirstOrDefault()?.HomeName;
+                var awayName = item.EventList.FirstOrDefault()?.AwayName;
                 foreach (var eventItem in item.EventList)
                 {
                     totalStake += eventItem.HomeTotalStake + eventItem.AwayTotalStake;

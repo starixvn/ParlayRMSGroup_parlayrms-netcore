@@ -1,10 +1,11 @@
-FROM hub.nexdev.net/base/dotnet/core/sdk:5.0.102-ca-patch-buster-slim AS builder
+FROM hub.nexdev.net/base/dotnet/core/sdk:7.0 AS builder
 WORKDIR /src
 
 COPY ./Sources/ParlayRMS.Application ./ParlayRMS.Application
 COPY ./Sources/ParlayRMS.Auth ./ParlayRMS.Auth
 COPY ./Sources/ParlayRMS.LeagueEventControl ./ParlayRMS.LeagueEventControl
 COPY ./Sources/ParlayRMS.WinLossRiskControl ./ParlayRMS.WinLossRiskControl
+COPY ./Sources/ParlayRMS.ManageAlert ./ParlayRMS.ManageAlert
 COPY ./Sources/ParlayRMS.Site/ParlayRMS.Site.csproj ./ParlayRMS.Site/ParlayRMS.Site.csproj
 
 RUN ls /src -l
@@ -16,12 +17,7 @@ COPY ./Sources/ParlayRMS.Site .
 
 RUN dotnet publish -r linux-x64 --self-contained false -c Release -o /app 
 
-FROM hub.nexdev.net/base/dotnet/core/aspnet:5.0-nap-mail-core
-
-RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
-RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /etc/ssl/openssl.cnf
-RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /usr/lib/ssl/openssl.cnf
-RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /usr/lib/ssl/openssl.cnf
+FROM hub.nexdev.net/rebuild-baseimage/dotnetcore/aspnet:7.0-nap-mail-core
 
 # Don’t run as root
 RUN adduser --disabled-password \
