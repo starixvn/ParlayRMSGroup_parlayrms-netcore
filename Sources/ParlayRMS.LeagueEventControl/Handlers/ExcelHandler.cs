@@ -12,70 +12,69 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ParlayRMS.LeagueEventControl.Handlers
+namespace ParlayRMS.LeagueEventControl.Handlers;
+
+public class ExcelHandler : IRequestHandler<ExcelRequest, ExcelPackage>
 {
-    public class ExcelHandler : IRequestHandler<ExcelRequest, ExcelPackage>
-    {
-        private const string LanguageCode = "en";
+	private const string LanguageCode = "en";
 
-        private readonly LeagueEventService leagueEventService;
+	private readonly LeagueEventService leagueEventService;
 
-        private readonly ExcelBuilder excelBuilder;
+	private readonly ExcelBuilder excelBuilder;
 
-        private readonly IMapper mapper;
+	private readonly IMapper mapper;
 
-        private readonly IRemotingRefService remotingRefService;
+	private readonly IRemotingRefService remotingRefService;
 
-        public ExcelHandler(LeagueEventService leagueEventService, ExcelBuilder excelBuilder, IMapper mapper, IRemotingRefService remotingRefService)
-        {
-            this.leagueEventService = leagueEventService;
-            this.excelBuilder = excelBuilder;
-            this.mapper = mapper;
-            this.remotingRefService = remotingRefService;
-        }
+	public ExcelHandler(LeagueEventService leagueEventService, ExcelBuilder excelBuilder, IMapper mapper, IRemotingRefService remotingRefService)
+	{
+		this.leagueEventService = leagueEventService;
+		this.excelBuilder = excelBuilder;
+		this.mapper = mapper;
+		this.remotingRefService = remotingRefService;
+	}
 
-        public async Task<ExcelPackage> Handle(ExcelRequest request, CancellationToken cancellationToken)
-        {
-            var excelSetting = new ExcelSetting
-            {
-                Title = request.Title,
-                FileName = "league-event-monitor.xlsx"
-            };
+	public async Task<ExcelPackage> Handle(ExcelRequest request, CancellationToken cancellationToken)
+	{
+		var excelSetting = new ExcelSetting
+		{
+			Title = request.Title,
+			FileName = "league-event-monitor.xlsx"
+		};
 
-            var data = await leagueEventService.GetMainTickets(request);
-            UpdateViewModel(data);
-            var list = mapper.Map<List<MainTicketExcelModel>>(data);
-            return excelBuilder.CreateExcelPackage(list, excelSetting);
-        }
+		var data = await leagueEventService.GetMainTickets(request);
+		UpdateViewModel(data);
+		var list = mapper.Map<List<MainTicketExcelModel>>(data);
+		return excelBuilder.CreateExcelPackage(list, excelSetting);
+	}
 
-        private void UpdateViewModel(IEnumerable<MainTicketModel> list)
-        {
-            int index = 1;
-            foreach(var item in list)
-            {
-                item.No = index;
-                item.TransDateString = item.TransDate.ToString("MM/dd/yyyy h:mm:ss tt");
-                item.Stake = Math.Round(item.Stake, 2);
-                item.MaxPayOut = Math.Floor(item.MaxPayOut);
-                item.SportTypeName = GetSportName(item.SportType);
-                item.CustomerClass = string.IsNullOrEmpty(item.CustomerClass) ? "None" : item.CustomerClass;
-                item.PotentialWinningAmt = Math.Floor(item.PotentialWinningAmt);
-                item.Odds = item.Odds < 10 ? Math.Round(item.Odds, 2) : Math.Floor(item.Odds);
-                index++;
-            }    
-        }
+	private void UpdateViewModel(IEnumerable<MainTicketModel> list)
+	{
+		var index = 1;
+		foreach(var item in list)
+		{
+			item.No = index;
+			item.TransDateString = item.TransDate.ToString("MM/dd/yyyy h:mm:ss tt");
+			item.Stake = Math.Round(item.Stake, 2);
+			item.MaxPayOut = Math.Floor(item.MaxPayOut);
+			item.SportTypeName = GetSportName(item.SportType);
+			item.CustomerClass = string.IsNullOrEmpty(item.CustomerClass) ? "None" : item.CustomerClass;
+			item.PotentialWinningAmt = Math.Floor(item.PotentialWinningAmt);
+			item.Odds = item.Odds < 10 ? Math.Round(item.Odds, 2) : Math.Floor(item.Odds);
+			index++;
+		}    
+	}
 
-        private string GetSportName(int sportId)
-        {
-            return sportId switch
-            {
-                -1 => "Combined other sports",
-                -2 => "Other sports",
-                -3 => "Combined sports",
-                -4 => "Virtual Soccer",
-                -5 => "Virtual Basketball",
-                _ => remotingRefService.GetSportName(sportId.ToString(), LanguageCode),
-            };
-        }
-    }
+	private string GetSportName(int sportId)
+	{
+		return sportId switch
+		{
+			-1 => "Combined other sports",
+			-2 => "Other sports",
+			-3 => "Combined sports",
+			-4 => "Virtual Soccer",
+			-5 => "Virtual Basketball",
+			_ => remotingRefService.GetSportName(sportId.ToString(), LanguageCode)
+		};
+	}
 }

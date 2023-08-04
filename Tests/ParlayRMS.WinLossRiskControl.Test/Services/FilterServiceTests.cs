@@ -10,69 +10,68 @@ using ParlayRMS.WinLossRiskControl.Models;
 using ParlayRMS.WinLossRiskControl.Services;
 using Xunit;
 
-namespace ParlayRMS.WinLossRiskControl.Test.Services
+namespace ParlayRMS.WinLossRiskControl.Test.Services;
+
+public class FilterServiceTests
 {
-    public class FilterServiceTests
-    {
-        private IDynamicRepository repository;
-        private IRemotingRefService remotingRefService;
-        private FilterService service;
+	private readonly IDynamicRepository repository;
+	private readonly IRemotingRefService remotingRefService;
+	private readonly FilterService service;
 
-        public FilterServiceTests()
-        {
-            repository = Substitute.For<IDynamicRepository>();
-            remotingRefService = Substitute.For<IRemotingRefService>();
-            service = new FilterServiceImp(repository, remotingRefService);
-        }
+	public FilterServiceTests()
+	{
+		repository = Substitute.For<IDynamicRepository>();
+		remotingRefService = Substitute.For<IRemotingRefService>();
+		service = new FilterServiceImp(repository, remotingRefService);
+	}
 
-        private List<SelectItemModel> ExpectedListParlayTypes()
-        {
-            return new List<SelectItemModel>()
-            {
-                new SelectItemModel { Name = "Mix Parlay", Id = 1 },
-                new SelectItemModel { Name = "God Of Fortune", Id = 5 },
-                new SelectItemModel { Name = "Combo Parlay", Id = 2 },
-                new SelectItemModel { Name = "Penalty Shootout Combo", Id = 4 },
-                new SelectItemModel { Name = "Single Match Parlay", Id = 3 }
-            };
-        }
+	private static List<SelectItemModel> ExpectedListParlayTypes()
+	{
+		return new List<SelectItemModel>
+		{
+			new() { Name = "Mix Parlay", Id = 1 },
+			new() { Name = "God Of Fortune", Id = 5 },
+			new() { Name = "Combo Parlay", Id = 2 },
+			new() { Name = "Penalty Shootout Combo", Id = 4 },
+			new() { Name = "Single Match Parlay", Id = 3 }
+		};
+	}
 
-        [Fact]
-        public async Task GetParlayTypes_Always_ReturnsExpectedList()
-        {
-            // Act
-            var actualResults = await service.GetParlayTypes();
+	[Fact]
+	public async Task GetParlayTypes_Always_ReturnsExpectedList()
+	{
+		// Act
+		var actualResults = await service.GetParlayTypes();
 
-            // Assert
-            var expectedList = ExpectedListParlayTypes();
-            AssertExtension.AreEqual(expectedList, actualResults);
-        }
+		// Assert
+		var expectedList = ExpectedListParlayTypes();
+		AssertExtension.AreEqual(expectedList, actualResults);
+	}
 
-        [Fact]
-        public async Task GetSports_Always_ReturnsExpectedTotalItems()
-        {
-            // Act
-            var actualResults = await service.GetSports();
+	[Fact]
+	public async Task GetSports_Always_ReturnsExpectedTotalItems()
+	{
+		// Act
+		var actualResults = await service.GetSports();
 
-            // Assert
-            var expectedItems = 17;
-            Assert.Equal(expectedItems, actualResults.Count);
-        }
+		// Assert
+		const int expectedItems = 17;
+		Assert.Equal(expectedItems, actualResults.Count);
+	}
 
-        [Fact]
-        public async Task GetCompany_Always_ReturnNotNull()
-        {
-            // Arrange
-            var fixture = new Fixture();
-            var company = fixture.CreateMany<CompanyModel>(2).ToList();
-            repository.FetchAsync<CompanyModel>(Arg.Any<CompanyCriteria>()).Returns(company);
+	[Fact]
+	public async Task GetCompany_Always_ReturnNotNull()
+	{
+		// Arrange
+		var fixture = new Fixture();
+		var company = fixture.CreateMany<CompanyModel>(2).ToList();
+		repository.FetchAsync<CompanyModel>(Arg.Any<CompanyCriteria>()).Returns(company);
 
-            // Act
-            var actualResult = await service.GetCompany();
+		// Act
+		var actualResult = await service.GetCompany();
 
-            // Assert
-            Assert.NotNull(actualResult);
-            Assert.Equal(2, actualResult.Count);
-        }
-    }
+		// Assert
+		Assert.NotNull(actualResult);
+		Assert.Equal(2, actualResult.Count);
+	}
 }

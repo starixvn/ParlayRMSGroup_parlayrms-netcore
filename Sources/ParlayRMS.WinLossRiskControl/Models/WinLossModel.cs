@@ -1,88 +1,80 @@
 using System.Collections.Generic;
 
-namespace ParlayRMS.WinLossRiskControl.Models
+namespace ParlayRMS.WinLossRiskControl.Models;
+
+public class WinLossModel
 {
-    public class WinLossModel
-    {
-        private string username;
+	private string username;
 
-        private decimal margin;
+	private decimal margin;
 
-        private string customerClass;
+	private string customerClass;
 
-        public string Username
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(username))
-                {
-                    switch (IsDeposit)
-                    {
-                        case true:
-                            return "Licensee Group";
+	public string Username
+	{
+		get
+		{
+			if (string.IsNullOrWhiteSpace(username))
+			{
+				return IsDeposit switch
+				{
+					true => "Licensee Group",
+					false => "MBC Group",
+					_ => "Grand Total"
+				};
+			}
 
-                        case false:
-                            return "MBC Group";
+			return username;
+		}
+		set => username = value;
+	}
 
-                        default:
-                            return "Grand Total";
-                    }
-                }
-                else
-                {
-                    return username;
-                }
-            }
-            set => username = value;
-        }
+	public int CustId { get; set; }
 
-        public int CustId { get; set; }
+	public bool? IsDeposit { get; set; }
 
-        public bool? IsDeposit { get; set; }
+	public int RoleId { get; set; }
 
-        public int RoleId { get; set; }
+	public int NoMember { get; set; }
 
-        public int NoMember { get; set; }
+	public int BetCount { get; set; }
 
-        public int BetCount { get; set; }
+	public decimal MemberWinLoss { get; set; }
 
-        public decimal MemberWinLoss { get; set; }
+	public decimal SmaWinLoss { get; set; }
 
-        public decimal SmaWinLoss { get; set; }
+	public decimal ExtraPT { get; set; }
 
-        public decimal ExtraPT { get; set; }
+	public decimal Commission { get; set; }
 
-        public decimal Commission { get; set; }
+	public decimal RealIncome { get; set; }
 
-        public decimal RealIncome { get; set; }
+	public decimal RealTurnover { get; set; }
 
-        public decimal RealTurnover { get; set; }
+	public string Site { get; set; }
 
-        public string Site { get; set; }
+	public string CustomerClass => !string.IsNullOrWhiteSpace(customerClass) ? customerClass : "None";
 
-        public string CustomerClass => !string.IsNullOrWhiteSpace(customerClass) ? customerClass : "None";
+	public int TotalRecords { get; set; }
 
-        public int TotalRecords { get; set; }
+	public decimal Margin
+	{
+		get => RealTurnover > 0 ? RealIncome / RealTurnover * 100 : 0;
+		set => margin = value;
+	}
 
-        public decimal Margin
-        {
-            get => this.RealTurnover > 0 ? (this.RealIncome / this.RealTurnover) * 100 : 0;
-            set => margin = value;
-        }
+	public List<WinLossModel> Rows { get; set; } = new();
 
-        public List<WinLossModel> Rows { get; set; } = new List<WinLossModel>();
-
-        public void SumTotal(WinLossModel site)
-        {
-            this.NoMember += site.NoMember;
-            this.BetCount += site.BetCount;
-            this.MemberWinLoss += site.MemberWinLoss;
-            this.SmaWinLoss += site.SmaWinLoss;
-            this.ExtraPT += site.ExtraPT;
-            this.Commission += site.Commission;
-            this.RealIncome += site.RealIncome;
-            this.RealTurnover += site.RealTurnover;
-            this.Margin = this.RealTurnover > 0 ? (this.RealIncome / this.RealTurnover) * 100 : 0;
-        }
-    }
+	public void SumTotal(WinLossModel site)
+	{
+		NoMember += site.NoMember;
+		BetCount += site.BetCount;
+		MemberWinLoss += site.MemberWinLoss;
+		SmaWinLoss += site.SmaWinLoss;
+		ExtraPT += site.ExtraPT;
+		Commission += site.Commission;
+		RealIncome += site.RealIncome;
+		RealTurnover += site.RealTurnover;
+		Margin = RealTurnover > 0 ? RealIncome / RealTurnover * 100 : 0;
+	}
 }

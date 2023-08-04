@@ -6,37 +6,36 @@ using ParlayRMS.LeagueEventControl.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ParlayRMS.LeagueEventControl.Services
+namespace ParlayRMS.LeagueEventControl.Services;
+
+public interface FilterService
 {
-    public interface FilterService
-    {
-        Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request);
+	Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request);
 
-        Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request);
-    }
+	Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request);
+}
 
-    public class FilterServiceImp : FilterService
-    {
-        private readonly IDynamicRepository dynamicRepository;
+public class FilterServiceImp : FilterService
+{
+	private readonly IDynamicRepository dynamicRepository;
 
-        private readonly IMapper mapper;
+	private readonly IMapper mapper;
 
-        public FilterServiceImp(IDynamicRepository dynamicRepository, IMapper mapper)
-        {
-            this.dynamicRepository = dynamicRepository;
-            this.mapper = mapper;
-        }
+	public FilterServiceImp(IDynamicRepository dynamicRepository, IMapper mapper)
+	{
+		this.dynamicRepository = dynamicRepository;
+		this.mapper = mapper;
+	}
 
-        public Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request)
-        {
-            var criteria = mapper.Map<LeagueCriteria>(request);
-            return dynamicRepository.FetchAsync<LeagueModel>(criteria);
-        }
+	public Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request)
+	{
+		var criteria = mapper.Map<LeagueCriteria>(request);
+		return dynamicRepository.FetchAsync<LeagueModel>(criteria);
+	}
 
-        public Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request)
-        {
-            var criteria = mapper.Map<BettypeCriteria>(request);
-            return dynamicRepository.FetchAsync<BettypeModel>(criteria);
-        }
-    }
+	public Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request)
+	{
+		var criteria = mapper.Map<BettypeCriteria>(request);
+		return dynamicRepository.FetchAsync<BettypeModel>(criteria);
+	}
 }

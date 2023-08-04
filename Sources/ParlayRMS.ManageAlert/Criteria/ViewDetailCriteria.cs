@@ -1,13 +1,12 @@
 ﻿using Fanex.Data.Repository;
 
-namespace ParlayRMS.ManageAlert.Criteria
+namespace ParlayRMS.ManageAlert.Criteria;
+
+public class ViewDetailCriteria : CriteriaBase
 {
-    public class ViewDetailCriteria : CriteriaBase
-    {
-        public long AlertId { get; set; }
+	public long AlertId { get; set; }
 
-        public override string GetSettingKey() => "RMS_ManageAlert_AlertDetail";
+	public override string GetSettingKey() => "RMS_ManageAlert_AlertDetail";
 
-        public override bool IsValid() => true;
-    }
+	public override bool IsValid() => true;
 }

@@ -2,9 +2,8 @@
 using ParlayRMS.WinLossRiskControl.Models;
 using System.Collections.Generic;
 
-namespace ParlayRMS.WinLossRiskControl.Requests
+namespace ParlayRMS.WinLossRiskControl.Requests;
+
+public class ComboRequest : IRequest<List<SelectItemModel>>
 {
-    public class ComboRequest : IRequest<List<SelectItemModel>>
-    {
-    }
 }

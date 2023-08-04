@@ -36,190 +36,189 @@ using System.Threading.Tasks;
 using LeagueEventHandlers = ParlayRMS.LeagueEventControl.Handlers;
 using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
 
-namespace ParlayRMS.Site.Extensions
+namespace ParlayRMS.Site.Extensions;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
-    {
-        public static readonly string AllowOrigin = "AllowOrigin";
+	public static readonly string AllowOrigin = "AllowOrigin";
 
-        public static void AddNapServices(this IServiceCollection services)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IDynamicRepository, DynamicRepository>();
-            services.AddTransient<ILogger, Logger>();
-            services.AddSingleton<IRemotingRefService, RemotingRefService>();
+	public static void AddNapServices(this IServiceCollection services)
+	{
+		services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+		services.AddTransient<IDynamicRepository, DynamicRepository>();
+		services.AddTransient<ILogger, Logger>();
+		services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
-            services.AddSingleton<IMediator, Mediator>();
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(FilterHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ReportHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ReportExcelHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SiteReportExcelHandler).Assembly));
+		services.AddSingleton<IMediator, Mediator>();
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(FilterHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ReportHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ReportExcelHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SiteReportExcelHandler).Assembly));
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.FilterHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.LeagueEventHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.EventDetailHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.EventHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.ExcelHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.FilterHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.LeagueEventHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.EventDetailHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.EventHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LeagueEventHandlers.ExcelHandler).Assembly));
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ManageAlertHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SimilarTicketDetailHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(PotentialWinningDetailHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ViewLogHandler).Assembly));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(TakeActionHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ManageAlertHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SimilarTicketDetailHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(PotentialWinningDetailHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ViewLogHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(TakeActionHandler).Assembly));
 
-            services.AddSingleton(CreateMapper);
-        }
+		services.AddSingleton(CreateMapper);
+	}
 
-        public static void AddWinLossRiskControlServices(this IServiceCollection services)
-        {
-            services.AddTransient<WinLossExcelBuilder, WinLossExcelBuilderImp>();
-            services.AddTransient<WinLossService, WinLossServiceImp>();
-            services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
-            services.AddTransient<FilterService, FilterServiceImp>();
-            services.AddTransient<UserLoginService, UserLoginServiceImp>();
-        }
+	public static void AddWinLossRiskControlServices(this IServiceCollection services)
+	{
+		services.AddTransient<WinLossExcelBuilder, WinLossExcelBuilderImp>();
+		services.AddTransient<WinLossService, WinLossServiceImp>();
+		services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
+		services.AddTransient<FilterService, FilterServiceImp>();
+		services.AddTransient<UserLoginService, UserLoginServiceImp>();
+	}
 
-        public static void AddLeagueEventControlServices(this IServiceCollection services)
-        {
-            services.AddTransient<LeagueEventServices.FilterService, LeagueEventServices.FilterServiceImp>();
-            services.AddTransient<LeagueEventServices.LeagueEventService, LeagueEventServices.LeagueEventServiceImp>();
-            services.AddTransient<ExcelBuilder, ExcelBuilderImp>();
-        }
+	public static void AddLeagueEventControlServices(this IServiceCollection services)
+	{
+		services.AddTransient<LeagueEventServices.FilterService, LeagueEventServices.FilterServiceImp>();
+		services.AddTransient<LeagueEventServices.LeagueEventService, LeagueEventServices.LeagueEventServiceImp>();
+		services.AddTransient<ExcelBuilder, ExcelBuilderImp>();
+	}
 
-        public static void AddManageAlertServices(this IServiceCollection services)
-        {
-            services.AddTransient<ManageAlertService, ManageAlertServiceImp>();
+	public static void AddManageAlertServices(this IServiceCollection services)
+	{
+		services.AddTransient<ManageAlertService, ManageAlertServiceImp>();
 
-        }
+	}
 
-        private static IMapper CreateMapper
-        {
-            get
-            {
-                var mapperConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new WinLossMappingProfile());
-                    mc.AddProfile(new LeagueEventMappingProfile());
-                    mc.AddProfile(new ManageAlertMappingProfile());
-                });
+	private static IMapper CreateMapper
+	{
+		get
+		{
+			var mapperConfig = new MapperConfiguration(mc =>
+			{
+				mc.AddProfile(new WinLossMappingProfile());
+				mc.AddProfile(new LeagueEventMappingProfile());
+				mc.AddProfile(new ManageAlertMappingProfile());
+			});
 
-                return mapperConfig.CreateMapper();
-            }
-        }
+			return mapperConfig.CreateMapper();
+		}
+	}
 
-        public static void AddFanex(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connections = configuration.GetSection("ConnectionStrings")
-                                   .GetChildren()
-                                   .AsEnumerable()
-                                   .ToDictionary(
-                                            x => x.GetValue<string>("Name"),
-                                            y => new ConnectionConfiguration(y.GetValue<string>("Name"), y.GetValue<string>("ConnectionString"), y.GetValue<string>("ProviderName"))
-                                    );
+	public static void AddFanex(this IServiceCollection services, IConfiguration configuration)
+	{
+		var connections = configuration.GetSection("ConnectionStrings")
+			.GetChildren()
+			.AsEnumerable()
+			.ToDictionary(
+				x => x.GetValue<string>("Name"),
+				y => new ConnectionConfiguration(y.GetValue<string>("Name"), y.GetValue<string>("ConnectionString"), y.GetValue<string>("ProviderName"))
+			);
 
-            DbSettingProviderManager
-              .StartNewSession()
-              .Use(connections)
-              .WithSqlServer()
-              .UseDefaultDbSettingProvider(resourcePath: configuration.GetSection("StoredProcedurePath").Value)
-              .Run();
+		DbSettingProviderManager
+			.StartNewSession()
+			.Use(connections)
+			.WithSqlServer()
+			.UseDefaultDbSettingProvider(resourcePath: configuration.GetSection("StoredProcedurePath").Value)
+			.Run();
 
-            LogManager
-            .SetDefaultLogCategory(configuration.GetSection("LogCategory").Value)
-            .Use(new List<ILogEngine>
-            {
-                new SentryLogging(new SentryEngineOptions
-                {
-                    Dsn = new Dsn(configuration.GetSection("SentryEngineOptions:Dsn").Value)
-                })
-            });
+		LogManager
+			.SetDefaultLogCategory(configuration.GetSection("LogCategory").Value)
+			.Use(new List<ILogEngine>
+			{
+				new SentryLogging(new SentryEngineOptions
+				{
+					Dsn = new Dsn(configuration.GetSection("SentryEngineOptions:Dsn").Value)
+				})
+			});
 
-            RefDataTypeContainer
-            .ConnectTo(new Uri(configuration.GetSection("RemotingRef").Value))
-            .FromApplication(configuration.GetSection("LogCategory").Value)
-            .SupportOnlyDefaultLanguage();
+		RefDataTypeContainer
+			.ConnectTo(new Uri(configuration.GetSection("RemotingRef").Value))
+			.FromApplication(configuration.GetSection("LogCategory").Value)
+			.SupportOnlyDefaultLanguage();
 
-            ExceptionHandler
-                .UseConfig(new LoggingConfiguration())
-                .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
-        }
+		ExceptionHandler
+			.UseConfig(new LoggingConfiguration())
+			.UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+	}
 
-        public static void AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                        .AddCookie(options =>
-                        {
-                            options.LoginPath = configuration.GetSection("AuthSettings:LoginPath").Value;
-                            options.LogoutPath = configuration.GetSection("AuthSettings:LogoutPath").Value;
-                            options.ExpireTimeSpan = TimeSpan.FromMinutes(int.Parse(configuration.GetSection("AuthSettings:CookieTimeOut").Value));
-                            options.Cookie = new CookieBuilder
-                            {
-                                Name = "Fanex.ParlayRMS.Cookie",
-                                SecurePolicy = CookieSecurePolicy.SameAsRequest
-                            };
-                            options.Events.OnSigningOut = context =>
-                            {
-                                context.Response.Redirect(options.LoginPath);
-                                return Task.CompletedTask;
-                            };
-                        });
-        }
+	public static void AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
+	{
+		services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+			.AddCookie(options =>
+			{
+				options.LoginPath = configuration.GetSection("AuthSettings:LoginPath").Value;
+				options.LogoutPath = configuration.GetSection("AuthSettings:LogoutPath").Value;
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(int.Parse(configuration.GetSection("AuthSettings:CookieTimeOut").Value));
+				options.Cookie = new CookieBuilder
+				{
+					Name = "Fanex.ParlayRMS.Cookie",
+					SecurePolicy = CookieSecurePolicy.SameAsRequest
+				};
+				options.Events.OnSigningOut = context =>
+				{
+					context.Response.Redirect(options.LoginPath);
+					return Task.CompletedTask;
+				};
+			});
+	}
 
-        public static void AddRedis(this IServiceCollection services, IConfiguration configuration)
-        {
-            var redisConfig = configuration.GetSection("AuthSettings:RedisConfig").Value;
-            var redis = ConnectionMultiplexer.Connect(redisConfig);
+	public static void AddRedis(this IServiceCollection services, IConfiguration configuration)
+	{
+		var redisConfig = configuration.GetSection("AuthSettings:RedisConfig").Value;
+		var redis = ConnectionMultiplexer.Connect(redisConfig);
 
-            services.AddDataProtection()
-                .PersistKeysToStackExchangeRedis(redis, "Fanex.ParlayRMS-ProtectionKeys");
+		services.AddDataProtection()
+			.PersistKeysToStackExchangeRedis(redis, "Fanex.ParlayRMS-ProtectionKeys");
 
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = redisConfig;
-                options.InstanceName = "Fanex.ParlayRMS.Session-";
-            });
+		services.AddStackExchangeRedisCache(options =>
+		{
+			options.Configuration = redisConfig;
+			options.InstanceName = "Fanex.ParlayRMS.Session-";
+		});
 
-            services.AddRedisCache(configuration.GetSection("fanex.caching.redis"));
-        }
+		services.AddRedisCache(configuration.GetSection("fanex.caching.redis"));
+	}
 
-        public static void AddCustomSession(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddSession(options =>
-            {
-                options.Cookie.IsEssential = true;
-                options.IdleTimeout = TimeSpan.FromMinutes(int.Parse(configuration.GetSection("AuthSettings:SessionTimeOut").Value));
-                options.Cookie.Name = "Fanex.ParlayRMS.Session";
-            });
-        }
+	public static void AddCustomSession(this IServiceCollection services, IConfiguration configuration)
+	{
+		services.AddSession(options =>
+		{
+			options.Cookie.IsEssential = true;
+			options.IdleTimeout = TimeSpan.FromMinutes(int.Parse(configuration.GetSection("AuthSettings:SessionTimeOut").Value));
+			options.Cookie.Name = "Fanex.ParlayRMS.Session";
+		});
+	}
 
-        public static void AddCustomAuthorization(this IServiceCollection services)
-        {
-            services.AddControllers(config =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
-        }
+	public static void AddCustomAuthorization(this IServiceCollection services)
+	{
+		services.AddControllers(config =>
+		{
+			var policy = new AuthorizationPolicyBuilder()
+				.RequireAuthenticatedUser()
+				.Build();
+			config.Filters.Add(new AuthorizeFilter(policy));
+		});
+	}
 
-        public static void AddCustomCors(this IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(AllowOrigin,
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:57420", "http://localhost:57421", "http://localhost:61034",
-                                            "https://prms.nexdev.net", "https://prms-core.nexdev.net",
-                                            "https://napparlayrms.starixuat.com", "https://prmscore.starixuat.com",
-                                            "https://parlayrms.oneops.net", "https://prmscore.oneops.net",
-                                            "https://parlayrms.sportsfun.app", "https://prmscore.sportsfun.app")
-                              .AllowAnyMethod()
-                              .AllowAnyHeader()
-                              .AllowCredentials();
-                    });
-            });
-        }
-    }
+	public static void AddCustomCors(this IServiceCollection services)
+	{
+		services.AddCors(options =>
+		{
+			options.AddPolicy(AllowOrigin,
+				builder =>
+				{
+					builder.WithOrigins("http://localhost:57420", "http://localhost:57421", "http://localhost:61034",
+							"https://prms.nexdev.net", "https://prms-core.nexdev.net",
+							"https://napparlayrms.starixuat.com", "https://prmscore.starixuat.com",
+							"https://parlayrms.oneops.net", "https://prmscore.oneops.net",
+							"https://parlayrms.sportsfun.app", "https://prmscore.sportsfun.app")
+						.AllowAnyMethod()
+						.AllowAnyHeader()
+						.AllowCredentials();
+				});
+		});
+	}
 }

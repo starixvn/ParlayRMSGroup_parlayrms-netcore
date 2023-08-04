@@ -1,11 +1,10 @@
-﻿namespace ParlayRMS.ManageAlert.Models
+﻿namespace ParlayRMS.ManageAlert.Models;
+
+public class ViewLogModel
 {
-    public class ViewLogModel
-    {
-        public DateTime LogTime { get; set; }
+	public DateTime LogTime { get; set; }
 
-        public string ActionName { get; set; }
+	public string ActionName { get; set; }
 
-        public string UserName { get; set; }
-    }
+	public string UserName { get; set; }
 }

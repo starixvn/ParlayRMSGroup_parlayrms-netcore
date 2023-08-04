@@ -6,17 +6,16 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ParlayRMS.LeagueEventControl.Handlers
+namespace ParlayRMS.LeagueEventControl.Handlers;
+
+public class EventDetailHandler : IRequestHandler<EventDetailRequest, List<EventDetailModel>>
 {
-    public class EventDetailHandler : IRequestHandler<EventDetailRequest, List<EventDetailModel>>
-    {
-        private readonly LeagueEventService leagueEventService;
+	private readonly LeagueEventService leagueEventService;
 
-        public EventDetailHandler(LeagueEventService leagueEventService)
-        {
-            this.leagueEventService = leagueEventService;
-        }
+	public EventDetailHandler(LeagueEventService leagueEventService)
+	{
+		this.leagueEventService = leagueEventService;
+	}
 
-        public Task<List<EventDetailModel>> Handle(EventDetailRequest request, CancellationToken cancellationToken) => leagueEventService.GetEventDetail(request);
-    }
+	public Task<List<EventDetailModel>> Handle(EventDetailRequest request, CancellationToken cancellationToken) => leagueEventService.GetEventDetail(request);
 }

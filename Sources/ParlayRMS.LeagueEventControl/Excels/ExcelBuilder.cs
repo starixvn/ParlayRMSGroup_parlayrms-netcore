@@ -4,56 +4,55 @@ using ParlayRMS.LeagueEventControl.Models.Excels;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ParlayRMS.LeagueEventControl.Excels
+namespace ParlayRMS.LeagueEventControl.Excels;
+
+public interface ExcelBuilder
 {
-    public interface ExcelBuilder
-    {
-        ExcelPackage CreateExcelPackage(List<MainTicketExcelModel> list, ExcelSetting settings);
-    }
+	ExcelPackage CreateExcelPackage(List<MainTicketExcelModel> list, ExcelSetting settings);
+}
 
-    public class ExcelBuilderImp : ExcelBuilder
-    {
-        private int startRowIndex;
+public class ExcelBuilderImp : ExcelBuilder
+{
+	private int startRowIndex;
 
-        private ExcelWorksheet bodySheet;
+	private ExcelWorksheet bodySheet;
 
-        public ExcelPackage CreateExcelPackage(List<MainTicketExcelModel> list, ExcelSetting settings)
-        {
-            var excelPackage = LoadTemplate(settings.FileName);
-            Build(list, settings);
-            return excelPackage;
-        }
+	public ExcelPackage CreateExcelPackage(List<MainTicketExcelModel> list, ExcelSetting settings)
+	{
+		var excelPackage = LoadTemplate(settings.FileName);
+		Build(list, settings);
+		return excelPackage;
+	}
 
-        private ExcelPackage LoadTemplate(string fileName)
-        {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "LeagueEventControl", fileName);
+	private ExcelPackage LoadTemplate(string fileName)
+	{
+		var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "LeagueEventControl", fileName);
 
-            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var excelPackage = new ExcelPackage(stream);
-            bodySheet = excelPackage.Workbook.Worksheets["League_EventMonitor"];
-            return excelPackage;
-        }
+		using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+		var excelPackage = new ExcelPackage(stream);
+		bodySheet = excelPackage.Workbook.Worksheets["League_EventMonitor"];
+		return excelPackage;
+	}
 
-        private void Build(List<MainTicketExcelModel> list, ExcelSetting settings)
-        {
-            SetStartRowIndex(settings.StartRowIndex);
-            BuilTitle(settings.Title);
-            ApplyBody(list);
-        }
+	private void Build(IEnumerable<MainTicketExcelModel> list, ExcelSetting settings)
+	{
+		SetStartRowIndex(settings.StartRowIndex);
+		BuilTitle(settings.Title);
+		ApplyBody(list);
+	}
 
-        private void ApplyBody(List<MainTicketExcelModel> list)
-        {
-            bodySheet.ApplyVertical(list, startRowIndex);
-        }
+	private void ApplyBody(IEnumerable<MainTicketExcelModel> list)
+	{
+		bodySheet.ApplyVertical(list, startRowIndex);
+	}
 
-        private void BuilTitle(string title)
-        {
-            bodySheet.Cells["A1:M1"].Value = title;
-        }
+	private void BuilTitle(string title)
+	{
+		bodySheet.Cells["A1:M1"].Value = title;
+	}
 
-        private void SetStartRowIndex(int rowIndex)
-        {
-            this.startRowIndex = rowIndex;
-        }
-    }
+	private void SetStartRowIndex(int rowIndex)
+	{
+		startRowIndex = rowIndex;
+	}
 }

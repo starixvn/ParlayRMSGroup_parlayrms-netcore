@@ -1,47 +1,35 @@
-﻿using System;
-using System.IO;
+﻿namespace ParlayRMS.WinLossRiskControl.Shared;
 
-namespace ParlayRMS.WinLossRiskControl.Shared
+public class ExcelSetting
 {
-    public class ExcelSetting
-    {
-        public string FileName
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Company))
-                {
-                    return "super-win-loss.xlsx";
-                }
-                else if (RoleId == 4)
-                {
-                    return "master-win-loss.xlsx";
-                }
-                else if (RoleId == 3)
-                {
-                    return "agent-win-loss.xlsx";
-                }
-                else if (RoleId == 2)
-                {
-                    return "member-win-loss.xlsx";
-                }
-                else
-                {
-                    return "site-win-loss.xlsx";
-                }
-            }
-        }
+	public string FileName
+	{
+		get
+		{
+			if (!string.IsNullOrWhiteSpace(Company))
+			{
+				return "super-win-loss.xlsx";
+			}
 
-        public string SheetName { get; set; } = "Result";
+			return RoleId switch
+			{
+				4 => "master-win-loss.xlsx",
+				3 => "agent-win-loss.xlsx",
+				2 => "member-win-loss.xlsx",
+				_ => "site-win-loss.xlsx"
+			};
+		}
+	}
 
-        public int StartRowIndex { get; set; } = 3;
+	public string SheetName { get; set; } = "Result";
 
-        public string Title { get; set; }
+	public int StartRowIndex { get; set; } = 3;
 
-        public int RoleId { get; set; }
+	public string Title { get; set; }
 
-        public string Company { get; set; }
+	public int RoleId { get; set; }
 
-        public bool IsMerged { get; set; } = false;
-    }
+	public string Company { get; set; }
+
+	public bool IsMerged { get; set; } = false;
 }
