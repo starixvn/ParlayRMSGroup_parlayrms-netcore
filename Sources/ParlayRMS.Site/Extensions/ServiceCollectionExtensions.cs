@@ -75,7 +75,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<WinLossExcelBuilder, WinLossExcelBuilderImp>();
 		services.AddTransient<WinLossService, WinLossServiceImp>();
 		services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
-		services.AddTransient<FilterService, FilterServiceImp>();
+		services.AddTransient<WinLossRiskControl.Services.FilterService, WinLossRiskControl.Services.FilterServiceImp>();
 		services.AddTransient<UserLoginService, UserLoginServiceImp>();
 	}
 
@@ -89,7 +89,7 @@ public static class ServiceCollectionExtensions
 	public static void AddManageAlertServices(this IServiceCollection services)
 	{
 		services.AddTransient<ManageAlertService, ManageAlertServiceImp>();
-
+		services.AddTransient<ManageAlert.Services.FilterService, ManageAlert.Services.FilterServiceImp>();
 	}
 
 	private static IMapper CreateMapper
