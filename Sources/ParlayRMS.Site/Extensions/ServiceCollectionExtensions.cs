@@ -66,6 +66,7 @@ public static class ServiceCollectionExtensions
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(PotentialWinningDetailHandler).Assembly));
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ViewLogHandler).Assembly));
 		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(TakeActionHandler).Assembly));
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ExcelHandler).Assembly));
 
 		services.AddSingleton(CreateMapper);
 	}
@@ -89,6 +90,7 @@ public static class ServiceCollectionExtensions
 	public static void AddManageAlertServices(this IServiceCollection services)
 	{
 		services.AddTransient<ManageAlertService, ManageAlertServiceImp>();
+		services.AddTransient<ManageAlert.Excels.ExcelBuilder, ManageAlert.Excels.ExcelBuilderImp>();
 		services.AddTransient<ManageAlert.Services.FilterService, ManageAlert.Services.FilterServiceImp>();
 	}
 

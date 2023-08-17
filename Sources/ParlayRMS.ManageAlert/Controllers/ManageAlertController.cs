@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using ParlayRMS.ManageAlert.Epplus;
 using ParlayRMS.ManageAlert.Requests;
 
 namespace ParlayRMS.ManageAlert.Controllers;
@@ -31,4 +32,11 @@ public class ManageAlertController : ControllerBase
 
 	[Route("take-action")]
 	public async Task<IActionResult> TakeAction(TakeActionRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+
+	[Route("export-excel-alerts")]
+	public async Task<IActionResult> ExportExcel(ManageAlertExcelRequest request)
+	{
+		var excelPackage = await mediator.Send(request);
+		return new EpplusExcelResult(excelPackage);
+	}
 }

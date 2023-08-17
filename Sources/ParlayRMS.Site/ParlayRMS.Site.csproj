@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 		<None Remove="ExcelTemplate\LeagueEventControl\league-event-monitor.xlsx" />
+		<None Remove="ExcelTemplate\ManageAlert\manage-alert.xlsx" />
 		<None Remove="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx" />
 		<None Remove="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx" />
 		<None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
@@ -27,6 +28,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="ExcelTemplate\LeagueEventControl\league-event-monitor.xlsx">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ExcelTemplate\ManageAlert\manage-alert.xlsx">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx">
