@@ -10,9 +10,9 @@ public interface ManageAlertService
 {
 	Task<ManageAlertViewModel> GetAlerts(ManageAlertCriteria criteria);
 
-	Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(SimilarTicketDetailRequest request);
+	Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(ViewDetailCriteria criteria);
 
-	Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(PotentialWinningDetailRequest request);
+	Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(ViewDetailCriteria criteria);
 
 	Task<IEnumerable<ViewLogModel>> GetViewLogs(ViewLogRequest request);
 
@@ -40,15 +40,13 @@ public class ManageAlertServiceImp : ManageAlertService
 		};
 	}
 
-	public Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(SimilarTicketDetailRequest request)
+	public Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(ViewDetailCriteria criteria)
 	{
-		var criteria = mapper.Map<ViewDetailCriteria>(request);
 		return dynamicRepository.FetchAsync<SimilarTicketDetailModel>(criteria);
 	}
 
-	public Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(PotentialWinningDetailRequest request)
+	public Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(ViewDetailCriteria criteria)
 	{
-		var criteria = mapper.Map<ViewDetailCriteria>(request);
 		return dynamicRepository.FetchAsync<PotentialWinningDetailModel>(criteria);
 	}
 

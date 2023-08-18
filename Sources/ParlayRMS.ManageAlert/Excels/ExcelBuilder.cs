@@ -1,17 +1,11 @@
-﻿using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Epplus.Mapper.Extensions;
-using ParlayRMS.ManageAlert.Models;
+﻿using Epplus.Mapper.Extensions;
+using OfficeOpenXml;
 
 namespace ParlayRMS.ManageAlert.Excels;
 
 public interface ExcelBuilder
 {
-	ExcelPackage CreateExcelPackage(IEnumerable<ManageAlertExcelModel> list, ExcelSetting settings);
+	ExcelPackage CreateExcelPackage<T>(IEnumerable<T> list, ExcelSetting settings) where T : class, new();
 }
 
 public class ExcelBuilderImp : ExcelBuilder
@@ -20,30 +14,33 @@ public class ExcelBuilderImp : ExcelBuilder
 
 	private ExcelWorksheet bodySheet;
 
-	public ExcelPackage CreateExcelPackage(IEnumerable<ManageAlertExcelModel> list, ExcelSetting settings)
+	private static readonly string[] sheetNames = { "Manage_Alert", "Similar_Bet", "Potential_Winning" };
+
+	public ExcelPackage CreateExcelPackage<T>(IEnumerable<T> list, ExcelSetting settings) where T : class, new()
 	{
-		var excelPackage = LoadTemplate(settings.FileName!);
+		var excelPackage = LoadTemplate(settings.FileName!, settings.SheetName);
 		Build(list, settings);
+		ClearTemplate(excelPackage, settings.SheetName);
 		return excelPackage;
 	}
 
-	private ExcelPackage LoadTemplate(string fileName)
+	private ExcelPackage LoadTemplate(string fileName, string sheetName)
 	{
 		var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "ManageAlert", fileName);
 
 		using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 		var excelPackage = new ExcelPackage(stream);
-		bodySheet = excelPackage.Workbook.Worksheets["Manage_Alert"];
+		bodySheet = excelPackage.Workbook.Worksheets[sheetName];
 		return excelPackage;
 	}
 
-	private void Build(IEnumerable<ManageAlertExcelModel> list, ExcelSetting settings)
+	private void Build<T>(IEnumerable<T> list, ExcelSetting settings) where T : class, new()
 	{
 		SetStartRowIndex(settings.StartRowIndex);
 		ApplyBody(list);
 	}
 
-	private void ApplyBody(IEnumerable<ManageAlertExcelModel> list)
+	private void ApplyBody<T>(IEnumerable<T> list) where T : class, new()
 	{
 		bodySheet.ApplyVertical(list, startRowIndex);
 	}
@@ -51,5 +48,14 @@ public class ExcelBuilderImp : ExcelBuilder
 	private void SetStartRowIndex(int rowIndex)
 	{
 		startRowIndex = rowIndex;
+	}
+
+	private static void ClearTemplate(ExcelPackage excelPackage, string sheetName)
+	{
+		var list = sheetNames.Where(s => s != sheetName);
+		foreach (var item in list)
+		{
+			excelPackage.Workbook.Worksheets.Delete(item);
+		}
 	}
 }

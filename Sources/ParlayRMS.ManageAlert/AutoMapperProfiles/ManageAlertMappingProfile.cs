@@ -13,8 +13,12 @@ public class ManageAlertMappingProfile : Profile
 		CreateMap<ManageAlertExcelRequest, ManageAlertCriteria>();
 		CreateMap<SimilarTicketDetailRequest, ViewDetailCriteria>();
 		CreateMap<PotentialWinningDetailRequest, ViewDetailCriteria>();
+		CreateMap<SimilarTicketDetailExcelRequest, ViewDetailCriteria>();
+		CreateMap<PotentialWinningDetailExcelRequest, ViewDetailCriteria>();
 		CreateMap<ViewLogRequest, ViewLogCriteria>();
 		CreateMap<TakeActionRequest, TakeActionCriteria>();
 		CreateMap<ManageAlertModel, ManageAlertExcelModel>();
+		CreateMap<SimilarTicketDetailModel, SimilarTicketDetailExcelModel>();
+		CreateMap<PotentialWinningDetailModel, PotentialWinningDetailExcelModel>();
 	}
 }

@@ -39,4 +39,18 @@ public class ManageAlertController : ControllerBase
 		var excelPackage = await mediator.Send(request);
 		return new EpplusExcelResult(excelPackage);
 	}
+
+	[Route("export-excel-similar-bet")]
+	public async Task<IActionResult> ExportExcel(SimilarTicketDetailExcelRequest request)
+	{
+		var excelPackage = await mediator.Send(request);
+		return new EpplusExcelResult(excelPackage);
+	}
+
+	[Route("export-excel-potential-winning")]
+	public async Task<IActionResult> ExportExcel(PotentialWinningDetailExcelRequest request)
+	{
+		var excelPackage = await mediator.Send(request);
+		return new EpplusExcelResult(excelPackage);
+	}
 }
