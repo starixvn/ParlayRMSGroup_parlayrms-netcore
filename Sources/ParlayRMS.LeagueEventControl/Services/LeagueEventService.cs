@@ -115,7 +115,7 @@ public class LeagueEventServiceImp : LeagueEventService
 			};
 			var sortedFixedBetTypeList = SortFixedBetTypeList(item.EventList, awayEventModelList);
 			eventGroupModel.EventList.AddRange(sortedFixedBetTypeList);
-			AddMoreThanTwoWayBetTypeList(eventGroupModel.EventList, item.EventList);
+			AddMoreThanTwoWayBetTypeList(eventGroupModel.EventList, item.EventList, homeName, awayName);
 			AddOthers(eventGroupModel.EventList, item.EventList, homeName, awayName);
 			eventGroupModel.FixedBettypes = index;
 			eventGroupModel.RowsTotal = eventGroupModel.EventList.Count;
@@ -141,7 +141,7 @@ public class LeagueEventServiceImp : LeagueEventService
 		return fixedBetTypeList;
 	}
 
-	private static void AddMoreThanTwoWayBetTypeList(List<EventModel> source, IEnumerable<EventModel> data)
+	private static void AddMoreThanTwoWayBetTypeList(List<EventModel> source, IEnumerable<EventModel> data, string homeName, string awayName)
 	{
 		var moreThanTwoWayBetTypeList = data.Where(x => x.IsOther && x.Market != Others).Select(x => new EventModel
 			{
@@ -150,8 +150,9 @@ public class LeagueEventServiceImp : LeagueEventService
 				HomeTotalTicket = x.HomeTotalTicket + x.AwayTotalTicket,
 				HomeAvgOdds = x.HomeAvgOdds + x.AwayAvgOdds,
 				Bettype = x.Bettype,
-				IsOther = true
-			}
+				IsOther = true,
+				Event = $"{homeName} - vs - {awayName}"
+		}
 		);
 		if (moreThanTwoWayBetTypeList.Any())
 		{
@@ -170,7 +171,7 @@ public class LeagueEventServiceImp : LeagueEventService
 				HomeTotalStake = othersItem.HomeTotalStake + othersItem.AwayTotalStake,
 				HomeTotalTicket = othersItem.HomeTotalTicket + othersItem.AwayTotalTicket,
 				IsOther = true,
-				AwayName = $"{homeName} - vs - {awayName}"
+				Event = $"{homeName} - vs - {awayName}"
 			});
 		}
 	}

@@ -33,6 +33,8 @@ public class EventModel
 	public int AwayBettype { get; set; }
 
 	public string LeagueName { get; set; }
+
+	public string Event { get; set; }
 }
 
 public class EventGroupModel
