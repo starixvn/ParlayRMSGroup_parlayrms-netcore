@@ -4,8 +4,10 @@ using ParlayRMS.LeagueEventControl.Criteria;
 using ParlayRMS.LeagueEventControl.Models;
 using ParlayRMS.LeagueEventControl.Requests;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Fanex.Logging;
 
 namespace ParlayRMS.LeagueEventControl.Services;
 
@@ -39,7 +41,11 @@ public class LeagueEventServiceImp : LeagueEventService
 	public Task<IEnumerable<EventGroupModel>> GetEvents(EventRequest request)
 	{
 		var criteria = mapper.Map<EventCriteria>(request);
+		var sw = new Stopwatch();
+		sw.Start();
 		var rawData = dynamicRepository.Fetch<EventModel>(criteria);
+		sw.Stop();
+		LogService.Info($"Sp time: {sw.ElapsedMilliseconds}");
 		var eventGroup = UpdateModelView(rawData);
 		return Task.FromResult(eventGroup);
 	}
