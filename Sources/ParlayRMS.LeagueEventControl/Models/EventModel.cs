@@ -43,7 +43,7 @@ public class EventGroupModel
 
 	public List<EventModel> EventList { get; set; }
 
-	public byte FixedBettypes { get; set; }
+	public int FixedBettypes { get; set; }
 
 	public int RowsTotal { get; set; }
 

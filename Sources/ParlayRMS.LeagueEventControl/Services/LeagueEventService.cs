@@ -66,7 +66,6 @@ public class LeagueEventServiceImp : LeagueEventService
 	{
 		var eventGroup = rawData.GroupBy(x => x.MatchId).Select(x => new EventGroupModel { MatchId = x.Key, EventList = x.ToList() });
 		var result = new List<EventGroupModel>();
-		byte index = 1;
 
 		foreach (var item in eventGroup)
 		{
@@ -97,7 +96,6 @@ public class LeagueEventServiceImp : LeagueEventService
 					AwayTotalTicket = eventItem.AwayTotalTicket,
 					AwayBettype = eventItem.Bettype
 				});
-				index++;
 			}
 			eventGroupModel.MatchId = item.MatchId;
 			eventGroupModel.EventList = new List<EventModel>
@@ -117,11 +115,10 @@ public class LeagueEventServiceImp : LeagueEventService
 			eventGroupModel.EventList.AddRange(sortedFixedBetTypeList);
 			AddMoreThanTwoWayBetTypeList(eventGroupModel.EventList, item.EventList, homeName, awayName);
 			AddOthers(eventGroupModel.EventList, item.EventList, homeName, awayName);
-			eventGroupModel.FixedBettypes = index;
+			eventGroupModel.FixedBettypes = sortedFixedBetTypeList.Count() + 1;
 			eventGroupModel.RowsTotal = eventGroupModel.EventList.Count;
 			eventGroupModel.TotalStake = totalStake;
 			result.Add(eventGroupModel);
-			index = 1;
 		}
 		return result;
 	}
@@ -138,7 +135,7 @@ public class LeagueEventServiceImp : LeagueEventService
 			fixedBetTypeList[i].AwayTotalTicket = awayEventModelList[i].AwayTotalTicket;
 			fixedBetTypeList[i].AwayBettype = awayEventModelList[i].AwayBettype;
 		}
-		return fixedBetTypeList;
+		return fixedBetTypeList.Where(betType => betType.HomeTotalTicket > 0 || betType.AwayTotalTicket > 0);
 	}
 
 	private static void AddMoreThanTwoWayBetTypeList(List<EventModel> source, IEnumerable<EventModel> data, string homeName, string awayName)
