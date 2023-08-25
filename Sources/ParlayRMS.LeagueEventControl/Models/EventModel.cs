@@ -31,6 +31,10 @@ public class EventModel
 	public int Bettype { get; set; }
 
 	public int AwayBettype { get; set; }
+
+	public string LeagueName { get; set; }
+
+	public string Event { get; set; }
 }
 
 public class EventGroupModel
@@ -39,7 +43,11 @@ public class EventGroupModel
 
 	public List<EventModel> EventList { get; set; }
 
-	public byte FixedBettypes { get; set; }
+	public int FixedBettypes { get; set; }
+
+	public int RowsTotal { get; set; }
+
+	public decimal TotalStake { get; set; }
 }
 
 public class AwayEventModel
