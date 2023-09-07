@@ -30,7 +30,7 @@ public class FilterServiceImp : FilterService
 			new SportModel { SportId = item, SportName = remotingRefService.GetSportName(item.ToString(), "en"), SportGroup = 1 }
 		));
 		sportTypes.Add(new SportModel { SportId = -2, SportName = "Other sports", SportGroup = 1 });
-		sportTypes.Add(new SportModel { SportId = -1, SportName = "Combined other sports", SportGroup = 0 });
+		sportTypes.Add(new SportModel { SportId = -1, SportName = "Combined other sports", SportGroup = 1 });
 		return sportTypes;
 	}
 }
