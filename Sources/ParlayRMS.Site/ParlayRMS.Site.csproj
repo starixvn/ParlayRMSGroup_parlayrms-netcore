@@ -60,16 +60,19 @@
 		<PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1-beta1" />
 		<PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
 		<PackageReference Include="Fanex.Logging.Sentry" Version="1.0.6" />
+		<PackageReference Include="Fanex.NAP.Client.AspNetCore" Version="2.0.0.10" />
+		<PackageReference Include="Fanex.NAP.Signin.AspNetCore" Version="2.0.0.15" />
 		<PackageReference Include="Fanex.RemotingRef" Version="1.5.0" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="7.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.8" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.8" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="ONEbook.UM.Transport" Version="3.1.2" />
 		<PackageReference Include="StackExchange.Redis" Version="2.2.4" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
-		<ProjectReference Include="..\ParlayRMS.Auth\ParlayRMS.Auth.csproj" />
 		<ProjectReference Include="..\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj" />
 		<ProjectReference Include="..\ParlayRMS.ManageAlert\ParlayRMS.ManageAlert.csproj" />
 		<ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />

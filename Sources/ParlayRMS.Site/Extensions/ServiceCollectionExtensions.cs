@@ -8,6 +8,10 @@ using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.AspNetCore;
 using Fanex.Logging.Extensions.Database;
 using Fanex.Logging.Sentry;
+using Fanex.NAP.Client.Configuration;
+using Fanex.NAP.Client.Helpers.Web;
+using Fanex.NAP.Client.Services;
+using Fanex.NAP.Client.Session;
 using Fanex.RemotingRef;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,7 +21,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ParlayRMS.Auth.Services;
 using ParlayRMS.LeagueEventControl;
 using ParlayRMS.LeagueEventControl.Excels;
 using ParlayRMS.ManageAlert.AutoMapperProfiles;
@@ -44,6 +47,12 @@ public static class ServiceCollectionExtensions
 
 	public static void AddNapServices(this IServiceCollection services)
 	{
+		services.AddTransient<IUserService, UserService>();
+		services.AddTransient<IGroupService, GroupService>();
+		services.AddTransient<ISiteService, SiteService>();
+		services.AddTransient<ISecurityService, SecurityService>();
+		services.AddTransient<INapSession, NapSession>();
+		services.AddTransient<INapSettings, NapSettings>();
 		services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 		services.AddTransient<IDynamicRepository, DynamicRepository>();
 		services.AddTransient<ILogger, Logger>();
@@ -77,7 +86,6 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<WinLossService, WinLossServiceImp>();
 		services.AddTransient<SiteExcelService, SiteExcelServiceImp>();
 		services.AddTransient<WinLossRiskControl.Services.FilterService, WinLossRiskControl.Services.FilterServiceImp>();
-		services.AddTransient<UserLoginService, UserLoginServiceImp>();
 	}
 
 	public static void AddLeagueEventControlServices(this IServiceCollection services)
