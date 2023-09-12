@@ -10,6 +10,8 @@ public class SimilarTicketDetailExcelRequest : IRequest<ExcelPackage>
 	public required string Selection { get; set; }
 
 	public decimal? Odds { get; set; }
+
+	public required string TicketStatus { get; set; }
 }
 
 public class PotentialWinningDetailExcelRequest : IRequest<ExcelPackage>
@@ -19,4 +21,6 @@ public class PotentialWinningDetailExcelRequest : IRequest<ExcelPackage>
 	public required string Selection { get; set; }
 
 	public decimal? Odds { get; set; }
+
+	public required string TicketStatus { get; set; }
 }

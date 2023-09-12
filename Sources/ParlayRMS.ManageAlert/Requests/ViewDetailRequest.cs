@@ -10,6 +10,8 @@ public class SimilarTicketDetailRequest : IRequest<IEnumerable<SimilarTicketDeta
 	public required string Selection { get; set; }
 
 	public decimal? Odds { get; set; }
+
+	public required string TicketStatus { get; set; }
 }
 
 public class PotentialWinningDetailRequest : IRequest<IEnumerable<PotentialWinningDetailModel>>
@@ -19,4 +21,6 @@ public class PotentialWinningDetailRequest : IRequest<IEnumerable<PotentialWinni
 	public required string Selection { get; set; }
 
 	public decimal? Odds { get; set; }
+
+	public required string TicketStatus { get; set; }
 }
