@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using ParlayRMS.ManageAlert.Criteria;
 using ParlayRMS.ManageAlert.Models;
 using ParlayRMS.ManageAlert.Requests;
 using ParlayRMS.ManageAlert.Services;
@@ -9,11 +11,17 @@ public class ManageAlertHandler : IRequestHandler<ManageAlertRequest, ManageAler
 {
 	private readonly ManageAlertService manageAlertService;
 
-	public ManageAlertHandler(ManageAlertService manageAlertService)
+	private readonly IMapper mapper;
+
+	public ManageAlertHandler(ManageAlertService manageAlertService, IMapper mapper)
 	{
 		this.manageAlertService = manageAlertService;
+		this.mapper = mapper;
 	}
 
-	public Task<ManageAlertViewModel> Handle(ManageAlertRequest request,
-		CancellationToken cancellationToken) => manageAlertService.GetAlerts(request);
+	public Task<ManageAlertViewModel> Handle(ManageAlertRequest request, CancellationToken cancellationToken)
+	{
+		var criteria = mapper.Map<ManageAlertCriteria>(request);
+		return manageAlertService.GetAlerts(criteria);
+	}
 }

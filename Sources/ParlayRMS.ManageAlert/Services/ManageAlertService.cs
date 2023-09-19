@@ -8,11 +8,11 @@ namespace ParlayRMS.ManageAlert.Services;
 
 public interface ManageAlertService
 {
-	Task<ManageAlertViewModel> GetAlerts(ManageAlertRequest  request);
+	Task<ManageAlertViewModel> GetAlerts(ManageAlertCriteria criteria);
 
-	Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(SimilarTicketDetailRequest request);
+	Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(ViewDetailCriteria criteria);
 
-	Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(PotentialWinningDetailRequest request);
+	Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(ViewDetailCriteria criteria);
 
 	Task<IEnumerable<ViewLogModel>> GetViewLogs(ViewLogRequest request);
 
@@ -30,9 +30,8 @@ public class ManageAlertServiceImp : ManageAlertService
 		this.mapper = mapper;
 	}
 
-	public async Task<ManageAlertViewModel> GetAlerts(ManageAlertRequest request)
+	public async Task<ManageAlertViewModel> GetAlerts(ManageAlertCriteria criteria)
 	{
-		var criteria = mapper.Map<ManageAlertCriteria>(request);
 		var result = await dynamicRepository.FetchMultipleAsync<ManageAlertModel, int>(criteria);
 		return new ManageAlertViewModel
 		{
@@ -41,15 +40,13 @@ public class ManageAlertServiceImp : ManageAlertService
 		};
 	}
 
-	public Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(SimilarTicketDetailRequest request)
+	public Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(ViewDetailCriteria criteria)
 	{
-		var criteria = mapper.Map<ViewDetailCriteria>(request);
 		return dynamicRepository.FetchAsync<SimilarTicketDetailModel>(criteria);
 	}
 
-	public Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(PotentialWinningDetailRequest request)
+	public Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(ViewDetailCriteria criteria)
 	{
-		var criteria = mapper.Map<ViewDetailCriteria>(request);
 		return dynamicRepository.FetchAsync<PotentialWinningDetailModel>(criteria);
 	}
 

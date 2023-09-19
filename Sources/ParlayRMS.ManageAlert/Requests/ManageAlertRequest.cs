@@ -21,6 +21,12 @@ public class ManageAlertRequest : IRequest<ManageAlertViewModel>
 
 	public required string TicketStatus { get; set; }
 
+	public string SportType { get; set; } = string.Empty;
+
+	public required string Selection { get; set; }
+
+	public decimal? Odds { get; set; }
+
 	public int PageIndex { get; set; }
 
 	public int PageSize { get; set; }
