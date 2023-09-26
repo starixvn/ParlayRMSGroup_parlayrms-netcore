@@ -2,7 +2,6 @@ FROM hub.nexdev.net/base/dotnet/core/sdk:7.0 AS builder
 WORKDIR /src
 
 COPY ./Sources/ParlayRMS.Application ./ParlayRMS.Application
-COPY ./Sources/ParlayRMS.Auth ./ParlayRMS.Auth
 COPY ./Sources/ParlayRMS.LeagueEventControl ./ParlayRMS.LeagueEventControl
 COPY ./Sources/ParlayRMS.WinLossRiskControl ./ParlayRMS.WinLossRiskControl
 COPY ./Sources/ParlayRMS.ManageAlert ./ParlayRMS.ManageAlert
