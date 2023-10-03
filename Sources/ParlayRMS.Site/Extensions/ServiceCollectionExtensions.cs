@@ -7,7 +7,6 @@ using Fanex.Logging;
 using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.AspNetCore;
 using Fanex.Logging.Extensions.Database;
-using Fanex.Logging.Sentry;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Web;
 using Fanex.NAP.Client.Services;
@@ -30,7 +29,6 @@ using ParlayRMS.WinLossRiskControl;
 using ParlayRMS.WinLossRiskControl.Handlers;
 using ParlayRMS.WinLossRiskControl.Services;
 using ParlayRMS.WinLossRiskControl.Shared;
-using Sentry;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -40,6 +38,9 @@ using LeagueEventHandlers = ParlayRMS.LeagueEventControl.Handlers;
 using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
 
 namespace ParlayRMS.Site.Extensions;
+
+using Fanex.Logging.Sentry.RavenClient;
+using SharpRaven;
 
 public static class ServiceCollectionExtensions
 {

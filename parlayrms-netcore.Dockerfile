@@ -10,11 +10,12 @@ COPY ./Sources/ParlayRMS.Site/ParlayRMS.Site.csproj ./ParlayRMS.Site/ParlayRMS.S
 RUN ls /src -l
 WORKDIR /src/ParlayRMS.Site
 RUN dotnet nuget add source http://nuget.nexdev.net/api/v2
-RUN dotnet restore -v n
+RUN --mount=type=cache,target=/root/.nuget/packages \
+	dotnet restore -v n
 
 COPY ./Sources/ParlayRMS.Site .
-
-RUN dotnet publish -r linux-x64 --self-contained false -c Release -o /app 
+RUN --mount=type=cache,target=/root/.nuget/packages \
+	dotnet publish -r linux-x64 --self-contained false -c Release -o /app 
 
 FROM hub.nexdev.net/rebuild-baseimage/dotnetcore/aspnet:7.0-nap-mail-core
 

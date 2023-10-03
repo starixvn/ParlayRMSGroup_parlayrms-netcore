@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ONEbook.UM;
-using ONEbook.UM.AspNetCore;
 using ONEbook.UM.AspNetCore.Filters;
 using ONEbook.UM.Configurations;
 using ONEbook.UM.Helpers;
@@ -12,7 +11,9 @@ using ONEbook.UM.Transport;
 
 namespace ParlayRMS.Site
 {
-	public static class OnebookUMInitializer
+    using ONEbook.UM.AspNetCore;
+
+    public static class OnebookUMInitializer
 	{
 		private static UMClientConfiguration umConfig;
 		public static void InitializeUMClientManager()

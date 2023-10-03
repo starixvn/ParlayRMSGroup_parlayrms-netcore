@@ -35,8 +35,8 @@ public class ManageAlertServiceImp : ManageAlertService
 		var result = await dynamicRepository.FetchMultipleAsync<ManageAlertModel, int>(criteria);
 		return new ManageAlertViewModel
 		{
-			Items = result.firstResultSet,
-			TotalItems = result.secondResultSet.FirstOrDefault()
+			Items = result.FirstResultSet,
+			TotalItems = result.SecondResultSet.FirstOrDefault()
 		};
 	}
 

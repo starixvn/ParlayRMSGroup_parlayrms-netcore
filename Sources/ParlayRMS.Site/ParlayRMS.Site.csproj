@@ -50,26 +50,40 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
+	  <None Include="Views\Auth\AccessDenied.cshtml" />
+	  <None Include="Views\Auth\ChangePassword.cshtml" />
+	  <None Include="Views\Auth\Error.cshtml" />
+	  <None Include="Views\Auth\Index.cshtml" />
+	  <None Include="Views\Auth\NotFound.cshtml" />
+	  <None Include="Views\Auth\Offline.cshtml" />
+	  <None Include="Views\Auth\OtpLoginFlow.cshtml" />
+	  <None Include="wwwroot\nap-auth\cryptojs.js" />
+	  <None Include="wwwroot\nap-auth\jquery-1.8.0.min.js" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
-		<PackageReference Include="Fanex.Caching.Redis" Version="2.2.2" />
-		<PackageReference Include="Fanex.Caching.Redis.AspNetCore" Version="2.2.2" />
-		<PackageReference Include="Fanex.Data" Version="4.2.2" />
-		<PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
-		<PackageReference Include="Fanex.Data.SqlServer" Version="4.2.2" />
+		<PackageReference Include="Fanex.Caching.Redis" Version="2.2.4" />
+		<PackageReference Include="Fanex.Caching.Redis.AspNetCore" Version="2.2.4" />
+		<PackageReference Include="Fanex.Data" Version="4.2.3" />
+		<PackageReference Include="Fanex.Data.Repository" Version="4.2.3" />
+		<PackageReference Include="Fanex.Data.SqlServer" Version="4.2.3" />
 		<PackageReference Include="Fanex.Logging" Version="2.0.1" />
-		<PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1-beta1" />
-		<PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
-		<PackageReference Include="Fanex.Logging.Sentry" Version="1.0.6" />
-		<PackageReference Include="Fanex.NAP.Client.AspNetCore" Version="2.0.0.10" />
-		<PackageReference Include="Fanex.NAP.Signin.AspNetCore" Version="2.0.0.15" />
-		<PackageReference Include="Fanex.RemotingRef" Version="1.5.0" />
-		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="7.0.8" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.8" />
+    <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1-beta1" />
+    <PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
+    <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="1.0.1" />
+		
+		<PackageReference Include="Fanex.NAP.Client" Version="2.0.0" />
+    <PackageReference Include="Fanex.NAP.SignIn" Version="2.0.1" />
+		<PackageReference Include="Fanex.RemotingRef" Version="1.5.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="7.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.11" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="ONEbook.UM.Transport" Version="3.1.2" />
-		<PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+    <PackageReference Include="ONEbook.UM" Version="3.1.6" />
+    <PackageReference Include="ONEbook.UM.AspNetCore" Version="3.1.1.1" />
+    <PackageReference Include="ONEbook.UM.AspNetCore.Filters" Version="3.1.1.1" />
+    <PackageReference Include="ONEbook.UM.Transport" Version="3.1.2" />
+		<PackageReference Include="StackExchange.Redis" Version="2.6.122" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
