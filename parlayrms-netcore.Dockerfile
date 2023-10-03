@@ -27,7 +27,7 @@ USER dotnetuser
 #
 
 ENV TZ="America/La_Paz" 
-
+ENV COMPlus_EnableDiagnostics=0
 
 WORKDIR /app
 COPY --from=builder /app .
