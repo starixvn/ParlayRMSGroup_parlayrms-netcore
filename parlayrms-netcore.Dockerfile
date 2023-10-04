@@ -9,7 +9,7 @@ COPY ./ParlayRMS.Site/ParlayRMS.Site.csproj ./ParlayRMS.Site/ParlayRMS.Site.cspr
 
 RUN ls /src -l
 WORKDIR /src/ParlayRMS.Site
-RUN dotnet nuget add source http://nuget.nexdev.net/api/v2
+RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
 RUN --mount=type=cache,target=/root/.nuget/packages \
 	dotnet restore -v n
 

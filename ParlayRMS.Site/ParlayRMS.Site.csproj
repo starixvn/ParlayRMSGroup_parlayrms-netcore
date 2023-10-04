@@ -14,6 +14,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;8632</NoWarn>
   </PropertyGroup>
+
+  
+  <ItemGroup>
+    <Content Include="ExcelTemplate\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Views\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Fanex.Caching.Redis" Version="2.2.4" />
@@ -45,6 +59,5 @@
     <ProjectReference Include="..\Sources\ParlayRMS.ManageAlert\ParlayRMS.ManageAlert.csproj" />
     <ProjectReference Include="..\Sources\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
   </ItemGroup>
-
   
 </Project>
