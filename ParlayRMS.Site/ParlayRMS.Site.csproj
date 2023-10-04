@@ -21,16 +21,7 @@
 		<None Remove="app\**" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<None Remove="ExcelTemplate\LeagueEventControl\league-event-monitor.xlsx" />
-		<None Remove="ExcelTemplate\ManageAlert\manage-alert.xlsx" />
-		<None Remove="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx" />
-		<None Remove="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx" />
-		<None Remove="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx" />
-		<None Remove="ExcelTemplate\WinLossRiskControl\Member.xlsx" />
-		<None Remove="ExcelTemplate\WinLossRiskControl\site-win-loss.xlsx" />
-		<None Remove="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx" />
-	</ItemGroup>
+	
 	<ItemGroup>
 		<Content Include="App_Data\SpName.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -57,17 +48,7 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
-	<ItemGroup>
-	  <None Include="Views\Auth\AccessDenied.cshtml" />
-	  <None Include="Views\Auth\ChangePassword.cshtml" />
-	  <None Include="Views\Auth\Error.cshtml" />
-	  <None Include="Views\Auth\Index.cshtml" />
-	  <None Include="Views\Auth\NotFound.cshtml" />
-	  <None Include="Views\Auth\Offline.cshtml" />
-	  <None Include="Views\Auth\OtpLoginFlow.cshtml" />
-	  <None Include="wwwroot\nap-auth\cryptojs.js" />
-	  <None Include="wwwroot\nap-auth\jquery-1.8.0.min.js" />
-	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="Fanex.Caching.Redis" Version="2.2.4" />
@@ -94,14 +75,9 @@
 		<PackageReference Include="StackExchange.Redis" Version="2.6.122" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\ParlayRMS.Application\ParlayRMS.Application.csproj" />
-		<ProjectReference Include="..\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj" />
-		<ProjectReference Include="..\ParlayRMS.ManageAlert\ParlayRMS.ManageAlert.csproj" />
-		<ProjectReference Include="..\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Content Update="appsettings.AWS.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<ProjectReference Include="..\Sources\ParlayRMS.Application\ParlayRMS.Application.csproj" />
+		<ProjectReference Include="..\Sources\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj" />
+		<ProjectReference Include="..\Sources\ParlayRMS.ManageAlert\ParlayRMS.ManageAlert.csproj" />
+		<ProjectReference Include="..\Sources\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
 	</ItemGroup>
 </Project>
