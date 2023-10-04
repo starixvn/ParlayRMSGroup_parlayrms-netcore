@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MediatR;
 using ParlayRMS.WinLossRiskControl.Models;
 

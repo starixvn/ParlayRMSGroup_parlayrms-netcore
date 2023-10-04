@@ -1,16 +1,12 @@
-using System.Collections.Generic;
-
 namespace ParlayRMS.WinLossRiskControl.Models;
 
 public class WinLossModel
 {
 	private string username;
 
-	private decimal margin;
+	public string customerClass;
 
-	private string customerClass;
-
-	public string Username
+    public string Username
 	{
 		get
 		{
@@ -58,12 +54,12 @@ public class WinLossModel
 	public int TotalRecords { get; set; }
 
 	public decimal Margin
-	{
-		get => RealTurnover > 0 ? RealIncome / RealTurnover * 100 : 0;
-		set => margin = value;
-	}
+    {
+        get => RealTurnover > 0 ? RealIncome / RealTurnover * 100 : 0;
+		set => _ = value;
+    }
 
-	public List<WinLossModel> Rows { get; set; } = new();
+    public List<WinLossModel> Rows { get; set; } = new();
 
 	public void SumTotal(WinLossModel site)
 	{

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using ParlayRMS.ManageAlert.Services;
 
 namespace ParlayRMS.ManageAlert.Controllers;

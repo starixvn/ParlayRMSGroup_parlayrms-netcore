@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Epplus.Mapper.Extensions;
+﻿using Epplus.Mapper.Extensions;
 using OfficeOpenXml;
 
 namespace ParlayRMS.WinLossRiskControl.Shared;
@@ -45,7 +43,7 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
 		SetStartRowIndex(settings.StartRowIndex);
 		SetEndRowIndex(settings.StartRowIndex, list.Count);
 		SetSheetName(settings.SheetName);
-		BuilTitle(settings.Title);
+		BuildTitle(settings.Title);
 		ApplyBody(list);
 		ApplyTotal(total);
 		MergeTotalCell(settings.IsMerged);
@@ -66,7 +64,7 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
 		bodySheet.Name = sheetName;
 	}
 
-	private void BuilTitle(string title)
+	private void BuildTitle(string title)
 	{
 		bodySheet.Cells["A1:I1"].Value = title;
 	}

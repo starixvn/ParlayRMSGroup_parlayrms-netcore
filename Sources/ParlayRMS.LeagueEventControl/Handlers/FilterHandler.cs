@@ -2,9 +2,6 @@
 using ParlayRMS.LeagueEventControl.Models;
 using ParlayRMS.LeagueEventControl.Requests;
 using ParlayRMS.LeagueEventControl.Services;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Handlers;
 

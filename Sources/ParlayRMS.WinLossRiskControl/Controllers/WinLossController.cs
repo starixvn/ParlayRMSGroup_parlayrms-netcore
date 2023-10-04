@@ -1,10 +1,10 @@
+namespace ParlayRMS.WinLossRiskControl.Controllers;
+
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using ParlayRMS.WinLossRiskControl.Requests;
-using System.Threading.Tasks;
-
-namespace ParlayRMS.WinLossRiskControl;
+using Requests;
 
 [ApiController]
 [Route("api/win-loss-risk-control")]

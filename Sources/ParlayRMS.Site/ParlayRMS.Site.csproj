@@ -2,10 +2,18 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
 		<TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
 	</PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8632</NoWarn>
+  </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8632</NoWarn>
+  </PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="app\**" />
 		<Content Remove="app\**" />

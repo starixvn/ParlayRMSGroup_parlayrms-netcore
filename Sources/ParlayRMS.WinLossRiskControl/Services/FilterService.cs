@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Fanex.Data.Repository;
 using Fanex.RemotingRef;
 using ParlayRMS.WinLossRiskControl.Criteria;
@@ -39,7 +36,7 @@ public class FilterServiceImp : FilterService
 
 	public Task<List<SelectItemModel>> GetParlayTypes()
 	{
-		var palarTypes = new List<SelectItemModel>
+		var parlayTypes = new List<SelectItemModel>
 		{
 			new() { Name = "Mix Parlay", Id = 1 },
 			new() { Name = "God Of Fortune", Id = 5 },
@@ -48,7 +45,7 @@ public class FilterServiceImp : FilterService
 			new() { Name = "Single Match Parlay", Id = 3 }
 		};
 
-		return Task.FromResult(palarTypes);
+		return Task.FromResult(parlayTypes);
 	}
 
 	public Task<List<SportModel>> GetSports()

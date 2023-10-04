@@ -1,29 +1,30 @@
 using Fanex.NAP.Client;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Web;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using ParlayRMS.Site;
 using ParlayRMS.Site.CrossCuttingConcern;
 using ParlayRMS.Site.Extensions;
-using System.Configuration;
+using Fanex.Data.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-builder.Services.AddCustomCors();
-builder.Services.AddCustomAuthorization();
-builder.Services.AddCustomAuthentication(builder.Configuration);
-builder.Services.AddRedis(builder.Configuration);
-builder.Services.AddCustomSession(builder.Configuration);
-builder.Services.AddFanex(builder.Configuration);
-builder.Services.AddNapServices();
-builder.Services.AddWinLossRiskControlServices();
-builder.Services.AddLeagueEventControlServices();
-builder.Services.AddManageAlertServices();
-OnebookUMInitializer.RegisterServiceCollection(builder.Services, builder.Configuration);
-OnebookUMInitializer.InitializeUMClientManager();
-builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
+services.AddCustomCors();
+services.AddCustomAuthorization();
+services.AddCustomAuthentication(configuration);
+services.AddRedis(configuration);
+services.AddCustomSession(configuration);
+services.AddFanex(configuration);
+services.AddNapServices();
+services.AddWinLossRiskControlServices();
+services.AddLeagueEventControlServices();
+services.AddManageAlertServices();
+services.AddOnebookUM(configuration);
+services.AddFanexSql(configuration);
+
+services.AddRazorPages();
+services.AddControllersWithViews();
 
 var app = builder.Build();
 

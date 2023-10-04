@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Fanex.Caching.Redis;
-using Fanex.Data;
 using Fanex.Data.Repository;
-using Fanex.Data.SqlServer;
 using Fanex.Logging;
 using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.AspNetCore;
@@ -16,10 +14,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using ParlayRMS.LeagueEventControl;
 using ParlayRMS.LeagueEventControl.Excels;
 using ParlayRMS.ManageAlert.AutoMapperProfiles;
@@ -30,10 +25,6 @@ using ParlayRMS.WinLossRiskControl.Handlers;
 using ParlayRMS.WinLossRiskControl.Services;
 using ParlayRMS.WinLossRiskControl.Shared;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using LeagueEventHandlers = ParlayRMS.LeagueEventControl.Handlers;
 using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
 
@@ -56,7 +47,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<INapSettings, NapSettings>();
 		services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 		services.AddTransient<IDynamicRepository, DynamicRepository>();
-		services.AddTransient<ILogger, Logger>();
+		services.AddTransient<Fanex.Logging.ILogger, Logger>();
 		services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
 		services.AddSingleton<IMediator, Mediator>();
@@ -120,22 +111,7 @@ public static class ServiceCollectionExtensions
 
 	public static void AddFanex(this IServiceCollection services, IConfiguration configuration)
 	{
-		var connections = configuration.GetSection("ConnectionStrings")
-			.GetChildren()
-			.AsEnumerable()
-			.ToDictionary(
-				x => x.GetValue<string>("Name"),
-				y => new ConnectionConfiguration(y.GetValue<string>("Name"), y.GetValue<string>("ConnectionString"), y.GetValue<string>("ProviderName"))
-			);
-
-		DbSettingProviderManager
-			.StartNewSession()
-			.Use(connections)
-			.WithSqlServer()
-			.UseDefaultDbSettingProvider(resourcePath: configuration.GetSection("StoredProcedurePath").Value)
-			.Run();
-
-		LogManager
+        LogManager
 			.SetDefaultLogCategory(configuration.GetSection("LogCategory").Value)
 			.Use(new List<ILogEngine>
 			{

@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Fanex.Data.Repository;
 using ParlayRMS.WinLossRiskControl.Criteria;
