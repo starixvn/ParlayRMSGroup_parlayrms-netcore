@@ -46,33 +46,5 @@
     <ProjectReference Include="..\Sources\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="App_Data\SpName.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\LeagueEventControl\league-event-monitor.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\ManageAlert\manage-alert.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\WinLossRiskControl\agent-win-loss.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\WinLossRiskControl\master-win-loss.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\WinLossRiskControl\member-win-loss.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\WinLossRiskControl\site-win-loss.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelTemplate\WinLossRiskControl\super-win-loss.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-
   
 </Project>
