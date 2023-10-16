@@ -1,0 +1,24 @@
+﻿@{
+    var listSportTypes = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
+    <select id="sportsType" multiple="multiple" name="sportsType">
+        <option value="1" selected="selected">Soccer only</option>
+        <option value="-4" selected="selected">Virtual Soccer</option>
+        <option value="-3" selected="selected">Combined sports</option>
+        <optgroup label="All Other Sports" selected="selected">
+            @foreach (var sportType in listSportTypes)
+            {
+                if (sportType == -5)
+                {
+                    <option value="@sportType" selected="selected">Virtual Basketball</option>
+                }
+                else
+                {
+                    <option value="@sportType" selected="selected">@CacheRef.GetSportName(sportType.ToString())</option>
+                }
+            }
+
+            <option value="-2" selected="selected">Other sports</option>
+            <option value="-1" selected="selected">Combined other sports</option>
+        </optgroup>
+    </select>
+}

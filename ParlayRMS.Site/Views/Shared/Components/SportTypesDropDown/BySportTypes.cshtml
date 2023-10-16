@@ -1,0 +1,43 @@
+﻿@model string
+@{
+    async Task SportTypesDropDownOption(string value, string text, bool isSelected)
+    {
+        if (isSelected)
+        {
+            <option value="@value" selected="selected">@text</option>
+        }
+        else
+        {
+            <option value="@value">@text</option>
+        }
+    }
+}
+
+@{
+    var sportTypes = Model;
+    var listSportsbookSportTypes = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
+    var listSportTypes = sportTypes.Split(',');
+    var optgroupSelected = sportTypes.Contains("2,-5,3,4,5,6,7,8,9,11,43,44,-2,-1") ? "selected=\"selected\"" : string.Empty;
+    <select id="sportsType" multiple="multiple" name="sportsType">
+        SportTypesDropDownOption("1", "Soccer only", listSportTypes.Contains("1"))
+        SportTypesDropDownOption("-4", "Virtual Soccer", listSportTypes.Contains("-4"))
+        SportTypesDropDownOption("-3", "Combined sports", listSportTypes.Contains("-3"))
+        <optgroup label="All Other Sports" @optgroupSelected>
+            @foreach (var sportType in listSportsbookSportTypes)
+            {
+                var isSelected = listSportTypes.Contains(sportType.ToString());
+                if (sportType == -5)
+                {
+                   await SportTypesDropDownOption(sportType.ToString(), "Virtual Basketball", isSelected);
+                }
+                else
+                {
+                   await SportTypesDropDownOption(sportType.ToString(), CacheRef.GetSportName(sportType.ToString()), isSelected);
+                }
+            }
+
+            SportTypesDropDownOption("-2", "Other sports", listSportTypes.Contains("-2"))
+            SportTypesDropDownOption("-1", "Combined other sports", listSportTypes.Contains("-1"))
+        </optgroup>
+    </select>
+}
