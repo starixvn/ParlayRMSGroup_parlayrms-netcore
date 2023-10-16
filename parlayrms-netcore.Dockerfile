@@ -1,22 +1,29 @@
-FROM hub.nexdev.net/base/dotnet/core/sdk:7.0 AS builder
+# dotnet subset
+FROM hub.nexdev.net/base/dotnet/core/sdk:7.0-alpine AS prepare-restore-files
+ENV PATH="${PATH}:/root/.dotnet/tools"
+RUN dotnet tool install --global --no-cache dotnet-subset --version 0.3.2
+
 WORKDIR /src
+COPY . .
+RUN dotnet subset restore ./ParlayRMS.Site/ParlayRMS.Site.csproj --root-directory /src --output /src/restore_subset/
 
-COPY ./Sources/ParlayRMS.Application ./Sources/ParlayRMS.Application
-COPY ./Sources/ParlayRMS.LeagueEventControl ./Sources/ParlayRMS.LeagueEventControl
-COPY ./Sources/ParlayRMS.WinLossRiskControl ./Sources/ParlayRMS.WinLossRiskControl
-COPY ./Sources/ParlayRMS.ManageAlert ./Sources/ParlayRMS.ManageAlert
-COPY ./ParlayRMS.Site/ParlayRMS.Site.csproj ./ParlayRMS.Site/ParlayRMS.Site.csproj
+# restore
+FROM hub.nexdev.net/base/dotnet/core/sdk:7.0-alpine AS builder
 
-RUN ls /src -l
-WORKDIR /src/ParlayRMS.Site
+WORKDIR /src
+COPY --from=prepare-restore-files /src/restore_subset .
 RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
 RUN --mount=type=cache,target=/root/.nuget/packages \
-	dotnet restore -v n
+ dotnet restore ParlayRMS.Site/ParlayRMS.Site.csproj
 
-COPY ./ParlayRMS.Site .
+# publish
+COPY ./Sources/. ./Sources
+COPY ./ParlayRMS.Site/. ./ParlayRMS.Site
+
+WORKDIR /src/ParlayRMS.Site
 RUN --mount=type=cache,target=/root/.nuget/packages \
-	dotnet publish -r linux-x64 --self-contained false -c Release -o /app 
-
+ dotnet publish -c release -o /app --no-restore
+ 
 FROM hub.nexdev.net/base/dotnet/core/aspnet:7.0-alpine AS base
 
 # Don’t run as root
@@ -26,10 +33,9 @@ RUN adduser --disabled-password \
 USER dotnetuser
 #
 
-ENV TZ="America/La_Paz" 
-ENV COMPlus_EnableDiagnostics=0
-
 WORKDIR /app
 COPY --from=builder /app .
+ENV TZ="America/La_Paz"
+ENV COMPlus_EnableDiagnostics=0
 
 ENTRYPOINT ["dotnet", "ParlayRMS.Site.dll"]
