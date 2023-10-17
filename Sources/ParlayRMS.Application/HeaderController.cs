@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.Application.Models;
-using System.Collections.Generic;
 
 namespace ParlayRMS.Application;
 

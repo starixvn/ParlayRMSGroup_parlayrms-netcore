@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ParlayRMS.LeagueEventControl.Models;
+﻿namespace ParlayRMS.LeagueEventControl.Models;
 
 public class MainTicketModel
 {

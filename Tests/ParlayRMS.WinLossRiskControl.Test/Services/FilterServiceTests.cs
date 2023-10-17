@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoFixture;
 using Fanex.Data.Repository;
 using Fanex.RemotingRef;
@@ -15,13 +12,12 @@ namespace ParlayRMS.WinLossRiskControl.Test.Services;
 public class FilterServiceTests
 {
 	private readonly IDynamicRepository repository;
-	private readonly IRemotingRefService remotingRefService;
-	private readonly FilterService service;
+    private readonly FilterService service;
 
 	public FilterServiceTests()
 	{
-		repository = Substitute.For<IDynamicRepository>();
-		remotingRefService = Substitute.For<IRemotingRefService>();
+        repository = Substitute.For<IDynamicRepository>();
+		var remotingRefService = Substitute.For<IRemotingRefService>();
 		service = new FilterServiceImp(repository, remotingRefService);
 	}
 

@@ -1,8 +1,6 @@
 ﻿using Epplus.Mapper.Extensions;
 using OfficeOpenXml;
 using ParlayRMS.LeagueEventControl.Models.Excels;
-using System.Collections.Generic;
-using System.IO;
 
 namespace ParlayRMS.LeagueEventControl.Excels;
 
@@ -37,7 +35,7 @@ public class ExcelBuilderImp : ExcelBuilder
 	private void Build(IEnumerable<MainTicketExcelModel> list, ExcelSetting settings)
 	{
 		SetStartRowIndex(settings.StartRowIndex);
-		BuilTitle(settings.Title);
+		BuildTitle(settings.Title);
 		ApplyBody(list);
 	}
 
@@ -46,7 +44,7 @@ public class ExcelBuilderImp : ExcelBuilder
 		bodySheet.ApplyVertical(list, startRowIndex);
 	}
 
-	private void BuilTitle(string title)
+	private void BuildTitle(string title)
 	{
 		bodySheet.Cells["A1:M1"].Value = title;
 	}

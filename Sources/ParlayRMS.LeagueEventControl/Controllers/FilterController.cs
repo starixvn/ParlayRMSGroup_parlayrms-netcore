@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.LeagueEventControl.Requests;
-using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Controllers;
 

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using Fanex.Data.Repository;
 using NSubstitute;
@@ -29,7 +26,7 @@ public class WinLossServiceTests
 		service = new WinLossServiceImp(repository, mapper);
 	}
 
-	private static WinLossModel CreateWinLoss(decimal commission, decimal realInCome, decimal realTunrover)
+	private static WinLossModel CreateWinLoss(decimal commission, decimal realInCome, decimal realTurnover)
 	{
 		return new WinLossModel
 		{
@@ -41,13 +38,13 @@ public class WinLossServiceTests
 			ExtraPT = 5,
 			Commission = commission,
 			RealIncome = realInCome,
-			RealTurnover = realTunrover
+			RealTurnover = realTurnover
 		};
 	}
 
-	private static WinLossModel CreateWinLoss(decimal commission, decimal realInCome, decimal realTunrover, decimal margin)
+	private static WinLossModel CreateWinLoss(decimal commission, decimal realInCome, decimal realTurnover, decimal margin)
 	{
-		var model = CreateWinLoss(commission, realInCome, realTunrover);
+		var model = CreateWinLoss(commission, realInCome, realTurnover);
 		model.Margin = margin;
 
 		return model;

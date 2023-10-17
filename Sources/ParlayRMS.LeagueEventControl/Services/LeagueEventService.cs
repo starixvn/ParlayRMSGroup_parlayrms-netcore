@@ -3,9 +3,6 @@ using Fanex.Data.Repository;
 using ParlayRMS.LeagueEventControl.Criteria;
 using ParlayRMS.LeagueEventControl.Models;
 using ParlayRMS.LeagueEventControl.Requests;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Services;
 
@@ -22,7 +19,7 @@ public class LeagueEventServiceImp : LeagueEventService
 	private readonly IDynamicRepository dynamicRepository;
 	private readonly IMapper mapper;
 
-	const string Others = "Others";
+    private const string Others = "Others";
 
 	public LeagueEventServiceImp(IDynamicRepository dynamicRepository, IMapper mapper)
 	{

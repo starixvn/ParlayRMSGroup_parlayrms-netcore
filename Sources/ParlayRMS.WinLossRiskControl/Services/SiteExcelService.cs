@@ -1,12 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
-using Epplus.Mapper.Extensions;
-using OfficeOpenXml;
-using ParlayRMS.WinLossRiskControl.Models;
 using AutoMapper;
-using ParlayRMS.WinLossRiskControl.Models.Excels;
+using OfficeOpenXml;
+namespace ParlayRMS.WinLossRiskControl.Services;
 
-namespace ParlayRMS.WinLossRiskControl.Shared;
+using global::Epplus.Mapper.Extensions;
+using Models;
+using Models.Excels;
+using Shared;
 
 public interface SiteExcelService
 {
@@ -42,7 +41,7 @@ public class SiteExcelServiceImp : SiteExcelService
 	private void BuildTotal(WinLossModel model, ExcelSetting settings)
 	{
 		SetSheetName(settings.SheetName);
-		BuilTitle(settings.Title);
+		BuildTitle(settings.Title);
 		ApplyTotal(model, totalSheet, startRowIndex);
 	}
 
@@ -103,7 +102,7 @@ public class SiteExcelServiceImp : SiteExcelService
 		bodySheet.Name = sheetName;
 	}
 
-	private void BuilTitle(string title)
+	private void BuildTitle(string title)
 	{
 		bodySheet.Cells["A1:I1"].Value = title;
 	}

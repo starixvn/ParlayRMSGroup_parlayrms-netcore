@@ -3,8 +3,6 @@ using Fanex.Data.Repository;
 using ParlayRMS.LeagueEventControl.Criteria;
 using ParlayRMS.LeagueEventControl.Models;
 using ParlayRMS.LeagueEventControl.Requests;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ParlayRMS.LeagueEventControl.Services;
 

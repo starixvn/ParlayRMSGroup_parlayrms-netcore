@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Fanex.Data.Repository;
 using ParlayRMS.WinLossRiskControl.Criteria;
@@ -75,13 +73,13 @@ public class WinLossServiceImp : WinLossService
 		var criteria = mapper.Map<AgentWinLossCriteria>(request);
 		var result = await repository.FetchMultipleAsync<WinLossModel, int>(criteria);
 		var data = new WinLossModel();
-		foreach (var row in result.firstResultSet)
+		foreach (var row in result.FirstResultSet)
 		{
 			data.Rows.Add(row);
 			data.SumTotal(row);
 		}
 
-		data.TotalRecords = result.secondResultSet.FirstOrDefault();
+		data.TotalRecords = result.SecondResultSet.FirstOrDefault();
 		return data;
 	}
 

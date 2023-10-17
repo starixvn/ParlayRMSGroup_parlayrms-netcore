@@ -1,35 +1,41 @@
-FROM hub.nexdev.net/base/dotnet/core/sdk:7.0 AS builder
+# dotnet subset
+FROM hub.nexdev.net/base/dotnet/core/sdk:7.0-alpine AS prepare-restore-files
+ENV PATH="${PATH}:/root/.dotnet/tools"
+RUN dotnet tool install --global --no-cache dotnet-subset --version 0.3.2
+
 WORKDIR /src
+COPY . .
+RUN dotnet subset restore ./ParlayRMS.Site/ParlayRMS.Site.csproj --root-directory /src --output /src/restore_subset/
 
-COPY ./Sources/ParlayRMS.Application ./ParlayRMS.Application
-COPY ./Sources/ParlayRMS.Auth ./ParlayRMS.Auth
-COPY ./Sources/ParlayRMS.LeagueEventControl ./ParlayRMS.LeagueEventControl
-COPY ./Sources/ParlayRMS.WinLossRiskControl ./ParlayRMS.WinLossRiskControl
-COPY ./Sources/ParlayRMS.ManageAlert ./ParlayRMS.ManageAlert
-COPY ./Sources/ParlayRMS.Site/ParlayRMS.Site.csproj ./ParlayRMS.Site/ParlayRMS.Site.csproj
+# restore
+FROM hub.nexdev.net/base/dotnet/core/sdk:7.0-alpine AS builder
 
-RUN ls /src -l
+WORKDIR /src
+COPY --from=prepare-restore-files /src/restore_subset .
+RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
+RUN --mount=type=cache,target=/root/.nuget/packages \
+ dotnet restore ParlayRMS.Site/ParlayRMS.Site.csproj
+
+# publish
+COPY ./Sources/. ./Sources
+COPY ./ParlayRMS.Site/. ./ParlayRMS.Site
+
 WORKDIR /src/ParlayRMS.Site
-RUN dotnet nuget add source http://nuget.nexdev.net/api/v2
-RUN dotnet restore -v n
-
-COPY ./Sources/ParlayRMS.Site .
-
-RUN dotnet publish -r linux-x64 --self-contained false -c Release -o /app 
-
-FROM hub.nexdev.net/rebuild-baseimage/dotnetcore/aspnet:7.0-nap-mail-core
+RUN --mount=type=cache,target=/root/.nuget/packages \
+ dotnet publish -c release -o /app --no-restore
+ 
+FROM hub.nexdev.net/base/dotnet/core/aspnet:7.0-alpine AS base
 
 # Don’t run as root
 RUN adduser --disabled-password \
   --home /app \
-  --gecos '' dotnetuser && chown -R dotnetuser /app
+  --gecos '' dotnetuser && chown -R dotnetuser /app && chown -R dotnetuser /tmp
 USER dotnetuser
 #
 
-ENV TZ="America/La_Paz" 
-
-
 WORKDIR /app
 COPY --from=builder /app .
+ENV TZ="America/La_Paz"
+ENV COMPlus_EnableDiagnostics=0
 
 ENTRYPOINT ["dotnet", "ParlayRMS.Site.dll"]

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ParlayRMS.LeagueEventControl.Models;
+﻿namespace ParlayRMS.LeagueEventControl.Models;
 
 public class EventModel
 {
