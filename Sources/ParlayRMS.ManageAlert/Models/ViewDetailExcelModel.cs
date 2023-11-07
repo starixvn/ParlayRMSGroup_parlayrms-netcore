@@ -64,7 +64,7 @@ public class PotentialWinningDetailExcelModel
 	public decimal HousePt { get; set; }
 
 	[Cell("J2")]
-	public int TotalBet { get; set; }
+	public string TotalBetString { get; set; }
 
 	[Cell("K2")]
 	public byte TotalSelection { get; set; }
