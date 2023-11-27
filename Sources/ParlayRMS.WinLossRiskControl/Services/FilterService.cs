@@ -39,7 +39,7 @@ public class FilterServiceImp : FilterService
 		var parlayTypes = new List<SelectItemModel>
 		{
 			new() { Name = "Mix Parlay", Id = 1 },
-			new() { Name = "God Of Fortune", Id = 5 },
+			new() { Name = "Parlay Generator", Id = 6 },
 			new() { Name = "Combo Parlay", Id = 2 },
 			new() { Name = "Penalty Shootout Combo", Id = 4 },
 			new() { Name = "Single Match Parlay", Id = 3 }

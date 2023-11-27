@@ -42,7 +42,11 @@ public class PotentialWinningDetailModel : ViewDetailModel
 
 	public int TotalBet { get; set; }
 
+	public string TotalBetString => IsParlayGenerator ? $"{TotalBet} (PG)" : TotalBet.ToString();
+
 	public byte TotalSelection { get; set; }
 
 	public string SportType { get; set; }
+
+	public bool IsParlayGenerator { get; set; }
 }

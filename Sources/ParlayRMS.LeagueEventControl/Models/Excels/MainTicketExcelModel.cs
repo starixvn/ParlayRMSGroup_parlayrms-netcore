@@ -35,7 +35,7 @@ public class MainTicketExcelModel
 	public decimal MaxPayOut { get; set; }
 
 	[Cell("K3")]
-	public int TotalBet { get; set; }
+	public string TotalBetString { get; set; }
 
 	[Cell("L3")]
 	public int TotalSelection { get; set; }

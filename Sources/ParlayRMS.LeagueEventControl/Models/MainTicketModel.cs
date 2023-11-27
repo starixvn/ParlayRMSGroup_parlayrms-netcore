@@ -1,4 +1,6 @@
-﻿namespace ParlayRMS.LeagueEventControl.Models;
+﻿using System.Reflection.Emit;
+
+namespace ParlayRMS.LeagueEventControl.Models;
 
 public class MainTicketModel
 {
@@ -26,6 +28,8 @@ public class MainTicketModel
 
 	public int TotalBet { get; set; }
 
+	public string TotalBetString => IsParlayGenerator ? $"{TotalBet} (PG)" : TotalBet.ToString();
+
 	public int TotalSelection { get; set; }
 
 	public int SportType { get; set; }
@@ -33,4 +37,6 @@ public class MainTicketModel
 	public string SportTypeName { get; set; }
 
 	public string IP { get; set; }
+
+	public bool IsParlayGenerator { get; set; }
 }
