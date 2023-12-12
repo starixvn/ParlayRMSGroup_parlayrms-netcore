@@ -201,7 +201,8 @@ public static class ServiceCollectionExtensions
 							"https://prms.nexdev.net", "https://prms-core.nexdev.net",
 							"https://napparlayrms.starixuat.com", "https://prmscore.starixuat.com",
 							"https://parlayrms.oneops.net", "https://prmscore.oneops.net",
-							"https://parlayrms.sportsfun.app", "https://prmscore.sportsfun.app")
+							"https://parlayrms.sportsfun.app", "https://prmscore.sportsfun.app",
+							"http://parlayrms.byb6181.com")
 						.AllowAnyMethod()
 						.AllowAnyHeader()
 						.AllowCredentials();
