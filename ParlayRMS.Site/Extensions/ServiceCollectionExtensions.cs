@@ -202,7 +202,7 @@ public static class ServiceCollectionExtensions
 							"https://napparlayrms.starixuat.com", "https://prmscore.starixuat.com",
 							"https://parlayrms.oneops.net", "https://prmscore.oneops.net",
 							"https://parlayrms.sportsfun.app", "https://prmscore.sportsfun.app",
-							"http://parlayrms.byb6181.com")
+							"http://parlayrms.byb6181.com", "https://parlayrms.byb6181.com")
 						.AllowAnyMethod()
 						.AllowAnyHeader()
 						.AllowCredentials();
