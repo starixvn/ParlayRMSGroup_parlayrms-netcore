@@ -17,18 +17,9 @@ public interface WinLossService
 	Task<WinLossModel> AgentWinLossBySite(AgentWinLossRequest request);
 }
 
-public class WinLossServiceImp : WinLossService
+public class WinLossServiceImp(IDynamicRepository repository, IMapper mapper) : WinLossService
 {
-	private readonly IMapper mapper;
-	private readonly IDynamicRepository repository;
-
-	public WinLossServiceImp(IDynamicRepository repository, IMapper mapper)
-	{
-		this.repository = repository;
-		this.mapper = mapper;
-	}
-
-	public async Task<WinLossModel> SitesWinLoss(WinLossRequest request)
+    public async Task<WinLossModel> SitesWinLoss(WinLossRequest request)
 	{
 		var criteria = mapper.Map<WinLossCriteria>(request);
 		var sites = await repository.FetchAsync<WinLossModel>(criteria);

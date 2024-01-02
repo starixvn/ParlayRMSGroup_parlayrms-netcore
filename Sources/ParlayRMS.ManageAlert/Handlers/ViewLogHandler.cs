@@ -5,15 +5,9 @@ using ParlayRMS.ManageAlert.Services;
 
 namespace ParlayRMS.ManageAlert.Handlers;
 
-public class ViewLogHandler : IRequestHandler<ViewLogRequest, IEnumerable<ViewLogModel>>
+public class ViewLogHandler(ManageAlertService alertService)
+    : IRequestHandler<ViewLogRequest, IEnumerable<ViewLogModel>>
 {
-	private readonly ManageAlertService manageAlertService;
-
-	public ViewLogHandler(ManageAlertService manageAlertService)
-	{
-		this.manageAlertService = manageAlertService;
-	}
-
-	public Task<IEnumerable<ViewLogModel>> Handle(ViewLogRequest request, CancellationToken cancellationToken) =>
-		manageAlertService.GetViewLogs(request);
+    public Task<IEnumerable<ViewLogModel>> Handle(ViewLogRequest request, CancellationToken cancellationToken) =>
+		alertService.GetViewLogs(request);
 }

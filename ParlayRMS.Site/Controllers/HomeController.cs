@@ -5,10 +5,9 @@ namespace ParlayRMS.Site.Controllers;
 
 public class HomeController : Controller
 {
-	[AllowAnonymous]
-	public IActionResult Index()
-	{
-		return View();
+    public IActionResult Index()
+    {
+        return View();
 	}
 	[AllowAnonymous]
 	public IActionResult ExpiredSession()

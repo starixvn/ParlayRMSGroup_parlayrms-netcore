@@ -5,18 +5,11 @@ using ParlayRMS.WinLossRiskControl.Services;
 
 namespace ParlayRMS.WinLossRiskControl.Handlers;
 
-public class ReportHandler : IRequestHandler<WinLossRequest, WinLossModel>,
-	IRequestHandler<SuperWinLossRequest, WinLossModel>,
-	IRequestHandler<AgentWinLossRequest, WinLossModel>
+public class ReportHandler(WinLossService service) : IRequestHandler<WinLossRequest, WinLossModel>,
+    IRequestHandler<SuperWinLossRequest, WinLossModel>,
+    IRequestHandler<AgentWinLossRequest, WinLossModel>
 {
-	private readonly WinLossService service;
-
-	public ReportHandler(WinLossService service)
-	{
-		this.service = service;
-	}
-
-	public async Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
+    public async Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
 	{
 		return await service.SitesWinLoss(request);
 	}

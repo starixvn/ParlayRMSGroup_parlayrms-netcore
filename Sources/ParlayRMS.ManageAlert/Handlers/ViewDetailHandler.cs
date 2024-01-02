@@ -7,39 +7,23 @@ using ParlayRMS.ManageAlert.Services;
 
 namespace ParlayRMS.ManageAlert.Handlers;
 
-public class SimilarTicketDetailHandler : IRequestHandler<SimilarTicketDetailRequest, IEnumerable<SimilarTicketDetailModel>>
+public class SimilarTicketDetailHandler(ManageAlertService alertService, IMapper mapper)
+    : IRequestHandler<SimilarTicketDetailRequest, IEnumerable<SimilarTicketDetailModel>>
 {
-	private readonly ManageAlertService manageAlertService;
-	private readonly IMapper mapper;
-
-	public SimilarTicketDetailHandler(ManageAlertService manageAlertService, IMapper mapper)
-	{
-		this.manageAlertService = manageAlertService;
-		this.mapper = mapper;
-	}
-
-	public Task<IEnumerable<SimilarTicketDetailModel>> Handle(SimilarTicketDetailRequest request, CancellationToken cancellationToken)
+    public Task<IEnumerable<SimilarTicketDetailModel>> Handle(SimilarTicketDetailRequest request, CancellationToken cancellationToken)
 	{
 		var criteria = mapper.Map<ViewDetailCriteria>(request);
-		return manageAlertService.GetSimilarTicketDetail(criteria);
+		return alertService.GetSimilarTicketDetail(criteria);
 	}
 }
 
-public class PotentialWinningDetailHandler : IRequestHandler<PotentialWinningDetailRequest, IEnumerable<PotentialWinningDetailModel>>
+public class PotentialWinningDetailHandler(ManageAlertService alertService, IMapper mapper)
+    : IRequestHandler<PotentialWinningDetailRequest, IEnumerable<PotentialWinningDetailModel>>
 {
-	private readonly ManageAlertService manageAlertService;
-	private readonly IMapper mapper;
-
-	public PotentialWinningDetailHandler(ManageAlertService manageAlertService, IMapper mapper)
-	{
-		this.manageAlertService = manageAlertService;
-		this.mapper = mapper;
-	}
-
-	public Task<IEnumerable<PotentialWinningDetailModel>> Handle(PotentialWinningDetailRequest request,
+    public Task<IEnumerable<PotentialWinningDetailModel>> Handle(PotentialWinningDetailRequest request,
 		CancellationToken cancellationToken)
 	{
 		var criteria = mapper.Map<ViewDetailCriteria>(request);
-		return manageAlertService.GetPotentialWinningDetail(criteria);
+		return alertService.GetPotentialWinningDetail(criteria);
 	}
 }

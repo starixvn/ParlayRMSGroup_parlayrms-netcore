@@ -19,20 +19,11 @@ public interface ManageAlertService
 	Task<int> TakeAction(TakeActionRequest request);
 }
 
-public class ManageAlertServiceImp : ManageAlertService
+public class ManageAlertServiceImp(IDynamicRepository repository, IMapper mapper) : ManageAlertService
 {
-	private readonly IDynamicRepository dynamicRepository;
-	private readonly IMapper mapper;
-
-	public ManageAlertServiceImp(IDynamicRepository dynamicRepository, IMapper mapper)
+    public async Task<ManageAlertViewModel> GetAlerts(ManageAlertCriteria criteria)
 	{
-		this.dynamicRepository = dynamicRepository;
-		this.mapper = mapper;
-	}
-
-	public async Task<ManageAlertViewModel> GetAlerts(ManageAlertCriteria criteria)
-	{
-		var result = await dynamicRepository.FetchMultipleAsync<ManageAlertModel, int>(criteria);
+		var result = await repository.FetchMultipleAsync<ManageAlertModel, int>(criteria);
 		return new ManageAlertViewModel
 		{
 			Items = result.FirstResultSet,
@@ -42,23 +33,23 @@ public class ManageAlertServiceImp : ManageAlertService
 
 	public Task<IEnumerable<SimilarTicketDetailModel>> GetSimilarTicketDetail(ViewDetailCriteria criteria)
 	{
-		return dynamicRepository.FetchAsync<SimilarTicketDetailModel>(criteria);
+		return repository.FetchAsync<SimilarTicketDetailModel>(criteria);
 	}
 
 	public Task<IEnumerable<PotentialWinningDetailModel>> GetPotentialWinningDetail(ViewDetailCriteria criteria)
 	{
-		return dynamicRepository.FetchAsync<PotentialWinningDetailModel>(criteria);
+		return repository.FetchAsync<PotentialWinningDetailModel>(criteria);
 	}
 
 	public Task<IEnumerable<ViewLogModel>> GetViewLogs(ViewLogRequest request)
 	{
 		var criteria = mapper.Map<ViewLogCriteria>(request);
-		return dynamicRepository.FetchAsync<ViewLogModel>(criteria);
+		return repository.FetchAsync<ViewLogModel>(criteria);
 	}
 
 	public Task<int> TakeAction(TakeActionRequest request)
 	{
 		var criteria = mapper.Map<TakeActionCriteria>(request);
-		return dynamicRepository.ExecuteAsync(criteria);
+		return repository.ExecuteAsync(criteria);
 	}
 }

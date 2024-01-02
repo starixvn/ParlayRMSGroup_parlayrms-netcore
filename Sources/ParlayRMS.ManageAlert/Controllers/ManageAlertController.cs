@@ -9,16 +9,9 @@ namespace ParlayRMS.ManageAlert.Controllers;
 [ApiController]
 [Route("api/manage-alert")]
 [EnableCors("AllowOrigin")]
-public class ManageAlertController : ControllerBase
+public class ManageAlertController(IMediator mediator) : ControllerBase
 {
-	private readonly IMediator mediator;
-
-	public ManageAlertController(IMediator mediator)
-	{
-		this.mediator = mediator;
-	}
-
-	[Route("alerts")]
+    [Route("alerts")]
 	public async Task<IActionResult> Alerts(ManageAlertRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
 	[Route("similar-detail")]

@@ -5,14 +5,8 @@ using ParlayRMS.LeagueEventControl.Services;
 
 namespace ParlayRMS.LeagueEventControl.Handlers;
 
-public class LeagueEventHandler : IRequestHandler<LeagueDataRequest, IEnumerable<LeagueDataModel>>
+public class LeagueEventHandler(LeagueEventService eventService)
+    : IRequestHandler<LeagueDataRequest, IEnumerable<LeagueDataModel>>
 {
-	private readonly LeagueEventService leagueEventService;
-
-	public LeagueEventHandler(LeagueEventService leagueEventService)
-	{
-		this.leagueEventService = leagueEventService;
-	}
-
-	public Task<IEnumerable<LeagueDataModel>> Handle(LeagueDataRequest request, CancellationToken cancellationToken) => leagueEventService.GetLeaguesData(request);
+    public Task<IEnumerable<LeagueDataModel>> Handle(LeagueDataRequest request, CancellationToken cancellationToken) => eventService.GetLeaguesData(request);
 }

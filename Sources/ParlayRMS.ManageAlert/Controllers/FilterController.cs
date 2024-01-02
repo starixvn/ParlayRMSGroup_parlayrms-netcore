@@ -7,18 +7,12 @@ namespace ParlayRMS.ManageAlert.Controllers;
 [ApiController]
 [Route("api/manage-alert/filter")]
 [EnableCors("AllowOrigin")]
-public class FilterController : ControllerBase
+public class FilterController(FilterService service) : ControllerBase
 {
-	private readonly FilterService filterService;
-	public FilterController(FilterService filterService)
-	{
-		this.filterService = filterService;
-	}
-
-	[Route("sports")]
+    [Route("sports")]
 	public IActionResult GetSports()
 	{
-		var result = filterService.GetSportTypes();
+		var result = service.GetSportTypes();
 		return Ok(result);
 	}
 }

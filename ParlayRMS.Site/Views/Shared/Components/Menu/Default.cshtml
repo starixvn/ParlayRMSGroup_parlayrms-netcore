@@ -1,0 +1,53 @@
+﻿@inject INapSession napSession
+
+@using Fanex.NAP.Client.Models
+@using Fanex.NAP.Client.Helpers.Web
+@{
+    var menuItemList = napSession.MenuItemList != null ? napSession.MenuItemList : new List<MenuItem>();
+    var parentMenuItemList = menuItemList.Where(m => m.ParentId == 0).OrderBy(m => m.DisplayOrder).ToList();
+    var isFirstParent = true;
+}
+<div class="menu">
+    <div class="content">
+        <a href="/" class="logo over-em"></a>
+        @foreach (var parentMenu in parentMenuItemList)
+        {
+            var childrenMenu = menuItemList.Where(m => m.ParentId == parentMenu.Id).ToList();
+            <ul class="@(isFirstParent ? " nav nav_line" : "nav" )">
+                <li class="tab">
+                    <a href="@(string.IsNullOrEmpty(parentMenu.Url) ? "#" : @Url.Content("~" + parentMenu.Url))">
+                        <span>@parentMenu.Name</span>
+                    </a>
+                    @if (childrenMenu.Count > 0)
+                    {
+                        <ul class="sub-nav" style="display: none">
+                            @foreach (var menu in childrenMenu)
+                            {
+                                <li><a href='@(menu.Url != "" ? @Url.Content("~" + menu.Url) : "#")'>@menu.Name</a></li>
+                            }
+                        </ul>
+                    }
+                </li>
+            </ul>
+            isFirstParent = false;
+        }
+        <div class="welcome ">
+            <div class="welcomehead">
+                Logged in as<span style="color: #ff6300; font-weight: bold">
+                    &nbsp;
+                    @napSession.UserName
+                </span>
+                <div class="arrow">
+                </div>
+            </div>
+            <div class="welcomebody">
+                <div class="welcomebody-sub">
+                    <a href="/Auth/ChangePassword">Change Password</a>
+                </div>
+                <div class="welcomebody-sub">
+                    <a href="/Auth/LogOut">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

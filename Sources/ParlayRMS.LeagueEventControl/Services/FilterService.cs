@@ -13,27 +13,17 @@ public interface FilterService
 	Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request);
 }
 
-public class FilterServiceImp : FilterService
+public class FilterServiceImp(IDynamicRepository repository, IMapper mapper) : FilterService
 {
-	private readonly IDynamicRepository dynamicRepository;
-
-	private readonly IMapper mapper;
-
-	public FilterServiceImp(IDynamicRepository dynamicRepository, IMapper mapper)
-	{
-		this.dynamicRepository = dynamicRepository;
-		this.mapper = mapper;
-	}
-
-	public Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request)
+    public Task<IEnumerable<LeagueModel>> GetLeagues(LeagueRequest request)
 	{
 		var criteria = mapper.Map<LeagueCriteria>(request);
-		return dynamicRepository.FetchAsync<LeagueModel>(criteria);
+		return repository.FetchAsync<LeagueModel>(criteria);
 	}
 
 	public Task<IEnumerable<BettypeModel>> GetBettypes(BettypeRequest request)
 	{
 		var criteria = mapper.Map<BettypeCriteria>(request);
-		return dynamicRepository.FetchAsync<BettypeModel>(criteria);
+		return repository.FetchAsync<BettypeModel>(criteria);
 	}
 }

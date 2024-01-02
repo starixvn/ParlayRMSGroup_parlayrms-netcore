@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
@@ -23,22 +23,19 @@
     <Content Include="App_Data\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Views\**">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
- 
 
   <ItemGroup>
+    <PackageReference Include="codeessentials.WebOptimizer.Dotless" Version="3.1.0" />
     <PackageReference Include="Fanex.Caching.Redis.AspNetCore" Version="2.2.4" />
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.3" />
     <PackageReference Include="Fanex.Logging" Version="2.0.1.1" />
     <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1" />
     <PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
     <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="1.0.1.2" />
-
     <PackageReference Include="Fanex.NAP.Client" Version="2.0.0" />
     <PackageReference Include="Fanex.NAP.SignIn" Version="2.0.1.1" />
+    <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.396" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.12" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

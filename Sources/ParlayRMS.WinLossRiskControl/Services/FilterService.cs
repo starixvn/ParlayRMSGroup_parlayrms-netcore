@@ -16,19 +16,12 @@ public interface FilterService
 	Task<List<SelectItemModel>> GetComboes();
 }
 
-public class FilterServiceImp : FilterService
+public class FilterServiceImp(IDynamicRepository repository, IRemotingRefService refService)
+    : FilterService
 {
 	private const string LanguageCode = "en";
-	private readonly IRemotingRefService remotingRefService;
-	private readonly IDynamicRepository repository;
 
-	public FilterServiceImp(IDynamicRepository repository, IRemotingRefService remotingRefService)
-	{
-		this.repository = repository;
-		this.remotingRefService = remotingRefService;
-	}
-
-	public async Task<List<CompanyModel>> GetCompany()
+    public async Task<List<CompanyModel>> GetCompany()
 	{
 		var criteria = new CompanyCriteria();
 		return (await repository.FetchAsync<CompanyModel>(criteria)).ToList();
@@ -69,7 +62,7 @@ public class FilterServiceImp : FilterService
 		return new SportModel
 		{
 			SportId = sportId,
-			SportName = remotingRefService.GetSportName(sportId.ToString(), LanguageCode),
+			SportName = refService.GetSportName(sportId.ToString(), LanguageCode),
 			SportGroup = groupId
 		};
 	}

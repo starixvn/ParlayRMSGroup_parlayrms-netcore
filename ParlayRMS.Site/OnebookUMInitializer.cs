@@ -27,19 +27,12 @@ public static class OnebookUMInitializer
     }
 }
 
-public class MemoryUmCacheService : IUMCacheService
+public class MemoryUmCacheService(IMemoryCache cache) : IUMCacheService
 {
-    private readonly IMemoryCache memoryCache;
-
-    public MemoryUmCacheService(IMemoryCache memoryCache)
-    {
-        this.memoryCache = memoryCache;
-    }
-
-    public T Get<T>(string key) => memoryCache.Get<T>(key);
+    public T Get<T>(string key) => cache.Get<T>(key);
 
     public void Set<T>(string key, T value, TimeSpan absoluteExpiration)
-        => memoryCache.Set(key, value, new MemoryCacheEntryOptions().SetAbsoluteExpiration(absoluteExpiration));
+        => cache.Set(key, value, new MemoryCacheEntryOptions().SetAbsoluteExpiration(absoluteExpiration));
 
-    public void Remove(string key) => memoryCache.Remove(key);
+    public void Remove(string key) => cache.Remove(key);
 }

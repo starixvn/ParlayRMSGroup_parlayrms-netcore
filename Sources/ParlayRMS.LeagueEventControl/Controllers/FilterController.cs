@@ -8,16 +8,9 @@ namespace ParlayRMS.LeagueEventControl.Controllers;
 [ApiController]
 [Route("api/league-event-control/[controller]")]
 [EnableCors("AllowOrigin")]
-public class FilterController : ControllerBase
+public class FilterController(IMediator mediator) : ControllerBase
 {
-	private readonly IMediator mediator;
-
-	public FilterController(IMediator mediator)
-	{
-		this.mediator = mediator;
-	}
-
-	[Route("league")]
+    [Route("league")]
 	public async Task<ActionResult> League(LeagueRequest request) => Ok(await mediator.Send(request));
 
 	[Route("bettype")]
