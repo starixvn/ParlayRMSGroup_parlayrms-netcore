@@ -14,6 +14,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.Report;
+    using Web;
 
     public class TopWinnersController(INapSession napSession, INapSettings napSettings,
         TopWinnersService _topwinnersService,
@@ -102,7 +103,7 @@ namespace ParlayRMS.Legacy.Controllers
 
         [HttpGet]
         
-        public void Excel(TopWinnersOptions options)
+        public IActionResult Excel(TopWinnersOptions options)
         {
             var isValidCustomerClass = !(options.CustomerClass.HasValue && options.CustomerClass.Value > short.MaxValue);
             var records = isValidCustomerClass ? _topwinnersService.GetTopWinners(options) : new List<RMS_Rpt_Parlay_TopWinner>();
@@ -191,11 +192,7 @@ namespace ParlayRMS.Legacy.Controllers
 
             writer.SyncColumnWidths(11);
 
-            var ms = writer.Render("TopWinner");
-            Response.AddHeader("content-disposition", "attachment; filename=" + "TopWinner.xls");
-            Response.AddHeader("content-type", "application/vnd.ms-excel");
-            Response.BinaryWrite(ms.ToArray());
-            Response.End();
+            return new TemplateWriterResult(writer, "TopWinner.xls", "TopWinner");
         }
 
         [HttpGet]

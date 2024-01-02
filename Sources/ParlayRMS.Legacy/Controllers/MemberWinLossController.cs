@@ -10,6 +10,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.Report;
+    using Web;
 
     public class MemberWinLossController : BaseController
     {
@@ -90,7 +91,7 @@ namespace ParlayRMS.Legacy.Controllers
         }
 
         [HttpGet]
-        public void Excel(MemberWinLossOptions options)
+        public IActionResult Excel(MemberWinLossOptions options)
         {
             var model = _memberWinLossService.GetMemberWinLoss(
                                                       options.FromDate,
@@ -106,10 +107,7 @@ namespace ParlayRMS.Legacy.Controllers
 
             var ms = roleId > (int)RoleId.Member ? ExportAgentWinLossRpt(model, title) : ExportMemberWinLossRpt(model, title);
 
-            Response.AddHeader("content-disposition", "attachment; filename=" + "MAMemberWinLoss.xls");
-            Response.AddHeader("content-type", "application/vnd.ms-excel");
-            Response.BinaryWrite(ms.ToArray());
-            Response.End();
+            return new NPoiResult(ms, "MAMemberWinLoss.xls");
         }
 
         private MemoryStream ExportMemberWinLossRpt(MemberWinLossData model, string title)

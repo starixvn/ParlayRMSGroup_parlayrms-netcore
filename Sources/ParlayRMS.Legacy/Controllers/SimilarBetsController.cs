@@ -19,9 +19,9 @@ namespace ParlayRMS.Legacy.Controllers
 
         [NapAuth(FunctionKey = FunctionKeys.SimilarBets, Policy = Constant.Policy.Read)]
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string betId)
         {
-            ViewBag.betid = Request["betid"];
+            ViewBag.betid = betId;
             return View("Index");
         }
 

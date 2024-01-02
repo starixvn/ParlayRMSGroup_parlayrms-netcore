@@ -10,6 +10,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.Report;
+    using Web;
 
     public class ParlayWonController : BaseController
     {
@@ -126,7 +127,7 @@ namespace ParlayRMS.Legacy.Controllers
 
         [HttpGet]
         
-        public void Excel(ParlayWonOptions options)
+        public IActionResult Excel(ParlayWonOptions options)
         {
             var isValidCustomerClass = !(options.CustomerClass.HasValue && options.CustomerClass.Value > short.MaxValue);
             var records = isValidCustomerClass ? _service.GetParlayWonList(options, out _) : new List<RMS_Rpt_Parlay_ParlayWon>();
@@ -184,11 +185,7 @@ namespace ParlayRMS.Legacy.Controllers
 
             writer.SyncColumnWidths(14);
 
-            var ms = writer.Render("ParlayWon");
-            Response.AddHeader("content-disposition", "attachment; filename=" + "ParlayWon.xls");
-            Response.AddHeader("content-type", "application/vnd.ms-excel");
-            Response.BinaryWrite(ms.ToArray());
-            Response.End();
+            return new TemplateWriterResult(writer, "ParlayWon.xls", "ParlayWon");
         }
 
         [HttpGet]

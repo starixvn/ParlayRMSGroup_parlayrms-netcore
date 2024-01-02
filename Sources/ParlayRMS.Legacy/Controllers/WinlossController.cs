@@ -9,6 +9,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.Report;
+    using Web;
 
     public class WinlossController : BaseController
     {
@@ -55,7 +56,7 @@ namespace ParlayRMS.Legacy.Controllers
         }
 
         [HttpGet]
-        public void Excel(WinlossOptions options)
+        public IActionResult Excel(WinlossOptions options)
         {
             var model = _winlossService.GetWinloss(options);
             var templatePath = "ExcelTemplates\\Winloss.xls";
@@ -160,11 +161,7 @@ namespace ParlayRMS.Legacy.Controllers
 
             writer.SyncColumnWidths(12);
 
-            var ms = writer.Render("Winloss");
-            Response.AddHeader("content-disposition", "attachment; filename=" + "Winloss.xls");
-            Response.AddHeader("content-type", "application/vnd.ms-excel");
-            Response.BinaryWrite(ms.ToArray());
-            Response.End();
+            return new TemplateWriterResult(writer, "Winloss.xls", "Winloss");
         }
     }
 }

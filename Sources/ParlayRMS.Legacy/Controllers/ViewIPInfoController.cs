@@ -17,6 +17,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.ViewIPInfo;
+    using Web;
 
     public class ViewIPInfoController(
         ViewIPInfoService _ipinfoService,
@@ -28,11 +29,11 @@ namespace ParlayRMS.Legacy.Controllers
 
         [HttpGet]
         [NapAuth(FunctionKey = FunctionKeys.ViewIP, Policy = Constant.Policy.Read)]
-        public ActionResult Index()
+        public ActionResult Index(string ip, DateTime date)
         {
             var info = _commonService.GetMinTransDate();
-            ViewBag.ip = Request["ip"];
-            ViewBag.date = Request["date"];
+            ViewBag.ip = ip;
+            ViewBag.date = date;
             ViewBag.minDate = info.MinTransdate;
             return View("Index");
         }
@@ -58,7 +59,7 @@ namespace ParlayRMS.Legacy.Controllers
 
         [HttpGet]
         
-        public void ExcelForIpInfo(ViewIPInfoOptions options)
+        public IActionResult ExcelForIpInfo(ViewIPInfoOptions options)
         {
 	        var data = _ipinfoService.GetIPInfo(options.IP, options.Date, options.TicketStatus);
 
@@ -114,11 +115,7 @@ namespace ParlayRMS.Legacy.Controllers
 
             writer.SyncColumnWidths(9);
 
-	        var ms = writer.Render("IpInfo");
-	        Response.AddHeader("content-disposition", "attachment; filename=" + "IpInfo.xls");
-	        Response.AddHeader("content-type", "application/vnd.ms-excel");
-	        Response.BinaryWrite(ms.ToArray());
-	        Response.End();
+            return new TemplateWriterResult(writer, "IpInfo.xls", "IpInfo");
         }
 
 		[HttpPost]
@@ -142,7 +139,7 @@ namespace ParlayRMS.Legacy.Controllers
 
 		[HttpGet]
 		
-		public void ExcelForIpStats(ViewIPStatsOptions options)
+		public IActionResult ExcelForIpStats(ViewIPStatsOptions options)
 		{
 			var data = _ipinfoService.GetIPStats(
 				options.FromDate,
@@ -185,11 +182,7 @@ namespace ParlayRMS.Legacy.Controllers
 
 			writer.SyncColumnWidths(6);
 
-			var ms = writer.Render("IpStats");
-			Response.AddHeader("content-disposition", "attachment; filename=" + "IpStats.xls");
-			Response.AddHeader("content-type", "application/vnd.ms-excel");
-			Response.BinaryWrite(ms.ToArray());
-			Response.End();
+            return new TemplateWriterResult(writer, "IpStats.xls", "IpStats");
 		}
 
 		[HttpGet]
