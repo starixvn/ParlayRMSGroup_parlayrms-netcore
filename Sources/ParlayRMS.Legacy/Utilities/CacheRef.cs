@@ -1,10 +1,10 @@
-﻿namespace ParlayRMS.Utilities;
+﻿namespace ParlayRMS.Legacy.Utilities;
 
 using Fanex.RemotingRef;
 
 public static class CacheRef
 {
-    private static readonly RemotingRefService RemotingRefService = new();
+    public static readonly RemotingRefService RemotingRefService = new();
 
     public static string Language
     {

@@ -46,6 +46,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sources\ParlayRMS.Application\ParlayRMS.Application.csproj" />
     <ProjectReference Include="..\Sources\ParlayRMS.LeagueEventControl\ParlayRMS.LeagueEventControl.csproj" />
+    <ProjectReference Include="..\Sources\ParlayRMS.Legacy\ParlayRMS.Legacy.csproj" />
     <ProjectReference Include="..\Sources\ParlayRMS.ManageAlert\ParlayRMS.ManageAlert.csproj" />
     <ProjectReference Include="..\Sources\ParlayRMS.WinLossRiskControl\ParlayRMS.WinLossRiskControl.csproj" />
     <ProjectReference Include="..\Sources\ParlayRMS\ParlayRMS.csproj" />

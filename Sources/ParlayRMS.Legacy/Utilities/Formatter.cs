@@ -1,4 +1,4 @@
-﻿namespace ParlayRMS.Utilities;
+﻿namespace ParlayRMS.Legacy.Utilities;
 
 public static class Formatter
 {
