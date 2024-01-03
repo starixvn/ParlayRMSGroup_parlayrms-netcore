@@ -6,6 +6,7 @@ COPY ./Sources/ParlayRMS.Application/*.csproj ./Sources/ParlayRMS.Application/
 COPY ./Sources/ParlayRMS.LeagueEventControl/*.csproj ./Sources/ParlayRMS.LeagueEventControl/
 COPY ./Sources/ParlayRMS.ManageAlert/*.csproj ./ParlayRMS.ManageAlert/
 COPY ./Sources/ParlayRMS.WinLossRiskControl/*.csproj ./Sources/ParlayRMS.WinLossRiskControl/
+COPY ./Sources/ParlayRMS.Legacy/*.csproj ./Sources/ParlayRMS.Legacy/
 COPY ./ParlayRMS.Site/*.csproj  ./ParlayRMS.Site/
 
 RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
