@@ -6,10 +6,8 @@ using DataAccess;
 using DTO.SimilarBets;
 using Utilities;
 
-public class SimilarBetsService : BaseService
+public class SimilarBetsService (SimilarBetsDataAccess _similarbetsDataAccess)
 {
-    private readonly SimilarBetsDataAccess _similarbetsDataAccess = new SimilarBetsDataAccess();
-
     public RMS_Similar_Parlay_Betlist GetSimilarBets(long transId, bool isSimilar)
     {
             var data = _similarbetsDataAccess.RMS_Similar_Parlay_Betlist(transId, isSimilar);

@@ -12,12 +12,12 @@ using Utilities;
 using ViewModel.Report;
 using Web;
 
-public class ParlayWonController : BaseController
+public class ParlayWonController(
+    ParlayWonService _service,
+    CommonService commonService,
+    BetDetailsService _betDetailsService
+    ) : BaseController
 {
-    private readonly ParlayWonService _service = new ParlayWonService();
-    private readonly CommonService commonService = new CommonService();
-    private readonly BetDetailsService _betDetailsService = new BetDetailsService();
-
     public ActionResult Filter()
     {
         var levels = new List<SelectListItem> { new SelectListItem { Text = ViewLang.None, Value = "0" } };

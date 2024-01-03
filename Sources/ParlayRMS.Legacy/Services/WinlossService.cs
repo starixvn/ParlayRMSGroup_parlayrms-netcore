@@ -9,11 +9,8 @@ using Models.Winloss;
 using Utilities;
 using ViewModel.Report;
 
-public class WinlossService
+public class WinlossService(WinlossDataAccess _winlossDataAccess, CommonService _commonService)
 {
-    private readonly WinlossDataAccess _winlossDataAccess = new WinlossDataAccess();
-    private readonly CommonService _commonService = new CommonService();
-
     public WinlossData GetWinloss(WinlossOptions options)
     {
         var info = _commonService.GetBalanceUpDayInfo();

@@ -7,10 +7,8 @@ using Criteria.Leagues;
 using DTO.Leagues;
 using Fanex.Data.Repository;
 
-public class LeaguesDataAccess 
+public class LeaguesDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType)
     {
             var criteria = new LeagueSel_Criteria

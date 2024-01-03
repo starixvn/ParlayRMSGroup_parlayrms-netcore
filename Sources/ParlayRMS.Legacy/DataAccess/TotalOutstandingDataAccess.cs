@@ -6,9 +6,8 @@ using Criteria.TotalOutstanding;
 using DTO.TotalOutstanding;
 using Fanex.Data.Repository;
 
-public class TotalOutstandingDataAccess 
+public class TotalOutstandingDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
     public List<RMS_Rpt_Parlay_Outstanding_Mem> RMS_Rpt_Parlay_Outstanding_Mem(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
     {
             var criteria = new Rpt_ComboParlay_Outstanding_Mem_Criteria

@@ -8,9 +8,8 @@ using DTO.BetList;
 using DTO.TopWinners;
 using Fanex.Data.Repository;
 
-public class TopWinnersDataAccess 
+public class TopWinnersDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
     public IEnumerable<RMS_Rpt_Parlay_TopWinner> RMS_Rpt_Parlay_TopWinners(
         DateTime fromDate,
         DateTime toDate,

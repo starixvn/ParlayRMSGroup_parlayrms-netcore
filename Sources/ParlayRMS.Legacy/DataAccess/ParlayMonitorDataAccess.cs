@@ -7,10 +7,8 @@ using DTO.ParlayMonitor;
 using DTO.PotentialWinning;
 using Fanex.Data.Repository;
 
-public class ParlayMonitorDataAccess
+public class ParlayMonitorDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public IEnumerable<RMS_Monitor_Parlay_Betlist> RMS_Monitor_Parlay_Betlist(
         string combos,
         string parlayTypes,

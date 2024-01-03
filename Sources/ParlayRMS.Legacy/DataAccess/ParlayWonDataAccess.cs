@@ -7,10 +7,8 @@ using Criteria.ParlayWon;
 using DTO.ParlayWon;
 using Fanex.Data.Repository;
 
-public class ParlayWonDataAccess 
+public class ParlayWonDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public IEnumerable<RMS_Rpt_Parlay_ParlayWon> RMS_Rpt_Parlay_ParlayWon(
         DateTime fromDate,
         DateTime toDate,

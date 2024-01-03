@@ -8,12 +8,11 @@ using DTO.LeagueBetTypeAnalysis;
 using DTO.Leagues;
 using ViewModel.Report;
 
-public class LeagueBetTypeAnalysisService : BaseService
+public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _dataAccess)
 {
     private const byte SORT_BY_TOTAL_TICKETS = 1;
     private const byte SORT_BY_RATIO = 2;
     private const byte SORT_BY_HOUSE_WIN_LOSS = 3;
-    private readonly LeagueBetTypeAnalysisDataAccess _dataAccess = new LeagueBetTypeAnalysisDataAccess();
 
     public List<RMS_Rpt_LeagueBettype_Analysis> GetLeagueBetTypeList(LeagueBetTypeAnalysisOptions options)
     {

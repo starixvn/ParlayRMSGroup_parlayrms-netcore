@@ -5,10 +5,8 @@ using DataAccess;
 using DTO.PotentialWinning;
 using Utilities;
 
-public class PotentialWinningMonitorService : BaseService
+public class PotentialWinningMonitorService (PotentialWinningMonitorDataAccess _potentialWinningDataAccess)
 {
-    private readonly PotentialWinningMonitorDataAccess _potentialWinningDataAccess = new PotentialWinningMonitorDataAccess();
-
     public IEnumerable<RMS_Monitor_Potential_Winning> GetPotentialWinningList(
         string combos,
         string parlayTypes,

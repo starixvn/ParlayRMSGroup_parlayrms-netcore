@@ -9,10 +9,8 @@ using DTO.BetList;
 using Fanex.BetList.Core.Entities;
 using Fanex.Data.Repository;
 
-public class BetListService : BaseService
+public class BetListService (BetListDataAccess _betListDataAccess)
 {
-    private readonly BetListDataAccess _betListDataAccess = new BetListDataAccess();
-
     public Tuple<List<bool>, List<ITicket>> Map(long refNo, IEnumerable<RMS_Parlay_TransDetails> data)
     {
         var result = new List<ITicket>();

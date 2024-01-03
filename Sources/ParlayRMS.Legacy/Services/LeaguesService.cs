@@ -5,10 +5,8 @@ using Criteria;
 using DataAccess;
 using DTO.Leagues;
 
-public class LeaguesService : BaseService
+public class LeaguesService (LeaguesDataAccess _leagueDataAccess)
 {
-    private readonly LeaguesDataAccess _leagueDataAccess = new LeaguesDataAccess();
-
     public List<RMS_LeagueSel> GetListLeague(string leagueName, int groupid, int sportType)
     {
             return _leagueDataAccess.RMS_LeagueSel(leagueName, groupid, sportType);

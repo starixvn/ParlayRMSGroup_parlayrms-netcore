@@ -7,10 +7,8 @@ using DTO.ParlayMonitor;
 using DTO.PotentialWinning;
 using Utilities;
 
-public class ParlayMonitorService : BaseService
+public class ParlayMonitorService (ParlayMonitorDataAccess _parlayDataAccess)
 {
-    private readonly ParlayMonitorDataAccess _parlayDataAccess = new ParlayMonitorDataAccess();
-
     public IEnumerable<RMS_Monitor_Parlay_Betlist> GetParlayMonitorTickets(
         string combos,
         string parlayTypes,

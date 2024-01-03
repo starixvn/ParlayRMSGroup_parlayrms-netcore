@@ -5,10 +5,8 @@ using Criteria;
 using DataAccess;
 using DTO.Agents;
 
-public class AgentService : BaseService
+public class AgentService(AgentsDataAccess _agentDataAccess) 
 {
-    private readonly AgentsDataAccess _agentDataAccess = new AgentsDataAccess();
-
     public IEnumerable<RMS_DangerousAgentSel> GetDangerousAgents(string username)
     {
             return _agentDataAccess.RMS_DangerousAgentSel(username);

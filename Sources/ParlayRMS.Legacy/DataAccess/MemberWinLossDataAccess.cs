@@ -7,10 +7,8 @@ using Criteria.MemberWinLoss;
 using DTO.MemberWinLoss;
 using Fanex.Data.Repository;
 
-public class MemberWinLossDataAccess 
+public class MemberWinLossDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> RMS_Rpt_Parlay_MemberWinLoss(
         DateTime fromDate,
         DateTime toDate,

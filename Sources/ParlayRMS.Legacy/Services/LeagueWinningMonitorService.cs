@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using DataAccess;
 using DTO.LeagueWinningMonitor;
 
-public class LeagueWinningMonitorService : BaseService
+public class LeagueWinningMonitorService (LeagueWinningMonitorDataAccess leagueWinningMonitorDataAccess)
 {
-    private readonly LeagueWinningMonitorDataAccess leagueWinningMonitorDataAccess = new LeagueWinningMonitorDataAccess();
-
     public IEnumerable<RmsRptLeagueWinningMonitor> GetLeagueWinningMonitorList(
         string combos,
         string parlayTypes,

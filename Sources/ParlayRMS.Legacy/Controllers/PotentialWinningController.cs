@@ -10,11 +10,11 @@ using Services;
 using Utilities;
 using ViewModel.Monitoring;
 
-public class PotentialWinningController : BaseController
+public class PotentialWinningController(
+    PotentialWinningMonitorService _potentialWinning,
+    CommonService _commonService
+    ) : BaseController
 {
-    private readonly PotentialWinningMonitorService _potentialWinning = new PotentialWinningMonitorService();
-    private readonly CommonService _commonService = new CommonService();
-
     public ActionResult Filter()
     {
         var combos = new List<SelectListItem>();

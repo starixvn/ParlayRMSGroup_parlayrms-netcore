@@ -7,10 +7,8 @@ using DataAccess;
 using DTO.ViewIPInfo;
 using Models.ViewIpInfo;
 
-public class ViewIPInfoService : BaseService
+public class ViewIPInfoService (ViewIPInfoDataAccess _viewIPInfoDataAccess)
 {
-    private readonly ViewIPInfoDataAccess _viewIPInfoDataAccess = new ViewIPInfoDataAccess();
-
     public IEnumerable<RMS_Rpt_Parlay_ViewIPInfo> GetIPInfo(string ip, DateTime date, string ticketStatus)
     {
             return _viewIPInfoDataAccess.RMS_Rpt_Parlay_BetsStatisticsByIP(ip, date, ticketStatus);

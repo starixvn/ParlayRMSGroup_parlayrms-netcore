@@ -31,6 +31,8 @@ using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
 namespace ParlayRMS.Site.Utilities;
 
 using Fanex.Logging.Sentry.RavenClient;
+using Legacy.DataAccess;
+using Legacy.Services;
 using NUglify.Css;
 using NUglify.JavaScript;
 using SharpRaven;
@@ -94,6 +96,45 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ManageAlertService, ManageAlertServiceImp>();
         services.AddTransient<ManageAlert.Excels.ExcelBuilder, ManageAlert.Excels.ExcelBuilderImp>();
         services.AddTransient<ManageAlert.Services.FilterService, ManageAlert.Services.FilterServiceImp>();
+    }
+
+    public static void AddLegacyService(this IServiceCollection services)
+    {
+        services.AddTransient<AgentService, AgentService>();
+        services.AddTransient<BetDetailsService, BetDetailsService>();
+        services.AddTransient<BetListService, BetListService>();
+        services.AddTransient<CommonService, CommonService>();
+        services.AddTransient<LeagueBetTypeAnalysisService, LeagueBetTypeAnalysisService>();
+        services.AddTransient<LeaguesService, LeaguesService>();
+        services.AddTransient<LeagueWinningMonitorService, LeagueWinningMonitorService>();
+        services.AddTransient<MembersService, MembersService>();
+        services.AddTransient<MemberWinLossService, MemberWinLossService>();
+        services.AddTransient<ParlayMonitorService, ParlayMonitorService>();
+        services.AddTransient<ParlayWonService, ParlayWonService>();
+        services.AddTransient<PotentialWinningMonitorService, PotentialWinningMonitorService>();
+        services.AddTransient<SimilarBetsService, SimilarBetsService>();
+        services.AddTransient<TopWinnersService, TopWinnersService>();
+        services.AddTransient<TotalOutstandingService, TotalOutstandingService>();
+        services.AddTransient<ViewIPInfoService, ViewIPInfoService>();
+        services.AddTransient<WinlossService, WinlossService>();
+
+        services.AddTransient<AgentsDataAccess, AgentsDataAccess>();
+        services.AddTransient<BetDetailsDataAccess, BetDetailsDataAccess>();
+        services.AddTransient<BetListDataAccess, BetListDataAccess>();
+        services.AddTransient<CommonDataAccess, CommonDataAccess>();
+        services.AddTransient<LeagueBetTypeAnalysisDataAccess, LeagueBetTypeAnalysisDataAccess>();
+        services.AddTransient<LeaguesDataAccess, LeaguesDataAccess>();
+        services.AddTransient<LeagueWinningMonitorDataAccess, LeagueWinningMonitorDataAccess>();
+        services.AddTransient<MembersDataAccess, MembersDataAccess>();
+        services.AddTransient<MemberWinLossDataAccess, MemberWinLossDataAccess>();
+        services.AddTransient<ParlayMonitorDataAccess, ParlayMonitorDataAccess>();
+        services.AddTransient<ParlayWonDataAccess, ParlayWonDataAccess>();
+        services.AddTransient<PotentialWinningMonitorDataAccess, PotentialWinningMonitorDataAccess>();
+        services.AddTransient<SimilarBetsDataAccess, SimilarBetsDataAccess>();
+        services.AddTransient<TopWinnersDataAccess, TopWinnersDataAccess>();
+        services.AddTransient<TotalOutstandingDataAccess, TotalOutstandingDataAccess>();
+        services.AddTransient<ViewIPInfoDataAccess, ViewIPInfoDataAccess>();
+        services.AddTransient<WinlossDataAccess, WinlossDataAccess>();
     }
 
     private static IMapper CreateMapper

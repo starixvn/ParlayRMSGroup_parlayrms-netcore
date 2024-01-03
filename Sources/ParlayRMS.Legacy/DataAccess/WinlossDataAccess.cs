@@ -8,9 +8,8 @@ using DTO.Winloss;
 using Fanex.Data.Repository;
 using Models;
 
-public class WinlossDataAccess 
+public class WinlossDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
     public IEnumerable<RMS_Rpt_Parlay_Winloss> RMS_Rpt_Parlay_Winloss(
         DateTime fromDate,
         DateTime toDate,

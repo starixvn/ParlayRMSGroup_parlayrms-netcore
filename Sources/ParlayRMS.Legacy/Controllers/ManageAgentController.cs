@@ -15,10 +15,13 @@ using Utilities;
 using ViewModel.ManageAgent;
 using X.PagedList;
 
-public class ManageAgentController(INapSession napSession, INapSettings napSettings, IHttpContextAccessor accessor) : BaseController
+public class ManageAgentController(
+    INapSession napSession, 
+    INapSettings napSettings, 
+    IHttpContextAccessor accessor,
+    IUserService _userService,
+    AgentService _agentService) : BaseController
 {
-    private readonly IUserService _userService = new UserService();
-    private readonly AgentService _agentService = new AgentService();
     private readonly int _pageSize = AppSetting.PageSize;
 
     public override void OnActionExecuting(ActionExecutingContext context)

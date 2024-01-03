@@ -15,12 +15,8 @@ using HtmlAgilityPack;
 using Models;
 using Utilities;
 
-public class BetDetailsService : BaseService
+public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService _betlistService)
 {
-    private readonly BetDetailsDataAccess _dataAccess = new BetDetailsDataAccess();
-
-    private readonly BetListService _betlistService = new BetListService();
-
     public ParlayBetDetails GetBetDetail(long transId, long refNo)
     {
         var factory = new BetListHTMLFactory();

@@ -6,9 +6,8 @@ using Criteria.ViewIPInfo;
 using DTO.ViewIPInfo;
 using Fanex.Data.Repository;
 
-public class ViewIPInfoDataAccess 
+public class ViewIPInfoDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
     public IEnumerable<RMS_Rpt_Parlay_ViewIPInfo> RMS_Rpt_Parlay_BetsStatisticsByIP(string ip, DateTime date, string ticketStatus)
     {
             var criteria = new Rpt_Parlay_BetsStatisticsByIP_Criteria

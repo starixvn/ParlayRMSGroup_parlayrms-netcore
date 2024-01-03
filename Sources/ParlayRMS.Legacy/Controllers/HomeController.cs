@@ -6,11 +6,11 @@ public class HomeController : BaseController
 {
     public ActionResult Index()
     {
-            return View();
-        }
+        return View();
+    }
 
     public ActionResult Test()
     {
-            return View();
-        }
+        return View();
+    }
 }

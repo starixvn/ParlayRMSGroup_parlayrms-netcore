@@ -6,10 +6,8 @@ using DTO.BetDetails;
 using DTO.BetList;
 using Fanex.Data.Repository;
 
-public class BetDetailsDataAccess 
+public class BetDetailsDataAccess (IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public IEnumerable<RMS_Parlay_TransDetails> RMS_Rpt_Parlay_Bet_Details(long transId, long refNo)
     {
             var criteria = new Rpt_Parlay_TopWinners_Bet_Details_Criteria

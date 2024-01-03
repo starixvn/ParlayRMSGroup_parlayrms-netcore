@@ -6,6 +6,6 @@ public class ErrorController : BaseController
 {
     public ActionResult AccessDenied()
     {
-            return View();
-        }
+        return View();
+    }
 }

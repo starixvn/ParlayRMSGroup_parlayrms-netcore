@@ -7,10 +7,8 @@ using Criteria.Members;
 using DTO.Members;
 using Fanex.Data.Repository;
 
-public class MembersDataAccess 
+public class MembersDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public IEnumerable<RMS_CustomerSel> RMS_CustomerSel(string username, int? level)
     {
             var criteria = new CustomerSel_Criteria

@@ -12,6 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
+services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new ServiceFilterAttribute(typeof(CheckUMFilterAttribute)));
+    options.Filters.Add(new SessionAuthorizeAttribute());
+});
+services.AddBundle();
+services.AddRazorPages();
 services.AddCorsPolicy();
 services.AddAuthorizationPolicy();
 services.AddAuthentication(configuration);
@@ -19,18 +26,12 @@ services.AddRedis(configuration);
 services.AddSession(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
+services.AddOnebookUM(configuration);
+services.AddFanexSql(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
 services.AddManageAlertServices();
-services.AddOnebookUM(configuration);
-services.AddFanexSql(configuration);
-services.AddBundle();
-services.AddRazorPages();
-services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(new ServiceFilterAttribute(typeof(CheckUMFilterAttribute)));
-    options.Filters.Add(new SessionAuthorizeAttribute());
-});
+services.AddLegacyService();
 
 var app = builder.Build();
 
@@ -51,8 +52,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
-#if DEBUG
 app.Run();
-#else
-await app.RunAsync("http://0.0.0.0:5000");
-#endif

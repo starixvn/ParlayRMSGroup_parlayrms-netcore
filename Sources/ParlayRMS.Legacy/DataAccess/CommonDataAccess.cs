@@ -6,10 +6,8 @@ using Criteria.Common;
 using DTO.Common;
 using Fanex.Data.Repository;
 
-public class CommonDataAccess 
+public class CommonDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public RMS_SelBalanceUpDay RMS_SelBalanceUpDay()
     {
             return repository.Get<RMS_SelBalanceUpDay>(new SelBalanceUpDay_Criteria());

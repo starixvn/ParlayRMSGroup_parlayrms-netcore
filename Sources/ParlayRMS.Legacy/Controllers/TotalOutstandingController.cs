@@ -9,11 +9,10 @@ using ParlayRMS.Models.Functions;
 using Services;
 using ViewModel.TotalOutstanding;
 
-public class TotalOutstandingController : BaseController
+public class TotalOutstandingController(
+    TotalOutstandingService _service,
+    MembersService _membersService) : BaseController
 {
-    private readonly TotalOutstandingService _service = new TotalOutstandingService();
-    private readonly MembersService _membersService = new MembersService();
-
     [HttpGet]
     [NapAuth(FunctionKey = FunctionKeys.TotalOutstanding, Policy = Constant.Policy.Read)]
     public ActionResult Index(IndexModel model)

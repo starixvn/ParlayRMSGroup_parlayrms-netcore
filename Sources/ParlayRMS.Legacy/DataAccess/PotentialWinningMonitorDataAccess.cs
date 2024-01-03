@@ -7,10 +7,8 @@ using Criteria.PotentialWinningMonitor;
 using DTO.PotentialWinning;
 using Fanex.Data.Repository;
 
-public class PotentialWinningMonitorDataAccess
+public class PotentialWinningMonitorDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public IEnumerable<RMS_Monitor_Potential_Winning> RMS_Monitor_Parlay_PotentialWinning(
         string combos,
         string parlayTypes,

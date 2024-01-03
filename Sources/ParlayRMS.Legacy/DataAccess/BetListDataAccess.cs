@@ -4,10 +4,8 @@ using Criteria.BetList;
 using DTO.BetList;
 using Fanex.Data.Repository;
 
-public class BetListDataAccess 
+public class BetListDataAccess (IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
     public BetListData RMS_Parlay_TransDetails(long transId, long refNo)
     {
             var criteria = new ComboParlay_TransDetails_Criteria { TransId = transId, RefNo = refNo };

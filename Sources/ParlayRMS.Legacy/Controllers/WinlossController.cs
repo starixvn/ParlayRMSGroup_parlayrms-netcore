@@ -11,10 +11,8 @@ using Utilities;
 using ViewModel.Report;
 using Web;
 
-public class WinlossController : BaseController
+public class WinlossController(WinlossService _winlossService) : BaseController
 {
-    private readonly WinlossService _winlossService = new WinlossService();
-
     [NapAuth(FunctionKey = FunctionKeys.Winloss, Policy = Constant.Policy.Read)]
     [HttpGet]
     public ActionResult Index()

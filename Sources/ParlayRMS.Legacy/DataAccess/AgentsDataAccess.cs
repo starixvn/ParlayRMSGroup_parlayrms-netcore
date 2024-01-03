@@ -7,10 +7,8 @@ using Criteria.Agents;
 using DTO.Agents;
 using Fanex.Data.Repository;
 
-public class AgentsDataAccess 
+public class AgentsDataAccess (IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-        
     public IEnumerable<RMS_DangerousAgentSel> RMS_DangerousAgentSel(string username)
     {
             username = string.IsNullOrEmpty(username) ? null : username;

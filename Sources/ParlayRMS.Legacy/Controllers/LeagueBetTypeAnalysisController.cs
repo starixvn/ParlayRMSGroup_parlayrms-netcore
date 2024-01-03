@@ -14,10 +14,8 @@ using Utilities;
 using ViewModel.Report;
 using X.PagedList;
 
-public class LeagueBetTypeAnalysisController : BaseController
+public class LeagueBetTypeAnalysisController(LeaguesService leagueService, LeagueBetTypeAnalysisService service) : BaseController
 {
-    private readonly LeaguesService leagueService = new LeaguesService();
-    private readonly LeagueBetTypeAnalysisService service = new LeagueBetTypeAnalysisService();
     private const int SOCCER = 1;
 
     [HttpGet]

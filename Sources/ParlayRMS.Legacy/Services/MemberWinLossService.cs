@@ -10,7 +10,11 @@ using Models;
 using Models.MemberWinLoss;
 using Utilities;
 
-public class MemberWinLossService
+public class MemberWinLossService(
+    MemberWinLossDataAccess _memberWinLossDataAccess,
+    CommonService _commonService,
+    MembersService _membersService
+    )
 {
     private const string MemberWinLossReportSessionKey = "Fanex.ParlayRMS.MemberWinLossReport";
 
@@ -21,10 +25,7 @@ public class MemberWinLossService
             CompactionPercentage = 0.15
         }
     );
-    private readonly MemberWinLossDataAccess _memberWinLossDataAccess = new MemberWinLossDataAccess();
-    private readonly CommonService _commonService = new CommonService();
-    private readonly MembersService _membersService = new MembersService();
-
+    
     private const byte SORT_BY_USERNAME = 1;
     private const byte SORT_BY_CUSTOMERCLASS = 2;
     private const byte SORT_BY_TICKET_WON = 3;

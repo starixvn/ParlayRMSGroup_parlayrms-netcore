@@ -17,11 +17,8 @@ using Services;
 using Utilities;
 using ViewModel.BetList;
 
-public class BetListController : BaseController
+public class BetListController(BetListService _betlistService, CommonService _commonService) : BaseController
 {
-    private readonly BetListService _betlistService = new BetListService();
-    private readonly CommonService _commonService = new CommonService();
-
     [HttpPost]
     [NapAuth(FunctionKey = FunctionKeys.ParlayMonitor, Policy = Constant.Policy.Read)]
     public ActionResult BetDetails(BetDetailsOptions options)

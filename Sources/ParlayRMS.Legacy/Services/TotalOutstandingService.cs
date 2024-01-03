@@ -6,10 +6,8 @@ using DataAccess;
 using DTO.TotalOutstanding;
 using Utilities;
 
-public class TotalOutstandingService
+public class TotalOutstandingService(TotalOutstandingDataAccess _dataAccess)
 {
-    private readonly TotalOutstandingDataAccess _dataAccess = new TotalOutstandingDataAccess();
-
     public List<RMS_Rpt_Parlay_Outstanding_Mem> GetTotalOutstandingForMember(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
     {
         var data = _dataAccess.RMS_Rpt_Parlay_Outstanding_Mem(custId, combo, sportsType, parlaysType, isCornerParlay);

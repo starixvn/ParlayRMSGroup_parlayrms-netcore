@@ -6,10 +6,8 @@ using Criteria;
 using DataAccess;
 using DTO.Members;
 
-public class MembersService : BaseService
+public class MembersService (MembersDataAccess _customerDataAccess)
 {
-    private readonly MembersDataAccess _customerDataAccess = new MembersDataAccess();
-
     public IEnumerable<RMS_CustomerSel> GetListCustomer(string username, int? level)
     {
             return _customerDataAccess.RMS_CustomerSel(username, level);

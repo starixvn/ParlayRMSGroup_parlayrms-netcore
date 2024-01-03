@@ -11,10 +11,8 @@ using Services;
 using Utilities;
 using ViewModel.LeagueWinningMonitor;
 
-public class LeagueWinningMonitorController : BaseController
+public class LeagueWinningMonitorController(LeagueWinningMonitorService leagueWinningMonitor) : BaseController
 {
-    private readonly LeagueWinningMonitorService leagueWinningMonitor = new LeagueWinningMonitorService();
-
     [NapAuth(FunctionKey = FunctionKeys.LeagueWinningMonitor, Policy = Constant.Policy.Read)]
     [HttpGet]
     public ActionResult Index()

@@ -12,11 +12,10 @@ using ParlayRMS.Models.Functions;
 using Services;
 using ViewModel.Report;
 
-public class SimilarBetsController : BaseController
+public class SimilarBetsController(
+    SimilarBetsService _similarbetsService, 
+    BetDetailsService _betDetailService) : BaseController
 {
-    private readonly SimilarBetsService _similarbetsService = new SimilarBetsService();
-    private readonly BetDetailsService _betDetailService = new BetDetailsService();
-
     [NapAuth(FunctionKey = FunctionKeys.SimilarBets, Policy = Constant.Policy.Read)]
     [HttpGet]
     public ActionResult Index(string betId)

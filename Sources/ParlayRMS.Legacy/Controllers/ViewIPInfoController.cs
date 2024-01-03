@@ -8,7 +8,6 @@ using Fanex.BetList.Core.Factories;
 using Fanex.BetList.Core.TicketHelper;
 using Fanex.NAP.Client.Attributes;
 using Fanex.NAP.Client.Helpers.Business;
-using Fanex.NAP.Client.Helpers.Web;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +21,7 @@ using Web;
 public class ViewIPInfoController(
     ViewIPInfoService _ipinfoService,
     BetListService _betlistService,
-    CommonService _commonService,
-    INapSession napSession) : BaseController
+    CommonService _commonService) : BaseController
 {
     private const int _pageSize = 100;
 

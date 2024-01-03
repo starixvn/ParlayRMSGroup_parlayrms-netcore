@@ -5,7 +5,6 @@ using Utilities;
 
 public class SharedController : BaseController
 {
-
     public ActionResult MessageBox(string title, string content)
     {
             ViewBag.Title = title;

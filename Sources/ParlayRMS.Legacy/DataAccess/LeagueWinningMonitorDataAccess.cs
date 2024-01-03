@@ -4,16 +4,11 @@ using System;
 using System.Collections.Generic;
 using Criteria.LeagueWinningMonitor;
 using DTO.LeagueWinningMonitor;
-using Fanex.Data;
 using Fanex.Data.Repository;
-using Fizzler;
 using Utilities;
 
-public class LeagueWinningMonitorDataAccess
+public class LeagueWinningMonitorDataAccess(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository = new DynamicRepository();
-
-
     public IEnumerable<RmsRptLeagueWinningMonitor> GetData(
         string combos,
         string parlayTypes,

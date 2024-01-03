@@ -6,7 +6,7 @@ using DataAccess;
 using DTO.Common;
 using Microsoft.Extensions.Caching.Memory;
 
-public class CommonService : BaseService
+public class CommonService (CommonDataAccess _commonDataAccess)
 {
     private static readonly IMemoryCache CacheInstance = new MemoryCache(
         new MemoryCacheOptions
@@ -15,7 +15,6 @@ public class CommonService : BaseService
             CompactionPercentage = 0.15
         }
     );
-    private readonly CommonDataAccess _commonDataAccess = new CommonDataAccess();
 
     public RMS_SelBalanceUpDay GetBalanceUpDayInfo()
     {

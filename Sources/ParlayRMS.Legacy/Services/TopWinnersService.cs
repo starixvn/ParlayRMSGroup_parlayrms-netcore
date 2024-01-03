@@ -5,11 +5,8 @@ using DataAccess;
 using DTO.TopWinners;
 using ViewModel.Report;
 
-public class TopWinnersService : BaseService
+public class TopWinnersService (TopWinnersDataAccess _topwinnersDataAccess, CommonService _commonService)
 {
-    private readonly TopWinnersDataAccess _topwinnersDataAccess = new TopWinnersDataAccess();
-    private readonly CommonService _commonService = new CommonService();
-
     public IEnumerable<RMS_Rpt_Parlay_TopWinner> GetTopWinners(TopWinnersOptions options)
     {
             var info = _commonService.GetBalanceUpDayInfo();
