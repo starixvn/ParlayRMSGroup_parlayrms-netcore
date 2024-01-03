@@ -1,37 +1,37 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.ParlayWon;
+using DTO.ParlayWon;
+using Fanex.Data.Repository;
+
+public class ParlayWonDataAccess 
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.ParlayWon;
-    using DTO.ParlayWon;
-    using Fanex.Data.Repository;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class ParlayWonDataAccess 
+    public IEnumerable<RMS_Rpt_Parlay_ParlayWon> RMS_Rpt_Parlay_ParlayWon(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        string parlayTypes,
+        string sportsType,
+        string combos,
+        string level,
+        decimal houseAmountFrom,
+        decimal houseAmountTo,
+        int sortById,
+        bool isSortAsc,
+        int pageIndex,
+        int pageSize,
+        string currency,
+        byte site,
+        byte liveType,
+        int? customerClass,
+        string ip,
+        out int totalRows)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-        public IEnumerable<RMS_Rpt_Parlay_ParlayWon> RMS_Rpt_Parlay_ParlayWon(
-                                                       DateTime fromDate,
-                                                       DateTime toDate,
-                                                       DateTime moveBetsDay,
-                                                       string parlayTypes,
-                                                       string sportsType,
-                                                       string combos,
-                                                       string level,
-                                                       decimal houseAmountFrom,
-                                                       decimal houseAmountTo,
-                                                       int sortById,
-                                                       bool isSortAsc,
-                                                       int pageIndex,
-                                                       int pageSize,
-                                                       string currency,
-                                                       byte site,
-                                                       byte liveType,
-                                                       int? customerClass,
-                                                       string ip,
-                                                       out int totalRows)
-        {
             var criteria = new Rpt_ParlayWon_Criteria
             {
                 FromDate = fromDate,
@@ -66,8 +66,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return list;
         }
 
-        private string GetTotalBet(string totalBet, bool isParlayGenerator, bool isBoostBonus)
-        {
+    private string GetTotalBet(string totalBet, bool isParlayGenerator, bool isBoostBonus)
+    {
 	        var result = totalBet;
 	        if (isParlayGenerator)
 	        {
@@ -79,5 +79,4 @@ namespace ParlayRMS.Legacy.DataAccess
 	        }
 	        return result;
         }
-	}
 }

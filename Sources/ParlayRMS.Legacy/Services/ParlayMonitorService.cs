@@ -1,36 +1,36 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Collections.Generic;
+using DataAccess;
+using DTO.ParlayMonitor;
+using DTO.PotentialWinning;
+using Utilities;
+
+public class ParlayMonitorService : BaseService
 {
-    using System;
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.ParlayMonitor;
-    using DTO.PotentialWinning;
-    using Utilities;
+    private readonly ParlayMonitorDataAccess _parlayDataAccess = new ParlayMonitorDataAccess();
 
-    public class ParlayMonitorService : BaseService
+    public IEnumerable<RMS_Monitor_Parlay_Betlist> GetParlayMonitorTickets(
+        string combos,
+        string parlayTypes,
+        string sportTypes,
+        string levels,
+        decimal stakeAfterPT,
+        decimal netWinAfterPT,
+        int reportType,
+        int selectTop,
+        long maxTransId,
+        string markets,
+        bool isCornerParlay,
+        decimal? odds,
+        string leagueGroups,
+        int? customerClass,
+        string company,
+        string ip,
+        byte liveType,
+        string username)
     {
-        private readonly ParlayMonitorDataAccess _parlayDataAccess = new ParlayMonitorDataAccess();
-
-        public IEnumerable<RMS_Monitor_Parlay_Betlist> GetParlayMonitorTickets(
-            string combos,
-            string parlayTypes,
-            string sportTypes,
-            string levels,
-            decimal stakeAfterPT,
-            decimal netWinAfterPT,
-            int reportType,
-            int selectTop,
-            long maxTransId,
-            string markets,
-            bool isCornerParlay,
-            decimal? odds,
-            string leagueGroups,
-            int? customerClass,
-            string company,
-            string ip,
-            byte liveType,
-            string username)
-        {
             var data = _parlayDataAccess.RMS_Monitor_Parlay_Betlist(combos, parlayTypes, sportTypes, levels, stakeAfterPT, netWinAfterPT, reportType, selectTop, maxTransId, markets, isCornerParlay, odds, leagueGroups, customerClass, company, ip, liveType, username);
             foreach (var item in data)
             {
@@ -43,9 +43,8 @@ namespace ParlayRMS.Legacy.Services
             return data;
         }
 
-        public UserTracking UpdateCheckedUser(int userid, string username, string transid)
-        {
+    public UserTracking UpdateCheckedUser(int userid, string username, string transid)
+    {
             return _parlayDataAccess.RMS_Monitor_Parlay_UserTracking(userid, username, transid);
         }
-    }
 }

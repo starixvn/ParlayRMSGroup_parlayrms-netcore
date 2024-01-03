@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageMember
+namespace ParlayRMS.Legacy.ViewModel.ManageMember;
+
+using System.ComponentModel.DataAnnotations;
+
+public class UpdateLevelModel
 {
-    using System.ComponentModel.DataAnnotations;
+    [Required]
+    public int CustId { get; set; }
 
-    public class UpdateLevelModel
-    {
-        [Required]
-        public int CustId { get; set; }
-
-        [Required, Range(0, 10)]
-        public int Level { get; set; }
-    }
+    [Required, Range(0, 10)]
+    public int Level { get; set; }
 }

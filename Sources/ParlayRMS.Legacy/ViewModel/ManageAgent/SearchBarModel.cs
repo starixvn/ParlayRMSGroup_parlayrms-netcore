@@ -1,7 +1,6 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageAgent
+namespace ParlayRMS.Legacy.ViewModel.ManageAgent;
+
+public class SearchBarModel
 {
-    public class SearchBarModel
-    {
-        public string UserName { get; set; }
-    }
+    public string UserName { get; set; }
 }

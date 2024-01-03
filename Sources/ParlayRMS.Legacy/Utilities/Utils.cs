@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 
-namespace ParlayRMS.Legacy.Utilities
+namespace ParlayRMS.Legacy.Utilities;
+
+public static class Utils
 {
-    public static class Utils
+    public static string ResolvePermission(bool hasPermission)
     {
-        public static string ResolvePermission(bool hasPermission)
-        {
             return !hasPermission ? "disabled" : string.Empty;
         }
 
 
-        public static void Round(object obj)
-        {
+    public static void Round(object obj)
+    {
             var properties = obj.GetType().GetProperties();
             foreach (var property in properties)
             {
@@ -24,21 +24,20 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static void Round(IEnumerable list)
-        {
+    public static void Round(IEnumerable list)
+    {
             foreach (var item in list)
             {
                 Round(item);
             }
         }
 
-        public static string DisplayMax15Character(string data)
-        {
+    public static string DisplayMax15Character(string data)
+    {
             if (data.Length > 15)
             {
                 return "..." + data.Substring(data.Length - 15);
             }
             return data;
         }
-    }
 }

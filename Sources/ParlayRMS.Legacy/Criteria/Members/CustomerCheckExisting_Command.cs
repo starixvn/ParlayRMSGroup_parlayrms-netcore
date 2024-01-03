@@ -1,15 +1,14 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Members
+﻿namespace ParlayRMS.Legacy.Criteria.Members;
+
+using Fanex.Data.Repository;
+
+public class CustomerCheckExisting_Command : NonQueryCommand
 {
-    using Fanex.Data.Repository;
+    public int CustId { get; set; }
 
-    public class CustomerCheckExisting_Command : NonQueryCommand
-    {
-        public int CustId { get; set; }
+    public bool IsExists { get; set; }
 
-        public bool IsExists { get; set; }
+    public override string GetSettingKey() => "RMS_CustomerCheckExisting";
 
-        public override string GetSettingKey() => "RMS_CustomerCheckExisting";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

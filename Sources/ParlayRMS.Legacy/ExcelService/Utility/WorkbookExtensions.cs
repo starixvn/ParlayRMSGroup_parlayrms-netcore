@@ -1,16 +1,15 @@
-namespace ParlayRMS.Legacy.ExcelService.Utility
-{
-    using NPOI.SS.UserModel;
+namespace ParlayRMS.Legacy.ExcelService.Utility;
 
-    public static class WorkbookExtensions
+using NPOI.SS.UserModel;
+
+public static class WorkbookExtensions
+{
+    public static ISheet CloneSheet(this IWorkbook workbook, string sourceSheetName, string newSheetName)
     {
-        public static ISheet CloneSheet(this IWorkbook workbook, string sourceSheetName, string newSheetName)
-        {
             var sheetIndex = workbook.GetSheetIndex(sourceSheetName);
             var newSheet = workbook.CloneSheet(sheetIndex);
             var newSheetIndex = workbook.GetSheetIndex(newSheet);
             workbook.SetSheetName(newSheetIndex, newSheetName);
             return newSheet;
         }
-    }
 }

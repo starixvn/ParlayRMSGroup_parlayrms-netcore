@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.ViewModel.BetList
+namespace ParlayRMS.Legacy.ViewModel.BetList;
+
+public class BetDetailsOptions
 {
-    public class BetDetailsOptions
-    {
-        public long TransId { get; set; }
+    public long TransId { get; set; }
 
-        public long RefNo { get; set; }
+    public long RefNo { get; set; }
 
-        public int BetType { get; set; }
+    public int BetType { get; set; }
 
-        public string Username { get; set; }
-    }
+    public string Username { get; set; }
 }

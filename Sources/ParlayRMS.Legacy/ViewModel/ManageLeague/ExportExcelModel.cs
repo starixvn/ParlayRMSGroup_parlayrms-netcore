@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageLeague
-{
-    public class ExportExcelModel
-    {
-        public string League { get; set; }
+namespace ParlayRMS.Legacy.ViewModel.ManageLeague;
 
-        public int Group { get; set; }
-    }
+public class ExportExcelModel
+{
+    public string League { get; set; }
+
+    public int Group { get; set; }
 }

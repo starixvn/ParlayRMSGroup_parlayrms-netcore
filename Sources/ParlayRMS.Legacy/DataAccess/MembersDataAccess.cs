@@ -1,18 +1,18 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System.Collections.Generic;
+using System.Linq;
+using Criteria;
+using Criteria.Members;
+using DTO.Members;
+using Fanex.Data.Repository;
+
+public class MembersDataAccess 
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria;
-    using Criteria.Members;
-    using DTO.Members;
-    using Fanex.Data.Repository;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class MembersDataAccess 
+    public IEnumerable<RMS_CustomerSel> RMS_CustomerSel(string username, int? level)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-        public IEnumerable<RMS_CustomerSel> RMS_CustomerSel(string username, int? level)
-        {
             var criteria = new CustomerSel_Criteria
             {
                 Username = string.IsNullOrEmpty(username) ? null : username,
@@ -27,8 +27,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return members;
         }
 
-        public Result RMS_CustomerIns(string userName, int level, int adminId, string ip)
-        {
+    public Result RMS_CustomerIns(string userName, int level, int adminId, string ip)
+    {
             var command = new CustomerIns_Command
             {
                 AdminId = adminId,
@@ -42,8 +42,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return ResultFactory.From(command);
         }
 
-        public Result RMS_CustomerUpd(int custId, int level, int adminId, string ip)
-        {
+    public Result RMS_CustomerUpd(int custId, int level, int adminId, string ip)
+    {
             var command = new CustomerUpd_Command
             {
                 AdminId = adminId,
@@ -57,8 +57,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return ResultFactory.From(command);
         }
 
-        public Result RMS_CustomerUpdStatus(int custId, bool following, int adminId, string ip)
-        {
+    public Result RMS_CustomerUpdStatus(int custId, bool following, int adminId, string ip)
+    {
             var command = new CustomerUpdStatus_Command
             {
                 AdminId = adminId,
@@ -72,8 +72,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return ResultFactory.From(command);
         }
 
-        public bool RMS_CustomerCheckExisting(int custId)
-        {
+    public bool RMS_CustomerCheckExisting(int custId)
+    {
             var command = new CustomerCheckExisting_Command
             {
                 CustId = custId
@@ -86,15 +86,15 @@ namespace ParlayRMS.Legacy.DataAccess
         }
         
 
-        public IEnumerable<int> RMS_CustomerAgentOfMasterSel(int masterId)
-        {
+    public IEnumerable<int> RMS_CustomerAgentOfMasterSel(int masterId)
+    {
             var criteria = new CustomerAgentOfMasterSel_Criteria { CustId = masterId };
             return repository.Fetch<int>(criteria);
         }
 
 
-        public RMS_CustomerSelInfoByUsername RMS_CustomerSelInfoByUsername(string username)
-        {
+    public RMS_CustomerSelInfoByUsername RMS_CustomerSelInfoByUsername(string username)
+    {
             var command = new CustomerSelInfoByUsername_Command
             {
                 Username = username
@@ -112,5 +112,4 @@ namespace ParlayRMS.Legacy.DataAccess
             };
         }
 
-    }
 }

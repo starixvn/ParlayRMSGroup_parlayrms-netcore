@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.ExcelService.Utility
-{
-    using NPOI.SS.Util;
+namespace ParlayRMS.Legacy.ExcelService.Utility;
 
-    public static class CellRangeAddressExtensions
+using NPOI.SS.Util;
+
+public static class CellRangeAddressExtensions
+{
+    public static CellRangeAddress Clone(this CellRangeAddress range)
     {
-        public static CellRangeAddress Clone(this CellRangeAddress range)
-        {
             var result = new CellRangeAddress(range.FirstRow, range.LastRow, range.FirstColumn, range.LastColumn);
             return result;
         }
-    }
 }

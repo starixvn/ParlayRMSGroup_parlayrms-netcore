@@ -1,11 +1,10 @@
-namespace ParlayRMS.Legacy.Models.Members
+namespace ParlayRMS.Legacy.Models.Members;
+
+public class MemberLevel
 {
-    public class MemberLevel
-    {
-        public int LevelId { get; set; }
+    public int LevelId { get; set; }
 
-        public string LevelValue { get; set; }
+    public string LevelValue { get; set; }
 
-        public string LevelColor { get; set; }
-    }
+    public string LevelColor { get; set; }
 }

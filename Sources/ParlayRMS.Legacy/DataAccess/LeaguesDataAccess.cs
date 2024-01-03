@@ -1,18 +1,18 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System.Collections.Generic;
+using System.Linq;
+using Criteria;
+using Criteria.Leagues;
+using DTO.Leagues;
+using Fanex.Data.Repository;
+
+public class LeaguesDataAccess 
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria;
-    using Criteria.Leagues;
-    using DTO.Leagues;
-    using Fanex.Data.Repository;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class LeaguesDataAccess 
+    public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-        public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType)
-        {
             var criteria = new LeagueSel_Criteria
             {
                 LeagueName = leagueName,
@@ -26,8 +26,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return leagues;
         }
         
-        public Result RMS_LeagueIns(string leagueName, int groupId, int adminId, string ip)
-        {
+    public Result RMS_LeagueIns(string leagueName, int groupId, int adminId, string ip)
+    {
             var command = new LeagueIns_Command
             {
                 LeagueName = leagueName,
@@ -41,8 +41,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return ResultFactory.From(command);
         }
 
-        public Result RMS_LeagueUpd(int leagueId, int groupId, int adminId, string ip)
-        {
+    public Result RMS_LeagueUpd(int leagueId, int groupId, int adminId, string ip)
+    {
             var command = new LeagueUpd_Command
             {
                 LeagueId = leagueId,
@@ -55,5 +55,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return ResultFactory.From(command);
         }
-    }
 }

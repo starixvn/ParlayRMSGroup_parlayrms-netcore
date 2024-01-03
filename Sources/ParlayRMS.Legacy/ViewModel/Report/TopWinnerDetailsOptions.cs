@@ -1,25 +1,24 @@
-namespace ParlayRMS.Legacy.ViewModel.Report
+namespace ParlayRMS.Legacy.ViewModel.Report;
+
+using System;
+
+public class TopWinnerDetailsOptions
 {
-    using System;
+    public int CustId { get; set; }
 
-    public class TopWinnerDetailsOptions
-    {
-        public int CustId { get; set; }
+    public string Username { get; set; }
 
-        public string Username { get; set; }
+    public DateTime FromDate { get; set; }
 
-        public DateTime FromDate { get; set; }
+    public DateTime ToDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+    public string SportsType { get; set; }
 
-        public string SportsType { get; set; }
+    public string Combos { get; set; }
 
-        public string Combos { get; set; }
+    public string ParlayTypes { get; set; }
 
-        public string ParlayTypes { get; set; }
+    public byte LiveType { get; set; }
 
-        public byte LiveType { get; set; }
-
-        public string Currencies { get; set; }
-    }
+    public string Currencies { get; set; }
 }

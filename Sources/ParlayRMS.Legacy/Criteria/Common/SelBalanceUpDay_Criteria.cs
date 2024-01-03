@@ -1,11 +1,10 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Common
+﻿namespace ParlayRMS.Legacy.Criteria.Common;
+
+using Fanex.Data.Repository;
+
+public class SelBalanceUpDay_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public override string GetSettingKey() => "RMS_SelBalanceUpDay";
 
-    public class SelBalanceUpDay_Criteria : CriteriaBase
-    {
-        public override string GetSettingKey() => "RMS_SelBalanceUpDay";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

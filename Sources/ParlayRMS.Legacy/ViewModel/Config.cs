@@ -1,15 +1,15 @@
 using System.Configuration;
 
-namespace ParlayRMS.ViewModel
-{
-    using Legacy;
-    using Legacy.Models;
-    using Microsoft.AspNetCore.Mvc.Rendering;
+namespace ParlayRMS.ViewModel;
 
-    public static class Config
+using Legacy;
+using Legacy.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+public static class Config
+{
+    static Config()
     {
-        static Config()
-        {
             SportsTypes = new List<SelectListItem>
             {
                 new SelectListItem { Text = ViewLang.Allsports, Value = ((int)SportsType.AllSports).ToString(), Selected = true },
@@ -132,32 +132,31 @@ namespace ParlayRMS.ViewModel
 			};
 		}
 
-        public static List<SelectListItem> Combos { get; }
+    public static List<SelectListItem> Combos { get; }
 
-        public static List<SelectListItem> DateRanges { get; }
+    public static List<SelectListItem> DateRanges { get; }
 
-        public static List<SelectListItem> SelectTops { get; }
+    public static List<SelectListItem> SelectTops { get; }
 
-        public static List<SelectListItem> SportsTypes { get; }
+    public static List<SelectListItem> SportsTypes { get; }
 
-        public static List<SelectListItem> ParlayTypes { get; }
+    public static List<SelectListItem> ParlayTypes { get; }
 
-        public static List<SelectListItem> SimpleParlayTypes { get; }
+    public static List<SelectListItem> SimpleParlayTypes { get; }
 
-        public static List<SelectListItem> SpecialParlayTypes { get; }
+    public static List<SelectListItem> SpecialParlayTypes { get; }
 
-		public static List<SelectListItem> ReportTypes { get; }
+    public static List<SelectListItem> ReportTypes { get; }
 
-        public static DateTime WinlostDate => Convert.ToBoolean(ConfigurationManager.AppSettings["IsDebug"]) ? new DateTime(2012, 11, 6).Date : DateTime.Now.AddDays(-1).Date;
+    public static DateTime WinlostDate => Convert.ToBoolean(ConfigurationManager.AppSettings["IsDebug"]) ? new DateTime(2012, 11, 6).Date : DateTime.Now.AddDays(-1).Date;
 
-        public static List<SelectListItem> LeagueGroups { get; }
+    public static List<SelectListItem> LeagueGroups { get; }
 
-        public static List<SelectListItem> Sites { get; }
+    public static List<SelectListItem> Sites { get; }
 
-        public static List<SelectListItem> ReportBy { get; }
+    public static List<SelectListItem> ReportBy { get; }
 
-        public static List<SelectListItem> LiveTypes { get; }
+    public static List<SelectListItem> LiveTypes { get; }
 
-        public static List<SelectListItem> TicketStatus { get; }
-	}
+    public static List<SelectListItem> TicketStatus { get; }
 }

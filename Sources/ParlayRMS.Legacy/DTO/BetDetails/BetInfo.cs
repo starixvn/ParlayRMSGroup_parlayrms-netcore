@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.DTO.BetDetails
+namespace ParlayRMS.Legacy.DTO.BetDetails;
+
+public class BetInfo
 {
-    public class BetInfo
-    {
-        public string BetTeam { get; set; }
+    public string BetTeam { get; set; }
 
-        public string BetCheck { get; set; }
+    public string BetCheck { get; set; }
 
-        public int Hdp1 { get; set; }
+    public int Hdp1 { get; set; }
 
-        public int Hdp2 { get; set; }
-    }
+    public int Hdp2 { get; set; }
 }

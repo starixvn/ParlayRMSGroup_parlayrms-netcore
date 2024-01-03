@@ -1,25 +1,24 @@
-﻿namespace ParlayRMS.Legacy.Criteria.ViewIPInfo
+﻿namespace ParlayRMS.Legacy.Criteria.ViewIPInfo;
+
+using System;
+using Fanex.Data.Repository;
+
+public class Rpt_Parlay_UsersStatisticsByIP_Criteria : CriteriaBase
 {
-    using System;
-    using Fanex.Data.Repository;
+    public DateTime FromDate { get; set; }
 
-    public class Rpt_Parlay_UsersStatisticsByIP_Criteria : CriteriaBase
-    {
-        public DateTime FromDate { get; set; }
+    public int PageIndex { get; set; }
 
-        public int PageIndex { get; set; }
+    public int PageSize { get; set; }
 
-        public int PageSize { get; set; }
+    public int TotalItems { get; set; }
 
-        public int TotalItems { get; set; }
+    public long Max_TransId { get; set; }
 
-        public long Max_TransId { get; set; }
-
-        public string TicketStatus { get; set; }
+    public string TicketStatus { get; set; }
 
 
-		public override string GetSettingKey() => "RMS_Rpt_Parlay_UsersStatisticsByIP";
+    public override string GetSettingKey() => "RMS_Rpt_Parlay_UsersStatisticsByIP";
 
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

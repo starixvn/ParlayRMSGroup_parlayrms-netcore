@@ -1,11 +1,10 @@
-namespace ParlayRMS.Legacy.ViewModel.Report
+namespace ParlayRMS.Legacy.ViewModel.Report;
+
+public class BetDetails
 {
-    public class BetDetails
-    {
-        public string TicketDetail { get; set; }
+    public string TicketDetail { get; set; }
 
-        public string TicketCompare { get; set; }
+    public string TicketCompare { get; set; }
 
-        public IList<string> ComboTypes { get; set; }
-    }
+    public IList<string> ComboTypes { get; set; }
 }

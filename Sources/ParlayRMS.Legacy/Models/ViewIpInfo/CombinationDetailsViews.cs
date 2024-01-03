@@ -1,11 +1,10 @@
-namespace ParlayRMS.Legacy.Models.ViewIpInfo
+namespace ParlayRMS.Legacy.Models.ViewIpInfo;
+
+using System.Collections.Generic;
+
+public class CombinationDetailsViews
 {
-    using System.Collections.Generic;
+    public decimal Outstanding { get; set; }
 
-    public class CombinationDetailsViews
-    {
-        public decimal Outstanding { get; set; }
-
-        public IEnumerable<CombinationDetailsView> ViewList { get; set; }
-    }
+    public IEnumerable<CombinationDetailsView> ViewList { get; set; }
 }

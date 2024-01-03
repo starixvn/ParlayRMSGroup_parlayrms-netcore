@@ -1,24 +1,23 @@
-namespace ParlayRMS.Legacy.Criteria.BetList
+namespace ParlayRMS.Legacy.Criteria.BetList;
+
+using Fanex.Data;
+using Fanex.Data.Repository;
+
+public class BetList_PenaltyShootout_DetailCriteria : CriteriaBase
 {
-    using Fanex.Data;
-    using Fanex.Data.Repository;
+    public long TransId { get; set; }
 
-    public class BetList_PenaltyShootout_DetailCriteria : CriteriaBase
+    [SpParam(Ignored = true)]
+    public string Username { get; set; }
+
+    public override string GetSettingKey()
     {
-        public long TransId { get; set; }
-
-        [SpParam(Ignored = true)]
-        public string Username { get; set; }
-
-        public override string GetSettingKey()
-        {
             return "RMS_BetList_BetBuilder_Detail";
         }
 
-        public override bool IsValid()
-        {
+    public override bool IsValid()
+    {
             return true;
         }
 
-    }
 }

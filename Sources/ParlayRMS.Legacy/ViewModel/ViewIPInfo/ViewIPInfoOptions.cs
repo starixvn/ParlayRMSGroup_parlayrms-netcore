@@ -1,15 +1,14 @@
-namespace ParlayRMS.Legacy.ViewModel.ViewIPInfo
+namespace ParlayRMS.Legacy.ViewModel.ViewIPInfo;
+
+using System;
+
+public class ViewIPInfoOptions
 {
-    using System;
+    public string IP { get; set; }
 
-    public class ViewIPInfoOptions
-    {
-        public string IP { get; set; }
+    public DateTime Date { get; set; }
 
-        public DateTime Date { get; set; }
+    public int UserId { get; set; }
 
-        public int UserId { get; set; }
-
-        public string TicketStatus { get; set; }
-    }
+    public string TicketStatus { get; set; }
 }

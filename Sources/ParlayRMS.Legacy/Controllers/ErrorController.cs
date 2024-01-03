@@ -1,12 +1,11 @@
-namespace ParlayRMS.Legacy.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
+namespace ParlayRMS.Legacy.Controllers;
 
-    public class ErrorController : BaseController
+using Microsoft.AspNetCore.Mvc;
+
+public class ErrorController : BaseController
+{
+    public ActionResult AccessDenied()
     {
-        public ActionResult AccessDenied()
-        {
             return View();
         }
-    }
 }

@@ -1,17 +1,17 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System.Collections.Generic;
+using DataAccess;
+using DTO.ParlayWon;
+using ViewModel.Report;
+
+public class ParlayWonService : BaseService
 {
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.ParlayWon;
-    using ViewModel.Report;
+    private readonly ParlayWonDataAccess _dataAccess = new ParlayWonDataAccess();
+    private readonly CommonService _commonService = new CommonService();
 
-    public class ParlayWonService : BaseService
+    public IEnumerable<RMS_Rpt_Parlay_ParlayWon> GetParlayWonList(ParlayWonOptions options, out int totalRows)
     {
-        private readonly ParlayWonDataAccess _dataAccess = new ParlayWonDataAccess();
-        private readonly CommonService _commonService = new CommonService();
-
-        public IEnumerable<RMS_Rpt_Parlay_ParlayWon> GetParlayWonList(ParlayWonOptions options, out int totalRows)
-        {
             var info = _commonService.GetBalanceUpDayInfo();
 
             return _dataAccess.RMS_Rpt_Parlay_ParlayWon(
@@ -35,5 +35,4 @@ namespace ParlayRMS.Legacy.Services
                 options.Ip,
                 out totalRows);
         }
-    }
 }

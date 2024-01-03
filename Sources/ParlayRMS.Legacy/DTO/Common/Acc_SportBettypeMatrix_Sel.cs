@@ -1,11 +1,10 @@
-﻿namespace ParlayRMS.Legacy.DTO.Common
+﻿namespace ParlayRMS.Legacy.DTO.Common;
+
+public class Acc_SportBettypeMatrix_Sel
 {
-    public class Acc_SportBettypeMatrix_Sel
-    {
-        public int ProductId { get; set; }
+    public int ProductId { get; set; }
 
-        public int BetType { get; set;}
+    public int BetType { get; set;}
 
-        public int EventType { get; set;}
-    }
+    public int EventType { get; set;}
 }

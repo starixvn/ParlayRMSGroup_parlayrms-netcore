@@ -1,20 +1,19 @@
-namespace ParlayRMS.Legacy.Criteria.BetList
+namespace ParlayRMS.Legacy.Criteria.BetList;
+
+using Fanex.Data.Repository;
+
+public class RMS_BetList_BetBuilder_MatchDetailCriteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public long TransId { get; set; }
 
-    public class RMS_BetList_BetBuilder_MatchDetailCriteria : CriteriaBase
+    public override string GetSettingKey()
     {
-        public long TransId { get; set; }
-
-        public override string GetSettingKey()
-        {
             return "RMS_BetList_BetBuilder_MatchDetail";
         }
 
-        public override bool IsValid()
-        {
+    public override bool IsValid()
+    {
             return true;
         }
 
-    }
 }

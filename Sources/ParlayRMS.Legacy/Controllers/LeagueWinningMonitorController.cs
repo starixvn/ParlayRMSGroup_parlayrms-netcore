@@ -1,105 +1,104 @@
-namespace ParlayRMS.Legacy.Controllers
+namespace ParlayRMS.Legacy.Controllers;
+
+using Fanex.NAP.Client.Attributes;
+using Fanex.NAP.Client.Helpers.Business;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Models;
+using ParlayRMS.Models.Functions;
+using ParlayRMS.ViewModel;
+using Services;
+using Utilities;
+using ViewModel.LeagueWinningMonitor;
+
+public class LeagueWinningMonitorController : BaseController
 {
-    using Fanex.NAP.Client.Attributes;
-    using Fanex.NAP.Client.Helpers.Business;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Models;
-    using ParlayRMS.Models.Functions;
-    using ParlayRMS.ViewModel;
-    using Services;
-    using Utilities;
-    using ViewModel.LeagueWinningMonitor;
+    private readonly LeagueWinningMonitorService leagueWinningMonitor = new LeagueWinningMonitorService();
 
-    public class LeagueWinningMonitorController : BaseController
+    [NapAuth(FunctionKey = FunctionKeys.LeagueWinningMonitor, Policy = Constant.Policy.Read)]
+    [HttpGet]
+    public ActionResult Index()
     {
-        private readonly LeagueWinningMonitorService leagueWinningMonitor = new LeagueWinningMonitorService();
+        return View();
+    }
 
-        [NapAuth(FunctionKey = FunctionKeys.LeagueWinningMonitor, Policy = Constant.Policy.Read)]
-        [HttpGet]
-        public ActionResult Index()
+    public ActionResult Filter()
+    {
+        var combos = new List<SelectListItem>();
+        for (var i = 2; i <= 9; i++)
         {
-            return View();
+            combos.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString(),
+                Selected = i <= 6
+            });
         }
 
-        public ActionResult Filter()
+        combos.Add(new SelectListItem { Text = ViewLang.TenUp, Value = "10" });
+        ViewBag.Combos = combos;
+
+        var parlayTypes = new List<SelectListItem>
         {
-            var combos = new List<SelectListItem>();
-            for (var i = 2; i <= 9; i++)
-            {
-                combos.Add(new SelectListItem
-                {
-                    Text = i.ToString(),
-                    Value = i.ToString(),
-                    Selected = i <= 6
-                });
-            }
+            new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
+            new SelectListItem { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
+            new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() }
+        };
+        ViewBag.ParlayTypes = parlayTypes;
 
-            combos.Add(new SelectListItem { Text = ViewLang.TenUp, Value = "10" });
-            ViewBag.Combos = combos;
+        var groups = new List<SelectListItem>();
+        groups.AddRange(Config.LeagueGroups);
+        groups.Add(new SelectListItem { Text = "Fixed Max Payout", Value = "99", Selected = true });
+        ViewBag.Groups = groups;
 
-            var parlayTypes = new List<SelectListItem>
-            {
-                new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
-                new SelectListItem { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
-                new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() }
-			};
-            ViewBag.ParlayTypes = parlayTypes;
-
-            var groups = new List<SelectListItem>();
-            groups.AddRange(Config.LeagueGroups);
-            groups.Add(new SelectListItem { Text = "Fixed Max Payout", Value = "99", Selected = true });
-            ViewBag.Groups = groups;
-
-            var levels = new List<SelectListItem>
-            {
-                new SelectListItem { Text = ViewLang.None, Value = "0", Selected = true }
-            };
-            for (var i = 1; i <= 10; i++)
-            {
-                levels.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString(), Selected = true });
-            }
-
-            ViewBag.Levels = levels;
-
-            var values = AppSetting.SelectTop;
-            var selectTops = new List<SelectListItem>();
-            foreach (var item in values)
-            {
-                selectTops.Add(new SelectListItem { Text = item, Value = item, Selected = item == "200" });
-            }
-            selectTops.Add(new SelectListItem { Text = "2000", Value = "2000" });
-            selectTops.Add(new SelectListItem { Text = "3000", Value = "3000" });
-            ViewBag.SelectTops = selectTops;
-            ViewBag.WinningAmount = 20000;
-
-            var refreshTime = new List<int> { 60, 120 };
-            var refreshTimes = new List<SelectListItem>();
-            foreach (var item in refreshTime)
-            {
-                refreshTimes.Add(new SelectListItem { Text = item.ToString(), Value = (item * 1000).ToString(), Selected = item == 60 });
-            }
-
-            ViewBag.RefreshTimes = refreshTimes;
-            return PartialView();
+        var levels = new List<SelectListItem>
+        {
+            new SelectListItem { Text = ViewLang.None, Value = "0", Selected = true }
+        };
+        for (var i = 1; i <= 10; i++)
+        {
+            levels.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString(), Selected = true });
         }
 
-        [HttpPost]
-        public ActionResult Data(LeagueWinningMonitorModel model)
-        {
-            ViewBag.ReportBy = model.ReportBy;
-            var data = leagueWinningMonitor.GetLeagueWinningMonitorList(model.Combos, model.ParlayTypes, model.SportsTypes, model.Levels, model.WinningAmount, model.SelectTop, model.Group, model.ReportBy);
+        ViewBag.Levels = levels;
 
-            return PartialView(data);
+        var values = AppSetting.SelectTop;
+        var selectTops = new List<SelectListItem>();
+        foreach (var item in values)
+        {
+            selectTops.Add(new SelectListItem { Text = item, Value = item, Selected = item == "200" });
+        }
+        selectTops.Add(new SelectListItem { Text = "2000", Value = "2000" });
+        selectTops.Add(new SelectListItem { Text = "3000", Value = "3000" });
+        ViewBag.SelectTops = selectTops;
+        ViewBag.WinningAmount = 20000;
+
+        var refreshTime = new List<int> { 60, 120 };
+        var refreshTimes = new List<SelectListItem>();
+        foreach (var item in refreshTime)
+        {
+            refreshTimes.Add(new SelectListItem { Text = item.ToString(), Value = (item * 1000).ToString(), Selected = item == 60 });
         }
 
-        [HttpPost]
-        public ActionResult ViewDetailList(LeagueWinningMonitorModel model)
-        {
-            ViewBag.Filter = model;
-            var data = leagueWinningMonitor.GetLeagueWinningMonitorListDetail(model.Combos, model.ParlayTypes, model.SportsTypes, model.Levels, model.WinningAmount, model.SelectTop, model.Group, model.ReportBy, model.LeagueId, model.CustId);
+        ViewBag.RefreshTimes = refreshTimes;
+        return PartialView();
+    }
 
-            return PartialView(data);
-        }
+    [HttpPost]
+    public ActionResult Data(LeagueWinningMonitorModel model)
+    {
+        ViewBag.ReportBy = model.ReportBy;
+        var data = leagueWinningMonitor.GetLeagueWinningMonitorList(model.Combos, model.ParlayTypes, model.SportsTypes, model.Levels, model.WinningAmount, model.SelectTop, model.Group, model.ReportBy);
+
+        return PartialView(data);
+    }
+
+    [HttpPost]
+    public ActionResult ViewDetailList(LeagueWinningMonitorModel model)
+    {
+        ViewBag.Filter = model;
+        var data = leagueWinningMonitor.GetLeagueWinningMonitorListDetail(model.Combos, model.ParlayTypes, model.SportsTypes, model.Levels, model.WinningAmount, model.SelectTop, model.Group, model.ReportBy, model.LeagueId, model.CustId);
+
+        return PartialView(data);
     }
 }

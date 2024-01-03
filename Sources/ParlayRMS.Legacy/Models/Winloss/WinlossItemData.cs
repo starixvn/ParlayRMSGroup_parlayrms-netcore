@@ -1,22 +1,22 @@
-namespace ParlayRMS.Legacy.Models.Winloss
-{
-    using System.Collections.Generic;
-    using DTO.Winloss;
+namespace ParlayRMS.Legacy.Models.Winloss;
 
-    public class WinlossItemData
+using System.Collections.Generic;
+using DTO.Winloss;
+
+public class WinlossItemData
+{
+    public WinlossItemData()
     {
-        public WinlossItemData()
-        {
             Records = new List<RMS_Rpt_Parlay_Winloss>();
             Total = new RMS_Rpt_Parlay_Winloss();
         }
 
-        public List<RMS_Rpt_Parlay_Winloss> Records { get; set; }
+    public List<RMS_Rpt_Parlay_Winloss> Records { get; set; }
 
-        public RMS_Rpt_Parlay_Winloss Total { get; set; }
+    public RMS_Rpt_Parlay_Winloss Total { get; set; }
 
-        public void Add(RMS_Rpt_Parlay_Winloss item)
-        {
+    public void Add(RMS_Rpt_Parlay_Winloss item)
+    {
             if (item != null)
             {
                 Records.Add(item);
@@ -33,5 +33,4 @@ namespace ParlayRMS.Legacy.Models.Winloss
                 Total.Margin = Total.OurPT_NetWinloss / (Total.Stake_Won + Total.Stake_Lose);
             }
         }
-    }
 }

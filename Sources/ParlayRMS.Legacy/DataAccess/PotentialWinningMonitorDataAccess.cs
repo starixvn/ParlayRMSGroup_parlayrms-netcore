@@ -1,30 +1,30 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.ParlayMonitor;
+using Criteria.PotentialWinningMonitor;
+using DTO.PotentialWinning;
+using Fanex.Data.Repository;
+
+public class PotentialWinningMonitorDataAccess
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.ParlayMonitor;
-    using Criteria.PotentialWinningMonitor;
-    using DTO.PotentialWinning;
-    using Fanex.Data.Repository;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class PotentialWinningMonitorDataAccess
+    public IEnumerable<RMS_Monitor_Potential_Winning> RMS_Monitor_Parlay_PotentialWinning(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        string levels,
+        decimal winningAmount,
+        int selectTop,
+        bool isCornerParlay,
+        byte filterBy,
+        int? agentId,
+        int? customerClass,
+        string company,
+        string username)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-        public IEnumerable<RMS_Monitor_Potential_Winning> RMS_Monitor_Parlay_PotentialWinning(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            string levels,
-            decimal winningAmount,
-            int selectTop,
-            bool isCornerParlay,
-            byte filterBy,
-            int? agentId,
-            int? customerClass,
-            string company,
-            string username)
-        {
             var criteria = new Monitor_ComboParlay_PotentialWinning_Criteria
             {
                 Selection = combos,
@@ -46,8 +46,8 @@ namespace ParlayRMS.Legacy.DataAccess
                 : GetDataForMember(criteria);
         }
 
-        private IEnumerable<RMS_Monitor_Potential_Winning> GetDataForMember(Monitor_ComboParlay_PotentialWinning_Criteria criteria)
-        {
+    private IEnumerable<RMS_Monitor_Potential_Winning> GetDataForMember(Monitor_ComboParlay_PotentialWinning_Criteria criteria)
+    {
             var dataForMember = repository.Fetch<RMS_Monitor_Potential_Winning>(criteria).ToList();
             dataForMember.ForEach(d =>
             {
@@ -61,19 +61,19 @@ namespace ParlayRMS.Legacy.DataAccess
             return dataForMember;
         }
 
-        private IEnumerable<RMS_Monitor_Potential_Winning> GetDataForAgent(Monitor_ComboParlay_PotentialWinning_Criteria criteria)
-        {
+    private IEnumerable<RMS_Monitor_Potential_Winning> GetDataForAgent(Monitor_ComboParlay_PotentialWinning_Criteria criteria)
+    {
             var dataForAgent = repository.Fetch<RMS_Monitor_Potential_Winning>(criteria).ToList();
             return dataForAgent;
         }
 
-        public IEnumerable<RMS_Monitor_Potential_Winning_Detail> RMS_Monitor_Parlay_PotentialWinningDetail(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            int custId,
-            bool isCornerParlay)
-        {
+    public IEnumerable<RMS_Monitor_Potential_Winning_Detail> RMS_Monitor_Parlay_PotentialWinningDetail(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        int custId,
+        bool isCornerParlay)
+    {
             var criteria = new Monitor_ComboParlay_PotentialWinningDetails_Criteria
             {
                 Selection = combos,
@@ -95,8 +95,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return details;
         }
 
-        public UserTracking RMS_ComboParlay_PotentialWinning_UserTracking(int userid, string username, string transid)
-        {
+    public UserTracking RMS_ComboParlay_PotentialWinning_UserTracking(int userid, string username, string transid)
+    {
             var command = new ComboParlay_PotentialWinning_UserTracking_Command
             {
                 Username = username,
@@ -114,5 +114,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return userTracking;
         }
-    }
 }

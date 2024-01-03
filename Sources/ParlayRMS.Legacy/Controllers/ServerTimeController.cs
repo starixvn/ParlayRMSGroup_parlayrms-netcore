@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
+namespace ParlayRMS.Legacy.Controllers;
 
-    public class ServerTimeController : Controller
+using Microsoft.AspNetCore.Mvc;
+
+public class ServerTimeController : Controller
+{
+    [HttpPost]
+    public ActionResult Today()
     {
-        [HttpPost]
-        public ActionResult Today()
-        {
-            return Json(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day));
-        }
+        return Json(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day));
     }
 }

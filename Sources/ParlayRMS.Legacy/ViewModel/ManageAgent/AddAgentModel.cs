@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageAgent
-{
-    using System.ComponentModel.DataAnnotations;
+namespace ParlayRMS.Legacy.ViewModel.ManageAgent;
 
-    public class AddAgentModel
-    {
-        [Required]
-        [Display(Name = "Username", ResourceType = typeof(ViewLang))]
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
+using System.ComponentModel.DataAnnotations;
+
+public class AddAgentModel
+{
+    [Required]
+    [Display(Name = "Username", ResourceType = typeof(ViewLang))]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
         
-        public string UserName { get; set; }
-    }
+    public string UserName { get; set; }
 }

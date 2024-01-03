@@ -1,24 +1,24 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Collections.Generic;
+using DataAccess;
+using DTO.Common;
+using Microsoft.Extensions.Caching.Memory;
+
+public class CommonService : BaseService
 {
-    using System;
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.Common;
-    using Microsoft.Extensions.Caching.Memory;
-
-    public class CommonService : BaseService
-    {
-        private static readonly IMemoryCache CacheInstance = new MemoryCache(
-                new MemoryCacheOptions
-                {
-                     ExpirationScanFrequency = TimeSpan.FromSeconds(30),
-                     CompactionPercentage = 0.15
-                }
-            );
-        private readonly CommonDataAccess _commonDataAccess = new CommonDataAccess();
-
-        public RMS_SelBalanceUpDay GetBalanceUpDayInfo()
+    private static readonly IMemoryCache CacheInstance = new MemoryCache(
+        new MemoryCacheOptions
         {
+            ExpirationScanFrequency = TimeSpan.FromSeconds(30),
+            CompactionPercentage = 0.15
+        }
+    );
+    private readonly CommonDataAccess _commonDataAccess = new CommonDataAccess();
+
+    public RMS_SelBalanceUpDay GetBalanceUpDayInfo()
+    {
             const string key = "BalanceUpDayInfo";
 
             var cacheIsAvailable = CacheInstance.TryGetValue(key, out RMS_SelBalanceUpDay balanceUpDay);
@@ -31,8 +31,8 @@ namespace ParlayRMS.Legacy.Services
             return balanceUpDay;
         }
 
-        public RMS_Rpt_Parlay_SelMinTransdate GetMinTransDate()
-        {
+    public RMS_Rpt_Parlay_SelMinTransdate GetMinTransDate()
+    {
             const string key = "MinTransDate";
             var cacheIsAvailable = CacheInstance.TryGetValue(key, out RMS_Rpt_Parlay_SelMinTransdate minTransdate);
             if (!cacheIsAvailable)
@@ -44,8 +44,8 @@ namespace ParlayRMS.Legacy.Services
             return minTransdate;
         }
 
-        public List<int> GetBettypeBelongsBetRadar()
-        {
+    public List<int> GetBettypeBelongsBetRadar()
+    {
             const string key = "BettypeBelongsBetRadar";
             var cacheIsAvailable = CacheInstance.TryGetValue(key, out List<int> betTypes);
             if (!cacheIsAvailable)
@@ -57,14 +57,13 @@ namespace ParlayRMS.Legacy.Services
             return betTypes;
         }
 
-        public IEnumerable<Currency> GetCurrencies()
-        {
+    public IEnumerable<Currency> GetCurrencies()
+    {
             return _commonDataAccess.GetCurrencies();
         }
 
-        public IEnumerable<Company> GetCompanies()
-        {
+    public IEnumerable<Company> GetCompanies()
+    {
             return _commonDataAccess.RMS_SiteByGroupSel();
         }
-    }
 }

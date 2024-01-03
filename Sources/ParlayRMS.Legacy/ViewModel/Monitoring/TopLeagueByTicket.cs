@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.ViewModel.Monitoring
-{
-    public class TopLeagueByTicket
-    {
-        public string LeagueName { get; set; }
+namespace ParlayRMS.Legacy.ViewModel.Monitoring;
 
-        public decimal NumberOfTickets { get; set; }
-    }
+public class TopLeagueByTicket
+{
+    public string LeagueName { get; set; }
+
+    public decimal NumberOfTickets { get; set; }
 }

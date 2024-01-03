@@ -1,13 +1,12 @@
-﻿namespace ParlayRMS.Legacy.Criteria.BetDetails
+﻿namespace ParlayRMS.Legacy.Criteria.BetDetails;
+
+using Fanex.Data.Repository;
+
+public  class Rpt_ComboParlay_TopWinner_BetInfo_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public long TransId { get; set; }
 
-    public  class Rpt_ComboParlay_TopWinner_BetInfo_Criteria : CriteriaBase
-    {
-        public long TransId { get; set; }
+    public override string GetSettingKey() => "RMS_Rpt_ComboParlay_TopWinner_BetInfo";
 
-        public override string GetSettingKey() => "RMS_Rpt_ComboParlay_TopWinner_BetInfo";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

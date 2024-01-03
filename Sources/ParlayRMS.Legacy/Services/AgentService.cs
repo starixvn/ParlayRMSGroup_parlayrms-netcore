@@ -1,27 +1,26 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System.Collections.Generic;
+using Criteria;
+using DataAccess;
+using DTO.Agents;
+
+public class AgentService : BaseService
 {
-    using System.Collections.Generic;
-    using Criteria;
-    using DataAccess;
-    using DTO.Agents;
+    private readonly AgentsDataAccess _agentDataAccess = new AgentsDataAccess();
 
-    public class AgentService : BaseService
+    public IEnumerable<RMS_DangerousAgentSel> GetDangerousAgents(string username)
     {
-        private readonly AgentsDataAccess _agentDataAccess = new AgentsDataAccess();
-
-        public IEnumerable<RMS_DangerousAgentSel> GetDangerousAgents(string username)
-        {
             return _agentDataAccess.RMS_DangerousAgentSel(username);
         }
 
-        public Result AddDangerousAgent(string userName, int adminId, string ip)
-        {
+    public Result AddDangerousAgent(string userName, int adminId, string ip)
+    {
             return _agentDataAccess.RMS_DangerousAgentIns(userName, adminId, ip);
         }
 
-        public Result DeleteDangerousAgent(int agentId, string userName, int adminId, string ip)
-        {
+    public Result DeleteDangerousAgent(int agentId, string userName, int adminId, string ip)
+    {
             return _agentDataAccess.RMS_DangerousAgentDel(agentId, userName, adminId, ip);
         }
-    }
 }

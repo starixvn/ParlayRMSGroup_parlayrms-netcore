@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ParlayRMS.Legacy.Web
-{
-    using System.Net.Http.Headers;
-    using ExcelService.Writers;
+namespace ParlayRMS.Legacy.Web;
 
-    public class TemplateWriterResult(TemplateWriter templateWriter, string fileName, string sheetName) : IActionResult
+using System.Net.Http.Headers;
+using ExcelService.Writers;
+
+public class TemplateWriterResult(TemplateWriter templateWriter, string fileName, string sheetName) : IActionResult
+{
+    public async Task ExecuteResultAsync(ActionContext context)
     {
-        public async Task ExecuteResultAsync(ActionContext context)
-        {
             using var memoryStream = templateWriter.Render(sheetName);
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
@@ -29,12 +29,12 @@ namespace ParlayRMS.Legacy.Web
 
             await response.Content.CopyToAsync(context.HttpContext.Response.Body);
         }
-    }
+}
 
-    public class NPoiResult(MemoryStream memoryStream, string fileName) : IActionResult
+public class NPoiResult(MemoryStream memoryStream, string fileName) : IActionResult
+{
+    public async Task ExecuteResultAsync(ActionContext context)
     {
-        public async Task ExecuteResultAsync(ActionContext context)
-        {
             using (memoryStream)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
@@ -51,5 +51,4 @@ namespace ParlayRMS.Legacy.Web
                 await response.Content.CopyToAsync(context.HttpContext.Response.Body);
             }
         }
-    }
 }

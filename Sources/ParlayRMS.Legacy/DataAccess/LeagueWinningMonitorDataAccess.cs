@@ -1,29 +1,29 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System;
+using System.Collections.Generic;
+using Criteria.LeagueWinningMonitor;
+using DTO.LeagueWinningMonitor;
+using Fanex.Data;
+using Fanex.Data.Repository;
+using Fizzler;
+using Utilities;
+
+public class LeagueWinningMonitorDataAccess
 {
-    using System;
-    using System.Collections.Generic;
-    using Criteria.LeagueWinningMonitor;
-    using DTO.LeagueWinningMonitor;
-    using Fanex.Data;
-    using Fanex.Data.Repository;
-    using Fizzler;
-    using Utilities;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class LeagueWinningMonitorDataAccess
+
+    public IEnumerable<RmsRptLeagueWinningMonitor> GetData(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        string levels,
+        decimal winningAmount,
+        int selectTop,
+        byte group,
+        byte reportBy)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-
-        public IEnumerable<RmsRptLeagueWinningMonitor> GetData(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            string levels,
-            decimal winningAmount,
-            int selectTop,
-            byte group,
-            byte reportBy)
-        {
 
             var criteria = new Rpt_League_Winning_Monitor_Criteria
             {
@@ -41,18 +41,18 @@ namespace ParlayRMS.Legacy.DataAccess
             return repository.Fetch<RmsRptLeagueWinningMonitor>(criteria);
         }
 
-        public IEnumerable<RmsRptLeagueWinningMonitorDetail> GetDetailList(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            string levels,
-            decimal winningAmount,
-            int selectTop,
-            byte group,
-            byte reportBy,
-            int leagueId,
-            int custId)
-        {
+    public IEnumerable<RmsRptLeagueWinningMonitorDetail> GetDetailList(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        string levels,
+        decimal winningAmount,
+        int selectTop,
+        byte group,
+        byte reportBy,
+        int leagueId,
+        int custId)
+    {
             var criteria = new Rpt_League_Winning_Monitor_Criteria
             {
                 Selection = combos,
@@ -78,5 +78,4 @@ namespace ParlayRMS.Legacy.DataAccess
             
             return detailList;
         }
-    }
 }

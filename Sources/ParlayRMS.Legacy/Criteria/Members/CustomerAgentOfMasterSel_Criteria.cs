@@ -1,13 +1,12 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Members
+﻿namespace ParlayRMS.Legacy.Criteria.Members;
+
+using Fanex.Data.Repository;
+
+public class CustomerAgentOfMasterSel_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public int CustId { get; set; }
 
-    public class CustomerAgentOfMasterSel_Criteria : CriteriaBase
-    {
-        public int CustId { get; set; }
+    public override string GetSettingKey() => "RMS_CustomerAgentOfMasterSel";
 
-        public override string GetSettingKey() => "RMS_CustomerAgentOfMasterSel";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

@@ -1,54 +1,54 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DataAccess;
+using DTO.MemberWinLoss;
+using Microsoft.Extensions.Caching.Memory;
+using Models;
+using Models.MemberWinLoss;
+using Utilities;
+
+public class MemberWinLossService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using DataAccess;
-    using DTO.MemberWinLoss;
-    using Microsoft.Extensions.Caching.Memory;
-    using Models;
-    using Models.MemberWinLoss;
-    using Utilities;
+    private const string MemberWinLossReportSessionKey = "Fanex.ParlayRMS.MemberWinLossReport";
 
-    public class MemberWinLossService
-    {
-        private const string MemberWinLossReportSessionKey = "Fanex.ParlayRMS.MemberWinLossReport";
-
-        private static readonly IMemoryCache CacheInstance = new MemoryCache(
-            new MemoryCacheOptions
-            {
-                ExpirationScanFrequency = TimeSpan.FromSeconds(30),
-                CompactionPercentage = 0.15
-            }
-        );
-        private readonly MemberWinLossDataAccess _memberWinLossDataAccess = new MemberWinLossDataAccess();
-        private readonly CommonService _commonService = new CommonService();
-        private readonly MembersService _membersService = new MembersService();
-
-        private const byte SORT_BY_USERNAME = 1;
-        private const byte SORT_BY_CUSTOMERCLASS = 2;
-        private const byte SORT_BY_TICKET_WON = 3;
-        private const byte SORT_BY_TICKET_LOSE = 4;
-        private const byte SORT_BY_STAKE_WON = 5;
-        private const byte SORT_BY_STAKE_LOSE = 6;
-        private const byte SORT_BY_WINLOSS_WON = 7;
-        private const byte SORT_BY_WINLOSS_LOSE = 8;
-        private const byte SORT_BY_HOUSEWL_WON = 9;
-        private const byte SORT_BY_HOUSEWL_LOSE = 10;
-        private const byte SORT_BY_HOUSEWL_NETWL = 11;
-
-
-        public MemberWinLossData GetMemberWinLoss(
-                                     DateTime fromDate,
-                                     DateTime toDate,
-                                     string parlayTypes,
-                                     string sportsType,
-                                     byte liveType,
-                                     string combos,
-                                     string username,
-                                     bool isCached,
-                                     out int roleId)
+    private static readonly IMemoryCache CacheInstance = new MemoryCache(
+        new MemoryCacheOptions
         {
+            ExpirationScanFrequency = TimeSpan.FromSeconds(30),
+            CompactionPercentage = 0.15
+        }
+    );
+    private readonly MemberWinLossDataAccess _memberWinLossDataAccess = new MemberWinLossDataAccess();
+    private readonly CommonService _commonService = new CommonService();
+    private readonly MembersService _membersService = new MembersService();
+
+    private const byte SORT_BY_USERNAME = 1;
+    private const byte SORT_BY_CUSTOMERCLASS = 2;
+    private const byte SORT_BY_TICKET_WON = 3;
+    private const byte SORT_BY_TICKET_LOSE = 4;
+    private const byte SORT_BY_STAKE_WON = 5;
+    private const byte SORT_BY_STAKE_LOSE = 6;
+    private const byte SORT_BY_WINLOSS_WON = 7;
+    private const byte SORT_BY_WINLOSS_LOSE = 8;
+    private const byte SORT_BY_HOUSEWL_WON = 9;
+    private const byte SORT_BY_HOUSEWL_LOSE = 10;
+    private const byte SORT_BY_HOUSEWL_NETWL = 11;
+
+
+    public MemberWinLossData GetMemberWinLoss(
+        DateTime fromDate,
+        DateTime toDate,
+        string parlayTypes,
+        string sportsType,
+        byte liveType,
+        string combos,
+        string username,
+        bool isCached,
+        out int roleId)
+    {
             var user = _membersService.GetCustomerInfo(username);
             var cacheIsAvailable = CacheInstance.TryGetValue(MemberWinLossReportSessionKey, out MemberWinLossData memberWinLossData);
             roleId = user.RoleId;
@@ -96,17 +96,17 @@ namespace ParlayRMS.Legacy.Services
             return memberWinLossData;
         }
 
-        private MemberWinLossData GetMemberWinLossData(
-                                      DateTime fromDate,
-                                      DateTime toDate,
-                                      DateTime moveBetsDay,
-                                      DateTime balanceUpDay,
-                                      string parlayTypes,
-                                      string sportsType,
-                                      byte liveType,
-                                      string combos,
-                                      int custId)
-        {
+    private MemberWinLossData GetMemberWinLossData(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        DateTime balanceUpDay,
+        string parlayTypes,
+        string sportsType,
+        byte liveType,
+        string combos,
+        int custId)
+    {
             var total = new RMS_Rpt_Parlay_MemberWinLoss();
 
             var records = _memberWinLossDataAccess.RMS_Rpt_Parlay_MemberWinLoss(
@@ -135,17 +135,17 @@ namespace ParlayRMS.Legacy.Services
             };
         }
 
-        private MemberWinLossData GetAgentWinLossData(
-                                      DateTime fromDate,
-                                      DateTime toDate,
-                                      DateTime moveBetsDay,
-                                      DateTime balanceUpDay,
-                                      string parlayTypes,
-                                      string sportsType,
-                                      byte liveType,
-                                      string combos,
-                                      List<int> custIds)
-        {
+    private MemberWinLossData GetAgentWinLossData(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        DateTime balanceUpDay,
+        string parlayTypes,
+        string sportsType,
+        byte liveType,
+        string combos,
+        List<int> custIds)
+    {
             var total = new RMS_Rpt_Parlay_MemberWinLoss();
 
             var rawData = _memberWinLossDataAccess.RMS_Rpt_Parlay_AgentWinLoss(
@@ -174,8 +174,8 @@ namespace ParlayRMS.Legacy.Services
             };
         }
 
-        private List<RMS_Rpt_Parlay_MemberWinLoss> GroupAgentDataByMonth(List<RMS_Rpt_Parlay_MemberWinLoss> rawData)
-        {
+    private List<RMS_Rpt_Parlay_MemberWinLoss> GroupAgentDataByMonth(List<RMS_Rpt_Parlay_MemberWinLoss> rawData)
+    {
             var records = new List<RMS_Rpt_Parlay_MemberWinLoss>();
             var subtotal = new RMS_Rpt_Parlay_MemberWinLoss();
 
@@ -219,8 +219,8 @@ namespace ParlayRMS.Legacy.Services
             return records;
         }
 
-        private string ReFormatMonthStr(string date)
-        {
+    private string ReFormatMonthStr(string date)
+    {
             var separatorIndex = date.IndexOf('-');
             var year = date.Substring(0, separatorIndex);
             var month = date.Substring(separatorIndex + 1, 2);
@@ -228,8 +228,8 @@ namespace ParlayRMS.Legacy.Services
             return $"{month}-{year}";
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> SortData(IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> list, byte sortId, bool isSortAsc)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> SortData(IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> list, byte sortId, bool isSortAsc)
+    {
             switch (sortId)
             {
                 case SORT_BY_USERNAME:
@@ -259,13 +259,12 @@ namespace ParlayRMS.Legacy.Services
             }
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss_Detail> GetDetails(DateTime fromDate, DateTime toDate,
-	        string parlayTypes, string sportsType, byte liveType, string combos, int custId)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss_Detail> GetDetails(DateTime fromDate, DateTime toDate,
+        string parlayTypes, string sportsType, byte liveType, string combos, int custId)
+    {
 	        var info = _commonService.GetBalanceUpDayInfo();
 	        return _memberWinLossDataAccess.RMS_Rpt_ComboParlay_Winloss_Details(fromDate, toDate, info.MoveBetsDay,
 		        parlayTypes, sportsType, liveType, combos, custId);
 
         }
-    }
 }

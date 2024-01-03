@@ -1,11 +1,10 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Common
+﻿namespace ParlayRMS.Legacy.Criteria.Common;
+
+using Fanex.Data.Repository;
+
+public class Rpt_Parlay_SelMinTransdate_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public override string GetSettingKey() => "RMS_Rpt_Parlay_SelMinTransdate";
 
-    public class Rpt_Parlay_SelMinTransdate_Criteria : CriteriaBase
-    {
-        public override string GetSettingKey() => "RMS_Rpt_Parlay_SelMinTransdate";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

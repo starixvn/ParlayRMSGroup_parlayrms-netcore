@@ -1,17 +1,17 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System.Collections.Generic;
+using DataAccess;
+using DTO.TopWinners;
+using ViewModel.Report;
+
+public class TopWinnersService : BaseService
 {
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.TopWinners;
-    using ViewModel.Report;
+    private readonly TopWinnersDataAccess _topwinnersDataAccess = new TopWinnersDataAccess();
+    private readonly CommonService _commonService = new CommonService();
 
-    public class TopWinnersService : BaseService
+    public IEnumerable<RMS_Rpt_Parlay_TopWinner> GetTopWinners(TopWinnersOptions options)
     {
-        private readonly TopWinnersDataAccess _topwinnersDataAccess = new TopWinnersDataAccess();
-        private readonly CommonService _commonService = new CommonService();
-
-        public IEnumerable<RMS_Rpt_Parlay_TopWinner> GetTopWinners(TopWinnersOptions options)
-        {
             var info = _commonService.GetBalanceUpDayInfo();
             return _topwinnersDataAccess.RMS_Rpt_Parlay_TopWinners(
                 options.FromDate,
@@ -28,11 +28,10 @@ namespace ParlayRMS.Legacy.Services
                 options.CustomerClass);
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> GetTopWinnerDetails(TopWinnerDetailsOptions options)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> GetTopWinnerDetails(TopWinnerDetailsOptions options)
+    {
             var info = _commonService.GetBalanceUpDayInfo();
 
             return _topwinnersDataAccess.RMS_Rpt_Parlay_TopWinners_Details(options.CustId, options.FromDate, options.ToDate, info.MoveBetsDay, options.SportsType, options.Combos, options.ParlayTypes, options.LiveType, options.Currencies);
         }
-    }
 }

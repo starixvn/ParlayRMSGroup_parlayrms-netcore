@@ -1,38 +1,37 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Collections.Generic;
+using DataAccess;
+using DTO.TotalOutstanding;
+using Utilities;
+
+public class TotalOutstandingService
 {
-    using System;
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.TotalOutstanding;
-    using Utilities;
+    private readonly TotalOutstandingDataAccess _dataAccess = new TotalOutstandingDataAccess();
 
-    public class TotalOutstandingService
+    public List<RMS_Rpt_Parlay_Outstanding_Mem> GetTotalOutstandingForMember(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
     {
-        private readonly TotalOutstandingDataAccess _dataAccess = new TotalOutstandingDataAccess();
-
-        public List<RMS_Rpt_Parlay_Outstanding_Mem> GetTotalOutstandingForMember(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
+        var data = _dataAccess.RMS_Rpt_Parlay_Outstanding_Mem(custId, combo, sportsType, parlaysType, isCornerParlay);
+        foreach (var item in data)
         {
-            var data = _dataAccess.RMS_Rpt_Parlay_Outstanding_Mem(custId, combo, sportsType, parlaysType, isCornerParlay);
-            foreach (var item in data)
-            {
-                item.StakePt = Math.Round(item.StakePt, 2);
-                item.MaxPayoutPt = Math.Floor(item.MaxPayoutPt);
-                item.SportTypeName = CacheRef.GetSportNameDropDown(item.SportType);
-            }
-
-            return data;
+            item.StakePt = Math.Round(item.StakePt, 2);
+            item.MaxPayoutPt = Math.Floor(item.MaxPayoutPt);
+            item.SportTypeName = CacheRef.GetSportNameDropDown(item.SportType);
         }
 
-        public List<RMS_Rpt_Parlay_Outstanding_Ag> GetTotalOutstandingForAgent(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
-        {
-            var data = _dataAccess.RMS_Rpt_Parlay_Outstanding_Ag(custId, combo, sportsType, parlaysType, isCornerParlay);
-            foreach (var item in data)
-            {
-                item.StakePt = Math.Round(item.StakePt, 2);
-                item.MaxPayoutPt = Math.Floor(item.MaxPayoutPt);
-            }
+        return data;
+    }
 
-            return data;
+    public List<RMS_Rpt_Parlay_Outstanding_Ag> GetTotalOutstandingForAgent(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
+    {
+        var data = _dataAccess.RMS_Rpt_Parlay_Outstanding_Ag(custId, combo, sportsType, parlaysType, isCornerParlay);
+        foreach (var item in data)
+        {
+            item.StakePt = Math.Round(item.StakePt, 2);
+            item.MaxPayoutPt = Math.Floor(item.MaxPayoutPt);
         }
+
+        return data;
     }
 }

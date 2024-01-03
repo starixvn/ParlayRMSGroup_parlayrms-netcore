@@ -1,15 +1,14 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageMember
+namespace ParlayRMS.Legacy.ViewModel.ManageMember;
+
+using System.ComponentModel.DataAnnotations;
+
+public class AddMemberModel
 {
-    using System.ComponentModel.DataAnnotations;
+    [Required]
+    [Display(Name = "Username", ResourceType = typeof(ViewLang))]
+    public string UserName { get; set; }
 
-    public class AddMemberModel
-    {
-        [Required]
-        [Display(Name = "Username", ResourceType = typeof(ViewLang))]
-        public string UserName { get; set; }
-
-        [Required, Range(0, 10)]
-        [Display(Name = "Level", ResourceType = typeof(ViewLang))]
-        public int Level { get; set; }
-    }
+    [Required, Range(0, 10)]
+    [Display(Name = "Level", ResourceType = typeof(ViewLang))]
+    public int Level { get; set; }
 }

@@ -1,17 +1,16 @@
-namespace ParlayRMS.Legacy.Controllers
+namespace ParlayRMS.Legacy.Controllers;
+
+using Microsoft.AspNetCore.Mvc;
+
+public class HomeController : BaseController
 {
-    using Microsoft.AspNetCore.Mvc;
-
-    public class HomeController : BaseController
+    public ActionResult Index()
     {
-        public ActionResult Index()
-        {
             return View();
         }
 
-        public ActionResult Test()
-        {
+    public ActionResult Test()
+    {
             return View();
         }
-    }
 }

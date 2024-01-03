@@ -1,34 +1,33 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageLeague
-{
-    using System.ComponentModel.DataAnnotations;
-    using Utilities;
+namespace ParlayRMS.Legacy.ViewModel.ManageLeague;
 
-    public class SearchBarModel
+using System.ComponentModel.DataAnnotations;
+using Utilities;
+
+public class SearchBarModel
+{
+    private int _group;
+    public SearchBarModel()
     {
-        private int _group;
-        public SearchBarModel()
-        {
             Group = 0;
         }
 
-        public string League { get; set; }
+    public string League { get; set; }
 
-        [DisplayFormat(NullDisplayText = "")]
-        public int Group
+    [DisplayFormat(NullDisplayText = "")]
+    public int Group
+    {
+        get => _group;
+
+        set
         {
-            get => _group;
-
-            set
-            {
                 _group = value;
 
                 Color = ModelsHelper.GetColorByLeagueGroup(Group);
                 GroupName = ModelsHelper.GetNameByLeagueGroup(Group);
             }
-        }
-
-        public string Color { get; private set; }
-
-        public string GroupName { get; private set; }
     }
+
+    public string Color { get; private set; }
+
+    public string GroupName { get; private set; }
 }

@@ -1,15 +1,14 @@
-namespace ParlayRMS.Legacy.ViewModel.Shared
+namespace ParlayRMS.Legacy.ViewModel.Shared;
+
+using System.Collections.Generic;
+
+public class MenuItem
 {
-    using System.Collections.Generic;
+    public string Name { get; set; }
 
-    public class MenuItem
-    {
-        public string Name { get; set; }
+    public string Url { get; set; }
 
-        public string Url { get; set; }
+    public List<MenuItem> Children { get; set; }
 
-        public List<MenuItem> Children { get; set; }
-
-        public int DisplayOrder { get; set; }
-    }
+    public int DisplayOrder { get; set; }
 }

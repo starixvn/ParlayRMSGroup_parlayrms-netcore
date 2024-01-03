@@ -1,15 +1,14 @@
-﻿namespace ParlayRMS.Legacy.Criteria.SimilarBets
+﻿namespace ParlayRMS.Legacy.Criteria.SimilarBets;
+
+using Fanex.Data.Repository;
+
+public class Similar_ComboParlay_Betlist_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public long TransId{ get; set; }
 
-    public class Similar_ComboParlay_Betlist_Criteria : CriteriaBase
-    {
-        public long TransId{ get; set; }
-
-        public bool IsSimilar { get; set; }
+    public bool IsSimilar { get; set; }
         
-        public override string GetSettingKey() => "RMS_Similar_ComboParlay_Betlist";
+    public override string GetSettingKey() => "RMS_Similar_ComboParlay_Betlist";
 
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

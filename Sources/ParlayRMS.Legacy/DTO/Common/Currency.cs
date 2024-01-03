@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.DTO.Common
-{
-    public class Currency
-    {
-        public int Id { get; set; }
+namespace ParlayRMS.Legacy.DTO.Common;
 
-        public string CurrencyCode { get; set; }
-    }
+public class Currency
+{
+    public int Id { get; set; }
+
+    public string CurrencyCode { get; set; }
 }

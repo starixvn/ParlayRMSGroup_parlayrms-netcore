@@ -1,27 +1,27 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.MemberWinLoss;
+using DTO.MemberWinLoss;
+using Fanex.Data.Repository;
+
+public class MemberWinLossDataAccess 
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.MemberWinLoss;
-    using DTO.MemberWinLoss;
-    using Fanex.Data.Repository;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class MemberWinLossDataAccess 
+    public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> RMS_Rpt_Parlay_MemberWinLoss(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        DateTime balanceUpDay,
+        string parlayTypes,
+        string sportsType,
+        byte liveType,
+        string combos,
+        int custId)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-        public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> RMS_Rpt_Parlay_MemberWinLoss(
-                                                             DateTime fromDate,
-                                                             DateTime toDate,
-                                                             DateTime moveBetsDay,
-                                                             DateTime balanceUpDay,
-                                                             string parlayTypes,
-                                                             string sportsType,
-                                                             byte liveType,
-                                                             string combos,
-                                                             int custId)
-        {
             var criteria = new Rpt_ComboParlay_Winloss_Mem_Criteria
             {
                 FromDate = fromDate,
@@ -45,17 +45,17 @@ namespace ParlayRMS.Legacy.DataAccess
             return winlosses;
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> RMS_Rpt_Parlay_AgentWinLoss(
-                                                             DateTime fromDate,
-                                                             DateTime toDate,
-                                                             DateTime moveBetsDay,
-                                                             DateTime balanceUpDay,
-                                                             string parlayTypes,
-                                                             string sportsType,
-                                                             byte liveType,
-                                                             string combos,
-                                                             List<int> custIds)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> RMS_Rpt_Parlay_AgentWinLoss(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        DateTime balanceUpDay,
+        string parlayTypes,
+        string sportsType,
+        byte liveType,
+        string combos,
+        List<int> custIds)
+    {
             var criteria = new Rpt_ComboParlay_Winloss_Ag_Criteria
             {
                 FromDate = fromDate,
@@ -79,16 +79,16 @@ namespace ParlayRMS.Legacy.DataAccess
             return winlosses;
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss_Detail> RMS_Rpt_ComboParlay_Winloss_Details(
-            DateTime fromDate,
-            DateTime toDate,
-            DateTime moveBetsDay,
-            string parlayTypes,
-            string sportsType,
-            byte liveType,
-            string combos,
-            int custId)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss_Detail> RMS_Rpt_ComboParlay_Winloss_Details(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        string parlayTypes,
+        string sportsType,
+        byte liveType,
+        string combos,
+        int custId)
+    {
             var criteria = new Rpt_ComboParlay_Winloss_Details_Criteria
             {
                 FromDate = fromDate,
@@ -103,5 +103,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return  repository.Fetch<RMS_Rpt_Parlay_MemberWinLoss_Detail>(criteria);
         }
-    }
 }

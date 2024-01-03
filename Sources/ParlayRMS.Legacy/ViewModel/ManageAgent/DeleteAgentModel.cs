@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageAgent
-{
-    public class DeleteAgentModel
-    {
-        public string UserName { get; set; }
+namespace ParlayRMS.Legacy.ViewModel.ManageAgent;
 
-        public int AgentId { get; set; }
-    }
+public class DeleteAgentModel
+{
+    public string UserName { get; set; }
+
+    public int AgentId { get; set; }
 }

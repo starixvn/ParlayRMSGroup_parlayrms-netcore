@@ -1,9 +1,9 @@
-﻿namespace ParlayRMS.Legacy.Utilities
+﻿namespace ParlayRMS.Legacy.Utilities;
+
+public static class DbConverter
 {
-    public static class DbConverter
+    public static bool ToBoolean(object value)
     {
-        public static bool ToBoolean(object value)
-        {
             var result = false;
             if (IsValid(value))
             {
@@ -13,8 +13,8 @@
             return result;
         }
 
-        public static byte ToByte(object value)
-        {
+    public static byte ToByte(object value)
+    {
             byte result = 0;
             if (IsValid(value))
             {
@@ -24,8 +24,8 @@
             return result;
         }
 
-        public static short ToInt16(object value)
-        {
+    public static short ToInt16(object value)
+    {
             short result = 0;
             if (IsValid(value))
             {
@@ -35,8 +35,8 @@
             return result;
         }
 
-        public static int ToInt32(object value)
-        {
+    public static int ToInt32(object value)
+    {
             var result = 0;
             if (IsValid(value))
             {
@@ -46,8 +46,8 @@
             return result;
         }
 
-        public static long ToInt64(object value)
-        {
+    public static long ToInt64(object value)
+    {
             long result = 0;
             if (IsValid(value))
             {
@@ -57,8 +57,8 @@
             return result;
         }
 
-        public static double ToDouble(object value)
-        {
+    public static double ToDouble(object value)
+    {
             var result = 0.0d;
             if (IsValid(value))
             {
@@ -68,8 +68,8 @@
             return result;
         }
 
-        public static decimal ToDecimal(object value)
-        {
+    public static decimal ToDecimal(object value)
+    {
             var result = 0.0m;
             if (IsValid(value))
             {
@@ -79,8 +79,8 @@
             return result;
         }
 
-        public static string ToString(object value)
-        {
+    public static string ToString(object value)
+    {
             var result = string.Empty;
             if (IsValid(value))
             {
@@ -90,8 +90,8 @@
             return result;
         }
 
-        public static DateTime ToDateTime(object value)
-        {
+    public static DateTime ToDateTime(object value)
+    {
             var result = DateTime.MinValue;
             if (IsValid(value))
             {
@@ -101,9 +101,8 @@
             return result;
         }
 
-        private static bool IsValid(object value)
-        {
+    private static bool IsValid(object value)
+    {
             return value != null && value != DBNull.Value && !string.IsNullOrEmpty(value.ToString());
         }
-    }
 }

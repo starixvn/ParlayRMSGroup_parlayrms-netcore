@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.DTO.Common
-{
-    using System;
+namespace ParlayRMS.Legacy.DTO.Common;
 
-    public class RMS_Rpt_Parlay_SelMinTransdate
-    {
-        public DateTime MinTransdate { get; set; }
-    }
+using System;
+
+public class RMS_Rpt_Parlay_SelMinTransdate
+{
+    public DateTime MinTransdate { get; set; }
 }

@@ -1,16 +1,16 @@
-namespace ParlayRMS.Legacy.DataAccess
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.TotalOutstanding;
-    using DTO.TotalOutstanding;
-    using Fanex.Data.Repository;
+namespace ParlayRMS.Legacy.DataAccess;
 
-    public class TotalOutstandingDataAccess 
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.TotalOutstanding;
+using DTO.TotalOutstanding;
+using Fanex.Data.Repository;
+
+public class TotalOutstandingDataAccess 
+{
+    private readonly IDynamicRepository repository = new DynamicRepository();
+    public List<RMS_Rpt_Parlay_Outstanding_Mem> RMS_Rpt_Parlay_Outstanding_Mem(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-        public List<RMS_Rpt_Parlay_Outstanding_Mem> RMS_Rpt_Parlay_Outstanding_Mem(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
-        {
             var criteria = new Rpt_ComboParlay_Outstanding_Mem_Criteria
             {
                 CustId = custId,
@@ -28,8 +28,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return list;
         }
 
-        public List<RMS_Rpt_Parlay_Outstanding_Ag> RMS_Rpt_Parlay_Outstanding_Ag(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
-        {
+    public List<RMS_Rpt_Parlay_Outstanding_Ag> RMS_Rpt_Parlay_Outstanding_Ag(int custId, string combo, string sportsType, string parlaysType, bool isCornerParlay)
+    {
             var criteria = new Rpt_ComboParlay_Outstanding_Ag_Criteria
             {
                 CustId = custId,
@@ -46,5 +46,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return list;
         }
-    }
 }

@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.ViewModel.BetList
-{
-    public class BetDetails
-    {
-        public string TicketDetail { get; set; }
+namespace ParlayRMS.Legacy.ViewModel.BetList;
 
-        public IList<string> ComboTypes { get; set; }
-    }
+public class BetDetails
+{
+    public string TicketDetail { get; set; }
+
+    public IList<string> ComboTypes { get; set; }
 }

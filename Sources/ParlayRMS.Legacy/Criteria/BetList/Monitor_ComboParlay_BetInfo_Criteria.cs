@@ -1,13 +1,12 @@
-﻿namespace ParlayRMS.Legacy.Criteria.BetList
+﻿namespace ParlayRMS.Legacy.Criteria.BetList;
+
+using Fanex.Data.Repository;
+
+public class Monitor_ComboParlay_BetInfo_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public long TransId { get; set; }
 
-    public class Monitor_ComboParlay_BetInfo_Criteria : CriteriaBase
-    {
-        public long TransId { get; set; }
+    public override string GetSettingKey() => "RMS_Monitor_ComboParlay_BetInfo";
 
-        public override string GetSettingKey() => "RMS_Monitor_ComboParlay_BetInfo";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

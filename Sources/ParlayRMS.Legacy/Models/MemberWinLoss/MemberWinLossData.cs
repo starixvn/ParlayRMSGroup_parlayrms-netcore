@@ -1,18 +1,17 @@
-namespace ParlayRMS.Legacy.Models.MemberWinLoss
-{
-    using System.Collections.Generic;
-    using DTO.MemberWinLoss;
+namespace ParlayRMS.Legacy.Models.MemberWinLoss;
 
-    public class MemberWinLossData
+using System.Collections.Generic;
+using DTO.MemberWinLoss;
+
+public class MemberWinLossData
+{
+    public MemberWinLossData()
     {
-        public MemberWinLossData()
-        {
             Total = new RMS_Rpt_Parlay_MemberWinLoss();
             Records = new List<RMS_Rpt_Parlay_MemberWinLoss>();
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> Records { get; set; }
+    public IEnumerable<RMS_Rpt_Parlay_MemberWinLoss> Records { get; set; }
 
-        public RMS_Rpt_Parlay_MemberWinLoss Total { get; set; }
-    }
+    public RMS_Rpt_Parlay_MemberWinLoss Total { get; set; }
 }

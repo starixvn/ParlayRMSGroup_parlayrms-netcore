@@ -1,30 +1,30 @@
-namespace ParlayRMS.Legacy.DataAccess
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.TopWinners;
-    using DTO.BetList;
-    using DTO.TopWinners;
-    using Fanex.Data.Repository;
+namespace ParlayRMS.Legacy.DataAccess;
 
-    public class TopWinnersDataAccess 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.TopWinners;
+using DTO.BetList;
+using DTO.TopWinners;
+using Fanex.Data.Repository;
+
+public class TopWinnersDataAccess 
+{
+    private readonly IDynamicRepository repository = new DynamicRepository();
+    public IEnumerable<RMS_Rpt_Parlay_TopWinner> RMS_Rpt_Parlay_TopWinners(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        DateTime balanceUpDay,
+        string sportsType,
+        int selectTop,
+        string combos,
+        string parlayTypes,
+        byte liveType,
+        string currencies,
+        byte site,
+        int? customerClass)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-        public IEnumerable<RMS_Rpt_Parlay_TopWinner> RMS_Rpt_Parlay_TopWinners(
-                                                         DateTime fromDate,
-                                                         DateTime toDate,
-                                                         DateTime moveBetsDay,
-                                                         DateTime balanceUpDay,
-                                                         string sportsType,
-                                                         int selectTop,
-                                                         string combos,
-                                                         string parlayTypes,
-                                                         byte liveType,
-                                                         string currencies,
-                                                         byte site,
-                                                         int? customerClass)
-        {
             var criteria = new Rpt_ComboParlay_TopWinners_Criteria
             {
                 FromDate = fromDate,
@@ -50,17 +50,17 @@ namespace ParlayRMS.Legacy.DataAccess
             return list;
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> RMS_Rpt_Parlay_TopWinners_Details(
-                                                                int custId,
-                                                                DateTime fromDate,
-                                                                DateTime toDate,
-                                                                DateTime moveBetsDay,
-                                                                string sportsType,
-                                                                string combos,
-                                                                string parlayTypes,
-                                                                byte liveType,
-                                                                string currencies)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> RMS_Rpt_Parlay_TopWinners_Details(
+        int custId,
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        string sportsType,
+        string combos,
+        string parlayTypes,
+        byte liveType,
+        string currencies)
+    {
             var criteria = new Rpt_ComboParlay_TopWinnersDetails_Criteria
             {
                 FromDate = fromDate,
@@ -77,8 +77,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return repository.Fetch<RMS_Rpt_Parlay_TopWinner_Detail>(criteria);
         }
 
-        public IEnumerable<RMS_Parlay_TransDetails> RMS_Rpt_Parlay_TopWinners_Bet_Details(long transId, long refNo)
-        {
+    public IEnumerable<RMS_Parlay_TransDetails> RMS_Rpt_Parlay_TopWinners_Bet_Details(long transId, long refNo)
+    {
             var criteria = new Rpt_Parlay_TopWinners_Bet_Details_Criteria
             {
                 TransId = transId,
@@ -87,15 +87,15 @@ namespace ParlayRMS.Legacy.DataAccess
             return repository.Fetch<RMS_Parlay_TransDetails>(criteria);
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> RMS_Rpt_Parlay_TopWinners_Details_old(
-                                                                int custId,
-                                                                DateTime fromDate,
-                                                                DateTime toDate,
-                                                                string sportsType,
-                                                                string combos,
-                                                                string parlayTypes,
-                                                                string currencies)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> RMS_Rpt_Parlay_TopWinners_Details_old(
+        int custId,
+        DateTime fromDate,
+        DateTime toDate,
+        string sportsType,
+        string combos,
+        string parlayTypes,
+        string currencies)
+    {
             var criteria = new Rpt_ComboParlay_TopWinnersDetails_Old_Criteria
             {
                 CustId = custId,
@@ -109,5 +109,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return repository.Fetch<RMS_Rpt_Parlay_TopWinner_Detail>(criteria);
         }
-    }
 }

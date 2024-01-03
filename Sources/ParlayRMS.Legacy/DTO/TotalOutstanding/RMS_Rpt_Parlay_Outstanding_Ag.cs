@@ -1,17 +1,16 @@
-namespace ParlayRMS.Legacy.DTO.TotalOutstanding
+namespace ParlayRMS.Legacy.DTO.TotalOutstanding;
+
+public class RMS_Rpt_Parlay_Outstanding_Ag
 {
-    public class RMS_Rpt_Parlay_Outstanding_Ag
-    {
-        public int CustId { get; set; }
+    public int CustId { get; set; }
 
-        public string Username { get; set; }
+    public string Username { get; set; }
 
-        public decimal StakePt { get; set; }
+    public decimal StakePt { get; set; }
 
-        public decimal MaxPayoutPt { get; set; }
+    public decimal MaxPayoutPt { get; set; }
 
-        public int BetCount { get; set; }
+    public int BetCount { get; set; }
 
-        public string CustomerClass { get; set; }
-    }
+    public string CustomerClass { get; set; }
 }

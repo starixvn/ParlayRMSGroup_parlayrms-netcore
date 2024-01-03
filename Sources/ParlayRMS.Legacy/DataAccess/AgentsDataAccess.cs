@@ -1,18 +1,18 @@
-namespace ParlayRMS.Legacy.DataAccess
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria;
-    using Criteria.Agents;
-    using DTO.Agents;
-    using Fanex.Data.Repository;
+namespace ParlayRMS.Legacy.DataAccess;
 
-    public class AgentsDataAccess 
-    {
-        private readonly IDynamicRepository repository = new DynamicRepository();
+using System.Collections.Generic;
+using System.Linq;
+using Criteria;
+using Criteria.Agents;
+using DTO.Agents;
+using Fanex.Data.Repository;
+
+public class AgentsDataAccess 
+{
+    private readonly IDynamicRepository repository = new DynamicRepository();
         
-        public IEnumerable<RMS_DangerousAgentSel> RMS_DangerousAgentSel(string username)
-        {
+    public IEnumerable<RMS_DangerousAgentSel> RMS_DangerousAgentSel(string username)
+    {
             username = string.IsNullOrEmpty(username) ? null : username;
             var criteria = new DangerousAgentSel_Criteria { Username = username };
 
@@ -24,8 +24,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return agents;
         }
 
-        public Result RMS_DangerousAgentIns(string userName, int adminId, string ip)
-        {
+    public Result RMS_DangerousAgentIns(string userName, int adminId, string ip)
+    {
             var command = new DangerousAgentIns_Command
             {
                 Username = userName,
@@ -38,8 +38,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return ResultFactory.From(command);
         }
 
-        public Result RMS_DangerousAgentDel(int agentId, string userName, int adminId, string ip)
-        {
+    public Result RMS_DangerousAgentDel(int agentId, string userName, int adminId, string ip)
+    {
             var command = new DangerousAgentDel_Command
             {
                 UserId = adminId,
@@ -52,5 +52,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return ResultFactory.From(command);
         }
-    }
 }

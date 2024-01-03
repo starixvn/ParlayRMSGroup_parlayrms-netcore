@@ -1,55 +1,54 @@
-namespace ParlayRMS.Legacy.DTO.SimilarBets
+namespace ParlayRMS.Legacy.DTO.SimilarBets;
+
+public class RMS_Similar_Parlay_Betlist
 {
-    public class RMS_Similar_Parlay_Betlist
-    {
-        public int Cnt_bets { get; set; }
+    public int Cnt_bets { get; set; }
 
-        public int TotalBet { get; set; }
+    public int TotalBet { get; set; }
 
-        public int NumberWon { get; set; }
+    public int NumberWon { get; set; }
 
-        public int TotalSelection { get; set; }
+    public int TotalSelection { get; set; }
 
-        public int Level { get; set; }
+    public int Level { get; set; }
 
-        public int SportType { get; set; }
+    public int SportType { get; set; }
 
-        public string SportTypeName { get; set; }
+    public string SportTypeName { get; set; }
 
-        public decimal Max_payout { get; set; }
+    public decimal Max_payout { get; set; }
 
-        public decimal Odds { get; set; }
+    public decimal Odds { get; set; }
 
-        public long Refno { get; set; }
+    public long Refno { get; set; }
 
-        public decimal Stake { get; set; }
+    public decimal Stake { get; set; }
 
-        public DateTime Transdate { get; set; }
+    public DateTime Transdate { get; set; }
 
-        public long Transid { get; set; }
+    public long Transid { get; set; }
 
-        public int CustId { get; set; }
+    public int CustId { get; set; }
 
-        public string Username { get; set; }
+    public string Username { get; set; }
 
-        public int BetType { get; set; }
+    public int BetType { get; set; }
 
-        public bool IsGOF { get; set; }
+    public bool IsGOF { get; set; }
 
-        public byte StatusID { get; set; }
+    public byte StatusID { get; set; }
 
-        public decimal PotentialWinningAmount { get; set; }
+    public decimal PotentialWinningAmount { get; set; }
 
-        public decimal HouseLoseAmount { get; set; }
+    public decimal HouseLoseAmount { get; set; }
 
-        public string CustomerClass { get; set; }
+    public string CustomerClass { get; set; }
 
-        public string SiteGroup { get; set; }
+    public string SiteGroup { get; set; }
 
-        public IEnumerable<RMS_Similar_Parlay_Betlist_Detail> Details { get; set; }
+    public IEnumerable<RMS_Similar_Parlay_Betlist_Detail> Details { get; set; }
 
-        public TotalDataModel TotalData { get; set; }
+    public TotalDataModel TotalData { get; set; }
 
-        public bool IsParlayGenerator { get; set; }
-	}
+    public bool IsParlayGenerator { get; set; }
 }

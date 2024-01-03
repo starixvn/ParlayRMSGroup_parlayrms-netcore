@@ -1,35 +1,35 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DataAccess;
+using DTO.ViewIPInfo;
+using Models.ViewIpInfo;
+
+public class ViewIPInfoService : BaseService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using DataAccess;
-    using DTO.ViewIPInfo;
-    using Models.ViewIpInfo;
+    private readonly ViewIPInfoDataAccess _viewIPInfoDataAccess = new ViewIPInfoDataAccess();
 
-    public class ViewIPInfoService : BaseService
+    public IEnumerable<RMS_Rpt_Parlay_ViewIPInfo> GetIPInfo(string ip, DateTime date, string ticketStatus)
     {
-        private readonly ViewIPInfoDataAccess _viewIPInfoDataAccess = new ViewIPInfoDataAccess();
-
-        public IEnumerable<RMS_Rpt_Parlay_ViewIPInfo> GetIPInfo(string ip, DateTime date, string ticketStatus)
-        {
             return _viewIPInfoDataAccess.RMS_Rpt_Parlay_BetsStatisticsByIP(ip, date, ticketStatus);
         }
 
-        public RMS_Rpt_Parlay_UsersStatisticsByIP GetIPStats(DateTime fromDate, int pageIndex, int pageSize, int totalItems, long maxTransId, string ticketStatus)
-        {
+    public RMS_Rpt_Parlay_UsersStatisticsByIP GetIPStats(DateTime fromDate, int pageIndex, int pageSize, int totalItems, long maxTransId, string ticketStatus)
+    {
             return _viewIPInfoDataAccess.RMS_Rpt_Parlay_UsersStatisticsByIP(fromDate, pageIndex, pageSize, totalItems, maxTransId, ticketStatus);
         }
 
-        public IEnumerable<RMS_Rpt_Parlay_ViewIPInfoByUser> GetIPInfoByUser(string ip, DateTime date, int userId, int sportType, string ticketStatus)
-        {
+    public IEnumerable<RMS_Rpt_Parlay_ViewIPInfoByUser> GetIPInfoByUser(string ip, DateTime date, int userId, int sportType, string ticketStatus)
+    {
             var records = _viewIPInfoDataAccess.RMS_Rpt_Parlay_BetsStatisticsByIP_Sporttype(ip, date, userId, sportType, ticketStatus);
 
             return records;
         }
 
-        public CombinationDetailsByDateViews GetBetCombinationDetails(long refNo)
-        {
+    public CombinationDetailsByDateViews GetBetCombinationDetails(long refNo)
+    {
             var records = _viewIPInfoDataAccess.RMS_SystemParlay_CombinationDetails(refNo);
 
             var viewModel = MakeCombinationDetailsView(records);
@@ -38,8 +38,8 @@ namespace ParlayRMS.Legacy.Services
             return viewModelGroupByDate;
         }
 
-        private CombinationDetailsViews MakeCombinationDetailsView(RMS_SystemParlay_CombinationDetails records)
-        {
+    private CombinationDetailsViews MakeCombinationDetailsView(RMS_SystemParlay_CombinationDetails records)
+    {
             var viewList = new List<CombinationDetailsView>();
 
             var eventInfo = new Dictionary<int, List<CombinationDetailsView.EventItem>>();
@@ -89,8 +89,8 @@ namespace ParlayRMS.Legacy.Services
             return result;
         }
 
-        private CombinationDetailsByDateViews MakeCombinationDetailsByDateView(CombinationDetailsViews models)
-        {
+    private CombinationDetailsByDateViews MakeCombinationDetailsByDateView(CombinationDetailsViews models)
+    {
             var groupByDateViewList = models.ViewList.GroupBy(x => x.Date).ToDictionary(x => x.Key, x => x.ToList());
 
             var result = new CombinationDetailsByDateViews
@@ -100,5 +100,4 @@ namespace ParlayRMS.Legacy.Services
             };
             return result;
         }
-    }
 }

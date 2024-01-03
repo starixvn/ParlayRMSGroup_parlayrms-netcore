@@ -1,12 +1,12 @@
-namespace ParlayRMS.Legacy.ViewModel.Monitoring
-{
-    using System;
-    using ParlayRMS.ViewModel;
+namespace ParlayRMS.Legacy.ViewModel.Monitoring;
 
-    public class MonitoringSummaryModel
+using System;
+using ParlayRMS.ViewModel;
+
+public class MonitoringSummaryModel
+{
+    public MonitoringSummaryModel()
     {
-        public MonitoringSummaryModel()
-        {
             All_Sports = true;
             Soccer_Only = true;
             Combined_Sports = true;
@@ -14,24 +14,23 @@ namespace ParlayRMS.Legacy.ViewModel.Monitoring
             WinlostDate = Config.WinlostDate;
         }
 
-        public long MaxTransId { get; set; }
+    public long MaxTransId { get; set; }
 
-        public DateTime WinlostDate { get; set; }
+    public DateTime WinlostDate { get; set; }
 
-        public bool All_Sports { get; set; }
+    public bool All_Sports { get; set; }
 
-        public bool Soccer_Only { get; set; }
+    public bool Soccer_Only { get; set; }
 
-        public bool Combined_Sports { get; set; }
+    public bool Combined_Sports { get; set; }
 
-        public bool Other_Sports { get; set; }
+    public bool Other_Sports { get; set; }
 
-        public bool[] States
+    public bool[] States
+    {
+        get
         {
-            get
-            {
                 return new[] { All_Sports, Soccer_Only, Combined_Sports, Other_Sports };
             }
-        }
     }
 }

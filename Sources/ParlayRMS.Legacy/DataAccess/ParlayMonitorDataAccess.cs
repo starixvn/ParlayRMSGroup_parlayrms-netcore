@@ -1,36 +1,36 @@
-namespace ParlayRMS.Legacy.DataAccess
+namespace ParlayRMS.Legacy.DataAccess;
+
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.ParlayMonitor;
+using DTO.ParlayMonitor;
+using DTO.PotentialWinning;
+using Fanex.Data.Repository;
+
+public class ParlayMonitorDataAccess
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.ParlayMonitor;
-    using DTO.ParlayMonitor;
-    using DTO.PotentialWinning;
-    using Fanex.Data.Repository;
+    private readonly IDynamicRepository repository = new DynamicRepository();
 
-    public class ParlayMonitorDataAccess
+    public IEnumerable<RMS_Monitor_Parlay_Betlist> RMS_Monitor_Parlay_Betlist(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        string levels,
+        decimal stakeAfterPT,
+        decimal maxPayout,
+        int reportType,
+        int selectTop,
+        long maxTransId,
+        string markets,
+        bool isCornerParlay,
+        decimal? odds,
+        string leagueGroups,
+        int? customerClass,
+        string company,
+        string ip,
+        byte liveType,
+        string username)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-
-        public IEnumerable<RMS_Monitor_Parlay_Betlist> RMS_Monitor_Parlay_Betlist(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            string levels,
-            decimal stakeAfterPT,
-            decimal maxPayout,
-            int reportType,
-            int selectTop,
-            long maxTransId,
-            string markets,
-            bool isCornerParlay,
-            decimal? odds,
-            string leagueGroups,
-            int? customerClass,
-            string company,
-            string ip,
-            byte liveType,
-            string username)
-        {
             var criteria = new Monitor_ComboParlay_Betlist_Criteria
             {
                 Selection = combos,
@@ -68,8 +68,8 @@ namespace ParlayRMS.Legacy.DataAccess
             return betList;
         }
 
-        public UserTracking RMS_Monitor_Parlay_UserTracking(int userid, string username, string transid)
-        {
+    public UserTracking RMS_Monitor_Parlay_UserTracking(int userid, string username, string transid)
+    {
             var command = new ComboParlay_PotentialWinning_UserTracking_Command
             {
                 Username = username,
@@ -87,5 +87,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return userTracking;
         }
-    }
 }

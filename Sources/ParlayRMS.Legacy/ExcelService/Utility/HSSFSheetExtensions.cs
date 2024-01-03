@@ -1,15 +1,15 @@
-namespace ParlayRMS.Legacy.ExcelService.Utility
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
+namespace ParlayRMS.Legacy.ExcelService.Utility;
 
-    public static class HSSFSheetExtensions
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using NPOI.SS.UserModel;
+using NPOI.SS.Util;
+
+public static class HSSFSheetExtensions
+{
+    public static void CopyRows(this ISheet sheet, ISheet sourceSheet, int sourceRowNum, int destinateRowNum, int total)
     {
-        public static void CopyRows(this ISheet sheet, ISheet sourceSheet, int sourceRowNum, int destinateRowNum, int total)
-        {
             if (total > 0)
             {
                 for (var i = 0; i < total; i++)
@@ -19,8 +19,8 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             }
         }
 
-        public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowNum, int destinateRowNum, int firstColumn, int lastColumn)
-        {
+    public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowNum, int destinateRowNum, int firstColumn, int lastColumn)
+    {
             if (sheet.LastRowNum < destinateRowNum)
             {
                 for (var i = sheet.LastRowNum + 1; i <= destinateRowNum; i++)
@@ -77,18 +77,18 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             }
         }
 
-        public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowNum, int destinateRowNum)
-        {
+    public static void CopyRow(this ISheet sheet, ISheet sourceSheet, int sourceRowNum, int destinateRowNum)
+    {
             sheet.CopyRow(sourceSheet, sourceRowNum, destinateRowNum, 0, int.MaxValue - 1);
         }
 
-        public static void RemoveRow(this ISheet sheet, int rowIndex)
-        {
+    public static void RemoveRow(this ISheet sheet, int rowIndex)
+    {
             sheet.RemoveRow(sheet.GetRow(rowIndex));
         }
 
-        public static void RemoveColumns(this ISheet sheet, List<int> columns)
-        {
+    public static void RemoveColumns(this ISheet sheet, List<int> columns)
+    {
             columns.Sort();
             for (var i = columns.Count - 1; i >= 0; i--)
             {
@@ -96,8 +96,8 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             }
         }
 
-        public static void RemoveColumn(this ISheet sheet, int columnIndex)
-        {
+    public static void RemoveColumn(this ISheet sheet, int columnIndex)
+    {
             var maxColumn = 0;
             var adjustColumn = true;
             for (var r = sheet.FirstRowNum; r <= sheet.LastRowNum; r++)
@@ -175,24 +175,24 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             }
         }
 
-        public static void CloneCell(this ISheet sheet, ICell newCell, ICell oldCell)
-        {
+    public static void CloneCell(this ISheet sheet, ICell newCell, ICell oldCell)
+    {
             CloneCell(newCell, oldCell);
         }
 
-        public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)
-        {
+    public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)
+    {
             return sheet.GetRow(rowIndex).GetCell(colIndex);
         }
 
-        public static int MergeCells(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
-        {
+    public static int MergeCells(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
+    {
             var rangeAddress = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
             return sheet.AddMergedRegion(rangeAddress);
         }
 
-        public static void RemoveMergedRegions(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
-        {
+    public static void RemoveMergedRegions(this ISheet sheet, int firstRow, int firstCol, int lastRow, int lastCol)
+    {
             for (var i = sheet.NumMergedRegions - 1; i >= 0; i--)
             {
                 var mergedRegion = sheet.GetMergedRegion(i);
@@ -204,8 +204,8 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             }
         }
 
-        public static ICell CreateCell(this ISheet sheet, int rowId, int colId, int rowSpan, int colSpan)
-        {
+    public static ICell CreateCell(this ISheet sheet, int rowId, int colId, int rowSpan, int colSpan)
+    {
             Debug.Assert(rowSpan >= 0, "rowSpan must be more than or equal 0");
             Debug.Assert(colSpan >= 0, "colSpan must be more than or equal 0");
 
@@ -219,15 +219,15 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             return cell;
         }
 
-        public static ICell CreateCell(this ISheet sheet, int rowId, int colId, int rowSpan, int colSpan, ICellStyle cellStyle)
-        {
+    public static ICell CreateCell(this ISheet sheet, int rowId, int colId, int rowSpan, int colSpan, ICellStyle cellStyle)
+    {
             var cell = sheet.CreateCell(rowId, colId, rowSpan, colSpan);
             cell.CellStyle = cellStyle;
             return cell;
         }
 
-        public static ICell CreateCell(this ISheet sheet, int rowId, int colId)
-        {
+    public static ICell CreateCell(this ISheet sheet, int rowId, int colId)
+    {
             var row = sheet.GetRow(rowId) ?? sheet.CreateRow(rowId);
 
             var cell = row.GetCell(colId) ?? row.CreateCell(colId);
@@ -235,8 +235,8 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
             return cell;
         }
 
-        private static void CloneCell(ICell newCell, ICell oldCell)
-        {
+    private static void CloneCell(ICell newCell, ICell oldCell)
+    {
             if (oldCell.CellComment != null)
             {
                 newCell.CellComment = oldCell.CellComment;
@@ -287,5 +287,4 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
                     }
             }
         }
-    }
 }

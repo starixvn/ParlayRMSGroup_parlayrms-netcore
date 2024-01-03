@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.DTO.PotentialWinning
-{
-    public class UserTracking
-    {
-        public int StatusId { get; set; }
+namespace ParlayRMS.Legacy.DTO.PotentialWinning;
 
-        public string Message { get; set; }
-    }
+public class UserTracking
+{
+    public int StatusId { get; set; }
+
+    public string Message { get; set; }
 }

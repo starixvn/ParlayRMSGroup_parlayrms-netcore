@@ -1,51 +1,50 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System.Collections.Generic;
+using DataAccess;
+using DTO.PotentialWinning;
+using Utilities;
+
+public class PotentialWinningMonitorService : BaseService
 {
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.PotentialWinning;
-    using Utilities;
+    private readonly PotentialWinningMonitorDataAccess _potentialWinningDataAccess = new PotentialWinningMonitorDataAccess();
 
-    public class PotentialWinningMonitorService : BaseService
+    public IEnumerable<RMS_Monitor_Potential_Winning> GetPotentialWinningList(
+        string combos,
+        string parlayTypes,
+        string sportTypes,
+        string levels,
+        decimal winningAmount,
+        int selectTop,
+        bool isCornerParlay,
+        byte filterBy,
+        int? agentId,
+        int? customerClass,
+        string company,
+        string username)
     {
-        private readonly PotentialWinningMonitorDataAccess _potentialWinningDataAccess = new PotentialWinningMonitorDataAccess();
+        return _potentialWinningDataAccess.RMS_Monitor_Parlay_PotentialWinning(combos, parlayTypes, sportTypes, levels, winningAmount, selectTop, isCornerParlay, filterBy, agentId, customerClass, company, username);
+    }
 
-        public IEnumerable<RMS_Monitor_Potential_Winning> GetPotentialWinningList(
-            string combos,
-            string parlayTypes,
-            string sportTypes,
-            string levels,
-            decimal winningAmount,
-            int selectTop,
-            bool isCornerParlay,
-            byte filterBy,
-            int? agentId,
-            int? customerClass,
-            string company,
-            string username)
+    public IEnumerable<RMS_Monitor_Potential_Winning_Detail> GetPotentialWinningDetailList(
+        string combos,
+        string parlayTypes,
+        string sportTypes,
+        int custId,
+        bool isCornerParlay)
+    {
+        var result = _potentialWinningDataAccess.RMS_Monitor_Parlay_PotentialWinningDetail(combos, parlayTypes, sportTypes, custId, isCornerParlay);
+        foreach (var item in result)
         {
-            return _potentialWinningDataAccess.RMS_Monitor_Parlay_PotentialWinning(combos, parlayTypes, sportTypes, levels, winningAmount, selectTop, isCornerParlay, filterBy, agentId, customerClass, company, username);
+            item.SportTypeName = CacheRef.GetSportNameDropDown(item.SportType);
+            item.IsTrackedUser = item.TrackingUser != "None";
         }
 
-        public IEnumerable<RMS_Monitor_Potential_Winning_Detail> GetPotentialWinningDetailList(
-            string combos,
-            string parlayTypes,
-            string sportTypes,
-            int custId,
-            bool isCornerParlay)
-        {
-            var result = _potentialWinningDataAccess.RMS_Monitor_Parlay_PotentialWinningDetail(combos, parlayTypes, sportTypes, custId, isCornerParlay);
-            foreach (var item in result)
-            {
-                item.SportTypeName = CacheRef.GetSportNameDropDown(item.SportType);
-                item.IsTrackedUser = item.TrackingUser != "None";
-            }
+        return result;
+    }
 
-            return result;
-        }
-
-        public UserTracking UpdateCheckedUser(int userid, string username, string transid)
-        {
-            return _potentialWinningDataAccess.RMS_ComboParlay_PotentialWinning_UserTracking(userid, username, transid);
-        }
+    public UserTracking UpdateCheckedUser(int userid, string username, string transid)
+    {
+        return _potentialWinningDataAccess.RMS_ComboParlay_PotentialWinning_UserTracking(userid, username, transid);
     }
 }

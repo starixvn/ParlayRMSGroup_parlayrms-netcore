@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.ViewModel.Monitoring
-{
-    public class TopLeagueByTurnover
-    {
-        public string LeagueName { get; set; }
+namespace ParlayRMS.Legacy.ViewModel.Monitoring;
 
-        public decimal Turnover { get; set; }
-    }
+public class TopLeagueByTurnover
+{
+    public string LeagueName { get; set; }
+
+    public decimal Turnover { get; set; }
 }

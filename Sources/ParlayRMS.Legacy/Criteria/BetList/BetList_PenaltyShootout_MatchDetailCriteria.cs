@@ -1,19 +1,18 @@
-namespace ParlayRMS.Legacy.Criteria.BetList
+namespace ParlayRMS.Legacy.Criteria.BetList;
+
+using Fanex.Data.Repository;
+
+public class BetList_PenaltyShootout_MatchDetailCriteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public long TransId { get; set; }
 
-    public class BetList_PenaltyShootout_MatchDetailCriteria : CriteriaBase
+    public override string GetSettingKey()
     {
-        public long TransId { get; set; }
-
-        public override string GetSettingKey()
-        {
             return "RMS_BetList_PenaltyShootout_MatchDetail";
         }
 
-        public override bool IsValid()
-        {
+    public override bool IsValid()
+    {
             return true;
         }
-    }
 }

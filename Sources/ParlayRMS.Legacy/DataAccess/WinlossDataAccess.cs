@@ -1,28 +1,28 @@
-namespace ParlayRMS.Legacy.DataAccess
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.Winloss;
-    using DTO.Winloss;
-    using Fanex.Data.Repository;
-    using Models;
+namespace ParlayRMS.Legacy.DataAccess;
 
-    public class WinlossDataAccess 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Criteria.Winloss;
+using DTO.Winloss;
+using Fanex.Data.Repository;
+using Models;
+
+public class WinlossDataAccess 
+{
+    private readonly IDynamicRepository repository = new DynamicRepository();
+    public IEnumerable<RMS_Rpt_Parlay_Winloss> RMS_Rpt_Parlay_Winloss(
+        DateTime fromDate,
+        DateTime toDate,
+        DateTime moveBetsDay,
+        DateTime balanceUpDay,
+        string parlayTypes,
+        string sportsType,
+        string combos,
+        int reportType,
+        byte site,
+        byte liveType)
     {
-        private readonly IDynamicRepository repository = new DynamicRepository();
-        public IEnumerable<RMS_Rpt_Parlay_Winloss> RMS_Rpt_Parlay_Winloss(
-                                                       DateTime fromDate,
-                                                       DateTime toDate,
-                                                       DateTime moveBetsDay,
-                                                       DateTime balanceUpDay,
-                                                       string parlayTypes,
-                                                       string sportsType,
-                                                       string combos,
-                                                       int reportType,
-                                                       byte site,
-                                                       byte liveType)
-        {
             var criteria = new Rpt_ComboParlay_Winloss_Criteria
             {
                 FromDate = fromDate,
@@ -46,5 +46,4 @@ namespace ParlayRMS.Legacy.DataAccess
 
             return list;
         }
-    }
 }

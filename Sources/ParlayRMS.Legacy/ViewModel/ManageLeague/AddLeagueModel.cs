@@ -1,15 +1,14 @@
-namespace ParlayRMS.Legacy.ViewModel.ManageLeague
+namespace ParlayRMS.Legacy.ViewModel.ManageLeague;
+
+using System.ComponentModel.DataAnnotations;
+
+public class AddLeagueModel
 {
-    using System.ComponentModel.DataAnnotations;
+    [Required]
+    [Display(Name = "League")]
+    public string League { get; set; }
 
-    public class AddLeagueModel
-    {
-        [Required]
-        [Display(Name = "League")]
-        public string League { get; set; }
-
-        [Required]
-        [Display(Name = "Group")]
-        public int Group { get; set; }
-    }
+    [Required]
+    [Display(Name = "Group")]
+    public int Group { get; set; }
 }

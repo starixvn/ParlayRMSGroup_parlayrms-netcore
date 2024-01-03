@@ -1,11 +1,10 @@
-﻿namespace ParlayRMS.Legacy.DTO.Members
+﻿namespace ParlayRMS.Legacy.DTO.Members;
+
+public class RMS_CustomerSelInfoByUsername
 {
-    public class RMS_CustomerSelInfoByUsername
-    {
-        public int CustId { get; set; }
+    public int CustId { get; set; }
 
-        public int RoleId { get; set; }
+    public int RoleId { get; set; }
 
-        public string Username { get; set; }
-    }
+    public string Username { get; set; }
 }

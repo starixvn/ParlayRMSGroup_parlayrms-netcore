@@ -1,14 +1,13 @@
-namespace ParlayRMS.Legacy.Criteria
+namespace ParlayRMS.Legacy.Criteria;
+
+public static class ResultFactory
 {
-    public static class ResultFactory
+    public static Result From(IResult obj)
     {
-        public static Result From(IResult obj)
-        {
             return new Result
             {
                 Code = obj.ErrCode,
                 Message = obj.ErrMsg
             };
         }
-    }
 }

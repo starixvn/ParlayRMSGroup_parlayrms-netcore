@@ -1,13 +1,12 @@
-namespace ParlayRMS.Legacy.ViewModel.TotalOutstanding
+namespace ParlayRMS.Legacy.ViewModel.TotalOutstanding;
+
+public class TotalDataModel
 {
-    public class TotalDataModel
-    {
-        public decimal StakePt { get; set; }
+    public decimal StakePt { get; set; }
 
-        public decimal PotentialWinningAmount { get; set; }
+    public decimal PotentialWinningAmount { get; set; }
 
-        public decimal MaxPayoutPt { get; set; }
+    public decimal MaxPayoutPt { get; set; }
 
-        public int TotalBets { get; set; }
-    }
+    public int TotalBets { get; set; }
 }

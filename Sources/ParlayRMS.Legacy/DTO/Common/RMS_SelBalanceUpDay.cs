@@ -1,11 +1,10 @@
-namespace ParlayRMS.Legacy.DTO.Common
+namespace ParlayRMS.Legacy.DTO.Common;
+
+using System;
+
+public class RMS_SelBalanceUpDay
 {
-    using System;
+    public DateTime BalanceUpDay { get; set; }
 
-    public class RMS_SelBalanceUpDay
-    {
-        public DateTime BalanceUpDay { get; set; }
-
-        public DateTime MoveBetsDay { get; set; }
-    }
+    public DateTime MoveBetsDay { get; set; }
 }

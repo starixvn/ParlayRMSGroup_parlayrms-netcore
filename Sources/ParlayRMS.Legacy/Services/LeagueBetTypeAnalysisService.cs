@@ -1,22 +1,22 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DataAccess;
+using DTO.LeagueBetTypeAnalysis;
+using DTO.Leagues;
+using ViewModel.Report;
+
+public class LeagueBetTypeAnalysisService : BaseService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using DataAccess;
-    using DTO.LeagueBetTypeAnalysis;
-    using DTO.Leagues;
-    using ViewModel.Report;
+    private const byte SORT_BY_TOTAL_TICKETS = 1;
+    private const byte SORT_BY_RATIO = 2;
+    private const byte SORT_BY_HOUSE_WIN_LOSS = 3;
+    private readonly LeagueBetTypeAnalysisDataAccess _dataAccess = new LeagueBetTypeAnalysisDataAccess();
 
-    public class LeagueBetTypeAnalysisService : BaseService
+    public List<RMS_Rpt_LeagueBettype_Analysis> GetLeagueBetTypeList(LeagueBetTypeAnalysisOptions options)
     {
-        private const byte SORT_BY_TOTAL_TICKETS = 1;
-        private const byte SORT_BY_RATIO = 2;
-        private const byte SORT_BY_HOUSE_WIN_LOSS = 3;
-        private readonly LeagueBetTypeAnalysisDataAccess _dataAccess = new LeagueBetTypeAnalysisDataAccess();
-
-        public List<RMS_Rpt_LeagueBettype_Analysis> GetLeagueBetTypeList(LeagueBetTypeAnalysisOptions options)
-        {
             var data = _dataAccess.RMS_Rpt_LeagueBettype_Analysis(
                 options.FromDate,
                 options.ToDate,
@@ -34,18 +34,18 @@ namespace ParlayRMS.Legacy.Services
             return data;
         }
 
-        public IEnumerable<LeagueGroup> GetLeagueGroups(int sportType)
-        {
+    public IEnumerable<LeagueGroup> GetLeagueGroups(int sportType)
+    {
             return _dataAccess.GetLeagueGroups(sportType);
         }
 
-        public List<RMS_LeagueSel> GetListLeague(string leagueName, int groupId, int sportType, DateTime fromDate, DateTime toDate)
-        {
+    public List<RMS_LeagueSel> GetListLeague(string leagueName, int groupId, int sportType, DateTime fromDate, DateTime toDate)
+    {
             return _dataAccess.RMS_LeagueSel(leagueName, groupId, sportType, fromDate, toDate);
         }
 
-        private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)
-        {
+    private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)
+    {
             switch (sortId)
             {
                 case SORT_BY_TOTAL_TICKETS:
@@ -58,5 +58,4 @@ namespace ParlayRMS.Legacy.Services
                     return list;
             }
         }
-    }
 }

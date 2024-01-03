@@ -1,15 +1,14 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Members
+﻿namespace ParlayRMS.Legacy.Criteria.Members;
+
+using Fanex.Data.Repository;
+
+public class CustomerSel_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public string Username { get; set; }
 
-    public class CustomerSel_Criteria : CriteriaBase
-    {
-        public string Username { get; set; }
+    public int? Level { get; set; }
 
-        public int? Level { get; set; }
+    public override string GetSettingKey() => "RMS_CustomerSel";
 
-        public override string GetSettingKey() => "RMS_CustomerSel";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

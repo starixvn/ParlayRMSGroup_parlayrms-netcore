@@ -1,17 +1,16 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Members
+﻿namespace ParlayRMS.Legacy.Criteria.Members;
+
+using Fanex.Data.Repository;
+
+public class CustomerSelInfoByUsername_Command : NonQueryCommand
 {
-    using Fanex.Data.Repository;
+    public string Username { get; set; }
 
-    public class CustomerSelInfoByUsername_Command : NonQueryCommand
-    {
-        public string Username { get; set; }
+    public int CustId { get; set; }
 
-        public int CustId { get; set; }
+    public int RoleId { get; set; }
 
-        public int RoleId { get; set; }
+    public override string GetSettingKey() => "RMS_CustomerSelInfoByUsername";
 
-        public override string GetSettingKey() => "RMS_CustomerSelInfoByUsername";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

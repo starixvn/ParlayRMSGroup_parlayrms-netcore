@@ -1,11 +1,10 @@
-namespace ParlayRMS.Legacy.ViewModel.Monitoring
+namespace ParlayRMS.Legacy.ViewModel.Monitoring;
+
+public class UserTrackingCriteria
 {
-    public class UserTrackingCriteria
-    {
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        public string Username { get; set; }
+    public string Username { get; set; }
 
-        public string TransId { get; set; }
-    }
+    public string TransId { get; set; }
 }

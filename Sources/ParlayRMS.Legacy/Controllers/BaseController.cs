@@ -1,12 +1,12 @@
-namespace ParlayRMS.Legacy.Controllers
-{
-    using Criteria;
-    using Microsoft.AspNetCore.Mvc;
+namespace ParlayRMS.Legacy.Controllers;
 
-    public class BaseController : Controller
+using Criteria;
+using Microsoft.AspNetCore.Mvc;
+
+public class BaseController : Controller
+{
+    public int GetSportTypeIdByName(string name)
     {
-        public int GetSportTypeIdByName(string name)
-        {
             int sport;
             if (name == ViewLang.Allsports)
             {
@@ -28,19 +28,19 @@ namespace ParlayRMS.Legacy.Controllers
             return sport;
         }
 
-        protected JsonResult Json(Result result)
-        {
+    protected JsonResult Json(Result result)
+    {
             return base.Json(new { code = result.Code, message = result.Message });
         }
 
-        protected JsonResult InvalidModelJson()
-        {
+    protected JsonResult InvalidModelJson()
+    {
             return Json(new { code = -1, message = GetModelErrorMessage() });
         }
 
 
-        protected string GetModelErrorMessage()
-        {
+    protected string GetModelErrorMessage()
+    {
             foreach (var modelState in ViewData.ModelState.Values)
             {
                 foreach (var error in modelState.Errors)
@@ -52,9 +52,8 @@ namespace ParlayRMS.Legacy.Controllers
             return "Undefined Error";
         }
 
-        protected string[] GetModelErrorMessages()
-        {
+    protected string[] GetModelErrorMessages()
+    {
             return ModelState.Values.SelectMany(v => v.Errors).Select(x => x.ErrorMessage).ToArray();
         }
-    }
 }

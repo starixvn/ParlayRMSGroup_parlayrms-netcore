@@ -1,6 +1,5 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+public abstract class BaseService
 {
-    public abstract class BaseService
-    {
-    }
 }

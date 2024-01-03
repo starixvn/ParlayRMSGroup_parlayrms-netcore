@@ -1,39 +1,38 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System.Collections.Generic;
+using DataAccess;
+using DTO.LeagueWinningMonitor;
+
+public class LeagueWinningMonitorService : BaseService
 {
-    using System.Collections.Generic;
-    using DataAccess;
-    using DTO.LeagueWinningMonitor;
+    private readonly LeagueWinningMonitorDataAccess leagueWinningMonitorDataAccess = new LeagueWinningMonitorDataAccess();
 
-    public class LeagueWinningMonitorService : BaseService
+    public IEnumerable<RmsRptLeagueWinningMonitor> GetLeagueWinningMonitorList(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        string levels,
+        decimal winningAmount,
+        int selectTop,
+        byte group,
+        byte reportBy)
     {
-        private readonly LeagueWinningMonitorDataAccess leagueWinningMonitorDataAccess = new LeagueWinningMonitorDataAccess();
-
-        public IEnumerable<RmsRptLeagueWinningMonitor> GetLeagueWinningMonitorList(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            string levels,
-            decimal winningAmount,
-            int selectTop,
-            byte group,
-            byte reportBy)
-        {
             return leagueWinningMonitorDataAccess.GetData(combos, parlayTypes, sportsTypes, levels, winningAmount, selectTop, group, reportBy);
         }
 
-        public IEnumerable<RmsRptLeagueWinningMonitorDetail> GetLeagueWinningMonitorListDetail(
-            string combos,
-            string parlayTypes,
-            string sportsTypes,
-            string levels,
-            decimal winningAmount,
-            int selectTop,
-            byte group,
-            byte reportBy,
-            int leagueId,
-            int custId)
-        {
+    public IEnumerable<RmsRptLeagueWinningMonitorDetail> GetLeagueWinningMonitorListDetail(
+        string combos,
+        string parlayTypes,
+        string sportsTypes,
+        string levels,
+        decimal winningAmount,
+        int selectTop,
+        byte group,
+        byte reportBy,
+        int leagueId,
+        int custId)
+    {
             return leagueWinningMonitorDataAccess.GetDetailList(combos, parlayTypes, sportsTypes, levels, winningAmount, selectTop, group, reportBy, leagueId, custId);
         }
-    }
 }

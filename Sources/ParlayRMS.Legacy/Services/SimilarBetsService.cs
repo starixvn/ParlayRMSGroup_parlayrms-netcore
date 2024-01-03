@@ -1,17 +1,17 @@
-namespace ParlayRMS.Legacy.Services
+namespace ParlayRMS.Legacy.Services;
+
+using System;
+using System.Linq;
+using DataAccess;
+using DTO.SimilarBets;
+using Utilities;
+
+public class SimilarBetsService : BaseService
 {
-    using System;
-    using System.Linq;
-    using DataAccess;
-    using DTO.SimilarBets;
-    using Utilities;
+    private readonly SimilarBetsDataAccess _similarbetsDataAccess = new SimilarBetsDataAccess();
 
-    public class SimilarBetsService : BaseService
+    public RMS_Similar_Parlay_Betlist GetSimilarBets(long transId, bool isSimilar)
     {
-        private readonly SimilarBetsDataAccess _similarbetsDataAccess = new SimilarBetsDataAccess();
-
-        public RMS_Similar_Parlay_Betlist GetSimilarBets(long transId, bool isSimilar)
-        {
             var data = _similarbetsDataAccess.RMS_Similar_Parlay_Betlist(transId, isSimilar);
             if (data != null)
             {
@@ -46,5 +46,4 @@ namespace ParlayRMS.Legacy.Services
 
             return data;
         }
-    }
 }

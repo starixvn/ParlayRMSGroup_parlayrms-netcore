@@ -1,18 +1,18 @@
-namespace ParlayRMS.Legacy.ExcelService.Utility
-{
-    using NPOI.SS.UserModel;
+namespace ParlayRMS.Legacy.ExcelService.Utility;
 
-    public static class RowExtensions
+using NPOI.SS.UserModel;
+
+public static class RowExtensions
+{
+    public static ICell CreateCell(this IRow row, int colId, ICellStyle cellStyle)
     {
-        public static ICell CreateCell(this IRow row, int colId, ICellStyle cellStyle)
-        {
             var cell = row.CreateCell(colId);
             cell.CellStyle = cellStyle;
             return cell;
         }
 
-        public static void WriteCells(this IRow row, int colId, object[] values)
-        {
+    public static void WriteCells(this IRow row, int colId, object[] values)
+    {
             var id = colId;
             foreach (var value in values)
             {
@@ -20,5 +20,4 @@ namespace ParlayRMS.Legacy.ExcelService.Utility
                 id++;
             }
         }
-    }
 }

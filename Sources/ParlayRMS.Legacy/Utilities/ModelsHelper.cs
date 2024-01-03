@@ -1,14 +1,14 @@
 ﻿using ParlayRMS.Legacy.Models.Members;
 using ParlayRMS.Legacy.Models;
 
-namespace ParlayRMS.Legacy.Utilities
-{
-    public static class ModelsHelper
-    {
-        private static readonly List<MemberLevel> memberLevels = new List<MemberLevel>();
+namespace ParlayRMS.Legacy.Utilities;
 
-        static ModelsHelper()
-        {
+public static class ModelsHelper
+{
+    private static readonly List<MemberLevel> memberLevels = new List<MemberLevel>();
+
+    static ModelsHelper()
+    {
             var levelDict = new Dictionary<int, string>
             {
                 { 10, "level10" },
@@ -35,50 +35,50 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static Dictionary<int, string> LeagueGroupColors = new Dictionary<int, string>
-        {
-            { 0, "#000000" },
-            { 1, "#5b9ad5" },
-            { 2, "#f4b083" },
-            { 3, "#548235" },
-            { 4, "#cf51c9" },
-            { 5, "#843c0c" },
-            { 6, "#6f30a0" },
-            { 7, "#bf9000" },
-            { 9, "#2244bf"},
-            { 10, "#fbbcc7"},
-            { 11, "#772677"},
-            { 12, "#1d8191" },
-            { 8, "#ff0000" }
-        };
-        public static string GetColorByLeagueGroup(int groupId)
-        {
+    public static Dictionary<int, string> LeagueGroupColors = new Dictionary<int, string>
+    {
+        { 0, "#000000" },
+        { 1, "#5b9ad5" },
+        { 2, "#f4b083" },
+        { 3, "#548235" },
+        { 4, "#cf51c9" },
+        { 5, "#843c0c" },
+        { 6, "#6f30a0" },
+        { 7, "#bf9000" },
+        { 9, "#2244bf"},
+        { 10, "#fbbcc7"},
+        { 11, "#772677"},
+        { 12, "#1d8191" },
+        { 8, "#ff0000" }
+    };
+    public static string GetColorByLeagueGroup(int groupId)
+    {
             return LeagueGroupColors.TryGetValue(groupId, out var color) ? color : string.Empty;
         }
 
-        public static Dictionary<int, string> LeagueGroupNames = new Dictionary<int, string>
-        {
-            { 0, "All Group" },
-            { 1, "MJ" },
-            { 2, "M1" },
-            { 3, "M2" },
-            { 4, "M3" },
-            { 5, "M4 (a)" },
-            { 6, "M4 (b)" },
-            { 7, "M4 (x)" },
-            { 9, "Virtual"},
-            { 10, "CUP"},
-            { 11, "CORNER"},
-            { 12, "WORLD CUP" },
-            { 8, "Blacklisted" }
-        };
-        public static string GetNameByLeagueGroup(int groupId)
-        {
+    public static Dictionary<int, string> LeagueGroupNames = new Dictionary<int, string>
+    {
+        { 0, "All Group" },
+        { 1, "MJ" },
+        { 2, "M1" },
+        { 3, "M2" },
+        { 4, "M3" },
+        { 5, "M4 (a)" },
+        { 6, "M4 (b)" },
+        { 7, "M4 (x)" },
+        { 9, "Virtual"},
+        { 10, "CUP"},
+        { 11, "CORNER"},
+        { 12, "WORLD CUP" },
+        { 8, "Blacklisted" }
+    };
+    public static string GetNameByLeagueGroup(int groupId)
+    {
             return LeagueGroupNames.TryGetValue(groupId, out var groupName) ? groupName : string.Empty;
         }
 
-        public static string GetClassByMemberLevel(int levelId)
-        {
+    public static string GetClassByMemberLevel(int levelId)
+    {
             foreach (var level in memberLevels)
             {
                 if (level.LevelId == levelId)
@@ -90,8 +90,8 @@ namespace ParlayRMS.Legacy.Utilities
             return string.Empty;
         }
 
-        public static object GetReportType(ReportType reportType)
-        {
+    public static object GetReportType(ReportType reportType)
+    {
             switch (reportType)
             {
                 case ReportType.Combo:
@@ -105,13 +105,13 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static List<MemberLevel> GetMemberLevels()
-        {
+    public static List<MemberLevel> GetMemberLevels()
+    {
             return memberLevels;
         }
 
-        public static string GetSportType(string sportTypes)
-        {
+    public static string GetSportType(string sportTypes)
+    {
             var list = sportTypes.Split(',');
             switch (list.Length)
             {
@@ -127,8 +127,8 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static string GetSportType(int sportType)
-        {
+    public static string GetSportType(int sportType)
+    {
             switch (sportType)
             {
                 case -1:
@@ -145,8 +145,8 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static string GetSportType(SportsType sportType)
-        {
+    public static string GetSportType(SportsType sportType)
+    {
             switch (sportType)
             {
                 case SportsType.AllSports:
@@ -165,8 +165,8 @@ namespace ParlayRMS.Legacy.Utilities
             return "Undefined";
         }
 
-        public static string GetParlayTitle(string parlayTypes)
-        {
+    public static string GetParlayTitle(string parlayTypes)
+    {
             if (parlayTypes == "1,7,6,2,4,3")
             {
                 return ViewLang.All;
@@ -181,8 +181,8 @@ namespace ParlayRMS.Legacy.Utilities
                 .Replace(",", ", ");
         }
 
-        public static string GetSpecialParlayTitle(string parlayTypes)
-        {
+    public static string GetSpecialParlayTitle(string parlayTypes)
+    {
             if (parlayTypes == "1,6,2,4,3")
             {
                 return ViewLang.All;
@@ -196,8 +196,8 @@ namespace ParlayRMS.Legacy.Utilities
                 .Replace(",", ", ");
         }
 
-        public static string GetSimpleParlayTitle(string parlayTypes)
-        {
+    public static string GetSimpleParlayTitle(string parlayTypes)
+    {
             if (parlayTypes == "1,2")
             {
                 return ViewLang.All;
@@ -208,8 +208,8 @@ namespace ParlayRMS.Legacy.Utilities
                 .Replace(",", ", ");
         }
 
-        public static string GetSiteTitle(int site)
-        {
+    public static string GetSiteTitle(int site)
+    {
             switch (site)
             {
                 case 1:
@@ -221,8 +221,8 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static string GetLeagueGroup(int leagueGroup)
-        {
+    public static string GetLeagueGroup(int leagueGroup)
+    {
             switch (leagueGroup)
             {
                 case -1:
@@ -254,8 +254,8 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static string GetLeagueGroupTitle(string leagueGroups)
-        {
+    public static string GetLeagueGroupTitle(string leagueGroups)
+    {
             var list = leagueGroups.Split(',');
             switch (list.Length)
             {
@@ -271,13 +271,13 @@ namespace ParlayRMS.Legacy.Utilities
             }
         }
 
-        public static string GetCustomerClassTitle(int? customerClass)
-        {
+    public static string GetCustomerClassTitle(int? customerClass)
+    {
             return customerClass == null ? "All" : customerClass.ToString();
         }
 
-        public static string GetLiveTypeTitle(int site)
-        {
+    public static string GetLiveTypeTitle(int site)
+    {
             switch (site)
             {
                 case 1:
@@ -290,5 +290,4 @@ namespace ParlayRMS.Legacy.Utilities
                     return ViewLang.All;
             }
         }
-    }
 }

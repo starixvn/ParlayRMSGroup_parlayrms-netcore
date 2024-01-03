@@ -1,13 +1,12 @@
-﻿namespace ParlayRMS.Legacy.Criteria.Agents
+﻿namespace ParlayRMS.Legacy.Criteria.Agents;
+
+using Fanex.Data.Repository;
+
+public class DangerousAgentSel_Criteria : CriteriaBase
 {
-    using Fanex.Data.Repository;
+    public string Username { get; set; }
 
-    public class DangerousAgentSel_Criteria : CriteriaBase
-    {
-        public string Username { get; set; }
+    public override string GetSettingKey() => "RMS_DangerousAgentSel";
 
-        public override string GetSettingKey() => "RMS_DangerousAgentSel";
-
-        public override bool IsValid() => true;
-    }
+    public override bool IsValid() => true;
 }

@@ -1,9 +1,8 @@
-namespace ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis
-{
-    public class LeagueGroup
-    {
-        public string Name { get; set; }
+namespace ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis;
 
-        public int Id { get; set; }
-    }
+public class LeagueGroup
+{
+    public string Name { get; set; }
+
+    public int Id { get; set; }
 }
