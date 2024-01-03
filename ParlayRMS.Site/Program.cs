@@ -4,6 +4,9 @@ using Fanex.NAP.Client.Helpers.Web;
 using ParlayRMS.Site;
 using Fanex.Data.SqlServer;
 using ParlayRMS.Site.Utilities;
+using Fanex.NAP.SignIn.Attribute;
+using Microsoft.AspNetCore.Mvc;
+using ONEbook.UM.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -23,7 +26,11 @@ services.AddOnebookUM(configuration);
 services.AddFanexSql(configuration);
 services.AddBundle();
 services.AddRazorPages();
-services.AddControllersWithViews();
+services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new ServiceFilterAttribute(typeof(CheckUMFilterAttribute)));
+    options.Filters.Add(new SessionAuthorizeAttribute());
+});
 
 var app = builder.Build();
 
