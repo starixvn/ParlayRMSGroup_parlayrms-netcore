@@ -2,7 +2,6 @@ FROM hub.nexdev.net/base/dotnet/core/sdk:8.0-alpine AS builder
 
 WORKDIR /src
 COPY ./Sources/ParlayRMS/*.csproj ./Sources/ParlayRMS/
-COPY ./Sources/ParlayRMS.Application/*.csproj ./Sources/ParlayRMS.Application/
 COPY ./Sources/ParlayRMS.LeagueEventControl/*.csproj ./Sources/ParlayRMS.LeagueEventControl/
 COPY ./Sources/ParlayRMS.ManageAlert/*.csproj ./ParlayRMS.ManageAlert/
 COPY ./Sources/ParlayRMS.WinLossRiskControl/*.csproj ./Sources/ParlayRMS.WinLossRiskControl/
