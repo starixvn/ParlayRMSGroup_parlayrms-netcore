@@ -166,7 +166,7 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
             totalBets
         };
 
-        writer.WriteRows(1, new List<object[]> { header1, header2 });
+        writer.WriteRows(1, [header1, header2]);
 
         var id = 0;
         var select = records.Select(x => new

@@ -47,7 +47,7 @@ public class ViewIPInfoService (ViewIPInfoDataAccess _viewIPInfoDataAccess)
                 var eventItem = new CombinationDetailsView.EventItem(item.HomeId, item.AwayId);
                 if (!eventInfo.ContainsKey(item.Serial))
                 {
-                    eventInfo.Add(item.Serial, new List<CombinationDetailsView.EventItem> { eventItem });
+                    eventInfo.Add(item.Serial, [eventItem]);
                 }
                 else
                 {
@@ -56,7 +56,7 @@ public class ViewIPInfoService (ViewIPInfoDataAccess _viewIPInfoDataAccess)
             }
 
             var loseEvent = new CombinationDetailsView.EventItem(-1, -1);
-            eventInfo.Add(0, new List<CombinationDetailsView.EventItem> { loseEvent });
+            eventInfo.Add(0, [loseEvent]);
 
             foreach (var item in records.Combo)
             {

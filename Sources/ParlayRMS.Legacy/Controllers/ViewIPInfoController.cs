@@ -78,7 +78,7 @@ public class ViewIPInfoController(
             ViewLang.HouseLoseAmount,
         };
 
-        writer.WriteRows(1, new List<object[]> { header });
+        writer.WriteRows(1, [header]);
 
         var id = 0;
         var select = data.Select(x => new
@@ -163,7 +163,7 @@ public class ViewIPInfoController(
             ViewLang.HouseLoseAmount,
         };
 
-        writer.WriteRows(1, new List<object[]> { header });
+        writer.WriteRows(1, [header]);
 
         var id = 0;
         var select = data.IPStats.Select(x => new

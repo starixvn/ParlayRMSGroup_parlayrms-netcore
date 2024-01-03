@@ -87,7 +87,7 @@ public class SimilarBetsController(
     {
         if (betInfo == null)
         {
-            return new List<string>();
+            return [];
         }
         var comboTypes = Utilities.CacheRef.GetCombinationTypeCombo(betInfo.BetTeam, betInfo.BetCheck, betInfo.Hdp1, betInfo.Hdp2);
         var comboTypesAndStake = new List<string>();

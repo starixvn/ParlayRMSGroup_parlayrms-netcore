@@ -5,7 +5,7 @@ namespace ParlayRMS.Legacy.Utilities;
 
 public static class ModelsHelper
 {
-    private static readonly List<MemberLevel> memberLevels = new List<MemberLevel>();
+    private static readonly List<MemberLevel> memberLevels = [];
 
     static ModelsHelper()
     {

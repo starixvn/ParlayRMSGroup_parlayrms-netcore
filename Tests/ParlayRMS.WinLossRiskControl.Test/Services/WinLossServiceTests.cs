@@ -69,12 +69,12 @@ public class WinLossServiceTests
 		};
 	}
 
-	private List<WinLossModel> FakeAgentWinLoss => new()
-	{
-		CreateWinLoss(1, 3, 4, 57),
-		CreateWinLoss(2, 7, 8, Convert.ToDecimal(87.5)),
-		CreateWinLoss(3, 7, 10, 70)
-	};
+	private List<WinLossModel> FakeAgentWinLoss =>
+    [
+        CreateWinLoss(1, 3, 4, 57),
+        CreateWinLoss(2, 7, 8, Convert.ToDecimal(87.5)),
+        CreateWinLoss(3, 7, 10, 70)
+    ];
 
 	private WinLossModel ExpectedCompanyWinLoss()
 	{
@@ -94,13 +94,13 @@ public class WinLossServiceTests
 		};
 	}
 
-	private List<WinLossModel> FakeCompanyWinLoss => new()
-	{
-		CreateWinLoss(1, 3, 4, 57),
-		CreateWinLoss(2, 7, 8, Convert.ToDecimal(87.5)),
-		CreateWinLoss(3, 7, 10, 70),
-		CreateWinLoss(4, 0, 0, 0)
-	};
+	private List<WinLossModel> FakeCompanyWinLoss =>
+    [
+        CreateWinLoss(1, 3, 4, 57),
+        CreateWinLoss(2, 7, 8, Convert.ToDecimal(87.5)),
+        CreateWinLoss(3, 7, 10, 70),
+        CreateWinLoss(4, 0, 0, 0)
+    ];
 
 	private WinLossModel ExpectedSiteWinLoss()
 	{
@@ -117,8 +117,8 @@ public class WinLossServiceTests
 			RealTurnover = 4,
 			Margin = Convert.ToDecimal("75.00"),
 			IsDeposit = false,
-			Rows = new List<WinLossModel> { MBCGroup }
-		};
+			Rows = [MBCGroup]
+        };
 
 		var deposit = new WinLossModel
 		{
@@ -133,8 +133,8 @@ public class WinLossServiceTests
 			RealTurnover = 10,
 			Margin = 70,
 			IsDeposit = true,
-			Rows = new List<WinLossModel> { LicenseeGroup }
-		};
+			Rows = [LicenseeGroup]
+        };
 
 		return new WinLossModel
 		{
@@ -148,8 +148,8 @@ public class WinLossServiceTests
 			RealIncome = 10,
 			RealTurnover = 14,
 			Margin = Convert.ToDecimal("71.428571428571428571428571430"),
-			Rows = new List<WinLossModel> { credit, deposit }
-		};
+			Rows = [credit, deposit]
+        };
 	}
 
 	private WinLossModel MBCGroup

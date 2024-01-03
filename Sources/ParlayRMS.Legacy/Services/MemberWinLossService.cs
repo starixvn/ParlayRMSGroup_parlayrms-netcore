@@ -76,7 +76,7 @@ public class MemberWinLossService(
                 else if (user.RoleId == (int)RoleId.Agent || user.RoleId == (int)RoleId.Master)
                 {
                     var agentIds = user.RoleId == (int)RoleId.Agent
-                        ? new List<int> { user.CustId }
+                        ? [user.CustId]
                         : _membersService.GetAgents(user.CustId);
 
                     memberWinLossData = GetAgentWinLossData(

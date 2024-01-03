@@ -9,14 +9,14 @@ public class ReportHandler(WinLossService service) : IRequestHandler<WinLossRequ
     IRequestHandler<SuperWinLossRequest, WinLossModel>,
     IRequestHandler<AgentWinLossRequest, WinLossModel>
 {
-    public async Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
+    public Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
 	{
-		return await service.SitesWinLoss(request);
+		return service.SitesWinLoss(request);
 	}
 
-	public async Task<WinLossModel> Handle(SuperWinLossRequest request, CancellationToken cancellationToken)
+	public Task<WinLossModel> Handle(SuperWinLossRequest request, CancellationToken cancellationToken)
 	{
-		return await service.SuperWinLoss(request);
+		return service.SuperWinLoss(request);
 	}
 
 	public async Task<WinLossModel> Handle(AgentWinLossRequest request, CancellationToken cancellationToken)

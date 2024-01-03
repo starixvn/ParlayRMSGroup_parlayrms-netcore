@@ -7,7 +7,7 @@ public class WinlossData
 {
     public WinlossData()
     {
-            Records = new List<WinlossItemData>();
+            Records = [];
             Total = new RMS_Rpt_Parlay_Winloss();
         }
 

@@ -12,6 +12,6 @@ public class FilterHandler(FilterService service) : IRequestHandler<SportRequest
 {
     public Task<List<SportModel>> Handle(SportRequest request, CancellationToken cancellationToken) => service.GetSports();
 	public Task<List<SelectItemModel>> Handle(ParlayTypeRequest request, CancellationToken cancellationToken) => service.GetParlayTypes();
-	public async Task<List<CompanyModel>> Handle(CompanyRequest request, CancellationToken cancellationToken) => await service.GetCompany();
+	public Task<List<CompanyModel>> Handle(CompanyRequest request, CancellationToken cancellationToken) => service.GetCompany();
 	public Task<List<SelectItemModel>> Handle(ComboRequest request, CancellationToken cancellationToken) => service.GetComboes();
 }

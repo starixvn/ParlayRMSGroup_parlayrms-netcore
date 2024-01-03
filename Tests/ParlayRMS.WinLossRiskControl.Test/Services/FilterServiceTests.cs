@@ -23,14 +23,14 @@ public class FilterServiceTests
 
 	private static List<SelectItemModel> ExpectedListParlayTypes()
 	{
-		return new List<SelectItemModel>
-		{
-			new() { Name = "Mix Parlay", Id = 1 },
-			new() { Name = "God Of Fortune", Id = 5 },
-			new() { Name = "Combo Parlay", Id = 2 },
-			new() { Name = "Penalty Shootout Combo", Id = 4 },
-			new() { Name = "Single Match Parlay", Id = 3 }
-		};
+		return
+        [
+            new SelectItemModel { Name = "Mix Parlay", Id = 1 },
+            new SelectItemModel { Name = "God Of Fortune", Id = 5 },
+            new SelectItemModel { Name = "Combo Parlay", Id = 2 },
+            new SelectItemModel { Name = "Penalty Shootout Combo", Id = 4 },
+            new SelectItemModel { Name = "Single Match Parlay", Id = 3 }
+        ];
 	}
 
 	[Fact]

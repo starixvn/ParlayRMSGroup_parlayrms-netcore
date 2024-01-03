@@ -65,7 +65,7 @@ public class BetListController(BetListService _betlistService, CommonService _co
     {
         if (betInfo == null)
         {
-            return new List<string>();
+            return [];
         }    
         var comboTypes = CacheRef.GetCombinationTypeCombo(betInfo.BetTeam, betInfo.BetCheck, betInfo.Hdp1, betInfo.Hdp2);
         var comboTypesAndStake = new List<string>();

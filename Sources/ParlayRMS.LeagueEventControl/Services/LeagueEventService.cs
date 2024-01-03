@@ -86,19 +86,19 @@ public class LeagueEventServiceImp(IDynamicRepository repository, IMapper mapper
 				});
 			}
 			eventGroupModel.MatchId = item.MatchId;
-			eventGroupModel.EventList = new List<EventModel>
-			{
-				new()
-				{
-					HomeTotalStake = subHomeTotalStake,
-					HomeTotalTicket = subHomeTotalTicket,
-					AwayTotalStake = subAwayTotalStake,
-					AwayTotalTicket = subAwayTotalTicket,
-					HomeName = homeName,
-					AwayName = awayName,
-					LeagueName = leagueName
-				}
-			};
+			eventGroupModel.EventList =
+            [
+                new EventModel
+                {
+                    HomeTotalStake = subHomeTotalStake,
+                    HomeTotalTicket = subHomeTotalTicket,
+                    AwayTotalStake = subAwayTotalStake,
+                    AwayTotalTicket = subAwayTotalTicket,
+                    HomeName = homeName,
+                    AwayName = awayName,
+                    LeagueName = leagueName
+                }
+            ];
 			var sortedFixedBetTypeList = SortFixedBetTypeList(item.EventList, awayEventModelList);
 			eventGroupModel.EventList.AddRange(sortedFixedBetTypeList);
 			AddMoreThanTwoWayBetTypeList(eventGroupModel.EventList, item.EventList, homeName, awayName);

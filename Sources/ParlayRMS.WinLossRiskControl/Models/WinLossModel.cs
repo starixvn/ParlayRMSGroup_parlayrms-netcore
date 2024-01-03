@@ -59,7 +59,7 @@ public class WinLossModel
 		set => _ = value;
     }
 
-    public List<WinLossModel> Rows { get; set; } = new();
+    public List<WinLossModel> Rows { get; set; } = [];
 
 	public void SumTotal(WinLossModel site)
 	{

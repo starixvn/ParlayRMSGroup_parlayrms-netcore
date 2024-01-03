@@ -13,12 +13,8 @@ using ViewModel.Report;
 using Web;
 using X.PagedList;
 
-public class MemberWinLossController : BaseController
+public class MemberWinLossController(MemberWinLossService _memberWinLossService, BetDetailsService _betDetailsService, MembersService _membersService) : BaseController
 {
-    private readonly MemberWinLossService _memberWinLossService = new MemberWinLossService();
-    private readonly BetDetailsService _betDetailsService = new BetDetailsService();
-    private readonly MembersService _membersService = new MembersService();
-
     [HttpGet]
     [NapAuth(FunctionKey = FunctionKeys.MemberWinLoss, Policy = Constant.Policy.Read)]
     public ActionResult Index()
@@ -162,7 +158,7 @@ public class MemberWinLossController : BaseController
             model.Total.TotalBets
         };
 
-        writer.WriteRows(1, new List<object[]> { header1, header2 });
+        writer.WriteRows(1, [header1, header2]);
 
         foreach (var item in model.Records)
         {
@@ -251,7 +247,7 @@ public class MemberWinLossController : BaseController
             model.Total.TotalBets
         };
 
-        writer.WriteRows(1, new List<object[]> { header1, header2 });
+        writer.WriteRows(1, [header1, header2]);
 
         foreach (var item in model.Records)
         {

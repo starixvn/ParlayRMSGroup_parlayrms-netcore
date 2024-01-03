@@ -110,7 +110,7 @@ public class WinlossController(WinlossService _winlossService) : BaseController
             model.Total.Margin
         };
 
-        writer.WriteRows(1, new List<object[]> { header1, header2 });
+        writer.WriteRows(1, [header1, header2]);
 
         foreach (var record in model.Records)
         {

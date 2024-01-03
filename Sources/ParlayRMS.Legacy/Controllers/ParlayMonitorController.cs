@@ -75,7 +75,7 @@ public class ParlayMonitorController(INapSession napSession,
         };
         ViewBag.Markets = markets;
 
-        values = new List<int> { 60, 120 };
+        values = [60, 120];
         var refreshTimes = new List<SelectListItem>();
         foreach (var item in values)
         {

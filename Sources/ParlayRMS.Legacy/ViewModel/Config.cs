@@ -10,16 +10,18 @@ public static class Config
 {
     static Config()
     {
-            SportsTypes = new List<SelectListItem>
-            {
-                new SelectListItem { Text = ViewLang.Allsports, Value = ((int)SportsType.AllSports).ToString(), Selected = true },
+            SportsTypes =
+            [
+                new SelectListItem
+                    { Text = ViewLang.Allsports, Value = ((int)SportsType.AllSports).ToString(), Selected = true },
                 new SelectListItem { Text = ViewLang.Socceronly, Value = ((int)SportsType.SoccerOnly).ToString() },
-                new SelectListItem { Text = ViewLang.Combinedsports, Value = ((int)SportsType.CombinedSports).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.Combinedsports, Value = ((int)SportsType.CombinedSports).ToString() },
                 new SelectListItem { Text = ViewLang.Othersports, Value = ((int)SportsType.OtherSports).ToString() }
-            };
+            ];
 
             var values = new List<int> { 10, 20, 50, 100, 200, 500, 1000, 2000, 3000 };
-            SelectTops = new List<SelectListItem>();
+            SelectTops = [];
             foreach (var item in values)
             {
                 SelectTops.Add(new SelectListItem
@@ -30,18 +32,19 @@ public static class Config
                 });
             }
 
-            DateRanges = new List<SelectListItem>
-            {
+            DateRanges =
+            [
                 new SelectListItem { Text = ViewLang.Yesterday, Value = ((int)DateRange.Yesterday).ToString() },
                 new SelectListItem { Text = ViewLang.CurrentWeek, Value = ((int)DateRange.CurrentWeek).ToString() },
                 new SelectListItem { Text = ViewLang.CurrentMonth, Value = ((int)DateRange.CurrentMonth).ToString() },
                 new SelectListItem { Text = ViewLang.LastWeek, Value = ((int)DateRange.LastWeek).ToString() },
                 new SelectListItem { Text = ViewLang.LastMonth, Value = ((int)DateRange.LastMonth).ToString() },
-                new SelectListItem { Text = ViewLang.SinceLastMonth, Value = ((int)DateRange.SinceLastMonth).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.SinceLastMonth, Value = ((int)DateRange.SinceLastMonth).ToString() },
                 new SelectListItem { Text = ViewLang.SpecificDate, Value = ((int)DateRange.SpecificDate).ToString() }
-            };
+            ];
 
-            Combos = new List<SelectListItem>();
+            Combos = [];
             for (var i = 2; i <= 9; i++)
             {
                 Combos.Add(new SelectListItem
@@ -53,38 +56,45 @@ public static class Config
 
             Combos.Add(new SelectListItem { Text = ViewLang.TenUp, Value = "10" });
 
-            ParlayTypes = new List<SelectListItem>
-            {
-				new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
-				new SelectListItem { Text = ViewLang.ParlayBoost, Value = ((int)ParlayType.ParlayBoost).ToString() },
-				new SelectListItem { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
-				new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
-				new SelectListItem { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
-				new SelectListItem { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
-			};
+            ParlayTypes =
+            [
+                new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
+                new SelectListItem { Text = ViewLang.ParlayBoost, Value = ((int)ParlayType.ParlayBoost).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
+                new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+            ];
 
-            SimpleParlayTypes = new List<SelectListItem>
-            {
+            SimpleParlayTypes =
+            [
                 new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
                 new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() }
-            };
+            ];
 
-            SpecialParlayTypes = new List<SelectListItem>
-            {
-	            new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
-	            new SelectListItem { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
-	            new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
-	            new SelectListItem { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
-	            new SelectListItem { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
-            };
+            SpecialParlayTypes =
+            [
+                new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
+                new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+            ];
 
-			ReportTypes = new List<SelectListItem>
-            {
+			ReportTypes =
+            [
                 new SelectListItem { Text = "Combo", Value = ((int)ReportType.Combo).ToString(), Selected = true },
                 new SelectListItem { Text = "Sport type", Value = ((int)ReportType.SportType).ToString() }
-            };
+            ];
 
-            LeagueGroups = new List<SelectListItem> {
+            LeagueGroups =
+            [
                 new SelectListItem { Text = ViewLang.None, Value = "-1" },
                 new SelectListItem { Text = "MJ", Value = "1" },
                 new SelectListItem { Text = "M1", Value = "2" },
@@ -98,38 +108,38 @@ public static class Config
                 new SelectListItem { Text = "CORNER", Value = "11" },
                 new SelectListItem { Text = "WORLD CUP", Value = "12" },
                 new SelectListItem { Text = "Blacklist", Value = "8" }
+            ];
 
-            };
-
-            ReportBy = new List<SelectListItem> {
+            ReportBy =
+            [
                 new SelectListItem { Text = "League", Value = "1", Selected = true },
                 new SelectListItem { Text = "BetType", Value = "2" }
+            ];
 
-            };
-
-            Sites = new List<SelectListItem> {
+            Sites =
+            [
                 new SelectListItem { Text = "All", Value = "2" },
                 new SelectListItem { Text = "Credit", Value = "0" },
                 new SelectListItem { Text = "Deposit", Value = "1" }
+            ];
 
-            };
-
-            LiveTypes = new List<SelectListItem> {
+            LiveTypes =
+            [
                 new SelectListItem { Text = "All", Value = "3" },
                 new SelectListItem { Text = "Live", Value = "1" },
                 new SelectListItem { Text = "Non Live", Value = "0" },
                 new SelectListItem { Text = "Mix", Value = "2" }
+            ];
 
-            };
-
-            TicketStatus = new List<SelectListItem> {
-	            new SelectListItem { Text = "Running", Value = "0", Selected = true },
-	            new SelectListItem { Text = "Won", Value = "112", Selected = true },
-	            new SelectListItem { Text = "Lose", Value = "113", Selected = true },
-	            new SelectListItem { Text = "Draw", Value = "111", Selected = true },
-	            new SelectListItem { Text = "Void", Value = "102", Selected = true },
-	            new SelectListItem { Text = "Reject", Value = "101", Selected = true }
-			};
+            TicketStatus =
+            [
+                new SelectListItem { Text = "Running", Value = "0", Selected = true },
+                new SelectListItem { Text = "Won", Value = "112", Selected = true },
+                new SelectListItem { Text = "Lose", Value = "113", Selected = true },
+                new SelectListItem { Text = "Draw", Value = "111", Selected = true },
+                new SelectListItem { Text = "Void", Value = "102", Selected = true },
+                new SelectListItem { Text = "Reject", Value = "101", Selected = true }
+            ];
 		}
 
     public static List<SelectListItem> Combos { get; }
