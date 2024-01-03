@@ -1,6 +1,7 @@
 namespace ParlayRMS.Legacy.ViewModel.Report
 {
     using System;
+    using Utilities;
 
     public class LeagueBetTypeAnalysisOptions
     {

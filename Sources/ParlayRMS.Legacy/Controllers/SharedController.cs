@@ -1,6 +1,7 @@
 namespace ParlayRMS.Legacy.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Utilities;
 
     public class SharedController : BaseController
     {

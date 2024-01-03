@@ -6,6 +6,8 @@ namespace ParlayRMS.Legacy.DataAccess
     using DTO.LeagueWinningMonitor;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using Fizzler;
+    using Utilities;
 
     public class LeagueWinningMonitorDataAccess
     {
@@ -65,39 +67,15 @@ namespace ParlayRMS.Legacy.DataAccess
                 CustId = custId
             };
 
-
-            var detailList = new List<RmsRptLeagueWinningMonitorDetail>();
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            var detailList = repository.Fetch<RmsRptLeagueWinningMonitorDetail>(criteria).ToList();
+            detailList.ForEach(d =>
             {
-                using (var reader = db.ExecuteReader(criteria))
-                {
-                    while (reader.Read())
-                    {
-                        detailList.Add(new RmsRptLeagueWinningMonitorDetail
-                        {
-                            TransDate = reader.ToDateTime("transdate").ToString("MM/dd/yyyy h:mm:ss tt"),
-                            TransId = reader.ToInt64("transid"),
-                            Username = reader.ToString("Username"),
-                            Level = reader["level"] == DBNull.Value ? "None" : reader.ToByte("level").ToString(),
-                            Odds = reader.ToDecimal("odds"),
-                            Stake = reader.ToDecimal("stake"),
-                            WinningAmount = reader.ToDecimal("winningAmt"),
-                            CompanyLoseAmount = reader.ToDecimal("companyLoseAmt"),
-                            Combo = reader.ToInt32("combo"),
-                            TotalSelection = Convert.ToInt32(reader.ToDecimal("totalSelection")),
-                            SportType = reader.ToInt32("Sporttype"),
-                            SportTypeName = CacheRef.GetSportNameDropDown(reader.ToInt32("Sporttype")),
-                            IP = reader.ToString("IP"),
-                            CustId = reader.ToInt32("custid"),
-                            BetType = reader.ToInt32("bettype"),
-                            RefNo = reader.ToInt64("refno"),
-                            SiteGroup = reader.ToString("SiteGroup"),
-                            IsParlayGenerator = reader.ToBoolean("IsParlayGenerator")
-						});
-                    }
-                }
-            }
-
+                var transDate = DateTime.Parse(d.TransDate).ToString("MM/dd/yyyy h:mm:ss tt");
+                d.TransDate = transDate;
+                d.SportTypeName = CacheRef.GetSportNameDropDown(d.SportType);
+                d.Level = string.IsNullOrEmpty(d.Level) || d.Level == "0" ? "None" : d.Level;
+            });
+            
             return detailList;
         }
     }

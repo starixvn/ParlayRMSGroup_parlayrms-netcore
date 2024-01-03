@@ -5,6 +5,7 @@ namespace ParlayRMS.Legacy.DataAccess
     using Criteria.SimilarBets;
     using DTO.SimilarBets;
     using Fanex.Data;
+    using Utilities;
 
     public class SimilarBetsDataAccess 
     {

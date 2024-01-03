@@ -5,6 +5,9 @@ namespace ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis
     {
         public int No { get; set; }
 
+        public int LeagueId { get; set; }
+        public int BetTypeId { get; set; } = 0;
+
         public string Bettype { get; set; }
 
         public string GroupName { get; set; }

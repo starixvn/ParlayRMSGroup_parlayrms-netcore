@@ -12,6 +12,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.Report;
+    using X.PagedList;
 
     public class LeagueBetTypeAnalysisController : BaseController
     {

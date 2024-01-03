@@ -14,6 +14,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.ManageMember;
+    using X.PagedList;
 
     public class ManageMemberController(
         INapSession napSession,

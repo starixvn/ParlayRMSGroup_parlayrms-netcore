@@ -1,6 +1,7 @@
 namespace ParlayRMS.Legacy.ViewModel.ManageMember
 {
     using System.ComponentModel.DataAnnotations;
+    using Utilities;
 
     public class SearchBarModel
     {

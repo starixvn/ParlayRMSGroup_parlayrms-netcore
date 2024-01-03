@@ -12,8 +12,6 @@ namespace ParlayRMS.Legacy.Controllers
         [NapAuth(FunctionKey = FunctionKeys.LeagueEventMonitor, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
-            var aspNetCoreAuth = ConfigurationManager.AppSettings["AspNetCoreAuth"];
-            ViewBag.AspNetCoreApiUrl = !string.IsNullOrEmpty(aspNetCoreAuth) ? $"{aspNetCoreAuth}/" : string.Empty;
             return View("~/wwwroot/league-event-monitor/index.cshtml");
         }
     }

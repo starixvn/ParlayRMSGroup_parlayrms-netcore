@@ -5,6 +5,7 @@ namespace ParlayRMS.Legacy.Services
     using DataAccess;
     using DTO.ParlayMonitor;
     using DTO.PotentialWinning;
+    using Utilities;
 
     public class ParlayMonitorService : BaseService
     {

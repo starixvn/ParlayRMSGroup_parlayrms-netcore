@@ -7,6 +7,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Models;
     using ParlayRMS.Models.Functions;
     using Services;
+    using Utilities;
     using ViewModel.Monitoring;
 
     public class PotentialWinningController : BaseController

@@ -6,6 +6,7 @@ namespace ParlayRMS.Legacy.Services
     using DataAccess;
     using DTO.Winloss;
     using Models.Winloss;
+    using Utilities;
     using ViewModel.Report;
 
     public class WinlossService

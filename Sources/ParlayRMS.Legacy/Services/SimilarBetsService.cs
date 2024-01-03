@@ -4,6 +4,7 @@ namespace ParlayRMS.Legacy.Services
     using System.Linq;
     using DataAccess;
     using DTO.SimilarBets;
+    using Utilities;
 
     public class SimilarBetsService : BaseService
     {

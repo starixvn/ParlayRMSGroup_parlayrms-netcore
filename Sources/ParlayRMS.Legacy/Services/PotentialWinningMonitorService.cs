@@ -3,6 +3,7 @@ namespace ParlayRMS.Legacy.Services
     using System.Collections.Generic;
     using DataAccess;
     using DTO.PotentialWinning;
+    using Utilities;
 
     public class PotentialWinningMonitorService : BaseService
     {

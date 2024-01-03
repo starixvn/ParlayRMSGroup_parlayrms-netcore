@@ -13,6 +13,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.ManageAgent;
+    using X.PagedList;
 
     public class ManageAgentController(INapSession napSession, INapSettings napSettings, IHttpContextAccessor accessor) : BaseController
     {

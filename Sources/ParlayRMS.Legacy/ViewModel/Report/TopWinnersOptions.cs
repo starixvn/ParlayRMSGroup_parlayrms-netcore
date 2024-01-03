@@ -1,5 +1,7 @@
 namespace ParlayRMS.Legacy.ViewModel.Report
 {
+    using Utilities;
+
     public class TopWinnersOptions
     {
         public DateTime FromDate { get; set; }

@@ -8,6 +8,8 @@ namespace ParlayRMS.Legacy.DataAccess
     using DTO.Leagues;
     using Fanex.Data;
     using Fanex.Data.Repository;
+    using Fizzler;
+    using Utilities;
 
     public class LeagueBetTypeAnalysisDataAccess 
     {
@@ -37,35 +39,18 @@ namespace ParlayRMS.Legacy.DataAccess
                 SportType = sportType
             };
 
-            var result = new List<RMS_Rpt_LeagueBettype_Analysis>();
-
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            var list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();
+            var index = 1;
+            list.ForEach(d =>
             {
-                using (var reader = db.ExecuteReader(criteria))
-                {
-                    var index = 1;
-                    while (reader.Read())
-                    {
-                        result.Add(new RMS_Rpt_LeagueBettype_Analysis
-                        {
-                            No = index++,
-                            Bettype = reportBy == 2 ? CacheRef.GetBettype(reader.ToInt32("Bettype")) : "",
-                            League = reportBy == 1  ? CacheRef.GetLeagueName(reader.ToInt32("leagueId")) : "",
-                            GroupName = reportBy == 1 ? reader.ToString("GroupName") : "",
-                            TotalTickets = reader.ToInt32("TotalTickets"),
-                            WonTickets = reader.ToInt32("WonTickets"),
-                            DrawTickets = reader.ToInt32("DrawTickets"),
-                            Ratio = GetRatio(reader.ToInt32("WonTickets"), reader.ToInt32("TotalTickets")),
-                            ParlayWonTickets = reader.ToInt32("ParlayWonTickets"),
-                            TurnOver = reader.ToDecimal("Stake"),
-                            MemberWinloss = reader.ToDecimal("MemberWinloss"),
-                            MainHouseWinloss = reader.ToDecimal("MainHouseWinloss")
-                        });
-                    }
-                }
-            }
+                d.No = index++;
+                d.Bettype = reportBy == 2 ? CacheRef.GetBettype(d.BetTypeId) : "";
+                d.League = reportBy == 1 ? CacheRef.GetLeagueName(d.LeagueId) : "";
+                d.GroupName = reportBy == 1 ? d.GroupName : string.Empty;
+                d.Ratio = GetRatio(d.WonTickets, d.TotalTickets);
+            });
 
-            return result;
+            return list;
         }
 
         private string GetRatio(int wonTickets, int totalTickets)

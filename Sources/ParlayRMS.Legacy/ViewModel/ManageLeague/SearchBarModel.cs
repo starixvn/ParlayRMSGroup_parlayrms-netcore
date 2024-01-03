@@ -1,6 +1,7 @@
 namespace ParlayRMS.Legacy.ViewModel.ManageLeague
 {
     using System.ComponentModel.DataAnnotations;
+    using Utilities;
 
     public class SearchBarModel
     {

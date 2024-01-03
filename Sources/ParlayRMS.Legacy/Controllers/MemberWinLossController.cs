@@ -11,6 +11,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Utilities;
     using ViewModel.Report;
     using Web;
+    using X.PagedList;
 
     public class MemberWinLossController : BaseController
     {

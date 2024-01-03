@@ -14,6 +14,7 @@ namespace ParlayRMS.Legacy.Controllers
     using Services;
     using Utilities;
     using ViewModel.ManageLeague;
+    using X.PagedList;
 
     public class ManageLeagueController(
         INapSettings napSettings,
