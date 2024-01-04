@@ -1,3 +1,5 @@
+@using Fanex.NAP.Client.Helpers.Web
+@inject INapSession napSession
 @{
     Layout = "~/Views/Shared/_LayoutAngular.cshtml";
     ViewBag.Title = "WinLossRiskControl";
@@ -6,7 +8,7 @@
     
     <link href='@Url.Content("~/win-loss-risk-control/styles.css?467f5bba3524d773c835")' rel="stylesheet"/>
 }
-<app-root netcore-api-url="/" user-id="@ViewBag.UserId"></app-root>
+<app-root netcore-api-url="/" user-id="@napSession.UserId"></app-root>
 
 <script src='@Url.Content("~/win-loss-risk-control/runtime.js?c51bd5b1c616d9ffddc1")'></script>
 

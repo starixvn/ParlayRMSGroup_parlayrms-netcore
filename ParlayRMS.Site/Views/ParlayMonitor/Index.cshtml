@@ -1,7 +1,10 @@
 ﻿@using ParlayRMS.Legacy.Utilities
+@using Fanex.NAP.Client.Helpers.Web
+@inject INapSession napSession
 @{
     ViewBag.Title = ViewBag.HeaderText = ViewLang.ParlayMonitor;
 }
+<link rel="stylesheet" href="/Content/jquery-ui-multiselect.css" type="text/css" />
 <link rel="stylesheet" href="/Content/ParlayMonitor.css" type="text/css" />
 @await Component.InvokeAsync("ParlayMonitorFilter")
 <div id="noflash" style="display: none">
@@ -123,6 +126,7 @@
         </table>
     </div>
 </div>
+<script type="text/ecmascript" src="/Scripts/jquery-ui-multiselect.js"></script>
 <script type="text/ecmascript" src="/Scripts/Monitor/Parlay.js"></script>
 <script type="text/ecmascript" src="/Scripts/Member/Core.js"></script>
 <script type="text/javascript">
@@ -133,6 +137,6 @@
         'otherSports': '@ViewLang.Othersports'
     };
     var hasIpPermission = @JavascriptHelper.GetString(ViewBag.HasReadPermission);
-    var userId = @ViewBag.UserId;
-    var userName = '@ViewBag.Username';
+    var userId = @napSession.UserId;
+    var userName = '@napSession.UserName';
 </script>

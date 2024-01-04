@@ -50,6 +50,11 @@ public static class Bundle
             cssSetting,
             "Content/Menu.css");
 
+        pipeline.AddCssBundle("/content/jquery-ui-multiselect.css",
+            cssSetting,
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.css",
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.css");
+
         pipeline.AddJavaScriptBundle("/scripts/lib.js", 
             scriptSetting,
             "Scripts/jquery-1.9.0.js",
@@ -62,8 +67,7 @@ public static class Bundle
             "Scripts/Libs/moment/moment.js",
             "Scripts/Libs/multiselect/jquery.multiselect-customized.js",
             "Scripts/Libs/multiselect/jquery.multiselect.filter.js",
-            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.js",
-            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.js",
+            
             "Scripts/Libs/numeral/numeral.js",
             "Scripts/Libs/simplemodal/jquery.simplemodal.js",
             "Scripts/Libs/sortElements/jquery.sortElements.js",
@@ -83,5 +87,11 @@ public static class Bundle
             scriptSetting,
             "Scripts/jquery-1.9.0.js",
             "Scripts/Menu.LayoutAngular.js");
+
+        pipeline.AddJavaScriptBundle("/scripts/jquery-ui-multiselect.js",
+            scriptSetting,
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.js",
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.js");
+
     }
 }

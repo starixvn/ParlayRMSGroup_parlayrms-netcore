@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = ViewBag.HeaderText = ViewLang.PotentialWinningMonitor;
 }
+<link rel="stylesheet" href="/Content/jquery-ui-multiselect.css" type="text/css" />
 <link rel="stylesheet" href="/Content/PotentialWinning.css" type="text/css" />
 
 @await Component.InvokeAsync("PotentialWinningFilter")
@@ -29,7 +30,8 @@
     @Html.Partial("_MemberData")
     @Html.Partial("_AgentData")
 </div>
-<script type="text/ecmascript" src="/Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.js"></script>
+
+<script type="text/ecmascript" src="/Scripts/jquery-ui-multiselect.js"></script>
 <script type="text/ecmascript" src="/Scripts/Monitor/PotentialWinning.js"></script>
 <script type="text/ecmascript" src="/Scripts/Member/Core.js"></script>
 

@@ -1,22 +1,24 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ParlayRMS.Legacy.Utilities;
 namespace ParlayRMS.Legacy.Web;
 
+using System.Web;
+
 public static class HtmlHelperExtensions
 {
     public static IHtmlContent DropDownListWithMultipleSelected(this IHtmlHelper helper, string id, List<SelectListItem> items)
     {
-        var result = $"<select id='{id}' multiple='multiple'>";
+        var stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"<select id='{id}' multiple='multiple'>");
         foreach (var item in items)
         {
-            result +=
-                $"<option value='{item.Value}'{(item.Selected ? " selected='selected'" : string.Empty)}>{item.Text}</option>";
+            stringBuilder.AppendLine($"<option value='{item.Value}'{(item.Selected ? " selected='selected'" : string.Empty)}>{item.Text}</option>");
         }
-
-        result += "</select>";
-        return new HtmlString(result);
+        stringBuilder.AppendLine("</select>");
+        return new HtmlString(stringBuilder.ToString());
     }
 
     public static IHtmlContent RadioButtonList(this IHtmlHelper helper, string name, IEnumerable<SelectListItem> selectList)
@@ -26,8 +28,10 @@ public static class HtmlHelperExtensions
         {
             var id = name + item.Value;
             var isChecked = item.Selected;
-            stringBuilder.Append(helper.RadioButton(name, item.Value, isChecked, new { id }));
-            stringBuilder.Append(helper.Label(id, item.Text));
+            var radio = helper.RadioButton(name, item.Value, isChecked, new { id });
+            var label = helper.Label(id, item.Text);
+            stringBuilder.Append(GetString(radio));
+            stringBuilder.Append(GetString(label));
         }
 
         return new HtmlString(stringBuilder.ToString());
@@ -35,26 +39,25 @@ public static class HtmlHelperExtensions
 
     public static IHtmlContent RenderNumberCell(this IHtmlHelper helper, decimal value)
     {
-        if (value >= 0)
-        {
-            return new HtmlString($"<td class='numeric'>{Formatter.FormatNumber2(value)}</td>");
+        var html = value >= 0
+        ? $"<td class='numeric'>{Formatter.FormatNumber2(value)}</td>"
+        : $"<td class='numeric negative'>{Formatter.FormatNumber2(value)}</td>";
 
-        }
-        else
-        {
-            return new HtmlString($"<td class='numeric negative'>{Formatter.FormatNumber2(value)}</td>");
-        }
+        return new HtmlString(html);
     }
     public static IHtmlContent RenderPercentCell(this IHtmlHelper helper, decimal value)
     {
-        if (value >= 0)
-        {
-            return new HtmlString($"<td class='center numeric'>{Formatter.FormatNumber2(value)}</td>");
+        var html = value >= 0
+            ? $"<td class='center numeric'>{Formatter.FormatNumber2(value)}</td>"
+            : $"<td class='center numeric negative'>{Formatter.FormatNumber2(value)}</td>";
 
-        }
-        else
-        {
-            return new HtmlString($"<td class='center numeric negative'>{Formatter.FormatNumber2(value)}</td>");
-        }
+        return new HtmlString(html);
+    }
+
+    public static string GetString(IHtmlContent content)
+    {
+        using var writer = new StringWriter();
+        content.WriteTo(writer, HtmlEncoder.Default);
+        return writer.ToString();
     }
 }

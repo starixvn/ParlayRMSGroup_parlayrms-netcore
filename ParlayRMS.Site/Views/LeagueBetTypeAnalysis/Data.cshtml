@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis.RMS_Rpt_LeagueBettype_Analysis>
     @{
-        var filterOption = (ParlayRMS.Legacy.ViewModel.LeagueBetTypeAnalysis.LeagueBetTypeAnalysisOptions)ViewBag.FilterOption;
+        var filterOption = (ParlayRMS.Legacy.ViewModel.Report.LeagueBetTypeAnalysisOptions)ViewBag.FilterOption;
         var totalRows = @Convert.ToInt32(ViewBag.TotalRows);
         var isReportByLeague = filterOption.ReportBy == 1 ? true : false;
     }

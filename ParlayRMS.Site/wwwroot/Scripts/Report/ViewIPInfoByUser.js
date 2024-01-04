@@ -106,7 +106,7 @@
     var Expand = function (content, id) {
         var expandNode = $('#exp_' + id + '.Expand');
         if (content === '') {
-            content = '</br><div class="noinfo" style="text-align: right">' + Language.NoInformation + '</div>';
+            content = '</br><div class="noinfo" style="text-align: right">No Information</div>';
         }
         expandNode.html(content);
         expandNode.slideToggle(toogleSpeed);
@@ -150,7 +150,7 @@ function showSingleMatchParlayDetail(transId, custId, index) {
     var expand = function (content, id) {
         var expandNode = $('#divEvent_' + id);
         if (content === '') {
-            content = '</br><div class="noinfo" style="text-align: right">' + Language.NoInformation + '</div>';
+            content = '</br><div class="noinfo" style="text-align: right">No Information</div>';
         }
         expandNode.html(content);
         expandNode.slideToggle(150);
