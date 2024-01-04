@@ -41,12 +41,7 @@ public class ManageAgentController(
     {
         return View();
     }
-
-    public ActionResult SearchBar(SearchBarModel model)
-    {
-        return PartialView(model);
-    }
-
+    
     [NapAuth(FunctionKey = FunctionKeys.ManageAgent, Policy = Constant.Policy.Read)]
     public ActionResult AgentList(AgentListModel model)
     {

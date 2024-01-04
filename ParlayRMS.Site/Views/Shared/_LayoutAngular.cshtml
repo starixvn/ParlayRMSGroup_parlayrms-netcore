@@ -1,0 +1,38 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    
+    <link rel="stylesheet" href="/Content/Menu.css" type="text/css" />
+    <script type="text/javascript">
+        function resolveClientUrl(relativeUrl) {
+            return '/' + relativeUrl;
+        }
+    </script>
+    @await RenderSectionAsync("Head", false)
+</head>
+<body>
+    <div id="header-tab">
+        <div class="top-bar">
+            @await Component.InvokeAsync(typeof(MenuViewComponent))
+        </div>
+        @if (ViewBag.HeaderText != null)
+        {
+            <div class="header showcase">
+                <div class="content posrel">
+                    <h1>@ViewBag.HeaderText</h1>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="clear-both">
+        @RenderBody()
+    </div>
+    <div id="loading" class="loading">
+        <img alt="" src="/Content/Images/Content/loading12.gif" />
+    </div>
+    <script type="text/ecmascript" src="/scripts/Menu.LayoutAngular.js"></script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 namespace ParlayRMS.Legacy.Controllers;
 
-using System.Collections.Generic;
 using DTO.ViewIPInfo;
 using ExcelService.Writers;
 using Fanex.BetList.Core.Entities;

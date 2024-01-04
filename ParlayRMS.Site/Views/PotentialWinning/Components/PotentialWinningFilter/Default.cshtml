@@ -1,0 +1,109 @@
+﻿@using Formatter = ParlayRMS.Legacy.Utilities.Formatter
+<div class="filter">
+    <div class="filter-control" style="border: 1px solid black; width: 100%;">
+        <div class="minimizetitle">
+            <div class="minimizecontent">
+                @ViewLang.FilterControl
+            </div>
+            <div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+                -
+            </div>
+        </div>
+        <div id="filtercontent" class="container">
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width: 30px">
+                                @Html.Label("combo", ViewLang.Combo, new { @class = "lable" })
+                            </td>
+                            <td style="width: 100px">
+                                @Html.DropDownList("combo", (List<SelectListItem>)ViewBag.Combos, new { multiple = "multiple" })
+                            </td>
+                            <td style="width: 90px">
+                                @Html.Label("parlaysType", ViewLang.ParlayType, new { @class = "lable" })
+                            </td>
+                            <td style="width: 150px">
+                                @Html.DropDownList("parlaysType", (List<SelectListItem>)ViewBag.ParlayTypes, new { multiple = "multiple" })
+                            </td>
+                            <td style="width: 120px;">
+                                @Html.CheckBox("cornerParlay")
+                                @Html.Label("cornerParlay", ViewLang.CornerParlay, new { @class = "lable" })
+                            </td>
+                            <td style="width: 110px">
+                                @Html.Label("sportsType", ViewLang.SportsType, new { @class = "lable" })
+                            </td>
+                            <td style="width: 150px">
+                                @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
+                            </td>
+                            <td>
+                                @Html.Label("winningAmount", ViewLang.WinningAmount + " Filter by", new { @class = "lable" })
+                            </td>
+                            <td style="width: 85px">
+                                <input type="radio" id="radMember" checked="checked" name="radFilterBy"
+                                       value="0">
+                                @Html.Label("radMember", ViewLang.Member, new { @class = "lable" })
+                            </td>
+                            <td style="width: 85px">
+                                <input type="radio" id="radAgent" name="radFilterBy" value="1">
+                                @Html.Label("radAgent", ViewLang.Agent, new { @class = "lable" })
+                            </td>
+                            <td>
+                                @Html.TextBox("winningAmount", Formatter.FormatNumber3(200000), new { @maxlength = 12 })
+                            </td>
+                            <td>
+                                <label>(RM)</label>
+                                <button id="submit" class="button">
+                                    <span class="text">@ViewLang.Submit</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.Label("level", @ViewLang.Level, new { @class = "lable" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels, new { multiple = "multiple" })
+                            </td>
+                            <td>
+                                @Html.Label("selectTop", @ViewLang.SelectTop, new { @class = "lable" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("selectTop", (List<SelectListItem>)ViewBag.SelectTops)
+                                @Html.Label("customerClass", @ViewLang.CustomerClass, new { @class = "lable", @style = "float: initial" })
+                            </td>
+                            <td>
+                                @Html.TextBox("customerClass", "", new { @class = "inputtext w100", maxlength = "6", onkeypress = "return isNumber(event)" })
+                            </td>
+                            <td>
+                                @Html.Label("company", "Company", new { @class = "lable" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("ddlCompany", new List<SelectListItem>(), new { multiple = "multiple" })
+                            </td>
+                            <td>
+                                @Html.Label("username", "SMA/Member", new { @class = "lable", @id = "username" })
+                                @Html.TextBox("smaMember", "", new { @class = "inputtext w100" })
+                            </td>
+                            <td colspan="3">
+                                @Html.Label("refreshTime", @ViewLang.Refreshtime, new { @class = "lable" })
+                                @Html.DropDownList("refreshTime", (List<SelectListItem>)ViewBag.RefreshTimes)
+                                @ViewLang.Seconds
+                                <div id="refreshNow" style="width: 140px">
+                                    @ViewLang.RefreshNow
+                                    <div id="timer" style="float: right; width: 30px; padding-left: 2px;">
+                                        [60]
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                @Html.CheckBox("pause", new { style = "float:left; margin-top: 7px;" }) @Html.Label("pause", @ViewLang.Pause, new { @class = "lable" })
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

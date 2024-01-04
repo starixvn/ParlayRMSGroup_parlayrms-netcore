@@ -110,12 +110,7 @@ public class ManageLeagueController(
         ms.Seek(0, 0);
         return File(ms, "application/vnd.ms-excel", "SpecialLeague.xls");
     }
-
-    public ActionResult SearchBar(SearchBarModel model)
-    {
-        return PartialView(model);
-    }
-
+    
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
         base.OnActionExecuting(filterContext);

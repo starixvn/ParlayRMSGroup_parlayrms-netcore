@@ -1,65 +1,57 @@
 ﻿namespace ParlayRMS.Models.Functions
 {
-	public class FunctionKeys
-	{
-			public const string Administration = "Administration";
+    public class FunctionKeys
+    {
+        public const string LeagueBetTypeDataAnalysis = "LeagueBetTypeDataAnalysis";
 
-				public const string AssignFunctionToGroup = "AssignFunctionToGroup";
+        public const string LeagueEventMonitor = "LeagueEventMonitor";
 
-				public const string AssignFunctionToUser = "AssignFunctionToUser";
+        public const string LeagueWinningMonitor = "LeagueWinningMonitor";
 
-				public const string AssignSiteToUser = "AssignSiteToUser";
+        public const string ManageAgent = "ManageAgent";
 
-				public const string LeagueBetTypeDataAnalysis = "LeagueBetTypeDataAnalysis";
+        public const string ManageAlert = "ManageAlert";
 
-				public const string LeagueEventMonitor = "LeagueEventMonitor";
+        public const string ManageFunction = "ManageFunction";
 
-				public const string LeagueWinningMonitor = "LeagueWinningMonitor";
+        public const string ManageGroup = "ManageGroup";
 
-				public const string ManageAgent = "ManageAgent";
+        public const string ManageLeague = "ManageLeague";
 
-				public const string ManageAlert = "ManageAlert";
+        public const string ManageMember = "ManageMember";
 
-				public const string ManageFunction = "ManageFunction";
+        public const string Management = "Management";
 
-				public const string ManageGroup = "ManageGroup";
+        public const string ManageMenu = "ManageMenu";
 
-				public const string ManageLeague = "ManageLeague";
+        public const string ManageUser = "ManageUser";
 
-				public const string ManageMember = "ManageMember";
+        public const string MemberWinLoss = "MemberWinLoss";
 
-				public const string Management = "Management";
+        public const string ParlayMonitor = "ParlayMonitor";
 
-				public const string ManageMenu = "ManageMenu";
+        public const string ParlayWon = "ParlayWon";
 
-				public const string ManageUser = "ManageUser";
+        public const string PotentialWinningMonitor = "PotentialWinningMonitor";
 
-				public const string MemberWinLoss = "MemberWinLoss";
+        public const string Report = "Report";
 
-				public const string ParlayMonitor = "ParlayMonitor";
+        public const string SimilarBets = "SimilarBets";
 
-				public const string ParlayWon = "ParlayWon";
+        public const string SystemConfiguration = "SystemConfiguration";
 
-				public const string PotentialWinningMonitor = "PotentialWinningMonitor";
+        public const string Tool = "Tool";
 
-				public const string Report = "Report";
+        public const string TopWinners = "TopWinners";
 
-				public const string SimilarBets = "SimilarBets";
+        public const string TotalOutstanding = "TotalOutstanding";
 
-				public const string SystemConfiguration = "SystemConfiguration";
+        public const string ViewIP = "ViewIP";
 
-				public const string Tool = "Tool";
+        public const string Winloss = "Winloss";
 
-				public const string TopWinners = "TopWinners";
+        public const string WinLossRiskControl = "WinLossRiskControl";
 
-				public const string TotalOutstanding = "TotalOutstanding";
 
-				public const string ViewIP = "ViewIP";
-
-				public const string Winloss = "Winloss";
-
-				public const string WinLossRiskControl = "WinLossRiskControl";
-
-				 
-	}	
+    }
 }

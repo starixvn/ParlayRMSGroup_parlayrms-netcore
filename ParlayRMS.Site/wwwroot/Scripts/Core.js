@@ -1,4 +1,8 @@
 ﻿/* File Created: May 7, 2012 */
+function resolveClientUrl(relativeUrl) {
+    return '/' + relativeUrl;
+}
+
 var tooltip;
 
 var maxRetryTimes = 3;

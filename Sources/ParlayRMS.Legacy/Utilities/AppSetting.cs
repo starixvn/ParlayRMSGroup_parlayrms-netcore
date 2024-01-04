@@ -15,4 +15,6 @@ public class AppSetting
     public static int NetWinStakeAfterPT => 5000;
 
     public static string MemberWinLossLimitDate => "01/01/2013";
+
+    public static string LimitDataFromDate => "10/31/2012";
 }

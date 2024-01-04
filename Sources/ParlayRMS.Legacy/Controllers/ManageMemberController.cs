@@ -133,9 +133,4 @@ public class ManageMemberController(
         var result = _customerService.ChangeLevelCustomer(model.CustId, model.UserName, model.Level, napSession.UserId, ip);
         return Json(result);
     }
-
-    public ActionResult SearchBar(SearchBarModel model)
-    {
-        return PartialView(model);
-    }
 }

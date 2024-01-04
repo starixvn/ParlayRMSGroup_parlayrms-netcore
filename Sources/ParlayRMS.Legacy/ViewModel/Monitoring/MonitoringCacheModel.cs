@@ -1,7 +1,7 @@
 namespace ParlayRMS.Legacy.ViewModel.Monitoring;
 
 using System;
-using ParlayRMS.ViewModel;
+using ParlayRMS.Legacy.ViewModel;
 
 public class MonitoringCacheModel
 {

@@ -1,0 +1,102 @@
+﻿@using Formatter = ParlayRMS.Legacy.Utilities.Formatter﻿
+@using ParlayRMS.Legacy.DTO.ViewIPInfo
+@model RMS_Rpt_Parlay_UsersStatisticsByIP
+@{
+    Layout = null;
+    var counter = (int)ViewBag.StartCounter;
+}
+<div style="width: 950px; height: 30px; background-color: #3f536b">
+	<div class="excel" onclick="ExportExcelForIpStats();" title="Export Excel">
+	</div>
+</div>
+<div style="width: 960px">
+    <table class="main" id="header">
+        <colgroup>
+            <col width='80px' />
+            <col width='200px' />
+            <col width='120px' />
+            <col width='150px' />
+            <col width='200px' />
+            <col width='200px' />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>
+                    @ViewLang.No
+                </th>
+                <th>
+                    @ViewLang.IP
+                </th>
+                <th data-col-type="int" class="sortable" data-col-index="2">
+                    @ViewLang.TotalMembers
+                </th>
+                <th data-col-type="float" class="sortable" data-col-index="3">
+                    @ViewLang.Stake
+                </th>
+                <th data-col-type="float" class="sortable" data-col-index="4">
+                    @ViewLang.WinningAmount
+                </th>
+                <th data-col-type="float" class="sortable" data-col-index="5">
+                    @ViewLang.HouseLoseAmount
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="scrollGridContent" style="max-height: 680px; width: 970px">
+    <table class="main" id="result-ip-stats">
+        <colgroup>
+            <col width='80px' />
+            <col width='200px' />
+            <col width='120px' />
+            <col width='150px' />
+            <col width='200px' />
+            <col width='200px' />
+        </colgroup>
+        <tbody>
+            @if (Model.IPStats.Count() > 0)
+            {
+                foreach (var row in Model.IPStats)
+                {
+                    counter = counter + 1;
+                    <tr style="height: 22px;">
+                        <td class="center">
+                            @counter
+                        </td>
+                        <td class="center">
+                            <a href="#" class="link-ip-stats" data-ip="@row.IP">@Utils.DisplayMax15Character(row.IP.Trim())</a>
+                        </td>
+                        <td class="center">
+                            @row.CntUsers
+                        </td>
+                        <td class="center">
+	                        @Formatter.FormatNumber3(row.Stake)
+                        </td>
+                        <td class="center">
+	                        @Formatter.FormatNumber3(row.WinningAmount)
+                        </td>
+                        <td class="center">
+	                        @Formatter.FormatNumber3(row.HouseLoseAmount)
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="noinfo" style="text-align: center">
+                        @ViewLang.NoInformation
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    var pageData = {
+        TotalItems: '@ViewBag.TotalItems',
+        MaxTransId: '@ViewBag.MaxTransId'
+    }
+    var startCounter = @ViewBag.StartCounter;
+</script>
+@Html.Partial("_Pager", (object)@ViewBag.Pager)

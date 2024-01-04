@@ -30,7 +30,10 @@ public static class Bundle
             "Content/Libs/jquery-ui/jquery-ui.more.css",
             "Content/Libs/contextmenu/jquery.contextmenu.css",
             "Scripts/Libs/multiselect/jquery.multiselect-customized.css",
-            "Scripts/Libs/multiselect/jquery.multiselect.filter.css");
+            "Scripts/Libs/multiselect/jquery.multiselect.filter.css",
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.css",
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.css",
+            "Content/Libs/simplepagination/simplePagination.css");
         pipeline.AddCssBundle("/content.css",
             cssSetting,
             "Content/google-abel-font.css",
@@ -42,7 +45,11 @@ public static class Bundle
             "Content/Paging.css",
             "Content/Site.css",
             "Content/Validators.css");
-        
+
+        pipeline.AddCssBundle("/Content/Menu.css", 
+            cssSetting,
+            "Content/Menu.css");
+
         pipeline.AddJavaScriptBundle("/scripts/lib.js", 
             scriptSetting,
             "Scripts/jquery-1.9.0.js",
@@ -55,6 +62,8 @@ public static class Bundle
             "Scripts/Libs/moment/moment.js",
             "Scripts/Libs/multiselect/jquery.multiselect-customized.js",
             "Scripts/Libs/multiselect/jquery.multiselect.filter.js",
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.js",
+            "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.js",
             "Scripts/Libs/numeral/numeral.js",
             "Scripts/Libs/simplemodal/jquery.simplemodal.js",
             "Scripts/Libs/sortElements/jquery.sortElements.js",
@@ -69,5 +78,10 @@ public static class Bundle
             "Scripts/Validators.js",
             "Scripts/UpdateLevel.js"
         );
+
+        pipeline.AddJavaScriptBundle("/scripts/Menu.LayoutAngular.js",
+            scriptSetting,
+            "Scripts/jquery-1.9.0.js",
+            "Scripts/Menu.LayoutAngular.js");
     }
 }

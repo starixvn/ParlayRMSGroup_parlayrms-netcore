@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = ViewBag.HeaderText = ViewLang.ParlayWon;
+}
+<link rel="stylesheet" href="/Content/ParlayWon.css" type="text/css" />
+@await Component.InvokeAsync("ParlayWonFilter")
+<div style="clear: both; margin-bottom: 10px;" id="divResult">
+</div>
+<script type="text/ecmascript" src="/Scripts/Libs/simplepagination/jquery.simplePagination.js"></script>
+<script type="text/ecmascript" src="/Scripts/Report/ParlayWon.js"></script>
+<script type="text/javascript">
+    var dateRanges = {
+        LimitDataFromDate: '@DateTime.Now.AddMonths(-1)',
+        NowDate: '@DateTime.Now'
+    };
+</script>
+
+

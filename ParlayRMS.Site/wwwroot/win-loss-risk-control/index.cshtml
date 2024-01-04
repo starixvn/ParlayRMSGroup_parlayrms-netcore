@@ -1,0 +1,18 @@
+@{
+    Layout = "~/Views/Shared/_LayoutAngular.cshtml";
+    ViewBag.Title = "WinLossRiskControl";
+}
+@section Head {
+    
+    <link href='@Url.Content("~/win-loss-risk-control/styles.css?467f5bba3524d773c835")' rel="stylesheet"/>
+}
+<app-root netcore-api-url="/" user-id="@ViewBag.UserId"></app-root>
+
+<script src='@Url.Content("~/win-loss-risk-control/runtime.js?c51bd5b1c616d9ffddc1")'></script>
+
+<script src='@Url.Content("~/win-loss-risk-control/polyfills-es5.js?b54b4c0be99ffb8cee46")'></script>
+
+<script src='@Url.Content("~/win-loss-risk-control/polyfills.js?ad35fdc3011bba1a73cc")'></script>
+
+<script src='@Url.Content("~/win-loss-risk-control/main.js?7229e4e85b4fa1d34405")'></script>
+

@@ -1,6 +1,4 @@
-using System.Configuration;
-
-namespace ParlayRMS.ViewModel;
+namespace ParlayRMS.Legacy.ViewModel;
 
 using Legacy;
 using Legacy.Models;
@@ -158,7 +156,7 @@ public static class Config
 
     public static List<SelectListItem> ReportTypes { get; }
 
-    public static DateTime WinlostDate => Convert.ToBoolean(ConfigurationManager.AppSettings["IsDebug"]) ? new DateTime(2012, 11, 6).Date : DateTime.Now.AddDays(-1).Date;
+    public static DateTime WinlostDate => DateTime.Now.AddDays(-1).Date;
 
     public static List<SelectListItem> LeagueGroups { get; }
 

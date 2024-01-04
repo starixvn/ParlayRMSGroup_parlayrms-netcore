@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿namespace ParlayRMS.Controllers;
 
-namespace ParlayRMS.Application;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 [AllowAnonymous]
 [ApiController]

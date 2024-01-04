@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ParlayRMS.Legacy.DTO.Members.RMS_CustomerSel>
+@{
+    ViewBag.Title = ViewBag.HeaderText = ViewLang.MemberManagement;
+    var levelName = string.Empty;
+}
+<div id="barSpecialMember" class="bar new-cmd title" style="width: 550px;">
+    @if (ViewBag.HasWritePermission)
+    {
+        <div style="float: left;">
+            <button id="btnAddSpecialMember" onclick="javascript:AddMember();">
+                <span class="addNewUSer"></span><span class="text">@ViewLang.AddSpecialMember</span>
+            </button>
+        </div>
+    }
+    <div class="excel" onclick="ExportExcel();" title="Export Excel">
+    </div>
+</div>
+@await Html.PartialAsync("SearchBar", new ParlayRMS.Legacy.ViewModel.ManageMember.SearchBarModel())
+<div class="scrollGridBorder" style="width: 560px">
+    <div class="scrollGridHeader" style="width: 542px">
+        <table class="scrollGrid" style="width: 542px">
+            <tr>
+                <td style="width: 30px">
+                    @ViewLang.No
+                </td>
+                <td style="width: 50px">
+                    @ViewLang.Site
+                </td>
+                <td style="width: auto">
+                    @ViewLang.Username
+                </td>
+                <td style="width: 130px">
+                    @ViewLang.Level
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="content">
+    </div>
+</div>
+@section Script {
+    <script type="text/ecmascript" src="/Scripts/ManageMember.js"></script>
+
+}

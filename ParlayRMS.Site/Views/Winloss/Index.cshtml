@@ -1,0 +1,70 @@
+﻿@using ParlayRMS.Legacy.Web
+@{
+    ViewBag.Title = ViewBag.HeaderText = ViewLang.WinLoss;
+}
+<div class="filter">
+    <div class="filter-control" style="width: 800px; margin-bottom: 10px;">
+        <div class="minimizetitle">
+            <div class="minimizecontent">
+                @ViewLang.FilterControl
+            </div>
+            <div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+                -
+            </div>
+        </div>
+        <div id="filtercontent" class="container">
+            <div class="row">
+                <div class="group">
+                    @Html.Label("parlayType", ViewLang.ParlayType)
+                    @Html.DropDownList("parlayType", Config.ParlayTypes)
+                </div>
+                <div class="group">
+                    @Html.Label("", ViewLang.From)
+                    @Html.TextBox("fromDate")
+                </div>
+                <div class="group">
+                    @Html.Label("", ViewLang.To)
+                    @Html.TextBox("toDate")
+                </div>
+                <div class="group">
+                    <button id="btnSearch">
+                        <span class="text">@ViewLang.Submit</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="group">
+                    @Html.Label(ViewLang.Combo)
+                    @Html.DropDownList("combo", Config.Combos)
+                </div>
+                <div class="group">
+                    @Html.Label("", ViewLang.Site)
+                    @Html.DropDownList("ddlSite", Config.Sites)
+                </div>
+                <div class="group">
+                    @Html.Label("", ViewLang.LiveType)
+                    @Html.DropDownList("ddlLiveType", Config.LiveTypes)
+                </div>
+            </div>
+            <div class="row">
+                <div class="group">
+                    @Html.Label(ViewLang.SportsType)
+                    @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
+                </div>
+                <div id="divSportsTypes" class="group">
+                    @Html.Label("Report type")
+                    @Html.RadioButtonList("ReportTypes", Config.ReportTypes)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both; margin-bottom: 10px;" id="divResult">
+    </div>
+    <script type="text/ecmascript" src="/Scripts/Report/ParlayRMS.Winloss.js"></script>
+    <script type="text/javascript">
+        var dateRanges = {
+            LimitDataFromDate: '@DateTime.Now.AddMonths(-3)',
+            NowDate: '@DateTime.Now'
+        };
+    </script>
+</div>

@@ -1,0 +1,33 @@
+﻿@using ParlayRMS.Legacy
+@{
+    Layout = null;
+}
+
+@model ParlayRMS.Legacy.ViewModel.BetList.BetDetails
+<div class="boxMain">
+    <div class="content">
+        <table class="bet-detail">
+            <tr class="title2">
+                <th>
+                    Ticket Details - @ViewBag.Username - @ViewBag.TransId
+                </th>
+                <th class="combo-type">
+                    @ViewLang.ComboType
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="betdetails">
+                        @Html.Raw(Model.TicketDetail)
+                    </div>
+                </td>
+                <td class="combo-type">
+                    @if (Model.ComboTypes != null)
+                    {
+                        @Html.Raw(string.Join("<br />", Model.ComboTypes))
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

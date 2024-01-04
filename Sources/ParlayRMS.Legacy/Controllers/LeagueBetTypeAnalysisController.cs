@@ -25,11 +25,6 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         return View();
     }
 
-    public ActionResult Filter()
-    {
-        return PartialView();
-    }
-
     [HttpPost]
     public ActionResult GroupsAndLeagues(int sportType, DateTime fromDate, DateTime toDate)
     {
