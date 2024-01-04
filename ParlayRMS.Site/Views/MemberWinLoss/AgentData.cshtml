@@ -314,7 +314,7 @@
         </tfoot>
     </table>
 </div>
-@Html.Partial("_Pager", (object)@ViewBag.Pager)
+@await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
 <script type="text/javascript">
     var data = {
         FromDate: '@filterOption.FromDate',

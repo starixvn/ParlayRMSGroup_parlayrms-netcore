@@ -99,4 +99,4 @@
     }
     var startCounter = @ViewBag.StartCounter;
 </script>
-@Html.Partial("_Pager", (object)@ViewBag.Pager)
+@await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)

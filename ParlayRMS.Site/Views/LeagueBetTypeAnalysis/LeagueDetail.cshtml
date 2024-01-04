@@ -162,6 +162,6 @@
 @if (totalRows > 100)
 {
     <div style="width: 1460px" id="leagueDetail">
-        @Html.Partial("_Pager", (object)@ViewBag.Pager)
+        @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
     </div>
 }

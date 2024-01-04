@@ -16,17 +16,17 @@
     }
     @if (isReportByLeague)
     {
-        @Html.Partial("_LeagueData", Model)
+        @await Html.PartialAsync("_LeagueData", Model)
     }
     else
     {
-        @Html.Partial("_BetTypeData", Model)
+        @await Html.PartialAsync("_BetTypeData", Model)
 
     }
     <br />
     @if (totalRows > 100)
     {
         <div style="width: @(isReportByLeague ? "1290px" : "1190px")" id="leagueBettype">
-            @Html.Partial("_Pager", (object)@ViewBag.Pager)
+            @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
         </div>
     }

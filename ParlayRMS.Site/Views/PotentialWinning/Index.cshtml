@@ -27,8 +27,8 @@
 </div>
 <div style="clear: both; display: none" id="divResult">
     <div id="divBreadcrumb" style="margin-bottom: 10px;"></div>
-    @Html.Partial("_MemberData")
-    @Html.Partial("_AgentData")
+    @await Html.PartialAsync("_MemberData")
+    @await Html.PartialAsync("_AgentData")
 </div>
 
 <script type="text/ecmascript" src="/Scripts/jquery-ui-multiselect.js"></script>
