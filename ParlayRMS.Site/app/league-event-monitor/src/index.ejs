@@ -1,0 +1,12 @@
+@{
+    Layout = "~/Views/Shared/_LayoutAngular.cshtml";
+    ViewBag.Title = "<%= title %>";
+}
+@section Head {
+    <% files.css.forEach(function(css){ %>
+    <link href='<%= css%>' rel="stylesheet"/><% }) %>
+}
+<app-root netcore-api-url="/"></app-root>
+<% files.js.forEach(function(js){ %>
+<script src='<%= js %>'></script>
+<%})%>

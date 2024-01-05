@@ -1,0 +1,102 @@
+<ng-template #colgroup>
+    <colgroup>
+        <col style="width: 50px" />
+        <col style="width: 150px" />
+        <col style="width: 50px" />
+        <col style="width: 220px" />
+        <col style="width: 100px" />
+        <col style="width: 100px" />
+        <col style="width: 140px" />
+        <col style="width: 150px" />
+        <col style="width: 100px" />
+        <col style="width: 100px" />
+    </colgroup>
+  </ng-template>
+  <ng-template #thead>
+    <thead class="sort">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">BETID</th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="siteGroup" data-type="string">
+              Site
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="userName" data-type="string">
+              User Name
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="customerClass" data-type="string">
+              Customer Class
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="stake" data-type="number">
+              Stake
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="winningAmt" data-type="number">
+              Winning Amount
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="houseAmt" data-type="number">
+              House Amount
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" [appSort]="[data]" data-order="desc" data-prop="status" data-type="string">
+              Status
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col">Bet Details</th>
+        </tr>
+    </thead>
+  </ng-template>
+  <ng-template #rowItem let-item="item" let-index="index">
+    <td>{{ index }}</td>
+    <td>{{ item.transId }}</td>
+    <td>{{ item.siteGroup }}</td>
+    <td class="text-left">{{ item.userName }}</td>
+    <td>{{ item.customerClass }}</td>
+    <td class="text-right" [napIntegerFormat]="item.stake"></td>
+    <td class="text-right" [napIntegerFormat]="item.winningAmt"></td>
+    <td class="text-right" [napIntegerFormat]="item.houseAmt"></td>
+    <td>{{ item.status }}</td>
+    <td><button type="button" class="btn btn-outline-secondary text-black" (click)="showBetDetails(item)">View</button></td>
+  </ng-template>
+  <div *ngIf="data" [ngSwitch]="data.length > 0">
+    <div class="nap-grid">
+        <div style="width: 1180px;">
+          <div *ngIf="data.length > 0" class="toolbar">
+            <i class="nap-icon-breadcrumb-excel float-right mb-1 btn" aria-hidden="true" title="Export excel" (click)="exportExcel()"></i>
+          </div>
+            <div class="header">
+                <table>
+                    <ng-template [ngTemplateOutlet]="colgroup"></ng-template>
+                    <ng-template [ngTemplateOutlet]="thead"></ng-template>
+                </table>
+            </div>
+            <div *ngSwitchCase="true" class="body" style="overflow-x: hidden;">
+              <table>
+                <ng-template [ngTemplateOutlet]="colgroup"></ng-template>
+                <tbody>
+                  <ng-container *ngFor="let item of data; index as i">
+                    <tr id="detail-data-{{i + 1}}">
+                      <ng-template [ngTemplateOutlet]="rowItem" [ngTemplateOutletContext]="{ item: item, index: i + 1 }">
+                      </ng-template>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <div *ngSwitchCase="false" class="body stretch">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class="no-data" colspan="10">
+                                There is no data
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

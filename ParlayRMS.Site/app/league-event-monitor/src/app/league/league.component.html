@@ -1,0 +1,85 @@
+<ng-template #colgroup>
+    <colgroup>
+        <col style="width: 250px" />
+        <col style="width: 160px" />
+        <col style="width: 165px" />
+        <col style="width: 160px" />
+        <col style="width: 165px" />
+        <col style="width: 150px" />
+        <col style="width: 150px" />
+    </colgroup>
+  </ng-template>
+  <ng-template #thead>
+    <thead>
+        <tr>
+            <th scope="col" style="background-color: #0070c0">League</th>
+            <th scope="col" style="background-color: #c49500" [appSort]="data" data-type="desc" data-prop="homeTotalStake">
+              Home (O) Total Stake
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" style="background-color: #c49500" [appSort]="data" data-type="desc" data-prop="homeTotalTicket">
+              Home (O) Total Tickets
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" style="background-color: #672c94" [appSort]="data" data-type="desc" data-prop="awayTotalStake">
+              Away (U) Total Stake
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" style="background-color: #672c94" [appSort]="data" data-type="desc" data-prop="awayTotalTicket">
+              Away (U) Total Tickets
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" style="background-color: #0086ea" [appSort]="data" data-type="desc" data-prop="otherTotalStake">
+              Others Total Stake
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+            <th scope="col" style="background-color: #0086ea" [appSort]="data" data-type="desc" data-prop="otherTotalTicket">
+              Others Total Tickets
+              <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
+            </th>
+        </tr>
+    </thead>
+  </ng-template>
+  <ng-template #rowItem let-item="item">
+    <td><a href="javascript:;" (click)="showEvent(item.leagueId)">{{ item.leagueName }}</a></td>
+    <td [napDecimalFormat]="item.homeTotalStake" class="text-right"></td>
+    <td [napIntegerFormat]="item.homeTotalTicket" class="text-right"></td>
+    <td [napDecimalFormat]="item.awayTotalStake" class="text-right"></td>
+    <td [napIntegerFormat]="item.awayTotalTicket" class="text-right"></td>
+    <td [napDecimalFormat]="item.otherTotalStake" class="text-right"></td>
+    <td [napIntegerFormat]="item.otherTotalTicket" class="text-right"></td>
+  </ng-template>
+  <div *ngIf="data" [ngSwitch]="data.length > 0">
+    <div class="nap-grid">
+        <div style="width: 1220px;">
+            <div class="header">
+                <table>
+                    <ng-template [ngTemplateOutlet]="colgroup"></ng-template>
+                    <ng-template [ngTemplateOutlet]="thead"></ng-template>
+                </table>
+            </div>
+            <div *ngSwitchCase="true" class="body" style="overflow-x: hidden;">
+              <table>
+                <ng-template [ngTemplateOutlet]="colgroup"></ng-template>
+                <tbody>
+                  <tr *ngFor="let item of data">
+                    <ng-template [ngTemplateOutlet]="rowItem" [ngTemplateOutletContext]="{ item: item }">
+                    </ng-template>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngSwitchCase="false" class="body stretch">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class="no-data" colspan="7">
+                                There is no data
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,11 @@
+<div>
+  <div class="nap-header">
+    <div class="title">
+      Win Loss Risk Control
+    </div>
+  </div>
+  <app-filter (generated)="generate($event)" [netcoreApiUrl]="netcoreApiUrl" [userId]="userId"></app-filter>
+  <nap-toast></nap-toast>
+  <app-grid *ngIf="filterModel" [filterModel]="filterModel" [netcoreApiUrl]="netcoreApiUrl"></app-grid>
+</div>
+<nap-spinner></nap-spinner>
