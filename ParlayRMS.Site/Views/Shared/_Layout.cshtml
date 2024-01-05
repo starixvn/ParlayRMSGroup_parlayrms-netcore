@@ -41,9 +41,17 @@
             </div>
         </div>
     </div>
-
+    <div id="loading" class="loading">
+        <img alt="" src="@Url.Content("~/Content/Images/Content/loading12.gif")" />
+    </div>
+    <div id="popup" class="invisible">
+    </div>
+    <div id="dialog-message">
+    </div>
+    @await Html.PartialAsync("_ConfirmBox", "Shared")
+    @await Html.PartialAsync("_UpdateLevel", "Shared")
     @await RenderSectionAsync("Foot", false)
     @await RenderSectionAsync("Script", false)
-    
+
 </body>
 </html>

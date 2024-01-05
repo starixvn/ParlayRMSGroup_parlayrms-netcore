@@ -29,7 +29,7 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
 
 	private ExcelPackage LoadTemplate(string fileName)
 	{
-		var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "WinLossRiskControl", fileName);
+		var filePath = Path.Combine("ExcelTemplates", "WinLossRiskControl", fileName);
 
 		using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 		var excelPackage = new ExcelPackage(stream);
