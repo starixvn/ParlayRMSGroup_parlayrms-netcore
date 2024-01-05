@@ -34,15 +34,16 @@
     <None Remove="App_Data\LegacySpName.xml" />
     <None Remove="ExcelTemplates\AgentWinLoss.xls" />
     <None Remove="ExcelTemplates\BetTypeDataAnalysis.xls" />
+    <None Remove="ExcelTemplates\BetTypeDetail.xls" />
     <None Remove="ExcelTemplates\IpInfo.xls" />
     <None Remove="ExcelTemplates\IpStats.xls" />
     <None Remove="ExcelTemplates\LeagueDataAnalysis.xls" />
+    <None Remove="ExcelTemplates\LeagueDetail.xls" />
     <None Remove="ExcelTemplates\MemberWinLoss.xls" />
     <None Remove="ExcelTemplates\ParlayWon.xls" />
     <None Remove="ExcelTemplates\SpecialLeague.xls" />
     <None Remove="ExcelTemplates\SpecialMember.xls" />
     <None Remove="ExcelTemplates\SpecialMembers.xls" />
-    <None Remove="ExcelTemplates\TopWinners-DataDetails.xls" />
     <None Remove="ExcelTemplates\TopWinners.xls" />
     <None Remove="ExcelTemplates\Winloss.xls" />
   </ItemGroup>
