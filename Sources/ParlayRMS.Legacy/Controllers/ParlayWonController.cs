@@ -160,7 +160,7 @@ public class ParlayWonController(
 
         writer.SyncColumnWidths(14);
 
-        return new TemplateWriterResult(writer, "ParlayWon.xls", "ParlayWon");
+        return new TemplateWriterResult(writer, "ParlayWon.xls");
     }
 
     [HttpGet]

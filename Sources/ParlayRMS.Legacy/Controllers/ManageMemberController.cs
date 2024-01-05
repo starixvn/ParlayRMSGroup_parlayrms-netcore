@@ -116,8 +116,7 @@ public class ManageMemberController(
         writer.WriteRows(2, select);
         writer.SyncColumnWidths(4);
 
-        var ms = writer.Render("SpecialMember");
-        ms.Seek(0, 0);
+        var ms = writer.Render();
         return File(ms, "application/vnd.ms-excel", "SpecialMember.xls");
     }
 

@@ -106,8 +106,7 @@ public class ManageLeagueController(
         writer.WriteRows(2, select);
         writer.SyncColumnWidths(3);
 
-        var ms = writer.Render("SpecialLeague");
-        ms.Seek(0, 0);
+        var ms = writer.Render();
         return File(ms, "application/vnd.ms-excel", "SpecialLeague.xls");
     }
     

@@ -192,7 +192,7 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
 
         writer.SyncColumnWidths(11);
 
-        return new TemplateWriterResult(writer, "TopWinner.xls", "TopWinner");
+        return new TemplateWriterResult(writer, "TopWinner.xls");
     }
 
     [HttpGet]

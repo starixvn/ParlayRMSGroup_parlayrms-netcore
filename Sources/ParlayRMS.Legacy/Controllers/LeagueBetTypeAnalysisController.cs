@@ -110,8 +110,8 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 
         writer.SyncColumnWidths(10);
 
-        var ms = writer.Render("BetTypeDataAnalysis");
-        ms.Seek(0, 0);
+        var ms = writer.Render();
+        
         return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");
     }
 
@@ -162,8 +162,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 
         writer.SyncColumnWidths(11);
 
-        var ms = writer.Render("LeagueDataAnalysis");
-        ms.Seek(0, 0);
+        var ms = writer.Render();
         return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");
     }
 }

@@ -183,7 +183,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
         writer.SyncColumnWidths(11);
 
-        return writer.Render("MemberWinLoss");
+        return writer.Render();
     }
 
     private MemoryStream ExportAgentWinLossRpt(MemberWinLossData model, string title)
@@ -299,7 +299,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
         writer.SyncColumnWidths(14);
 
-        return writer.Render("AgentWinLoss");
+        return writer.Render();
     }
 
     [HttpPost]

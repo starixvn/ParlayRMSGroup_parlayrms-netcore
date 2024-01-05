@@ -159,6 +159,6 @@ public class WinlossController(WinlossService _winlossService) : BaseController
 
         writer.SyncColumnWidths(12);
 
-        return new TemplateWriterResult(writer, "Winloss.xls", "Winloss");
+        return new TemplateWriterResult(writer, "Winloss.xls");
     }
 }

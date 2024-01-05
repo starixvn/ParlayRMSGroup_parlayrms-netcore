@@ -109,11 +109,12 @@ public class TemplateWriter
         SyncColumnWidths(0, total - 1);
     }
 
-    public MemoryStream Render(string sheetName)
+    public MemoryStream Render()
     {
         var ms = new MemoryStream();
         _sheet.Workbook.RemoveSheetAt(0);
         _sheet.Workbook.Write(ms);
+        ms.Seek(0, 0);
         return ms;
     }
 

@@ -112,7 +112,7 @@ public class ViewIPInfoController(
 
         writer.SyncColumnWidths(9);
 
-        return new TemplateWriterResult(writer, "IpInfo.xls", "IpInfo");
+        return new TemplateWriterResult(writer, "IpInfo.xls");
     }
 
     [HttpPost]
@@ -179,7 +179,7 @@ public class ViewIPInfoController(
 
         writer.SyncColumnWidths(6);
 
-        return new TemplateWriterResult(writer, "IpStats.xls", "IpStats");
+        return new TemplateWriterResult(writer, "IpStats.xls");
     }
 
     [HttpGet]

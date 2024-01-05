@@ -30,6 +30,8 @@ using LeagueEventServices = ParlayRMS.LeagueEventControl.Services;
 
 namespace ParlayRMS.Site.Utilities;
 
+using Fanex.BetList.Core;
+using Fanex.BetList.Core.RemotingRef;
 using Fanex.Logging.Sentry.RavenClient;
 using Legacy.DataAccess;
 using Legacy.Services;
@@ -166,9 +168,9 @@ public static class ServiceCollectionExtensions
 
         RefDataTypeContainer
             .ConnectTo(new Uri(configuration.GetSection("RemotingRef").Value))
-            .FromApplication(configuration.GetSection("LogCategory").Value)
+            .FromApplication("PRMS")
             .SupportOnlyDefaultLanguage();
-
+        BetListManager.RegisterRemotingRef(new CacheRef());
         ExceptionHandler
             .UseConfig(new LoggingConfiguration())
             .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);

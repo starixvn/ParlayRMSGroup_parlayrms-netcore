@@ -1,49 +1,33 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ParlayRMS.Legacy.Web;
 
-using System.Net.Http.Headers;
 using ExcelService.Writers;
 
-public class TemplateWriterResult(TemplateWriter templateWriter, string fileName, string sheetName) : IActionResult
+public class TemplateWriterResult(TemplateWriter templateWriter, string fileName) : IActionResult
 {
     public async Task ExecuteResultAsync(ActionContext context)
     {
-            using var memoryStream = templateWriter.Render(sheetName);
-            var response = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new ByteArrayContent(memoryStream.ToArray())
-            };
-
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.ms-excel");
-            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = fileName
-            };
-
-            await response.Content.CopyToAsync(context.HttpContext.Response.Body);
-        }
+        var response = context.HttpContext.Response;
+        
+        response.ContentType ="application/vnd.ms-excel";
+        response.Headers.TryAdd("Content-Disposition", new[] { "attachment; filename=" + fileName });
+        using var memoryStream = templateWriter.Render();
+        await memoryStream.CopyToAsync(response.Body);
+    }
 }
 
 public class NPoiResult(MemoryStream memoryStream, string fileName) : IActionResult
 {
     public async Task ExecuteResultAsync(ActionContext context)
     {
-            using (memoryStream)
-            {
-                var response = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new ByteArrayContent(memoryStream.ToArray())
-                }; 
-                
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.ms-excel");
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = fileName
-                };
+        using (memoryStream)
+        {
+            var response = context.HttpContext.Response;
 
-                await response.Content.CopyToAsync(context.HttpContext.Response.Body);
-            }
+            response.ContentType = "application/vnd.ms-excel";
+            context.HttpContext.Response.Headers.TryAdd("Content-Disposition", new[] { "attachment; filename=" + fileName });
+            await memoryStream.CopyToAsync(context.HttpContext.Response.Body);
         }
+    }
 }

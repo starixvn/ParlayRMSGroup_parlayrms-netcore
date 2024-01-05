@@ -26,7 +26,7 @@ services.AddRedis(configuration);
 services.AddSession(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
-services.AddOnebookUM(configuration);
+services.AddOneBookUm(configuration);
 services.AddFanexSql(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
