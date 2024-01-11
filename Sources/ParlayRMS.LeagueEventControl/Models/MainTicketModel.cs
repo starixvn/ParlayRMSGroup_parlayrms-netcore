@@ -1,6 +1,4 @@
-﻿using System.Reflection.Emit;
-
-namespace ParlayRMS.LeagueEventControl.Models;
+﻿namespace ParlayRMS.LeagueEventControl.Models;
 
 public class MainTicketModel
 {
@@ -28,7 +26,24 @@ public class MainTicketModel
 
 	public int TotalBet { get; set; }
 
-	public string TotalBetString => IsParlayGenerator ? $"{TotalBet} (PG)" : TotalBet.ToString();
+	public string TotalBetString
+	{
+		get
+		{
+			var result = TotalBet.ToString();
+			if (IsParlayGenerator)
+			{
+				result += " (PG)";
+			}
+
+			if (IsBoostBonus)
+			{
+				result += " (B)";
+			}
+
+			return result;
+		}
+	}
 
 	public int TotalSelection { get; set; }
 
@@ -39,4 +54,6 @@ public class MainTicketModel
 	public string IP { get; set; }
 
 	public bool IsParlayGenerator { get; set; }
+
+	public bool IsBoostBonus { get; set; }
 }
