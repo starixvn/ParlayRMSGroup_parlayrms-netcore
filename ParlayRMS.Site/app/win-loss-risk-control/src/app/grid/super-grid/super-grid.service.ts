@@ -19,7 +19,7 @@ export class SuperGridService {
 
     public query(): Observable<WinLossModel> {
         const queryModel = this.createQueryModel();
-        const api = `${this.gridService.netcoreApi}api/win-loss-risk-control/company-win-loss`;
+        const api = 'api/win-loss-risk-control/company-win-loss';
         return this.httpService.post<WinLossModel>(api, queryModel);
     }
 
@@ -50,7 +50,7 @@ export class SuperGridService {
       const queryModel = this.createQueryModel();
       const fromDate = moment(queryModel.fromDate).format('YYYY_MM_DD');
       const toDate = moment(queryModel.toDate).format('YYYY_MM_DD');
-      const api = `${this.gridService.netcoreApi}api/win-loss-risk-control/company-win-loss-excel`;
+      const api = 'api/win-loss-risk-control/company-win-loss-excel';
       this.httpService.download(api, queryModel).subscribe(response => {
           const fileName = `Super_Win_Loss_From_${fromDate}_To_${toDate}.xlsx`;
           Helper.downloadFile(response, fileName);

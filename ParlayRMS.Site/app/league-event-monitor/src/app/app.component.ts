@@ -18,7 +18,6 @@ export class AppComponent {
   @ViewChild("containerRef", { read: ViewContainerRef }) containerRef: ViewContainerRef | undefined;
   @ViewChild("contentRef", {read: TemplateRef}) contentRef: TemplateRef<any> | undefined;
   title = 'league-event-monitor';
-  netcoreApiUrl: string;
   filterModel!: FilterModel;
   leagueData: LeagueDataModel[] = [];
   eventData: EventGroupModel[] = [];
@@ -34,7 +33,6 @@ export class AppComponent {
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly appService: AppService
   ) {
-    this.netcoreApiUrl = this.elementRef.nativeElement.getAttribute('netcore-api-url')??'';
   }
 
   public generate(filterModel: FilterModel): void {
@@ -46,10 +44,10 @@ export class AppComponent {
     this.isShowDetail = false;
     if (this.filterModel.isViewDetail) {
       this.isShowLeague = false;
-      this.appService.getEvents(this.netcoreApiUrl, this.filterModel).subscribe((data: EventGroupModel[]) => this.eventData = data);
+      this.appService.getEvents(this.filterModel).subscribe((data: EventGroupModel[]) => this.eventData = data);
     } else {
       this.isShowLeague = true;
-      this.appService.getLeaguesData(this.netcoreApiUrl, this.filterModel).subscribe((data: LeagueDataModel[]) => this.leagueData = data);
+      this.appService.getLeaguesData(this.filterModel).subscribe((data: LeagueDataModel[]) => this.leagueData = data);
     }
   }
 
@@ -74,7 +72,7 @@ export class AppComponent {
     this.filterModel.limitRowCount = 0;
     this.filterModel.isViewDetail = true;
     this.filterModel.leagueIds = leagueId.toString();
-    this.appService.getEvents(this.netcoreApiUrl, this.filterModel).subscribe((data: EventGroupModel[]) => this.eventData = data);
+    this.appService.getEvents(this.filterModel).subscribe((data: EventGroupModel[]) => this.eventData = data);
   }
 
   public showEventDetail(matchBettype: MatchBettypeModel): void {
@@ -84,7 +82,7 @@ export class AppComponent {
     const filterDetailModel = _.assign({}, this.filterModel,
       { matchId: matchBettype.matchId, betChoice: matchBettype.betChoice, detailBettype: matchBettype.bettype});
 
-    this.appService.getEventDetail(this.netcoreApiUrl, filterDetailModel).subscribe(
+    this.appService.getEventDetail(filterDetailModel).subscribe(
       (data: EventDetailModel[]) => this.eventDetailData = {
         match: matchBettype.event, eventList: data, fixedBettypes: data.length, matchId: matchBettype.matchId
       }
@@ -112,7 +110,7 @@ export class AppComponent {
         detailBettype: matchBettype.bettype,
         title: `Match [${matchBettype.event}] - [${matchBettype.bettypeName}]${this.betChoiceText}`
       });
-    this.appService.exportExcel(this.netcoreApiUrl, exportExcelModel);
+    this.appService.exportExcel(exportExcelModel);
   }
 
   public showBackLeague(): void {

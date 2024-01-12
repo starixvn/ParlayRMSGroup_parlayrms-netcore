@@ -18,7 +18,7 @@ export class SiteGridService {
 
     public query(): Observable<WinLossModel> {
         const queryModel = this.gridService.filterModel;
-        const api = `${this.gridService.netcoreApi}api/win-loss-risk-control/get-site`;
+        const api = 'api/win-loss-risk-control/get-site';
         return this.httpService.post<WinLossModel>(api, queryModel);
     }
 
@@ -41,7 +41,7 @@ export class SiteGridService {
       const queryModel = this.gridService.filterModel;
       const fromDate = moment(queryModel.fromDate).format('YYYY_MM_DD');
       const toDate = moment(queryModel.toDate).format('YYYY_MM_DD');
-      const api = `${this.gridService.netcoreApi}api/win-loss-risk-control/site-win-loss-excel`;
+      const api = 'api/win-loss-risk-control/site-win-loss-excel';
       this.httpService.download(api, queryModel).subscribe(response => {
           const fileName = `Site_Win_Loss_From_${fromDate}_To_${toDate}.xlsx`;
           Helper.downloadFile(response, fileName);

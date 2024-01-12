@@ -34,7 +34,6 @@ import { AgentGridComponent } from './agent-grid/agent-grid.component';
 })
 export class GridComponent implements OnInit, OnChanges, OnDestroy {
   @Input() filterModel: FilterModel;
-  @Input() netcoreApiUrl: string;
   @ViewChild('container', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
   gridType = GridType.Site;
   breadcrumbItems: string[];
@@ -58,7 +57,6 @@ export class GridComponent implements OnInit, OnChanges, OnDestroy {
 
     this.gridType = GridType.Site;
     this.gridService.filterModel = this.filterModel;
-    this.gridService.netcoreApi = this.netcoreApiUrl;
     this.createGridComponent();
   }
 

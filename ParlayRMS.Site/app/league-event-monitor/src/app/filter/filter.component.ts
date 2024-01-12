@@ -14,7 +14,6 @@ import { Subscription, interval } from 'rxjs';
   styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-  @Input() netcoreApiUrl: string = '';
   @Output() generated = new EventEmitter<FilterModel>();
 
   public comboItems: ItemModel[] = [];
@@ -62,13 +61,13 @@ export class FilterComponent implements OnInit {
     this.comboItems = this.filterService.getComboes();
     this.parlayTypeItems = this.filterService.getParlayTypes();
     this.reportTypeOptions = this.filterService.getReportTypeOptions();
-    this.filterService.getLeagues(this.netcoreApiUrl, Number(SportTypeConsts.ESPORT)).subscribe(
+    this.filterService.getLeagues(Number(SportTypeConsts.ESPORT)).subscribe(
       (leagues: LeagueModel[]) => this.leagueItems = leagues);
     this.topItems = this.filterService.getTops();
     this.levelItems = this.filterService.getLevels();
     this.refreshItems = this.filterService.getRefreshs();
     this.sportItems = this.filterService.getSports();
-    this.filterService.getBettypes(this.netcoreApiUrl, Number(this.selectedSport)).subscribe(
+    this.filterService.getBettypes(Number(this.selectedSport)).subscribe(
       (bettypes: BettypeModel[]) => this.bettypeItems = bettypes);
   }
 
@@ -139,9 +138,9 @@ export class FilterComponent implements OnInit {
   }
 
   public getLeagueAndBettypeBySport(): void {
-    this.filterService.getLeagues(this.netcoreApiUrl, Number(this.selectedSport)).subscribe(
+    this.filterService.getLeagues(Number(this.selectedSport)).subscribe(
       (leagues: LeagueModel[]) => this.leagueItems = leagues);
-    this.filterService.getBettypes(this.netcoreApiUrl, Number(this.selectedSport)).subscribe(
+    this.filterService.getBettypes(Number(this.selectedSport)).subscribe(
       (bettypes: BettypeModel[]) => this.bettypeItems = bettypes);
   }
 

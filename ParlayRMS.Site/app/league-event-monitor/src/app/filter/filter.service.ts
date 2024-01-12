@@ -37,8 +37,8 @@ export class FilterService {
     ]
   }
 
-  public getLeagues(netcoreApiUrl: string, sportId: number): Observable<LeagueModel[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}league`, { sportType: sportId });
+  public getLeagues(sportId: number): Observable<LeagueModel[]> {
+    return this.httpService.post(`${this.api}league`, { sportType: sportId });
   }
 
   public getTops(): ItemModel[]
@@ -82,7 +82,7 @@ export class FilterService {
     ]
   }
 
-  public getBettypes(netcoreApiUrl: string, sportType: number): Observable<BettypeModel[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}bettype`, { sportType: sportType });
+  public getBettypes(sportType: number): Observable<BettypeModel[]> {
+    return this.httpService.post(`${this.api}bettype`, { sportType: sportType });
   }
 }

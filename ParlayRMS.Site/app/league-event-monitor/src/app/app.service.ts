@@ -16,20 +16,20 @@ export class AppService {
   constructor(private readonly httpService: HttpService)
   { }
 
-  public getLeaguesData(netcoreApiUrl: string, query: FilterModel): Observable<LeagueDataModel[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}league-data`, query);
+  public getLeaguesData(query: FilterModel): Observable<LeagueDataModel[]> {
+    return this.httpService.post(`${this.api}league-data`, query);
   }
 
-  public getEvents(netcoreApiUrl: string, query: FilterModel): Observable<EventGroupModel[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}event`, query);
+  public getEvents(query: FilterModel): Observable<EventGroupModel[]> {
+    return this.httpService.post(`${this.api}event`, query);
   }
 
-  public getEventDetail(netcoreApiUrl: string, query: FilterDetailModel): Observable<EventDetailModel[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}event-detail`, query);
+  public getEventDetail(query: FilterDetailModel): Observable<EventDetailModel[]> {
+    return this.httpService.post(`${this.api}event-detail`, query);
   }
 
-  public exportExcel(netcoreApiUrl: string, query: ExportExcelModel): void {
-    const api = `${netcoreApiUrl}${this.api}export-excel`;
+  public exportExcel(query: ExportExcelModel): void {
+    const api = `${this.api}export-excel`;
     this.httpService.download(api, query).subscribe(response => {
         const fileName = `League_EventMonitor.xlsx`;
         Helper.downloadFile(response, fileName);

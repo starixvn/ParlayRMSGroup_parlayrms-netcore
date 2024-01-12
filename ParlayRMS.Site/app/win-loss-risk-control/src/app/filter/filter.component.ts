@@ -17,7 +17,6 @@ import * as _ from 'lodash';
   ]
 })
 export class FilterComponent implements OnInit {
-  @Input() netcoreApiUrl: string;
   @Input() userId: string = '-1';
   @Output() generated = new EventEmitter<FilterModel>();
   public readonly favoriteCompany: string = 'favoriteCompany';
@@ -79,19 +78,19 @@ export class FilterComponent implements OnInit {
   }
 
   private getCompany() {
-    this.filterService.getCompany(this.netcoreApiUrl).subscribe((company: Company[]) => this.initCompany(company));
+    this.filterService.getCompany().subscribe((company: Company[]) => this.initCompany(company));
   }
 
   private getSports() {
-    this.filterService.getSports(this.netcoreApiUrl).subscribe((sports: Sport[]) => this.sportsType = sports);
+    this.filterService.getSports().subscribe((sports: Sport[]) => this.sportsType = sports);
   }
 
   private getParlay() {
-    this.filterService.getParlay(this.netcoreApiUrl).subscribe((parlay: SelectItem[]) => this.parlayType = parlay);
+    this.filterService.getParlay().subscribe((parlay: SelectItem[]) => this.parlayType = parlay);
   }
 
   private getCombo() {
-    this.filterService.getCombo(this.netcoreApiUrl).subscribe((combo: SelectItem[]) => this.comboType = combo);
+    this.filterService.getCombo().subscribe((combo: SelectItem[]) => this.comboType = combo);
   }
 
   public onFromDateChange() {

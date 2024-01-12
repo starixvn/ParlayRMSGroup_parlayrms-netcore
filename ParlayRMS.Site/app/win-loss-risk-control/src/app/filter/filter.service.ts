@@ -9,20 +9,20 @@ export class FilterService {
   constructor(private httpService: HttpService)
   { }
 
-  public getSports(netcoreApiUrl: string): Observable<Sport[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}sports`);
+  public getSports(): Observable<Sport[]> {
+    return this.httpService.post(`${this.api}sports`);
   }
 
-  public getParlay(netcoreApiUrl: string): Observable<SelectItem[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}parlay-types`);
+  public getParlay(): Observable<SelectItem[]> {
+    return this.httpService.post(`${this.api}parlay-types`);
   }
 
-  public getCompany(netcoreApiUrl: string): Observable<Company[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}company`);
+  public getCompany(): Observable<Company[]> {
+    return this.httpService.post(`${this.api}company`);
   }
 
-  public getCombo(netcoreApiUrl: string): Observable<SelectItem[]> {
-    return this.httpService.post(`${netcoreApiUrl}${this.api}comboes`);
+  public getCombo(): Observable<SelectItem[]> {
+    return this.httpService.post(`${this.api}comboes`);
   }
 
   public getLiveTypes(): SelectItem[] {

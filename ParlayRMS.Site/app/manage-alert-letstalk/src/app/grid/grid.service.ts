@@ -54,37 +54,22 @@ export class GridService {
 
   getBetDetail(betDetails: BetDetails): Observable<string> {
     let url = '';
-    let model;
     switch(betDetails.betType) { 
       case 38: { 
-         url = 'BetList/SingleMatchParlayDetailPopup';
-         model = {
-          transId: betDetails.transId,
-          custId: betDetails.custId,
-          username: betDetails.userName
-         }
+         url = `BetList/SingleMatchParlayDetailPopup?transId=${betDetails.transId}&custId=${betDetails.custId}&username${betDetails.userName}`;
          break; 
       } 
       case 376: { 
-        url = 'BetList/PenaltyShootoutParlayDetailPopup';
-        model = {
-         transId: betDetails.transId,
-         username: betDetails.userName
-        } 
+        url = `BetList/PenaltyShootoutParlayDetailPopup?transId=${betDetails.transId}&username${betDetails.userName}`;
          break; 
       } 
       default: { 
-        url = 'BetList/BetDetails';
-         model = {
-          transId: betDetails.transId,
-          refNo: betDetails.refNo,
-          username: betDetails.userName
-         }
+        url = `BetList/BetDetails?transId=${betDetails.transId}&refNo=${betDetails.refNo}&username${betDetails.userName}`;
          break; 
       }
     }
     this.spinnerService.show();
-    return this.httpClient.post(url, model, { responseType: 'text' })
+    return this.httpClient.post(url, {}, { responseType: 'text'})
             .pipe(tap(() => this.spinnerService.hide()));
   }
 
