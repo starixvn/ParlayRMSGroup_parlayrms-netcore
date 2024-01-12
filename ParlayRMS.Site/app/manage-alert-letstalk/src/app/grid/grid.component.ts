@@ -60,7 +60,7 @@ export class GridComponent implements OnChanges {
     this.destroyComponents();
     this.actionItems = this.gridService.getActions();
     if (this.filterModel != null) {
-      this.gridService.getAlerts(this.webInfoModel.apiUrl, this.filterModel).subscribe(data => {
+      this.gridService.getAlerts(this.filterModel).subscribe(data => {
         this.data = data;
         this.paginationInstance = this.paginationService.createPaginationInstance(this.data.totalItems);
         this.isPageChanged = false;
@@ -102,11 +102,11 @@ export class GridComponent implements OnChanges {
   }
 
   openNewTabOfSimilarBet(betId: number) {
-    window.open(`${this.webInfoModel.webUrl}SimilarBets?betid=${betId}`, '_blank');
+    window.open(`SimilarBets?betid=${betId}`, '_blank');
   }
 
   openNewTabOfTotalOutstanding(user: string) {
-    window.open(`${this.webInfoModel.webUrl}TotalOutstanding?username=${user}`);
+    window.open(`TotalOutstanding?username=${user}`);
   }
 
   isDisplayDetailData(type: string): boolean {
@@ -120,7 +120,7 @@ export class GridComponent implements OnChanges {
   showLog(id: string, alertType: string, userName: string, betId: string): void {
     const modalRef = this.modalService.open(LogComponent, { backdrop: 'static', windowClass: 'modal-auto-size' });
     const componentInstance: LogComponent = modalRef.componentInstance;
-    this.gridService.getLogs(this.webInfoModel.apiUrl, id).subscribe(data => componentInstance.data = data);
+    this.gridService.getLogs(id).subscribe(data => componentInstance.data = data);
     componentInstance.alertType = alertType;
     componentInstance.user = userName;
     componentInstance.betId = betId === null ? '' : ` - ${betId}`;
@@ -133,7 +133,7 @@ export class GridComponent implements OnChanges {
       userId: Number(this.webInfoModel.userId),
       isChecked: true
     };
-    this.gridService.takeAction(this.webInfoModel.apiUrl, model).subscribe(() => data.checkedBy = this.webInfoModel.userName);
+    this.gridService.takeAction(model).subscribe(() => data.checkedBy = this.webInfoModel.userName);
   }
 
   writeActionLog(data: DataModelItem): void {
@@ -144,7 +144,7 @@ export class GridComponent implements OnChanges {
         userId: Number(this.webInfoModel.userId),
         isChecked: false
       };
-      this.gridService.takeAction(this.webInfoModel.apiUrl, model).subscribe();
+      this.gridService.takeAction(model).subscribe();
     }
   }
 
@@ -203,9 +203,8 @@ export class GridComponent implements OnChanges {
       odds: this.filterModel.odds,
       ticketStatus: this.filterModel.ticketStatus
     }
-    component.instance.apiUrl = this.webInfoModel.apiUrl;
     component.instance.alertDetail = alertDetail;
-    this.gridService.getSimilarTickets(this.webInfoModel.apiUrl, alertDetail).subscribe(data => component.instance.data = data);
+    this.gridService.getSimilarTickets(alertDetail).subscribe(data => component.instance.data = data);
     this.applicationRef.attachView(component.hostView);
     const element = (component.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     return element;
@@ -223,7 +222,7 @@ export class GridComponent implements OnChanges {
     }
     component.instance.webInfoModel = this.webInfoModel;
     component.instance.alertDetail = alertDetail;
-    this.gridService.getPotentialWinning(this.webInfoModel.apiUrl, alertDetail).subscribe(data => component.instance.data = data);
+    this.gridService.getPotentialWinning(alertDetail).subscribe(data => component.instance.data = data);
     this.applicationRef.attachView(component.hostView);
     const element = (component.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     return element;
@@ -251,7 +250,7 @@ export class GridComponent implements OnChanges {
         this.filterModel.pageIndex = this.paginationInstance.currentPage;
         this.filterModel.pageSize = this.paginationInstance.itemsPerPage;
 
-        this.gridService.getAlerts(this.webInfoModel.apiUrl, this.filterModel).subscribe(data => {
+        this.gridService.getAlerts(this.filterModel).subscribe(data => {
         this.data = data;
         this.createPagingTransform();
         });
@@ -276,6 +275,6 @@ export class GridComponent implements OnChanges {
   }
 
   exportExcel(): void {
-    this.gridService.exportExcel(this.webInfoModel.apiUrl, this.filterModel);
+    this.gridService.exportExcel(this.filterModel);
   }
 }

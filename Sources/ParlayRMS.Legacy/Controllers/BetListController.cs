@@ -20,7 +20,6 @@ using ViewModel.BetList;
 public class BetListController(BetListService _betlistService, CommonService _commonService) : BaseController
 {
     [HttpPost]
-    [NapAuth(FunctionKey = FunctionKeys.ParlayMonitor, Policy = Constant.Policy.Read)]
     public ActionResult BetDetails(BetDetailsOptions options)
     {
         ViewBag.TransId = options.TransId;

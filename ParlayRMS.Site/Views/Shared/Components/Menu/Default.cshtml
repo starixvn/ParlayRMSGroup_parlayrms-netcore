@@ -12,7 +12,7 @@
         <a href="/" class="logo over-em"></a>
         @foreach (var parentMenu in parentMenuItemList)
         {
-            var childrenMenu = menuItemList.Where(m => m.ParentId == parentMenu.Id).ToList();
+            var childrenMenu = menuItemList.Where(m => m.ParentId == parentMenu.Id).OrderBy(m => m.DisplayOrder).ToList();
             <ul class="@(isFirstParent ? " nav nav_line" : "nav" )">
                 <li class="tab">
                     <a href="@(string.IsNullOrEmpty(parentMenu.Url) ? "#" : @Url.Content("~" + parentMenu.Url))">

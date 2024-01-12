@@ -34,7 +34,7 @@ public class TopWinnersOptions
         }
 
         var title =
-            $"Top {SelectTop} winners - from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - {ViewLang.Combo} [{combosTitle}] - {ViewLang.ParlayType} [{ModelsHelper.GetSpecialParlayTitle(ParlayTypes)}] - {ViewLang.SportsType} [{ModelsHelper.GetSportType(SportsType)}] - {ViewLang.Site} [{ModelsHelper.GetSiteTitle(Site)}] - {ViewLang.CustomerClass} [{ModelsHelper.GetCustomerClassTitle(CustomerClass)} - {ViewLang.LiveType} [{ModelsHelper.GetLiveTypeTitle(LiveType)}]";
+            $"Top {SelectTop} winners - from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - {ViewLang.Combo} [{combosTitle}] - {ViewLang.ParlayType} [{ModelsHelper.GetParlayTitle(ParlayTypes)}] - {ViewLang.SportsType} [{ModelsHelper.GetSportType(SportsType)}] - {ViewLang.Site} [{ModelsHelper.GetSiteTitle(Site)}] - {ViewLang.CustomerClass} [{ModelsHelper.GetCustomerClassTitle(CustomerClass)} - {ViewLang.LiveType} [{ModelsHelper.GetLiveTypeTitle(LiveType)}]";
         return title;
     }
 }

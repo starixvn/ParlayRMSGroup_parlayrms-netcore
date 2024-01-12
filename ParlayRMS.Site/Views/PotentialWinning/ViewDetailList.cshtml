@@ -114,31 +114,33 @@
                         <td class="numeric">
                             @Formatter.FormatNumber2(item.Val.HousePT)
                         </td>
-                        <td class="center">
-                            @{
-                                var betText = string.Empty;
+	                    <td class="center">
+		                    @{
+			                    var betText = item.Val.TotalBet > 1 ? " bets" : " bet";
 
-                                if (item.Val.BetType == 38)
-                                {
-                                    betText = " bet(S)";
-                                }
+			                    if (item.Val.BetType == 38)
+			                    {
+				                    betText += " (S)";
+			                    }
 
-                                else if (item.Val.BetType == 376)
-                                {
-                                    betText = " bet(P)";
-                                }
-                                else if (item.Val.IsParlayGenerator)
-                                {
-                                    betText = " bet(PG)";
-                                }
-                                else
-                                {
-                                    betText = item.Val.TotalBet > 1 ? " bets" : " bet";
-                                }
-                            }
+			                    if (item.Val.BetType == 376)
+			                    {
+				                    betText += " (P)";
+			                    }
 
-                            @Formatter.FormatNumber3(@item.Val.TotalBet) @betText
-                        </td>
+			                    if (item.Val.IsParlayGenerator)
+			                    {
+				                    betText += " (PG)";
+			                    }
+
+			                    if (item.Val.IsBoostBonus)
+			                    {
+				                    betText += " (B)";
+			                    }
+		                    }
+
+		                    @Formatter.FormatNumber3(@item.Val.TotalBet) @betText
+	                    </td>
                         <td class="center">
                             @if (item.Val.NumberWon == 0 || item.Val.BetType == (int)BetType.SingleMatchParlay)
                             {

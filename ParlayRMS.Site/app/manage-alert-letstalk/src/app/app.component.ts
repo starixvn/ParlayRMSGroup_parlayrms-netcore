@@ -18,8 +18,6 @@ export class AppComponent {
 
   constructor(private readonly elementRef: ElementRef<HTMLElement>) {
       this.webInfoModel = {
-        apiUrl: this.elementRef.nativeElement.getAttribute('api-url')??'',
-        webUrl: this.elementRef.nativeElement.getAttribute('web-url')??'',
         userId: this.elementRef.nativeElement.getAttribute('userid')??'-1',
         userName: this.elementRef.nativeElement.getAttribute('username')??''
       }

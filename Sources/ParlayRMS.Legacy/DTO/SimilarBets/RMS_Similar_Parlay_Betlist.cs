@@ -51,4 +51,6 @@ public class RMS_Similar_Parlay_Betlist
     public TotalDataModel TotalData { get; set; }
 
     public bool IsParlayGenerator { get; set; }
+
+    public bool IsBoostBonus { get; set; }
 }

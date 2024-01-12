@@ -8,7 +8,7 @@
     <% files.css.forEach(function(css){ %>
     <link href='<%= css%>' rel="stylesheet"/><% }) %>
 }
-<app-root netcore-api-url="/" user-id="@napSession.UserId"></app-root>
+<app-root user-id="@napSession.UserId"></app-root>
 <% files.js.forEach(function(js){ %>
 <script src='<%= js %>'></script>
 <%})%>

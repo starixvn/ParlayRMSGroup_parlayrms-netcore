@@ -80,30 +80,32 @@
                 <td class="numeric">
                     @Formatter.FormatWithoutRounding(Model.Max_payout)
                 </td>
-                <td class="center">
-                    @{
-                        var totalBetText = string.Empty;
+	            <td class="center">
+		            @{
+			            var totalBetText = Model.TotalBet > 1 ? " bets" : " bet";
 
-                        if (Model.BetType == 38)
-                        {
-                            totalBetText = " bet(S)";
-                        }
+			            if (Model.BetType == 38)
+			            {
+				            totalBetText += " (S)";
+			            }
 
-                        else if (Model.BetType == 376)
-                        {
-                            totalBetText = " bet(P)";
-                        }
-                        else if (Model.IsParlayGenerator)
-                        {
-                            totalBetText = " bet(PG)";
-                        }
-                        else
-                        {
-                            totalBetText = Model.TotalBet > 1 ? " bets" : " bet";
-                        }
-                    }
-                    @string.Format("{0} {1}", Model.TotalBet, totalBetText)
-                </td>
+			            if (Model.BetType == 376)
+			            {
+				            totalBetText += " (P)";
+			            }
+
+			            if (Model.IsParlayGenerator)
+			            {
+				            totalBetText += " (PG)";
+			            }
+
+			            if (Model.IsBoostBonus)
+			            {
+				            totalBetText += " (B)";
+			            }
+		            }
+		            @string.Format("{0} {1}", Model.TotalBet, totalBetText)
+	            </td>
                 <td class="center">
                     @if (Model.NumberWon == 0 || Model.BetType == (int)BetType.SingleMatchParlay)
                     {

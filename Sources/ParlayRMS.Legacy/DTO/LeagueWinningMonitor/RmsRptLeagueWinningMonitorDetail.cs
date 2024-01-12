@@ -38,4 +38,5 @@ public class RmsRptLeagueWinningMonitorDetail
 
     public bool IsParlayGenerator { get; set; }
 
+    public bool IsBoostBonus { get; set; }
 }

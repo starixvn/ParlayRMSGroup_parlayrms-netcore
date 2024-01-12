@@ -37,4 +37,6 @@ public class RMS_Rpt_Parlay_Outstanding_Mem
     public string CustomerClass { get; set; }
 
     public bool IsParlayGenerator { get; set; }
+
+    public bool IsBoostBonus { get; set; }
 }

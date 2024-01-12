@@ -101,29 +101,31 @@
                             @Formatter.FormatWithoutRounding(item.MaxPayoutPt)
                         </td>
                         <td class="center">
-                            @{
-                                var betText = string.Empty;
+	                        @{
+		                        var betText = item.TotalBet > 1 ? " bets" : " bet";
 
-                                if (item.BetType == 38)
-                                {
-                                    betText = " bet(S)";
-                                }
+		                        if (item.BetType == 38)
+		                        {
+			                        betText += " (S)";
+		                        }
 
-                                else if (item.BetType == 376)
-                                {
-                                    betText = " bet(P)";
-                                }
-                                else if (item.IsParlayGenerator)
-                                {
-                                    betText = " bet(PG)";
-                                }
-                                else
-                                {
-                                    betText = item.TotalBet > 1 ? " bets" : " bet";
-                                }
-                            }
+		                        if (item.BetType == 376)
+		                        {
+			                        betText += " (P)";
+		                        }
 
-                            @Formatter.FormatNumber3(@item.TotalBet) @betText
+		                        if (item.IsParlayGenerator)
+		                        {
+			                        betText += " (PG)";
+		                        }
+
+		                        if (item.IsBoostBonus)
+		                        {
+			                        betText += " (B)";
+		                        }
+	                        }
+
+	                        @Formatter.FormatNumber3(@item.TotalBet) @betText
                         </td>
                         <td class="center">
                             @if (item.NumberWon == 0 || item.BetType == (int)BetType.SingleMatchParlay)

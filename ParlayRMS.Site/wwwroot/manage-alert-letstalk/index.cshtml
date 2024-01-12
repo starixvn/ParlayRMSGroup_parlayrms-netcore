@@ -5,13 +5,14 @@
     ViewBag.Title = "ManageAlertLetstalk";
 }
 @section Head {
-	<link href='@Url.Content("~/manage-alert-letstalk/styles.css?a8451c98a2557e604c37")' rel="stylesheet"/>
+    
+    <link href='~/manage-alert-letstalk/styles.css?a8451c98a2557e604c37' rel="stylesheet"/>
 }
-<app-root api-url="/" web-url="/" userid="@napSession.UserId" username="@napSession.UserName"></app-root>
+<app-root userid="@napSession.UserId" username="@napSession.UserName"></app-root>
 
-<script src='@Url.Content("~/manage-alert-letstalk/runtime.js?876b8ba7b71ac85cb588")'></script>
+<script src='~/manage-alert-letstalk/runtime.js?876b8ba7b71ac85cb588'></script>
 
-<script src='@Url.Content("~/manage-alert-letstalk/polyfills.js?f266cecd098dd0c6e8ae")'></script>
+<script src='~/manage-alert-letstalk/polyfills.js?eabae2f03a75b4a099ea'></script>
 
-<script src='@Url.Content("~/manage-alert-letstalk/main.js?b783eddd7b8e8c8d7e7f")'></script>
+<script src='~/manage-alert-letstalk/main.js?c3fb3ff89668d07f3bc1'></script>
 

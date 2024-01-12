@@ -4,7 +4,7 @@
             Alert Letstalk
         </div>
     </div>
-    <app-filter #appFilter (generated)="generate($event)" [apiUrl]="webInfoModel.apiUrl"></app-filter>
+    <app-filter #appFilter (generated)="generate($event)"></app-filter>
     <nap-toast></nap-toast>
     <app-grid *ngIf="filterModel" (onGetData)="startTimer()" [filterModel]="filterModel" [webInfoModel]="webInfoModel"></app-grid>
 </div>

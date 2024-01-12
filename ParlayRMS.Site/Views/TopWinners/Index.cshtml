@@ -48,7 +48,7 @@
                 </div>
                 <div class="group">
                     @Html.Label(ViewLang.ParlayType)
-                    @Html.DropDownList("parlayType", Config.SpecialParlayTypes)
+                    @Html.DropDownList("parlayType", Config.ParlayTypes)
                 </div>
                 <div class="group">
                     @Html.Label("", ViewLang.LiveType)
@@ -208,7 +208,7 @@
         </table>
     </div>
 </div>
-<script type="text/ecmascript" src="/Scripts/Report/TopWinners.js"></script>
+<script type="text/ecmascript" src="/Scripts/Report/TopWinners.js?v=2"></script>
 <script type="text/javascript">
     var dateRanges = {
         Yesterday : @Convert.ToInt32(DateRange.Yesterday),

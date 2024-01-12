@@ -8,7 +8,7 @@
     <% files.css.forEach(function(css){ %>
     <link href='<%= css%>' rel="stylesheet"/><% }) %>
 }
-<app-root api-url="/" web-url="/" userid="@napSession.UserId" username="@napSession.UserName"></app-root>
+<app-root userid="@napSession.UserId" username="@napSession.UserName"></app-root>
 <% files.js.forEach(function(js){ %>
 <script src='<%= js %>'></script>
 <%})%>

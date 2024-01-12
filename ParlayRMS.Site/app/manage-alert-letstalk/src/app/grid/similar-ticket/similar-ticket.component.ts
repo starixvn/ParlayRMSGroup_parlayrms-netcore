@@ -13,7 +13,6 @@ import { BetDetailsComponent } from '../bet-details/bet-details.component';
 })
 export class SimilarTicketComponent implements DetailDataComponent {
   @Input() data: SimilarTicketModel[] = [];
-  @Input() apiUrl: string = '';
   @Input() alertDetail!: AlertDetailModel;
 
   body!: SafeHtml;
@@ -44,6 +43,6 @@ export class SimilarTicketComponent implements DetailDataComponent {
   }
   
   exportExcel(): void {
-    this.gridService.exportExcelForSimilarBet(this.apiUrl, this.alertDetail);
+    this.gridService.exportExcelForSimilarBet(this.alertDetail);
   }
 }

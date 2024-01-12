@@ -45,14 +45,14 @@ export class PotentialWinningComponent implements DetailDataComponent {
   }
 
   openNewTabOfSimilarBet(betId: number) {
-    window.open(`${this.webInfoModel.webUrl}SimilarBets?betid=${betId}`, '_blank');
+    window.open(`SimilarBets?betid=${betId}`, '_blank');
   }
 
   openNewTabOfIpInfo(ip: string, date: string) {
-    window.open(`${this.webInfoModel.webUrl}ViewIPInfo?ip=${ip}&date=${date}`, '_blank');
+    window.open(`ViewIPInfo?ip=${ip}&date=${date}`, '_blank');
   }
 
   exportExcel(): void{
-    this.gridService.exportExcelForPotentialWinning(this.webInfoModel.apiUrl, this.alertDetail);
+    this.gridService.exportExcelForPotentialWinning(this.alertDetail);
   }
 }

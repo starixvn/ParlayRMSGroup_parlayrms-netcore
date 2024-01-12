@@ -55,7 +55,7 @@ export class FilterService {
     return combos;
   }
 
-  getSports(apiUrl: string): Observable<SportModel[]> {
-    return this.httpService.get(`${apiUrl}${this.api}/sports`);
+  getSports(): Observable<SportModel[]> {
+    return this.httpService.get(`${this.api}/sports`);
   }
 }

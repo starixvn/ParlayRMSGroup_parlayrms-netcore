@@ -1,4 +1,6 @@
-﻿namespace ParlayRMS.Site.ViewComponents;
+﻿using ParlayRMS.Legacy.ViewModel;
+
+namespace ParlayRMS.Site.ViewComponents;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,16 +25,7 @@ public class PotentialWinningFilterViewComponent : ViewComponent
 
         combos.Add(new SelectListItem { Text = ViewLang.TenUp, Value = "10", Selected = true });
         ViewBag.Combos = combos;
-
-        var parlayTypes = new List<SelectListItem>
-        {
-            new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
-            new SelectListItem { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
-            new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
-            new SelectListItem { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
-            new SelectListItem { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
-        };
-        ViewBag.ParlayTypes = parlayTypes;
+        ViewBag.ParlayTypes = Config.ParlayTypes;
 
         var levels = new List<SelectListItem> { new SelectListItem { Text = ViewLang.None, Value = "0" } };
         for (var i = 1; i <= 10; i++)

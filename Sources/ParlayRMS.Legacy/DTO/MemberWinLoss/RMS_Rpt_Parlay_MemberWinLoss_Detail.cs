@@ -33,4 +33,6 @@ public class RMS_Rpt_Parlay_MemberWinLoss_Detail
     public bool IsGOF { get; set; }
 
     public bool IsParlayGenerator { get; set; }
+
+    public bool IsBoostBonus { get; set; }
 }

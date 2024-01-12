@@ -13,7 +13,6 @@ import { ToastService } from 'nap-components/toast';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-  @Input() apiUrl: string = '';
   @Output() generated = new EventEmitter<FilterModel>();
 
   alertTypeItems: ItemModel[] = [];
@@ -62,7 +61,7 @@ export class FilterComponent implements OnInit {
     this.ticketStatusItems = this.filterService.getTicketStatuses();
     this.refreshItems = this.filterService.getRefreshs();
     this.comboItems = this.filterService.getCombos();
-    this.filterService.getSports(this.apiUrl).subscribe(data => this.sportItems = data);
+    this.filterService.getSports().subscribe(data => this.sportItems = data);
   }
 
   getData(): void {

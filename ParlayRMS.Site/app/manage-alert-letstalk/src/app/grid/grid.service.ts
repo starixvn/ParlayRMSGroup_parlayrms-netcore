@@ -23,24 +23,24 @@ export class GridService {
     private readonly spinnerService: SpinnerService
     ) { }
 
-  getAlerts(apiUrl: string, filterModel: FilterModel): Observable<DataModel> {
-    return this.httpService.post(`${apiUrl}${this.api}alerts`, filterModel);
+  getAlerts(filterModel: FilterModel): Observable<DataModel> {
+    return this.httpService.post(`${this.api}alerts`, filterModel);
   }
   
-  getSimilarTickets(apiUrl: string, alertDetail: AlertDetailModel): Observable<SimilarTicketModel[]> {
-    return this.httpService.post(`${apiUrl}${this.api}similar-detail`, alertDetail);
+  getSimilarTickets(alertDetail: AlertDetailModel): Observable<SimilarTicketModel[]> {
+    return this.httpService.post(`${this.api}similar-detail`, alertDetail);
   }
 
-  getPotentialWinning(apiUrl: string, alertDetail: AlertDetailModel): Observable<PotentialWinningModel[]> {
-    return this.httpService.post(`${apiUrl}${this.api}potential-winning-detail`, alertDetail);
+  getPotentialWinning(alertDetail: AlertDetailModel): Observable<PotentialWinningModel[]> {
+    return this.httpService.post(`${this.api}potential-winning-detail`, alertDetail);
   }
 
-  getLogs(apiUrl: string, id: string): Observable<LogModel[]> {
-    return this.httpService.post(`${apiUrl}${this.api}log`, { alertId : id });
+  getLogs(id: string): Observable<LogModel[]> {
+    return this.httpService.post(`${this.api}log`, { alertId : id });
   }
 
-  takeAction(apiUrl: string, model: TakeActionModel): Observable<LogModel[]> {
-    return this.httpService.post(`${apiUrl}${this.api}take-action`, model);
+  takeAction(model: TakeActionModel): Observable<LogModel[]> {
+    return this.httpService.post(`${this.api}take-action`, model);
   }
 
   getActions(): ItemModel[] {
@@ -57,7 +57,7 @@ export class GridService {
     let model;
     switch(betDetails.betType) { 
       case 38: { 
-         url = 'BetList/SingleMatchParlayDetailPopup',
+         url = 'BetList/SingleMatchParlayDetailPopup';
          model = {
           transId: betDetails.transId,
           custId: betDetails.custId,
@@ -66,7 +66,7 @@ export class GridService {
          break; 
       } 
       case 376: { 
-        url = 'BetList/PenaltyShootoutParlayDetailPopup',
+        url = 'BetList/PenaltyShootoutParlayDetailPopup';
         model = {
          transId: betDetails.transId,
          username: betDetails.userName
@@ -74,7 +74,7 @@ export class GridService {
          break; 
       } 
       default: { 
-        url = 'BetList/BetDetails',
+        url = 'BetList/BetDetails';
          model = {
           transId: betDetails.transId,
           refNo: betDetails.refNo,
@@ -88,24 +88,24 @@ export class GridService {
             .pipe(tap(() => this.spinnerService.hide()));
   }
 
-  public exportExcel(apiUrl: string, filterModel: FilterModel): void {
-    const api = `${apiUrl}${this.api}export-excel-alerts`;
+  public exportExcel(filterModel: FilterModel): void {
+    const api = `${this.api}export-excel-alerts`;
     this.httpService.download(api, filterModel).subscribe(response => {
         const fileName = `Manage-Alerts.xlsx`;
         Helper.downloadFile(response, fileName);
     });
   }
 
-  public exportExcelForSimilarBet(apiUrl: string, alertDetail: AlertDetailModel): void {
-    const api = `${apiUrl}${this.api}export-excel-similar-bet`;
+  public exportExcelForSimilarBet(alertDetail: AlertDetailModel): void {
+    const api = `${this.api}export-excel-similar-bet`;
     this.httpService.download(api, alertDetail).subscribe(response => {
         const fileName = `Similar-Bet.xlsx`;
         Helper.downloadFile(response, fileName);
     });
   }
 
-  public exportExcelForPotentialWinning(apiUrl: string, alertDetail: AlertDetailModel): void {
-    const api = `${apiUrl}${this.api}export-excel-potential-winning`;
+  public exportExcelForPotentialWinning(alertDetail: AlertDetailModel): void {
+    const api = `${this.api}export-excel-potential-winning`;
     this.httpService.download(api, alertDetail).subscribe(response => {
         const fileName = `Potential-Winning.xlsx`;
         Helper.downloadFile(response, fileName);
