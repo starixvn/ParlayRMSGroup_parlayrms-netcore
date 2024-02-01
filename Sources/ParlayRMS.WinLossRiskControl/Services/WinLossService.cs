@@ -64,13 +64,13 @@ public class WinLossServiceImp(IDynamicRepository repository, IMapper mapper) : 
 		var criteria = mapper.Map<AgentWinLossCriteria>(request);
 		var result = await repository.FetchMultipleAsync<WinLossModel, int>(criteria);
 		var data = new WinLossModel();
-		foreach (var row in result.FirstResultSet)
+		foreach (var row in result.Item1)
 		{
 			data.Rows.Add(row);
 			data.SumTotal(row);
 		}
 
-		data.TotalRecords = result.SecondResultSet.FirstOrDefault();
+		data.TotalRecords = result.Item2.FirstOrDefault();
 		return data;
 	}
 

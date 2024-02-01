@@ -18,7 +18,11 @@
       <Mapping DataField="combo" ObjectProperty="Selection" />
     </Setting>
     <Setting Key="RMS_Rpt_Parlay_TopWinners_Bet_Details" SpName="RMS_Rpt_Parlay_TopWinners_Bet_Details" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-    <Setting Key="RMS_Similar_ComboParlay_Betlist" SpName="RMS_Similar_ComboParlay_Betlist" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+    <Setting Key="RMS_Similar_ComboParlay_Betlist" SpName="RMS_Similar_ComboParlay_Betlist" DbName="DBRMS.bodb_RMS.bodbRMSNet">
+	    <Mapping DataField="net_win" ObjectProperty="Max_payout" />
+	    <Mapping DataField="potentialWinningAmt" ObjectProperty="PotentialWinningAmount" />
+	    <Mapping DataField="houseLoseAmt" ObjectProperty="HouseLoseAmount" />
+    </Setting>
     <Setting Key="RMS_ComboParlay_TransDetails" SpName="RMS_ComboParlay_TransDetails" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
     <Setting Key="RMS_Rpt_ComboParlay_Winloss" SpName="RMS_Rpt_ComboParlay_Winloss" DbName="DBRMS.bodb_RMS.bodbRMSNet" TimeOut="0" />
     <Setting Key="RMS_Rpt_ComboParlay_Winloss_Mem" SpName="RMS_Rpt_ComboParlay_Winloss_Mem" DbName="DBRMS.bodb_RMS.bodbRMSNet" TimeOut="0" />

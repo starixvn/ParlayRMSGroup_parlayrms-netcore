@@ -1,11 +1,10 @@
 ﻿namespace ParlayRMS.Site.Utilities;
 
-using System;
-using System.Threading.Tasks;
 using Fanex.Logging;
 using Fanex.Logging.Extensions;
-using Fanex.Logging.Extensions.Database;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Threading.Tasks;
 
 public class ErrorHandlerMiddleware(RequestDelegate next, ILogger logger)
 {
@@ -24,8 +23,7 @@ public class ErrorHandlerMiddleware(RequestDelegate next, ILogger logger)
 	private async Task HandleException(HttpContext context, Exception exception)
 	{
 		var logMessage = new LogMessage(exception.Message)
-			.AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
-			.AddSection("Server Info", CommonInfoGetters.GetServerInfo())
+            .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
 			.AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
 			.ToString();
 		await logger.ErrorAsync(logMessage);

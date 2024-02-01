@@ -26,8 +26,8 @@ public class ManageAlertServiceImp(IDynamicRepository repository, IMapper mapper
 		var result = await repository.FetchMultipleAsync<ManageAlertModel, int>(criteria);
 		return new ManageAlertViewModel
 		{
-			Items = result.FirstResultSet,
-			TotalItems = result.SecondResultSet.FirstOrDefault()
+			Items = result.Item1,
+			TotalItems = result.Item2.FirstOrDefault()
 		};
 	}
 

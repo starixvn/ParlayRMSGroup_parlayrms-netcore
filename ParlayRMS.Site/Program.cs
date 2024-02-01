@@ -1,12 +1,11 @@
+using Fanex.Data;
 using Fanex.NAP.Client;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Web;
-using ParlayRMS.Site;
-using Fanex.Data.SqlServer;
-using ParlayRMS.Site.Utilities;
 using Fanex.NAP.SignIn.Attribute;
 using Microsoft.AspNetCore.Mvc;
 using ONEbook.UM.AspNetCore.Filters;
+using ParlayRMS.Site.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -27,7 +26,7 @@ services.AddSession(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
 services.AddOneBookUm(configuration);
-services.AddFanexSql(configuration);
+services.AddFanexData(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
 services.AddManageAlertServices();

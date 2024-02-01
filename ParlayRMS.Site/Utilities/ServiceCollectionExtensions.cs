@@ -4,7 +4,6 @@ using Fanex.Data.Repository;
 using Fanex.Logging;
 using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.AspNetCore;
-using Fanex.Logging.Extensions.Database;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Web;
 using Fanex.NAP.Client.Services;
@@ -172,8 +171,7 @@ public static class ServiceCollectionExtensions
             .SupportOnlyDefaultLanguage();
         BetListManager.RegisterRemotingRef(new CacheRef());
         ExceptionHandler
-            .UseConfig(new LoggingConfiguration())
-            .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+            .UseConfig(new LoggingConfiguration());
     }
 
     public static IServiceCollection AddBundle(this IServiceCollection services)
