@@ -6,6 +6,7 @@ public class RMS_Rpt_LeagueBettype_Analysis
     public int No { get; set; }
 
     public int LeagueId { get; set; }
+
     public int BetTypeId { get; set; } = 0;
 
     public string Bettype { get; set; }

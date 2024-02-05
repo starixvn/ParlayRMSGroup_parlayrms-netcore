@@ -5,36 +5,46 @@
 @{
     var filterOption = (ParlayRMS.Legacy.ViewModel.Report.MemberWinLossOptions)ViewBag.FilterOption;
 	var index = 0;
+	var isReportByDate = (bool)ViewBag.ReportByDate;
+	var btnViewDetails = isReportByDate ? "btnViewDetails-ByDate" : "btnViewDetails";
+	var exportMemberWinLoss = isReportByDate ? "exportMemberWinLoss-ByDate" : "exportMemberWinLoss";
 }
 <input type="hidden" id="inpCustomerClass" value="@ViewBag.CustomerClass" />
 <input type="hidden" id="inpSiteGroup" value="@ViewBag.SiteGroup" />
 <input type="hidden" id="inpIsAgent" value="@ViewBag.IsAgent" />
-<div style="width: 1571px" class="maintitle">
+<div style="width: 1391px" class="maintitle">
     <div class="information">
-        @ViewBag.Title
+	    @if (isReportByDate)
+	    {
+		    <span id="reportByMonth" onclick="MemberWinLoss.BackReportByMonth()">Report by Month</span> <span>/</span> @ViewBag.Title
+	    }
+	    else
+	    {
+		    @ViewBag.Title
+	    }
     </div>
-    <div class="excel" id="exportMemberWinLoss" title="@ViewLang.ExportExcel">
+    <div class="excel" id="@exportMemberWinLoss" title="@ViewLang.ExportExcel">
     </div>
 </div>
 <div style="width: 1571px">
     <table class="main">
         <colgroup>
-            <col width="160px" />
-            <col width="140px" />
-            <col width="120px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="150px" />
-            <col width="150px" />
-            <col width="190px" />
-            <col width="100px" />
+	        <col width="100px" />
+	        <col width="70px" />
+	        <col width="70px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="150px" />
+	        <col width="150px" />
+	        <col width="190px" />
+	        <col width="100px" />
         </colgroup>
         <thead id="header">
             <tr>
                 <th rowspan="2" class="header2rows">
-                    @ViewLang.Month
+	                @(isReportByDate ? ViewLang.Date : ViewLang.Month)
                 </th>
                 <th colspan="2">
                     @ViewLang.Ticket
@@ -84,20 +94,20 @@
         </thead>
     </table>
 </div>
-<div class="scrollGridContent" style="max-height: 600px; width: 1591px">
+<div class="scrollGridContent" style="max-height: 600px; width: 1391px">
     <table class="main" id="result">
         <colgroup>
-            <col width="160px" />
-            <col width="140px" />
-            <col width="120px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="150px" />
-            <col width="150px" />
-            <col width="190px" />
-            <col width="100px" />
+	        <col width="100px" />
+	        <col width="70px" />
+	        <col width="70px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="150px" />
+	        <col width="150px" />
+	        <col width="190px" />
+	        <col width="100px" />
         </colgroup>
         <tbody>
             @foreach (var record in Model.Records)
@@ -105,7 +115,14 @@
                 index++;
                 <tr id="tr_@index">
                     <td class="center">
-                        @record.Month
+	                    @if (isReportByDate)
+	                    {
+		                    @record.Date.ToString("MM/dd/yyyy")
+	                    }
+	                    else
+	                    {
+		                    <a href="#" onclick="MemberWinLoss.ShowReportByDate(1, '@record.Month', false, '@filterOption.Username')">@record.Month</a>
+	                    }
                     </td>
                     <td class="numeric">
                         @Formatter.FormatNumber3(record.Tickets_Won)
@@ -133,27 +150,27 @@
                     </td>
                     @Html.RenderNumberCell(record.OurPT_NetWinloss)
                     <td class="center">
-	                    <button data-index="@index" data-month="@record.Month" title="Click to view detail" class="btnViewDetails button-disable" style="width:40px;">@record.TotalBets</button>
+                        <button data-index="@index" data-month="@record.Month" data-date="@record.Date.ToString("MM/dd/yyyy")" title="Click to view detail" class="@btnViewDetails button-disable" style="width:40px;">@record.TotalBets</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<div style="width: 1571px" class="mainfooter">
+<div style="width: 1391px" class="mainfooter">
     <table class="main" id="footer">
         <colgroup>
-            <col width="160px" />
-            <col width="140px" />
-            <col width="120px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="140px" />
-            <col width="150px" />
-            <col width="150px" />
-            <col width="190px" />
-            <col width="100px" />
+	        <col width="100px" />
+	        <col width="70px" />
+	        <col width="70px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="140px" />
+	        <col width="150px" />
+	        <col width="150px" />
+	        <col width="190px" />
+	        <col width="100px" />
         </colgroup>
         <tfoot>
             @if (Model.Records.Any())
@@ -214,14 +231,13 @@
         Combos: '@filterOption.Combos',
         LiveType: '@filterOption.LiveType',
         Username: '@filterOption.Username',
+        ReportBy: @filterOption.ReportBy,
         IsCached: false
     }
+    var isReportByDate = @isReportByDate.ToString().ToLower();
     $(document).ready(function () {
-        $("#exportMemberWinLoss").on("click", function () {
-            MemberWinLoss.ExportExcel(data);
-        });
-        $(".btnViewDetails").on("click", function () {
-            MemberWinLoss.ViewDetails($(this).data("index"), $(this).data("month"), data, true, "");
+        $(".@btnViewDetails").on("click", function () {
+            MemberWinLoss.ViewDetails($(this).data("index"), $(this).data("month"), data, true, "", $(this).data("date"));
         });
     });
 </script>

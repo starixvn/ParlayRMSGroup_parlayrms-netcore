@@ -115,7 +115,7 @@ public static class ModelsHelper
             var list = sportTypes.Split(',');
             switch (list.Length)
             {
-                case 14:
+                case 17:
                     return ViewLang.All;
                 case 1:
                     {
@@ -140,7 +140,10 @@ public static class ModelsHelper
                 case -3:
                     return "Combined sports";
 
-                default:
+                case -4:
+                    return "Virtual Soccer";
+
+            default:
                     return CacheRef.GetSportName(sportType);
             }
         }

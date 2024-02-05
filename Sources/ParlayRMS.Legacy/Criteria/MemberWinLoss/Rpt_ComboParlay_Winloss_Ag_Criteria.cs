@@ -15,8 +15,7 @@ public class Rpt_ComboParlay_Winloss_Ag_Criteria : CriteriaBase
     public string Parlaytype { get; set; }
     public string SportType { get; set; }
     public int LiveStatus { get; set; }
-
+    public byte ReportBy { get; set; }
     public override string GetSettingKey() => "RMS_Rpt_ComboParlay_Winloss_Ag";
-
     public override bool IsValid() => true;
 }

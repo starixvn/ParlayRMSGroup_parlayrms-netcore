@@ -57,7 +57,8 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
                 options.Combos,
                 options.Username,
                 options.IsCached,
-                out var roleId);
+                out var roleId,
+                options.ReportBy);
 
 
             if (options.SortById.HasValue)
@@ -71,7 +72,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             ViewBag.CustomerClass = isAgent || !model.Records.Any() ? string.Empty : model.Records.FirstOrDefault().CustomerClass;
             ViewBag.SiteGroup = isAgent || !model.Records.Any() ? string.Empty : model.Records.FirstOrDefault().SiteGroup;
             ViewBag.IsAgent = isAgent;
-
+            ViewBag.ReportByDate = options.ReportBy == 2;
             if (isAgent)
             {
                 var page = options.PageIndex ?? 1;
@@ -99,15 +100,17 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             options.Combos,
             options.Username,
             options.IsCached,
-            out var roleId);
+            out var roleId,
+            options.ReportBy);
+        var isReportByDate = options.ReportBy == 2;
         var title = options.GetTitle();
 
-        var ms = roleId > (int)RoleId.Member ? ExportAgentWinLossRpt(model, title) : ExportMemberWinLossRpt(model, title);
+        var ms = roleId > (int)RoleId.Member ? ExportAgentWinLossRpt(model, title, isReportByDate) : ExportMemberWinLossRpt(model, title, isReportByDate);
 
         return new NPoiResult(ms, "MAMemberWinLoss.xls");
     }
 
-    private MemoryStream ExportMemberWinLossRpt(MemberWinLossData model, string title)
+    private MemoryStream ExportMemberWinLossRpt(MemberWinLossData model, string title, bool isReportByDate)
     {
         var templatePath = "ExcelTemplates\\MemberWinLoss.xls";
         var writer = new TemplateWriter(templatePath);
@@ -116,7 +119,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
         var header1 = new object[]
         {
-            ViewLang.Month,
+            isReportByDate ? ViewLang.Date : ViewLang.Month,
             ViewLang.Ticket,
             string.Empty,
             ViewLang.StakeAfterPT,
@@ -164,7 +167,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
         {
             var record = new object[]
             {
-                item.Month,
+                isReportByDate ? item.Date.ToString("MM/dd/yyyy") : item.Month,
                 item.Tickets_Won,
                 item.Tickets_Lose,
                 item.Stake_Won,
@@ -186,7 +189,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
         return writer.Render();
     }
 
-    private MemoryStream ExportAgentWinLossRpt(MemberWinLossData model, string title)
+    private MemoryStream ExportAgentWinLossRpt(MemberWinLossData model, string title, bool isReportByDate)
     {
         var templatePath = "ExcelTemplates\\AgentWinLoss.xls";
         var writer = new TemplateWriter(templatePath);
@@ -195,7 +198,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
         var header1 = new object[]
         {
-            ViewLang.Month,
+            isReportByDate ? ViewLang.Date : ViewLang.Month,
             ViewLang.Site,
             ViewLang.Username,
             ViewLang.CustomerClass,
@@ -276,7 +279,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             {
                 var record = new object[]
                 {
-                    item.Month,
+                    isReportByDate ? item.Date.ToString("MM/dd/yyyy") : item.Month,
                     item.SiteGroup,
                     item.Username,
                     item.CustomerClass,

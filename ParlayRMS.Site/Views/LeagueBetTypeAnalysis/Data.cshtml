@@ -26,7 +26,7 @@
     <br />
     @if (totalRows > 100)
     {
-        <div style="width: @(isReportByLeague ? "1290px" : "1190px")" id="leagueBettype">
+        <div style="width: @(isReportByLeague ? "1290px" : "1190px")">
             @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
         </div>
     }

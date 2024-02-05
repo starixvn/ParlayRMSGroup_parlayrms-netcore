@@ -2,6 +2,8 @@
 <script type="text/ecmascript" src="/Scripts/Libs/simplepagination/jquery.simplePagination.js"></script>
 <script type="text/ecmascript" src="/Scripts/Report/LeagueBetTypeAnalysis.js"></script>
 @await Html.PartialAsync("Filter" )
+<div style="clear: both; margin-bottom: 10px;" id="divResult">
+</div>
 <script type="text/javascript">
     var dateRanges = {
         LimitDataFromDate: '@DateTime.Now.AddMonths(-6)',

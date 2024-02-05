@@ -30,7 +30,8 @@ public class MemberWinLossOptions
 
     public bool IsSortAsc { get; set; }
 
-        
+    public byte ReportBy { get; set; }
+
     [Required(ErrorMessage = "Username is required")]
     public string Username { get; set; }
 

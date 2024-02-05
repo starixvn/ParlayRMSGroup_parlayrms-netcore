@@ -120,7 +120,7 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
 
         var header1 = new object[]
         {
-            "#",
+            ViewLang.No,
             ViewLang.Site,
             ViewLang.Username,
             ViewLang.CustomerClass,
@@ -224,5 +224,57 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
         ViewBag.IsBlackListLeague = detail.Item1;
 
         return View();
+    }
+
+    [HttpGet]
+    public IActionResult ExcelForDataDetails(TopWinnerDetailsOptions options)
+    {
+        var records = _topwinnersService.GetTopWinnerDetails(options);
+
+        var templatePath = "ExcelTemplates\\TopWinners-DataDetails.xls";
+        var writer = new TemplateWriter(templatePath);
+
+        var title = options.GetTile();
+        writer.WriteRow(0, new object[] { title });
+
+        var header = new object[]
+        {
+                ViewLang.No,
+                ViewLang.BetID,
+                ViewLang.Stake,
+                ViewLang.CustomerWinLoss,
+                ViewLang.CompanyWinLoss,
+                ViewLang.Stake,
+                ViewLang.CustomerWinLoss,
+                ViewLang.CompanyWinLoss,
+                ViewLang.TotalComboBets,
+                ViewLang.TotalSelections,
+                ViewLang.SportType
+        };
+
+        writer.WriteRow(1, header);
+
+        var id = 0;
+        var select = records.Select(x => new
+        {
+            No = ++id,
+            BetId = x.TransId.ToString(),
+            x.Stake,
+            x.Winlost,
+            x.Company_Winlost,
+            x.Stake_BaseRM,
+            x.Winlost_BaseRM,
+            x.Company_Winlost_BaseRM,
+            TotalComboBets = _topwinnersService.GetTotalComboBets(x),
+            TotalSelection = x.Selection.ToString("#,##0"),
+            SportType = CacheRef.GetSportNameDropDown(x.SportType)
+        });
+
+        writer.WriteRows(2, select);
+
+
+        writer.SyncColumnWidths(11);
+
+        return new TemplateWriterResult(writer, "TopWinner-DataDetails.xls");
     }
 }
