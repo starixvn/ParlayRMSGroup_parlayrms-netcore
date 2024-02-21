@@ -83,7 +83,7 @@ public class ManageLeagueController(
     public ActionResult ExportExcel(ExportExcelModel model)
     {
         var specialLeagueList = leagueService.GetListLeague(model.League, model.Group, SOCCER);
-        var templatePath = "ExcelTemplates\\SpecialLeague.xls";
+        var templatePath = "ExcelTemplates/SpecialLeague.xls";
         var writer = new TemplateWriter(templatePath);
 
         const string title = "Special Leagues";

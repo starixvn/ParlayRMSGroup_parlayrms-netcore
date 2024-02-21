@@ -112,7 +112,7 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
         var totalCompanyWinlost = records.Sum(x => x.Company_Winlost_BaseRM);
         var totalBets = records.Sum(x => x.BetCount);
 
-        var templatePath = "ExcelTemplates\\TopWinners.xls";
+        var templatePath = "ExcelTemplates/TopWinners.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = options.GetTile();
@@ -231,7 +231,7 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
     {
         var records = _topwinnersService.GetTopWinnerDetails(options);
 
-        var templatePath = "ExcelTemplates\\TopWinners-DataDetails.xls";
+        var templatePath = "ExcelTemplates/TopWinners-DataDetails.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = options.GetTile();

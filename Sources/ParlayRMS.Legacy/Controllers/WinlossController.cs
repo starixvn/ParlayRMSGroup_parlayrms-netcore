@@ -57,7 +57,7 @@ public class WinlossController(WinlossService _winlossService) : BaseController
     public IActionResult Excel(WinlossOptions options)
     {
         var model = _winlossService.GetWinloss(options);
-        var templatePath = "ExcelTemplates\\Winloss.xls";
+        var templatePath = "ExcelTemplates/Winloss.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = options.GetTitle();

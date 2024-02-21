@@ -91,7 +91,7 @@ public class ManageMemberController(
     public ActionResult ExportExcel(ExportExcelModel model)
     {
         var specialMemberList = _customerService.GetListCustomer(model.UserName, model.Level);
-        var templatePath = "ExcelTemplates\\SpecialMember.xls";
+        var templatePath = "ExcelTemplates/SpecialMember.xls";
         var writer = new TemplateWriter(templatePath);
 
         const string title = "Special Members";

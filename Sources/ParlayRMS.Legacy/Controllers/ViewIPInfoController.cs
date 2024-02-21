@@ -60,7 +60,7 @@ public class ViewIPInfoController(
     {
         var data = _ipinfoService.GetIPInfo(options.IP, options.Date, options.TicketStatus);
 
-        var templatePath = "ExcelTemplates\\IpInfo.xls";
+        var templatePath = "ExcelTemplates/IpInfo.xls";
         var writer = new TemplateWriter(templatePath);
         writer.WriteRow(0, new object[] { "View IP Info" });
 
@@ -146,7 +146,7 @@ public class ViewIPInfoController(
             options.MaxTransId,
             options.TicketStatus);
 
-        var templatePath = "ExcelTemplates\\IpStats.xls";
+        var templatePath = "ExcelTemplates/IpStats.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = "IP Statistics";

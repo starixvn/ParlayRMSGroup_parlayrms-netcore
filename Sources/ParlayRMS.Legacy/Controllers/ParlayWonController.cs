@@ -107,7 +107,7 @@ public class ParlayWonController(
         var isValidCustomerClass = !(options.CustomerClass.HasValue && options.CustomerClass.Value > short.MaxValue);
         var records = isValidCustomerClass ? _service.GetParlayWonList(options, out _) : new List<RMS_Rpt_Parlay_ParlayWon>();
 
-        var templatePath = "ExcelTemplates\\ParlayWon.xls";
+        var templatePath = "ExcelTemplates/ParlayWon.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = options.GetTitle();

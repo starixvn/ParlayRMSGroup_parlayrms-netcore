@@ -70,7 +70,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
     {
         var records = service.GetLeagueBetTypeList(options);
 
-        var templatePath = "ExcelTemplates\\BetTypeDataAnalysis.xls";
+        var templatePath = "ExcelTemplates/BetTypeDataAnalysis.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = ViewLang.LeagueReport;
@@ -120,7 +120,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
     {
         var records = service.GetLeagueBetTypeList(options);
 
-        var templatePath = "ExcelTemplates\\LeagueDataAnalysis.xls";
+        var templatePath = "ExcelTemplates/LeagueDataAnalysis.xls";
         var writer = new TemplateWriter(templatePath);
 
         var title = ViewLang.LeagueReport;

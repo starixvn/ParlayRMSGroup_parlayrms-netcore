@@ -112,7 +112,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
     private MemoryStream ExportMemberWinLossRpt(MemberWinLossData model, string title, bool isReportByDate)
     {
-        var templatePath = "ExcelTemplates\\MemberWinLoss.xls";
+        var templatePath = "ExcelTemplates/MemberWinLoss.xls";
         var writer = new TemplateWriter(templatePath);
 
         writer.WriteRow(0, new object[] { title });
@@ -191,7 +191,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
     private MemoryStream ExportAgentWinLossRpt(MemberWinLossData model, string title, bool isReportByDate)
     {
-        var templatePath = "ExcelTemplates\\AgentWinLoss.xls";
+        var templatePath = "ExcelTemplates/AgentWinLoss.xls";
         var writer = new TemplateWriter(templatePath);
 
         writer.WriteRow(0, new object[] { title });
