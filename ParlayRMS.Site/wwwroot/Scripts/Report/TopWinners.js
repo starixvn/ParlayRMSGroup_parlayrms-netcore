@@ -468,7 +468,7 @@ function ViewDetails(custId) {
         row.after('<tr class="details" custid="' + custId + '"><td colspan="13" class="center"></td></tr>');
         var newRow = row.next();
         var td = newRow.find('td');
-        var imgURL = resolveClientUrl('Content/Images/Content/icon_wait.gif');
+        var imgURL = resolveClientUrl('Content/images/Content/icon_wait.gif');
         var waitingImg = $('<img src="' + imgURL + '" />');
         td.html(waitingImg);
 

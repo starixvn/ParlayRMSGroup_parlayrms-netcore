@@ -8,7 +8,7 @@ public static class Bundle
 {
     public static void AddLayoutBundle(this IAssetPipeline pipeline, CssSettings cssSetting, CodeSettings scriptSetting)
     {
-        pipeline.AddCssBundle("/content/jquery-ui.css",
+        pipeline.AddCssBundle("/Content/jquery-ui.css",
             cssSetting,
             "Content/Libs/jquery-ui/themes/base/jquery.ui.accordion.css",
             "Content/Libs/jquery-ui/themes/base/jquery.ui.autocomplete.css",
@@ -25,7 +25,7 @@ public static class Bundle
             "Content/Libs/jquery-ui/themes/base/jquery.ui.tabs.css",
             "Content/Libs/jquery-ui/themes/base/jquery.ui.theme.css",
             "Content/Libs/jquery-ui/themes/base/jquery.ui.tooltip.css");
-        pipeline.AddCssBundle("/content/lib.css",
+        pipeline.AddCssBundle("/Content/lib.css",
             cssSetting,
             "Content/Libs/jquery-ui/jquery-ui.more.css",
             "Content/Libs/contextmenu/jquery.contextmenu.css",
@@ -34,7 +34,7 @@ public static class Bundle
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.css",
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.css",
             "Content/Libs/simplepagination/simplePagination.css");
-        pipeline.AddCssBundle("/content.css",
+        pipeline.AddCssBundle("/Content.css",
             cssSetting,
             "Content/google-abel-font.css",
             "Content/BetList.css",
@@ -50,12 +50,12 @@ public static class Bundle
             cssSetting,
             "Content/Menu.css");
 
-        pipeline.AddCssBundle("/content/jquery-ui-multiselect.css",
+        pipeline.AddCssBundle("/Content/jquery-ui-multiselect.css",
             cssSetting,
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.css",
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.css");
 
-        pipeline.AddJavaScriptBundle("/scripts/lib.js", 
+        pipeline.AddJavaScriptBundle("/Scripts/lib.js", 
             scriptSetting,
             "Scripts/jquery-1.9.0.js",
             "Scripts/Libs/bettertooltip/jquery.betterTooltip.js",
@@ -72,7 +72,7 @@ public static class Bundle
             "Scripts/Libs/simplemodal/jquery.simplemodal.js",
             "Scripts/Libs/sortElements/jquery.sortElements.js",
             "Scripts/Libs/soundManager/soundmanager2-nodebug.js");
-        pipeline.AddJavaScriptBundle("/scripts/core.js",
+        pipeline.AddJavaScriptBundle("/Scripts/core.js",
             scriptSetting, 
             "Scripts/Core.js",
             "Scripts/Components.js",
@@ -83,12 +83,12 @@ public static class Bundle
             "Scripts/UpdateLevel.js"
         );
 
-        pipeline.AddJavaScriptBundle("/scripts/Menu.LayoutAngular.js",
+        pipeline.AddJavaScriptBundle("/Scripts/Menu.LayoutAngular.js",
             scriptSetting,
             "Scripts/jquery-1.9.0.js",
             "Scripts/Menu.LayoutAngular.js");
 
-        pipeline.AddJavaScriptBundle("/scripts/jquery-ui-multiselect.js",
+        pipeline.AddJavaScriptBundle("/Scripts/jquery-ui-multiselect.js",
             scriptSetting,
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.js",
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.js");

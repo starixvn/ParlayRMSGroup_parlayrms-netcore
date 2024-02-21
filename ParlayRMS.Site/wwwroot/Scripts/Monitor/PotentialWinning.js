@@ -613,7 +613,7 @@ function ViewTotalBetDetails(custId, agentid) {
         row.after('<tr class="details" custid="' + custId + '"><td colspan="11" class="center"></td></tr>');
         var newRow = row.next();
         var td = newRow.find('td');
-        var imgURL = resolveClientUrl('Content/Images/Content/icon_wait.gif');
+        var imgURL = resolveClientUrl('Content/images/Content/icon_wait.gif');
         var waitingImg = $('<img src="' + imgURL + '" />');
         td.html(waitingImg);
 
