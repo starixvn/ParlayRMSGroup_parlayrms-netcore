@@ -117,7 +117,7 @@ public class LeagueEventServiceImp : LeagueEventService
 			eventGroupModel.TotalStake = totalStake;
 			result.Add(eventGroupModel);
 		}
-		return result;
+		return result.OrderByDescending(x => x.TotalStake);
 	}
 
 	private static IEnumerable<EventModel> SortFixedBetTypeList(IEnumerable<EventModel> eventList, List<AwayEventModel> awayEventModelList)
