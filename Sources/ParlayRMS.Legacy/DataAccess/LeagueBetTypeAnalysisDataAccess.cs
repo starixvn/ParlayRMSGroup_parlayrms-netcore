@@ -20,7 +20,9 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         int site,
         double ratio,
         int reportBy,
-        int sportType)
+        int sportType,
+        int? betType,
+        decimal? houseWL)
     {
         var criteria = new Rpt_LeagueBettype_Analysis_Criteria
         {
@@ -32,7 +34,9 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
             Site = site,
             Ratio = ratio,
             ReportBy = reportBy,
-            SportType = sportType
+            SportType = sportType,
+            BetType = betType,
+            HouseWL = houseWL
         };
 
         var list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();

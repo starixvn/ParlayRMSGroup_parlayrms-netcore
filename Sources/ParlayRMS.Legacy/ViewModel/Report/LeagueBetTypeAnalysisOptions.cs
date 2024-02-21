@@ -23,6 +23,10 @@ public class LeagueBetTypeAnalysisOptions
 
     public int SportType { get; set; }
 
+    public int? BetType { get; set; }
+
+    public decimal? HouseWL { get; set; }
+
     public byte? SortById { get; set; }
 
     public bool IsSortAsc { get; set; }

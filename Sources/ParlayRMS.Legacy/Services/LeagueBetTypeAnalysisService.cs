@@ -25,7 +25,9 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
                 options.Site,
                 options.Ratio,
                 options.ReportBy,
-                options.SportType);
+                options.SportType,
+                options.BetType,
+                options.HouseWL);
             if (options.SortById.HasValue)
             {
                 data = SortData(data, options.SortById.Value, options.IsSortAsc);

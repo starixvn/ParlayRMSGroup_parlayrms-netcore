@@ -13,6 +13,8 @@
             ratio: null,
             reportBy: null,
             sportType: null,
+            betType: null,
+            houseWL: null,
             sortById: null,
             isSortAsc: null,
             page: 1,
@@ -20,6 +22,29 @@
         };
         var nowDate = moment(dateRanges.NowDate).format('MMMM DD, YYYY');
         var minDate = moment(dateRanges.LimitDataFromDate).format('MMMM DD, YYYY');
+
+        LeagueBetTypeAnalysis.HandleElementForLeagueBetTypeTab();
+
+        $("#tabs").tabs({
+            activate: function (event, ui) {
+                var element = ui.newPanel.selector;
+                switch (element) {
+                    case '#tabs-league-bettype':
+                        LeagueBetTypeAnalysis.HandleElementForLeagueBetTypeTab();
+                        break;
+                    case '#tabs-league':
+                        LeagueBetTypeAnalysis.HandleElementForLeagueTab(-1);
+                        break;
+                    default:
+                        LeagueBetTypeAnalysis.HandleElementForBetTypeTab();
+                    // code block
+                }
+            },
+            beforeActivate: function (event, ui) {
+                Validators.hide();
+            }
+        });
+        $("#tabs").removeClass("ui-widget");
 
         $("#ddlParlayType").multiselect({
             minWidth: 165,
@@ -149,7 +174,14 @@
         var nowDate = moment(dateRanges.NowDate);
         $("#fromDate").val(nowDate.format('MMMM DD, YYYY'));
         $("#toDate").val(nowDate.format('MMMM DD, YYYY'));
-
+        $("#txtHouseWL").autoNumeric({
+            aSep: ',',
+            aDec: '.',
+            vMin: '-99999999999',
+            vMax: '99999999999',
+            aPad: false,
+            aForm: false
+        });
         $("#btnSearch").addClass("button");
         $('#btnSearch').click(function () {
             Validators.hide();
@@ -225,6 +257,18 @@
                 this.sortDirection = "";
             });
 
+            var betType = 0;
+            var houseWL = 0;
+
+            if ($("#tabs").tabs('option', 'active') == 1) {
+                reportBy = 3;
+                houseWL = $.trim($('#txtHouseWL').val().replace(/,/g, ''));
+            }
+
+            if ($("#tabs").tabs('option', 'active') == 2) {
+                reportBy = 4;
+            }
+
             LeagueBetTypeAnalysis.Data(parlayType,
                 fromDate,
                 toDate,
@@ -234,6 +278,8 @@
                 ratio,
                 reportBy,
                 sportType,
+                betType,
+                houseWL,
                 LeagueBetTypeAnalysis.cachedObject.sortById,
                 LeagueBetTypeAnalysis.cachedObject.isSortAsc,
                 LeagueBetTypeAnalysis.cachedObject.page,
@@ -331,6 +377,31 @@
                 LeagueBetTypeAnalysis.cachedObject.page,
                 LeagueBetTypeAnalysis.cachedObject.pageSize);
         });
+
+        $(document).on('click', '.leagueTab', function () {
+            $("#tabs").tabs("option", "active", 1);
+            var leagueId = this.getAttribute('data-leagueId');
+            LeagueBetTypeAnalysis.HandleElementForLeagueTab(leagueId);
+            LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
+                LeagueBetTypeAnalysis.cachedObject.fromDate,
+                LeagueBetTypeAnalysis.cachedObject.toDate,
+                LeagueBetTypeAnalysis.cachedObject.leagueGroups,
+                leagueId,
+                LeagueBetTypeAnalysis.cachedObject.site,
+                LeagueBetTypeAnalysis.cachedObject.ratio,
+                3,
+                LeagueBetTypeAnalysis.cachedObject.sportType,
+                0,
+                -50000,
+                LeagueBetTypeAnalysis.cachedObject.sortById,
+                LeagueBetTypeAnalysis.cachedObject.isSortAsc,
+                LeagueBetTypeAnalysis.cachedObject.page,
+                LeagueBetTypeAnalysis.cachedObject.pageSize);
+        });
+
+        $(document).on('click', '.betTypeTab', function () {
+            $("#tabs").tabs("option", "active", 2);
+        });
     },
 
     GroupsAndLeagues: function (sportType, fromDate, toDate) {
@@ -368,7 +439,7 @@
         });
     },
 
-    Data: function (parlayType, fromDate, toDate, leagueGroups, leagues, site, ratio, reportBy, sportType, sortById, isSortAsc, page, pageSize) {
+    Data: function (parlayType, fromDate, toDate, leagueGroups, leagues, site, ratio, reportBy, sportType, betType, houseWL, sortById, isSortAsc, page, pageSize) {
         var data = {
             fromDate: fromDate,
             toDate: toDate,
@@ -379,6 +450,8 @@
             ratio: ratio,
             reportBy: reportBy,
             sportType: sportType,
+            betType: betType,
+            houseWL: houseWL,
             page: page,
             sortById: sortById,
             isSortAsc: isSortAsc,
@@ -528,6 +601,25 @@
                 LeagueBetTypeAnalysis.ReloadLeagues(leagueGroups);
             }
         }
+    },
+
+    HandleElementForLeagueBetTypeTab: function () {
+        $("#houseWinLossDiv").hide();
+        $("#reportByDiv").show();
+        $("#ratioDiv").show();
+    },
+
+    HandleElementForLeagueTab: function (leagueId) {
+        $("#houseWinLossDiv").show();
+        $("#reportByDiv").hide();
+        $("#ratioDiv").hide();
+        leagueId > 0 ? $("#ddlLeague").val([leagueId]).multiselect("refresh") : $("#ddlLeague").multiselect("checkAll");
+    },
+
+    HandleElementForBetTypeTab: function () {
+        $("#houseWinLossDiv").show();
+        $("#reportByDiv").hide();
+        $("#ratioDiv").hide();
     }
 }
 

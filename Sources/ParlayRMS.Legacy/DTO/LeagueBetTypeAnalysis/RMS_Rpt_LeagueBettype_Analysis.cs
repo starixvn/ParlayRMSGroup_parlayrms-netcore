@@ -5,6 +5,12 @@ public class RMS_Rpt_LeagueBettype_Analysis
 {
     public int No { get; set; }
 
+    public string Event { get; set; }
+
+    public string BetChoice { get; set; }
+
+    public byte[] TransList { get; set; }
+
     public int LeagueId { get; set; }
 
     public int BetTypeId { get; set; } = 0;
@@ -14,6 +20,8 @@ public class RMS_Rpt_LeagueBettype_Analysis
     public string GroupName { get; set; }
 
     public string League { get; set; }
+
+    public string LeagueName { get; set; }
 
     public int TotalTickets { get; set; }
 
