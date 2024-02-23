@@ -26,7 +26,7 @@ public class ViewIPInfoController(
 
     [HttpGet]
     [NapAuth(FunctionKey = FunctionKeys.ViewIP, Policy = Constant.Policy.Read)]
-    public ActionResult Index(string ip, DateTime date)
+    public ActionResult Index(string ip, DateTime? date)
     {
         var info = _commonService.GetMinTransDate();
         ViewBag.ip = ip;

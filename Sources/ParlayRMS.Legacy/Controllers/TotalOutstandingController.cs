@@ -41,6 +41,12 @@ public class TotalOutstandingController(
             },
             new SelectListItem
             {
+                Text = ViewLang.ParlayBoost,
+                Value = ((int)ParlayType.ParlayBoost).ToString(),
+                Selected = string.IsNullOrEmpty(model.ParlayTypes) || model.ParlayTypes.Contains(((int)ParlayType.ParlayBoost).ToString())
+            },
+            new SelectListItem
+            {
                 Text = ViewLang.ParlayGenerator,
                 Value = ((int)ParlayType.ParlayGenerator).ToString(),
                 Selected = string.IsNullOrEmpty(model.ParlayTypes) || model.ParlayTypes.Contains(((int)ParlayType.ParlayGenerator).ToString())

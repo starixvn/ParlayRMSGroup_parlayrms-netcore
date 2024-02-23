@@ -434,17 +434,9 @@
         });
     },
     ExportExcel: function (parlayType, fromDate, toDate, leagues, leagueGroups, site, ratio, reportBy, sportType) {
-        var data = {
-            fromDate: fromDate,
-            toDate: toDate,
-            parlayType: parlayType,
-            leagueGroups: leagueGroups,
-            leagues: leagues,
-            site: site,
-            ratio: ratio,
-            reportBy: reportBy,
-            sportType: sportType
-        };
+
+        var params = 'fromDate=' + fromDate + '&toDate=' + toDate + '&parlayType=' + parlayType + '&leagueGroups=' + leagueGroups
+            + '&leagues=' + leagues + '&site=' + site + '&ratio=' + ratio + '&reportBy=' + reportBy + '&sportType=' + sportType; 
 
         var url = reportBy == 1 ? 'LeagueBetTypeAnalysis/ExportExcelForLeague' : 'LeagueBetTypeAnalysis/ExportExcelForBetType';
 
@@ -460,10 +452,10 @@
                 element.click();
             }
         };
-        xhttp.open("POST", resolveClientUrl(url));
-        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.open("POST", resolveClientUrl(url), true);
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttp.responseType = 'blob';
-        xhttp.send(JSON.stringify(data));
+        xhttp.send(params);
 
     },
 
