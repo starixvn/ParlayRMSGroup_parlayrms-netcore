@@ -4,7 +4,7 @@
 }
 #simplemodal-container a.modalCloseImg
 {
-    background: url(images/content/Closeicon.png) no-repeat; /* adjust url as required */
+    background: url(images/Content/Closeicon.png) no-repeat; /* adjust url as required */
     width: 25px;
     height: 29px;
     display: inline;
