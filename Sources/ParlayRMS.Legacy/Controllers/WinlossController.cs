@@ -107,7 +107,7 @@ public class WinlossController(WinlossService _winlossService) : BaseController
             model.Total.OurPT_Won,
             model.Total.OurPT_Lose,
             model.Total.OurPT_NetWinloss,
-            model.Total.Margin
+            model.Total.Margin * 100
         };
 
         writer.WriteRows(1, [header1, header2]);
@@ -128,7 +128,7 @@ public class WinlossController(WinlossService _winlossService) : BaseController
                 record.Total.OurPT_Won,
                 record.Total.OurPT_Lose,
                 record.Total.OurPT_NetWinloss,
-                record.Total.Margin
+                record.Total.Margin * 100
             };
 
             foreach (var item in record.Records)
@@ -146,7 +146,7 @@ public class WinlossController(WinlossService _winlossService) : BaseController
                     item.OurPT_Won,
                     item.OurPT_Lose,
                     item.OurPT_NetWinloss,
-                    item.Margin
+                    item.Margin * 100
                 };
                 writer.WriteRow(3, values);
             }
