@@ -82,10 +82,10 @@
                             @(index + 1)
                         </td>
 	                    <td class="center">
-							<a class="leagueTab" href="#" data-leagueId="@item.LeagueId">@item.GroupName</a>
+							@item.GroupName
 	                    </td>
                         <td class="left">
-                            @item.League
+	                        <a class="leagueTab" href="#" data-leagueId="@item.LeagueId">@item.League</a>
                         </td>
                         <td class="numeric">
                             @Formatter.FormatNumber3(item.TotalTickets)

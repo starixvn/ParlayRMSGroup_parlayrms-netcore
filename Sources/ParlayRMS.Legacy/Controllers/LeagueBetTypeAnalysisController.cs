@@ -73,7 +73,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         var templatePath = "ExcelTemplates/BetTypeDataAnalysis.xls";
         var writer = new TemplateWriter(templatePath);
 
-        var title = ViewLang.LeagueReport;
+        var title = "BetType Report";
         writer.WriteRow(0, new object[] { title });
 
         var header = new object[]
@@ -95,7 +95,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         var select = records.Select(x => new
         {
             x.No,
-            x.Bettype,
+            x.BetType,
             TotalTickets = Formatter.FormatNumber3(x.TotalTickets),
             WonTickets = Formatter.FormatNumber3(x.WonTickets),
             DrawTickets = Formatter.FormatNumber3(x.DrawTickets),
@@ -161,6 +161,59 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         writer.WriteRows(2, select);
 
         writer.SyncColumnWidths(11);
+
+        var ms = writer.Render();
+        return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");
+    }
+
+    [HttpPost]
+    public ActionResult ExportExcelForLeagueDetails(LeagueBetTypeAnalysisOptions options)
+    {
+        var records = service.GetLeagueBetTypeList(options);
+
+        var templatePath = "ExcelTemplates/LeagueDetail.xls";
+        var writer = new TemplateWriter(templatePath);
+
+        var title = "League Details Report";
+        writer.WriteRow(0, new object[] { title });
+
+        var header = new object[]
+        {
+            ViewLang.No,
+            ViewLang.Event,
+            ViewLang.Bettype,
+            ViewLang.BetChoice,
+            ViewLang.TotalTickets,
+            ViewLang.WonTickets,
+            ViewLang.DrawTickets,
+            ViewLang.Ratio,
+            ViewLang.ParlayWonTickets,
+            ViewLang.Turnover,
+            ViewLang.MemberWinLoss,
+            ViewLang.HouseWinLoss
+        };
+
+        writer.WriteRow(1, header);
+
+        var select = records.Select(x => new
+        {
+            x.No,
+            x.Event,
+            x.BetType,
+            x.BetChoice,
+            TotalTickets = Formatter.FormatNumber3(x.TotalTickets),
+            WonTickets = Formatter.FormatNumber3(x.WonTickets),
+            DrawTickets = Formatter.FormatNumber3(x.DrawTickets),
+            x.Ratio,
+            ParlayWonTickets = Formatter.FormatNumber3(x.ParlayWonTickets),
+            Turnover = x.TurnOver.ToString("#,##0.00"),
+            MemberWinLoss = (Math.Floor(x.MemberWinloss * 100) / 100).ToString("#,##0.00"),
+            HouseWinLoss = (Math.Floor(x.MainHouseWinloss * 100) / 100).ToString("#,##0.00")
+        });
+
+        writer.WriteRows(2, select);
+
+        writer.SyncColumnWidths(12);
 
         var ms = writer.Render();
         return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");

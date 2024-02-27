@@ -44,7 +44,7 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         list.ForEach(d =>
         {
             d.No = index++;
-            d.Bettype = reportBy == 2 ? CacheRef.GetBettype(d.BetTypeId) : "";
+            d.BetType = reportBy == 2 ? CacheRef.GetBettype(d.BetTypeId) : d.BetType;
             d.League = reportBy == 1 ? CacheRef.GetLeagueName(d.LeagueId) : "";
             d.GroupName = reportBy == 1 ? d.GroupName : string.Empty;
             d.Ratio = GetRatio(d.WonTickets, d.TotalTickets);

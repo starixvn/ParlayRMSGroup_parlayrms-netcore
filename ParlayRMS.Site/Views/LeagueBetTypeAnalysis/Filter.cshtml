@@ -34,7 +34,7 @@
 						@Html.Label("", ViewLang.HouseWinLoss + " <=")
 						@Html.TextBox("txtHouseWL", "-50,000", new { @class = "inputtext" })
 					</div>
-					<div class="group">
+					<div class="group" id="reportByDiv">
 						@Html.Label("", ViewLang.ReportBy)
 						@Html.RadioButtonList("rdlReportBy", Config.ReportBy)
 					</div>

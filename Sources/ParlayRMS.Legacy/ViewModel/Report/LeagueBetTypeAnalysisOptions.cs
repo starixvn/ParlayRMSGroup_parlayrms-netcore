@@ -1,3 +1,5 @@
+using Org.BouncyCastle.Crypto;
+
 namespace ParlayRMS.Legacy.ViewModel.Report;
 
 using System;
@@ -38,7 +40,15 @@ public class LeagueBetTypeAnalysisOptions
     public string GetTitle()
     {
         var title =
-            $"{ViewLang.LeagueReport} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {ModelsHelper.GetLeagueGroupTitle(LeagueGroups)} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}";
+            $"{GetReportName()} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {ModelsHelper.GetLeagueGroupTitle(LeagueGroups)} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}";
         return title;
     }
+
+    private string GetReportName() => ReportBy switch
+    {
+        1 => "League Report",
+        2 => "BetType Report",
+        3 => "League Details Report",
+        _ => "BetType Details Report"
+    };
 }

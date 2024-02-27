@@ -52,8 +52,7 @@
       <Mapping DataField="currencyName" ObjectProperty="Currency" />
     </Setting>
     <Setting Key="RMS_Rpt_LeagueBettype_Analysis" SpName="RMS_Rpt_LeagueBettype_Analysis" DbName="DBRMS.bodb_RMS.wsv_rms" >
-      <Mapping DataField="BetType" ObjectProperty="BetTypeId" />
-      <Mapping DataField="Stake" ObjectProperty="TurnOver" />
+	    <Mapping DataField="Stake" ObjectProperty="TurnOver" />
     </Setting>
     <Setting Key="RMS_LeagueGroupSel" SpName="RMS_LeagueGroupSel" DbName="DBRMS.bodb_RMS.wsv_rms" >
       <Mapping DataField="LeagueGroupName" ObjectProperty="Name" />

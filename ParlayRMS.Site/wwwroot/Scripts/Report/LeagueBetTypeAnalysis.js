@@ -372,6 +372,8 @@
                 LeagueBetTypeAnalysis.cachedObject.ratio,
                 LeagueBetTypeAnalysis.cachedObject.reportBy,
                 LeagueBetTypeAnalysis.cachedObject.sportType,
+                LeagueBetTypeAnalysis.cachedObject.betType,
+                LeagueBetTypeAnalysis.cachedObject.houseWL,
                 LeagueBetTypeAnalysis.cachedObject.sortById,
                 LeagueBetTypeAnalysis.cachedObject.isSortAsc,
                 LeagueBetTypeAnalysis.cachedObject.page,
@@ -492,6 +494,8 @@
                         LeagueBetTypeAnalysis.cachedObject.ratio,
                         LeagueBetTypeAnalysis.cachedObject.reportBy,
                         LeagueBetTypeAnalysis.cachedObject.sportType,
+                        LeagueBetTypeAnalysis.cachedObject.betType,
+                        LeagueBetTypeAnalysis.cachedObject.houseWL,
                         LeagueBetTypeAnalysis.cachedObject.sortById,
                         LeagueBetTypeAnalysis.cachedObject.isSortAsc,
                         LeagueBetTypeAnalysis.cachedObject.page,
@@ -506,12 +510,28 @@
             }
         });
     },
-    ExportExcel: function (parlayType, fromDate, toDate, leagues, leagueGroups, site, ratio, reportBy, sportType) {
+    ExportExcel: function (parlayType, fromDate, toDate, leagues, leagueGroups, site, ratio, reportBy, sportType, betType, houseWL) {
 
         var params = 'fromDate=' + fromDate + '&toDate=' + toDate + '&parlayType=' + parlayType + '&leagueGroups=' + leagueGroups
-            + '&leagues=' + leagues + '&site=' + site + '&ratio=' + ratio + '&reportBy=' + reportBy + '&sportType=' + sportType; 
+            + '&leagues=' + leagues + '&site=' + site + '&ratio=' + ratio + '&reportBy=' + reportBy + '&sportType=' + sportType
+            + '&betType=' + betType + '&houseWL=' + houseWL;
 
-        var url = reportBy == 1 ? 'LeagueBetTypeAnalysis/ExportExcelForLeague' : 'LeagueBetTypeAnalysis/ExportExcelForBetType';
+        var url = '';
+
+        switch (reportBy) {
+            case '1':
+                url = 'LeagueBetTypeAnalysis/ExportExcelForLeague';
+                break;
+            case '2':
+                url = 'LeagueBetTypeAnalysis/ExportExcelForBetType';
+                break;
+            case '3':
+                url = 'LeagueBetTypeAnalysis/ExportExcelForLeagueDetails';
+                break;
+            default:
+                url = 'LeagueBetTypeAnalysis/ExportExcelForBetTypeDetails';
+                break;
+        }
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -542,6 +562,8 @@
         LeagueBetTypeAnalysis.cachedObject.ratio = null;
         LeagueBetTypeAnalysis.cachedObject.reportBy = 0;
         LeagueBetTypeAnalysis.cachedObject.sportType = 1;
+        LeagueBetTypeAnalysis.cachedObject.betType = 0;
+        LeagueBetTypeAnalysis.cachedObject.houseWL = 0;
         LeagueBetTypeAnalysis.cachedObject.sortById = null;
         LeagueBetTypeAnalysis.cachedObject.isSortAsc = null;
         LeagueBetTypeAnalysis.cachedObject.page = 1;
@@ -607,12 +629,14 @@
         $("#houseWinLossDiv").hide();
         $("#reportByDiv").show();
         $("#ratioDiv").show();
+        $("#reportByDiv").show();
     },
 
     HandleElementForLeagueTab: function (leagueId) {
         $("#houseWinLossDiv").show();
         $("#reportByDiv").hide();
         $("#ratioDiv").hide();
+        $("#reportByDiv").hide();
         leagueId > 0 ? $("#ddlLeague").val([leagueId]).multiselect("refresh") : $("#ddlLeague").multiselect("checkAll");
     },
 
@@ -620,6 +644,7 @@
         $("#houseWinLossDiv").show();
         $("#reportByDiv").hide();
         $("#ratioDiv").hide();
+        $("#reportByDiv").hide();
     }
 }
 
@@ -637,6 +662,8 @@ function MovePage(pageNumber) {
         LeagueBetTypeAnalysis.cachedObject.ratio,
         LeagueBetTypeAnalysis.cachedObject.reportBy,
         LeagueBetTypeAnalysis.cachedObject.sportType,
+        LeagueBetTypeAnalysis.cachedObject.betType,
+        LeagueBetTypeAnalysis.cachedObject.houseWL,
         LeagueBetTypeAnalysis.cachedObject.sortById,
         LeagueBetTypeAnalysis.cachedObject.isSortAsc,
         pageNumber,

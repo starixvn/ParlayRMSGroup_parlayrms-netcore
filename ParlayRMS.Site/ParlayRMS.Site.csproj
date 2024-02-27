@@ -44,6 +44,7 @@
     <None Remove="ExcelTemplates\SpecialLeague.xls" />
     <None Remove="ExcelTemplates\SpecialMember.xls" />
     <None Remove="ExcelTemplates\SpecialMembers.xls" />
+    <None Remove="ExcelTemplates\TopWinners-DataDetails.xls" />
     <None Remove="ExcelTemplates\TopWinners.xls" />
     <None Remove="ExcelTemplates\Winloss.xls" />
   </ItemGroup>
