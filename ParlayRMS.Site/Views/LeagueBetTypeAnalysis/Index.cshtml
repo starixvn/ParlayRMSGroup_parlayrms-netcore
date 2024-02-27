@@ -1,4 +1,7 @@
-﻿<link rel="stylesheet" href="/Content/LeagueBetTypeAnalysis.css" type="text/css" />
+﻿@{
+    ViewBag.Title = ViewBag.HeaderText = "League & Bet Type Data Analysis";
+}
+<link rel="stylesheet" href="/Content/LeagueBetTypeAnalysis.css" type="text/css" />
 <script type="text/ecmascript" src="/Scripts/Libs/simplepagination/jquery.simplePagination.js"></script>
 <script type="text/ecmascript" src="/Scripts/Report/LeagueBetTypeAnalysis.js"></script>
 @await Html.PartialAsync("Filter" )
