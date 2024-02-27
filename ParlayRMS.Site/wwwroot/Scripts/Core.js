@@ -326,5 +326,5 @@ function diffDate(oneDate, twoDate) {
 }
 
 function CreateNoInfoRow(colspan) {
-    return '<tr><td class="noinfo" colspan=' + colspan + '>No Information </td></tr>';
+    return '<tr><td class="noinfo" colspan=' + colspan + '>No Information is available</td></tr>';
 }

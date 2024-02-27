@@ -5,7 +5,7 @@
 ParlayRMS.TotalOutstanding = {
     Init: function () {
         $("#combo").multiselect({
-            minWidth: 120,
+            minWidth: 140,
             height: 136,
             create: function () {
                 $("#combo").multiselect();
@@ -27,8 +27,8 @@ ParlayRMS.TotalOutstanding = {
         });
 
         $("#parlaysType").multiselect({
-            minWidth: 210,
-            height: 138,
+            minWidth: 230,
+            height: 165,
             create: function () {
                 $("#parlaysType").multiselect();
             },
@@ -81,6 +81,22 @@ ParlayRMS.TotalOutstanding = {
             if (event.keyCode == 13) {
                 $('#username').blur();
                 $('#submit').click();
+            }
+        });
+
+        $('#parlaysType').on('change', function () {
+            var selectedParlays = $(this).multiselect("getChecked").map(function () {
+                return this.value;
+            });
+            if ($.inArray('1', selectedParlays) > -1) {
+                if ($.inArray('7', selectedParlays) < 0) {
+                    selectedParlays.push('7');
+                    $('input[name^=multiselect_parlaysType]')[1].checked = true;
+                }
+                if ($.inArray('6', selectedParlays) < 0) {
+                    selectedParlays.push('6');
+                    $('input[name^=multiselect_parlaysType]')[2].checked = true;
+                }
             }
         });
     },
