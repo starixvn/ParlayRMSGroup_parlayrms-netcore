@@ -21,7 +21,7 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         double ratio,
         int reportBy,
         int sportType,
-        int? betType,
+        string betType,
         decimal? houseWL)
     {
         var criteria = new Rpt_LeagueBettype_Analysis_Criteria
@@ -46,7 +46,7 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
             d.No = index++;
             d.BetType = reportBy == 2 ? CacheRef.GetBettype(d.BetTypeId) : d.BetType;
             d.League = reportBy == 1 ? CacheRef.GetLeagueName(d.LeagueId) : "";
-            d.GroupName = reportBy == 1 ? d.GroupName : string.Empty;
+            d.GroupName = reportBy == 1 || reportBy == 4 ? d.GroupName : string.Empty;
             d.Ratio = GetRatio(d.WonTickets, d.TotalTickets);
         });
 
@@ -69,7 +69,13 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         return repository.Fetch<LeagueGroup>(criteria);
     }
 
-    public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType, DateTime fromDate, DateTime toDate)
+    public IEnumerable<WonTicketModel> GetWonTickets(string transList)
+    {
+	    var criteria = new ParlayWonTicketsCriteria { TransList = transList };
+	    return repository.Fetch<WonTicketModel>(criteria);
+    }
+
+	public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType, DateTime fromDate, DateTime toDate)
     {
         var criteria = new LeagueSel_Criteria
         {
@@ -85,4 +91,10 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
 
         return leagues;
     }
+
+	public IEnumerable<BettypeModel> GetBettypes(int sportType)
+	{
+		var criteria = new BettypeCriteria { SportType = sportType };
+		return repository.Fetch<BettypeModel>(criteria);
+	}
 }

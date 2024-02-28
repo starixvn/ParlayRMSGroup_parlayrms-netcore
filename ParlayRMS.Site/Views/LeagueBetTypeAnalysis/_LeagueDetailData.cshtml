@@ -63,7 +63,7 @@
         </thead>
     </table>
 </div>
-<div class="scrollGridContent" id="scrollGridContent" style="max-height: 500px; width: 1461px">
+<div class="scrollGridContent" id="scrollGridContent" style="max-height: 500px; width: 1480px">
     <table class="main" id="result">
         <colgroup>
 	        <col width='70px' />
@@ -108,7 +108,16 @@
 		                @item.Ratio
 	                </td>
 	                <td class="numeric">
-		                @Formatter.FormatNumber3(item.ParlayWonTickets)
+		                @if (item.ParlayWonTickets > 0)
+		                {
+							<a href="#" class="parlayWonTicket" data-group="@item.GroupName" data-bettype="@item.BetType" data-translist="@item.TransList" data-league="@item.LeagueName" data-event="@item.Event" data-betchoice="@item.BetChoice">
+				                @Formatter.FormatNumber3(item.ParlayWonTickets)
+			                </a>
+		                }
+		                else
+		                {
+			                @Formatter.FormatNumber3(item.ParlayWonTickets)
+		                }
 	                </td>
 	                <td class="numeric">
 		                @item.TurnOver.ToString("#,##0.00")

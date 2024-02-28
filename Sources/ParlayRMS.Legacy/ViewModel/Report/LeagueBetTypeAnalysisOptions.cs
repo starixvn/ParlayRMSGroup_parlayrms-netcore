@@ -25,7 +25,7 @@ public class LeagueBetTypeAnalysisOptions
 
     public int SportType { get; set; }
 
-    public int? BetType { get; set; }
+    public string BetType { get; set; }
 
     public decimal? HouseWL { get; set; }
 

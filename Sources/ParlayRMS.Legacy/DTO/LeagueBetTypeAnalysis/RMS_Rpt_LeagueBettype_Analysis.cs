@@ -1,4 +1,3 @@
-
 namespace ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis;
 
 public class RMS_Rpt_LeagueBettype_Analysis
@@ -9,7 +8,7 @@ public class RMS_Rpt_LeagueBettype_Analysis
 
     public string BetChoice { get; set; }
 
-    public byte[] TransList { get; set; }
+    public string TransList { get; set; }
 
     public int LeagueId { get; set; }
 

@@ -45,7 +45,23 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
             return _dataAccess.RMS_LeagueSel(leagueName, groupId, sportType, fromDate, toDate);
         }
 
-    private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)
+    public IEnumerable<WonTicketModel> GetWonTickets(string transList)
+    {
+        return _dataAccess.GetWonTickets(transList);
+    }
+
+    public IEnumerable<GroupedBettypeModel> GetBettypes(int sportType)
+    {
+	    var data = _dataAccess.GetBettypes(sportType).GroupBy(g => g.GroupId);
+        var result = new List<GroupedBettypeModel>();
+        foreach (var group in data)
+        {
+            result.Add(new GroupedBettypeModel { GroupId = group.Key, Items = group });
+        }
+        return result;
+    }
+
+	private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)
     {
             switch (sortId)
             {

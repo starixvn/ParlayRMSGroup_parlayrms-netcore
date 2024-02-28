@@ -1,5 +1,4 @@
 ﻿@using ParlayRMS.Legacy.Web
-
 <div id="tabs">
 	<ul>
 		<li><a href="#tabs-league-bettype" style="font-weight: bold">League & Bet Type Data Analysis</a></li>
@@ -7,7 +6,7 @@
 		<li><a href="#tabs-bettype" style="font-weight: bold">Bet Type Details</a></li>
 	</ul>
 	<div class="filter">
-		<div class="filter-control" style="width: 1122px; margin-bottom: 10px;">
+		<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
 			<div class="minimizetitle">
 				<div class="minimizecontent">
 					@ViewLang.FilterControl
@@ -49,11 +48,15 @@
 					</div>
 					<div class="group">
 						@Html.Label("", ViewLang.Group)
-						@Html.DropDownList("ddlGroup", new List<SelectListItem>())
+						@Html.DropDownList("ddlGroup", new List<SelectListItem>(), new { multiple = "multiple" })
 					</div>
-					<div class="group">
+					<div class="group" id="betTypeDiv">
+						@Html.Label("", ViewLang.Bettype)
+						@Html.DropDownList("ddlBetType", new List<SelectListItem>(), new { multiple = "multiple" })
+					</div>
+					<div class="group" id="leagueDiv">
 						@Html.Label("", ViewLang.League)
-						@Html.DropDownList("ddlLeague", new List<SelectListItem>())
+						@Html.DropDownList("ddlLeague", new List<SelectListItem>(), new { multiple = "multiple" })
 					</div>
 					<div class="group">
 						@Html.Label("", ViewLang.Site)
@@ -61,7 +64,7 @@
 					</div>
 					<div class="group">
 						@Html.Label("", ViewLang.ParlayType)
-						@Html.DropDownList("ddlParlayType", Config.SimpleParlayTypes)
+						@Html.DropDownList("ddlParlayType", Config.SimpleParlayTypes, new { multiple = "multiple" })
 					</div>
 					<div class="group">
 						<button id="btnSearch">

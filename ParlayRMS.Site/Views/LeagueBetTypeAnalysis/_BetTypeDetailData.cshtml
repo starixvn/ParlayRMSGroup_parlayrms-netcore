@@ -63,7 +63,7 @@
         </thead>
     </table>
 </div>
-<div class="scrollGridContent" id="scrollGridContent" style="max-height: 500px; width: 1390px">
+<div class="scrollGridContent" id="scrollGridContent" style="max-height: 500px; width: 1410px">
     <table class="main" id="result">
         <colgroup>
 	        <col width='70px' />
@@ -90,7 +90,7 @@
 		                @item.GroupName
 	                </td>
 	                <td class="left">
-		                @item.League
+		                @item.LeagueName
 	                </td>
 	                <td class="left">
 		                @item.Event
@@ -108,7 +108,16 @@
 		                @item.Ratio
 	                </td>
 	                <td class="numeric">
-		                @Formatter.FormatNumber3(item.ParlayWonTickets)
+						@if (item.ParlayWonTickets > 0)
+						{
+							<a href="#" class="parlayWonTicket" data-group="@item.GroupName" data-bettype="@item.BetType" data-translist="@item.TransList" data-league="@item.LeagueName" data-event="@item.Event" data-betchoice="@item.BetChoice">
+								@Formatter.FormatNumber3(item.ParlayWonTickets)
+							</a>
+						}
+						else
+						{
+							@Formatter.FormatNumber3(item.ParlayWonTickets)
+						}
 	                </td>
 	                <td class="numeric">
 		                @item.TurnOver.ToString("#,##0.00")
@@ -130,7 +139,8 @@
         <colgroup>
 	        <col width='70px' />
 	        <col width='100px' />
-	        <col width='170px' />
+	        <col width='150px' />
+	        <col width='150px' />
 	        <col width='120px' />
 	        <col width='120px' />
 	        <col width='120px' />
@@ -143,7 +153,7 @@
         <tfoot>
             @if (Model.Count() == 0)
             {
-                <tr><td class="noinfo" colspan="10">@ViewLang.NoInformation</td></tr>
+                <tr><td class="noinfo" colspan="12">@ViewLang.NoInformation</td></tr>
             }
         </tfoot>
     </table>
