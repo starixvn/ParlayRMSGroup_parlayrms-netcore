@@ -24,7 +24,7 @@ public class ExcelBuilderImp : ExcelBuilder
 
 	private ExcelPackage LoadTemplate(string fileName)
 	{
-		var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "LeagueEventControl", fileName);
+		var filePath = Path.Combine("ExcelTemplates", "LeagueEventControl", fileName);
 
 		using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 		var excelPackage = new ExcelPackage(stream);

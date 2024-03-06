@@ -1,0 +1,41 @@
+﻿function changeLevel(elOption, elMenu) {
+    var currentClass = $(elMenu).parent().attr('class');
+    var custId = $(elMenu).attr('custid');
+    var level = elOption.attr('level');
+    var username = $(elMenu).attr('username');
+    var title = "Confirmation";
+    var content = "Are you sure you want to change level to " + (level == 0 ? "None" : level) + " ?";
+    confirm(title, content, function () {
+        var data = {
+            UserName: $.trim(username),
+            Level: level,
+            CustId: custId
+        };
+        $.ajax({
+            url: resolveClientUrl('ManageMember/ChangeLevel'),
+            type: 'POST',
+            data: data,
+            dataType: 'html',
+            cache: false,
+            beforeSend: function (xhr) {
+                loading.show();
+            },
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json.code != 0) {
+                    alert(json.message);
+                }
+                else {
+                    $(elMenu).parent().removeClass(currentClass);
+                    $(elMenu).parent().addClass(elOption.attr('color'));
+                }
+            },
+            error: function (xhr, status, err) {
+                alertBox.showError(xhr);
+            },
+            complete: function () {
+                loading.hide();
+            }
+        });
+    });
+}

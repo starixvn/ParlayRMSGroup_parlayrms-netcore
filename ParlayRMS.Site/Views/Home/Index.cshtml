@@ -1,16 +1,4 @@
+@using ParlayRMS.Site.ViewComponents
 @{
-    ViewData["Title"] = "Home Page";
+    ViewBag.HeaderText = "Welcome to Parlay RMS";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to Parlay RMS</h1>
-    <ul>
-        <li>Win Loss Risk Control</li>
-        <li>League Event Control</li>
-        <li>Manage Alert</li>
-    </ul>
-    
-    <vc:sport-types-drop-down sport-types=""></vc:sport-types-drop-down> 
-    
-    @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
-</div>

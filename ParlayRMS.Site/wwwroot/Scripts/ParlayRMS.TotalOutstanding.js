@@ -1,0 +1,303 @@
+﻿if (typeof ParlayRMS == 'undefined') {
+    ParlayRMS = {};
+};
+
+ParlayRMS.TotalOutstanding = {
+    Init: function () {
+        $("#combo").multiselect({
+            minWidth: 140,
+            height: 136,
+            create: function () {
+                $("#combo").multiselect();
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $("#parlaysType").multiselect({
+            minWidth: 230,
+            height: 165,
+            create: function () {
+                $("#parlaysType").multiselect();
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $("#sportsType").multiselect({
+            minWidth: 190,
+            height: 300,
+            create: function () {
+                $("#sportsType").multiselect();
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $('#submit').click(this.LoadData);
+
+        var username = $.trim($('#username').val());
+        if (username != '') {
+            this.LoadData();
+        }
+
+        $('#username').bind("keyup", function (event) {
+            if (event.keyCode == 13) {
+                $('#username').blur();
+                $('#submit').click();
+            }
+        });
+
+        $('#parlaysType').on('change', function () {
+            var selectedParlays = $(this).multiselect("getChecked").map(function () {
+                return this.value;
+            });
+            if ($.inArray('1', selectedParlays) > -1) {
+                if ($.inArray('7', selectedParlays) < 0) {
+                    selectedParlays.push('7');
+                    $('input[name^=multiselect_parlaysType]')[1].checked = true;
+                }
+                if ($.inArray('6', selectedParlays) < 0) {
+                    selectedParlays.push('6');
+                    $('input[name^=multiselect_parlaysType]')[2].checked = true;
+                }
+            }
+        });
+    },
+    LoadData: function () {
+        var combos = $("#combo").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        if (combos == '') {
+            Validators.show($("#combo").multiselect("getButton").get(0), 'Please select your options');
+            return null;
+        }
+
+        var parlaysTypes = $("#parlaysType").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        if (parlaysTypes == '') {
+            Validators.show($('#parlaysType').multiselect("getButton").get(0), 'Please select your options');
+            return null;
+        }
+
+        var sportsTypes = $("#sportsType").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        if (sportsTypes == '') {
+            Validators.show($('#sportsType').multiselect("getButton").get(0), 'Please select your options');
+            return null;
+        }
+
+        var username = $.trim($('#username').val());
+        if (username == '') {
+            Validators.show($('#username').get(0), 'Please input a username');
+            return null;
+        }
+
+        var isCornerParlay = $("#cornerParlay").is(":checked");
+
+        var data = {
+            Combo: combos,
+            ParlaysType: parlaysTypes,
+            SportsType: sportsTypes,
+            Username: username,
+            IsCornerParlay: isCornerParlay
+        }
+        $.ajax({
+            url: resolveClientUrl('TotalOutstanding/Data'),
+            type: 'POST',
+            data: data,
+            dataType: 'html',
+            cache: false,
+            beforeSend: function (xhr) {
+                loading.show();
+            },
+            success: function (result) {
+                $('#divResult').show();
+                $('#divResult').html(result);
+                $('#result>tbody>tr:even').addClass("even");
+                ParlayRMS.TotalOutstanding.DisplayCustomerClass();
+
+                var table = $('#result');
+                var header = $('#header');
+                tableSorter.bind2(header, table, {
+                    type: 'text',
+                    onFinish: function () {
+                        var trs = table.children('tbody').children("tr");
+                        trs.each(function (index, tr) {
+                            $(tr).children('td:first').text(index + 1);
+                        });
+                    }
+                });
+            },
+            error: function (xhr, status, err) {
+                alertBox.showError(xhr);
+            },
+            complete: function () {
+                loading.hide();
+            }
+        });
+    },
+    ViewBetDetails: function (username, transId, refNo, betType, custId) {
+        if (betType === 38) {
+            ViewSingleMatchParlayDetails(transId, custId, username);
+        } else if (betType === 376) {
+            ViewPenaltyShootoutParlayDetails(transId, username);
+        }
+        else {
+            ViewSystemParlayDetails(username, transId, refNo);
+        }
+
+        function ViewSystemParlayDetails(username, transId, refNo) {
+            var data = {
+                TransId: transId,
+                RefNo: refNo,
+                Username: username
+            }
+
+            $.ajax({
+                url: resolveClientUrl('BetList/BetDetails'),
+                type: 'POST',
+                data: data,
+                dataType: 'html',
+                cache: false,
+                beforeSend: function () {
+                    loading.show();
+                },
+                success: function (result) {
+                    modalPopup(result);
+                    $(".betdetails").css('overflow-y', 'auto');
+                    $("#simplemodal-container").width($("#simplemodal-container").width() + 20);
+                },
+                error: function (xhr, status, err) {
+                    alertBox.showError(xhr);
+                },
+                complete: function () {
+                    loading.hide();
+                }
+            });
+        };
+
+        function ViewSingleMatchParlayDetails(transId, custId, username) {
+            var data = {
+                TransId: transId,
+                CustId: custId,
+                Username: username
+            }
+
+            $.ajax({
+                url: resolveClientUrl('BetList/SingleMatchParlayDetailPopup'),
+                type: 'POST',
+                data: data,
+                dataType: 'html',
+                cache: false,
+                beforeSend: function () {
+                    loading.show();
+                },
+                success: function (result) {
+                    modalPopup(result);
+                    $(".betdetails").css('overflow-y', 'auto');
+                    $("#simplemodal-container").width($("#simplemodal-container").width() + 20);
+                },
+                error: function (xhr, status, err) {
+                    alertBox.showError(xhr.responseText);
+                },
+                complete: function () {
+                    loading.hide();
+                }
+            });
+        };
+
+        function ViewPenaltyShootoutParlayDetails(transId, username) {
+            var data = {
+                TransId: transId,
+                Username: username
+            }
+
+            $.ajax({
+                url: resolveClientUrl('BetList/PenaltyShootoutParlayDetailPopup'),
+                type: 'POST',
+                data: data,
+                dataType: 'html',
+                cache: false,
+                beforeSend: function () {
+                    loading.show();
+                },
+                success: function (result) {
+                    modalPopup(result);
+                    $(".betdetails").css('overflow-y', 'auto');
+                    $("#simplemodal-container").width($("#simplemodal-container").width() + 20);
+                },
+                error: function (xhr, status, err) {
+                    alertBox.showError(xhr.responseText);
+                },
+                complete: function () {
+                    loading.hide();
+                }
+            });
+        };
+    },
+
+    ViewSimilarBets: function (transId) {
+        var url = resolveClientUrl('SimilarBets?betid=') + transId;
+        window.open(url, '_blank');
+    },
+    ViewMember: function (username) {
+        var combos = $("#combo").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        var sportsTypes = $("#sportsType").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        var parlayTypes = $("#parlaysType").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        var url = resolveClientUrl('TotalOutstanding?username=') + username + '&combo=' + combos + '&sportsType=' + sportsTypes + '&parlayTypes=' + parlayTypes;
+        window.open(url, '_blank');
+    },
+    DisplayCustomerClass: function () {
+        var html = '(CC: <b>' + $("#inpCustomerClass").val() + '</b>)';
+        $("#lbCustomerClass").html(html);
+    }
+};
+
+$(document).ready(function () {
+    ParlayRMS.TotalOutstanding.Init();
+});

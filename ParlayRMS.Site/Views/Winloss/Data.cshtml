@@ -1,0 +1,263 @@
+﻿@using ParlayRMS.Legacy.Utilities
+@using ParlayRMS.Legacy.Web
+@using Formatter = ParlayRMS.Legacy.Utilities.Formatter
+@model ParlayRMS.Legacy.Models.Winloss.WinlossData
+@{
+    var filterOption = (ParlayRMS.Legacy.ViewModel.Report.WinlossOptions)ViewBag.FilterOption;
+}
+<div style="width: 1391px;" class="maintitle">
+    <div class="information">
+        @ViewBag.Title
+    </div>
+    <div class="excel" onclick="ParlayRMS.Winloss.ExportExcel('@filterOption.ParlayTypes', '@filterOption.FromDate', '@filterOption.ToDate', '@filterOption.SportsType', '@filterOption.Combos', '@((int)filterOption.Site)', '@((int)filterOption.LiveType)', '@((int)filterOption.ReportType)');" title="Export Excel">
+    </div>
+</div>
+<div style="width: 1391px">
+    <table class="main">
+        <colgroup>
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='130' />
+	        <col width='130' />
+	        <col width='150' />
+	        <col width='100' />
+        </colgroup>
+        <thead>
+            <tr>
+                <th rowspan="2" class="header2rows">
+                    @ViewLang.Date
+                </th>
+                <th rowspan="2" class="header2rows">
+                    @if (filterOption.ReportType == ReportType.Combo)
+                    {
+                        @ViewLang.Combo
+                    }
+                    else
+                    {
+                        @:Sports Type
+                    }
+                </th>
+                <th colspan="2">
+                    @ViewLang.Ticket
+                </th>
+                <th colspan="2">
+                    @ViewLang.StakeAfterPT
+                </th>
+                <th colspan="2">
+                    @ViewLang.WinLoss
+                </th>
+                <th colspan="3">
+                    @ViewLang.OurPT
+                </th>
+                <th rowspan="2" class="header2rows">
+                    @ViewLang.Margin
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    @ViewLang.Won
+                </th>
+                <th>
+                    @ViewLang.Lose
+                </th>
+                <th>
+                    @ViewLang.Won
+                </th>
+                <th>
+                    @ViewLang.Lose
+                </th>
+                <th>
+                    @ViewLang.Won
+                </th>
+                <th>
+                    @ViewLang.Lose
+                </th>
+                <th>
+                    @ViewLang.Won
+                </th>
+                <th>
+                    @ViewLang.Lose
+                </th>
+                <th>
+                    @ViewLang.NetWinloss
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="scrollGridContent" style="max-height: 500px; width: 1408px">
+    <table class="main" id="result">
+        <colgroup>
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='130' />
+	        <col width='130' />
+	        <col width='150' />
+	        <col width='100' />
+        </colgroup>
+        <tbody>
+            @foreach (var group in Model.Records)
+            {
+                for (var index = 0; index < group.Records.Count; index++)
+                {
+                    var record = group.Records[index];
+                    <tr>
+                        @if (index == 0)
+                        {
+                            <td class="center" rowspan="@group.Records.Count">
+                                @Formatter.FormatDate(record.WinlostDate)
+                            </td>
+                        }
+                        <td class="center">
+                            @if (filterOption.ReportType == ReportType.Combo)
+                            {
+                                @record.Combo
+                            }
+                            else
+                            {
+                                @CacheRef.GetSportNameDropDown(record.SportType)
+                            }
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber3(record.Tickets_Won)
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber3(record.Tickets_Lose)
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber2(record.Stake_Won)
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber2(record.Stake_Lose)
+                        </td>
+                        <td class="numeric negative">
+                            @Formatter.FormatNumber2(record.Member_Won)
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber2(record.Member_Lose)
+                        </td>
+                        <td class="numeric negative">
+                            @Formatter.FormatNumber2(record.OurPT_Won)
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber2(record.OurPT_Lose)
+                        </td>
+                        @Html.RenderNumberCell(record.OurPT_NetWinloss)
+                        @Html.RenderPercentCell(record.Margin * 100)
+                    </tr>
+                }
+
+                <tr class="subTotal">
+                    <td class="center" colspan="2">
+                        @ViewLang.Subtotal
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber3(group.Total.Tickets_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber3(group.Total.Tickets_Lose)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(group.Total.Stake_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(group.Total.Stake_Lose)
+                    </td>
+                    <td class="numeric negative">
+                        @Formatter.FormatNumber2(group.Total.Member_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(group.Total.Member_Lose)
+                    </td>
+                    <td class="numeric negative">
+                        @Formatter.FormatNumber2(group.Total.OurPT_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(group.Total.OurPT_Lose)
+                    </td>
+                    @Html.RenderNumberCell(group.Total.OurPT_NetWinloss)
+                    @Html.RenderPercentCell(group.Total.Margin * 100)
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div style="width: 1391px" class="mainfooter">
+    <table class="main" id="footer">
+        <colgroup>
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='100' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='120' />
+	        <col width='130' />
+	        <col width='130' />
+	        <col width='150' />
+	        <col width='100' />
+        </colgroup>
+        <tfoot>
+            @if (Model.Records.Any())
+            {
+                <tr>
+                    <td class="center" colspan="2">
+                        @ViewLang.Total
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber3(@Model.Total.Tickets_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber3(Model.Total.Tickets_Lose)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.Stake_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.Stake_Lose)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.Member_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.Member_Lose)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.OurPT_Won)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.OurPT_Lose)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(Model.Total.OurPT_NetWinloss)
+                    </td>
+
+                    <td class="center">
+                        @Formatter.FormatNumber2(Model.Total.Margin * 100)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="13" style="text-align: center">
+                        @ViewLang.NoInformation
+                    </td>
+                </tr>
+            }
+        </tfoot>
+    </table>
+</div>

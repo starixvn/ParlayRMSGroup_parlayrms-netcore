@@ -9,22 +9,12 @@ using ParlayRMS.WinLossRiskControl.Shared;
 
 namespace ParlayRMS.WinLossRiskControl.Handlers;
 
-public class ReportExcelHandler : IRequestHandler<AgentWinLossExcelRequest, ExcelPackage>,
-	IRequestHandler<MemberWinLossExcelRequest, ExcelPackage>,
-	IRequestHandler<SuperWinLossExcelRequest, ExcelPackage>
+public class ReportExcelHandler(WinLossService service, IMapper mapper, WinLossExcelBuilder builder)
+    : IRequestHandler<AgentWinLossExcelRequest, ExcelPackage>,
+        IRequestHandler<MemberWinLossExcelRequest, ExcelPackage>,
+        IRequestHandler<SuperWinLossExcelRequest, ExcelPackage>
 {
-	private readonly IMapper mapper;
-	private readonly WinLossService service;
-	private readonly WinLossExcelBuilder excelBuilder;
-
-	public ReportExcelHandler(WinLossService service, IMapper mapper, WinLossExcelBuilder excelBuilder)
-	{
-		this.service = service;
-		this.mapper = mapper;
-		this.excelBuilder = excelBuilder;
-	}
-
-	public async Task<ExcelPackage> Handle(SuperWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
+    public async Task<ExcelPackage> Handle(SuperWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
 	{
 		var excelSetting = new ExcelSetting
 		{
@@ -36,7 +26,7 @@ public class ReportExcelHandler : IRequestHandler<AgentWinLossExcelRequest, Exce
 		var total = mapper.Map<WinLossExcelModel>(data);
 		var list = mapper.Map<List<WinLossExcelModel>>(data.Rows);
 
-		return excelBuilder.CreateExcelPackage(list, total, excelSetting);
+		return builder.CreateExcelPackage(list, total, excelSetting);
 	}
 
 	public async Task<ExcelPackage> Handle(AgentWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
@@ -54,7 +44,7 @@ public class ReportExcelHandler : IRequestHandler<AgentWinLossExcelRequest, Exce
 
 		var total = mapper.Map<WinLossExcelModel>(data);
 		var list = mapper.Map<List<WinLossExcelModel>>(data.Rows);
-		return excelBuilder.CreateExcelPackage(list, total, excelSetting);
+		return builder.CreateExcelPackage(list, total, excelSetting);
 	}
 
 	public async Task<ExcelPackage> Handle(MemberWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
@@ -71,6 +61,6 @@ public class ReportExcelHandler : IRequestHandler<AgentWinLossExcelRequest, Exce
 
 		var total = mapper.Map<MemberWinLossExcelModel>(data);
 		var list = mapper.Map<List<MemberWinLossExcelModel>>(data.Rows);
-		return excelBuilder.CreateExcelPackage(list, total, excelSetting);
+		return builder.CreateExcelPackage(list, total, excelSetting);
 	}
 }

@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = ViewBag.HeaderText = ViewLang.AgentMemberWinLoss;
+}
+<link rel="stylesheet" href="/Content/MemberWinLoss.css" type="text/css" />
+<div class="filter">
+    <div class="filter-control" style="width: 1015px">
+        <div class="minimizetitle">
+            <div class="minimizecontent">
+                @ViewLang.FilterControl
+            </div>
+            <div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+                -
+            </div>
+        </div>
+        <div id="filtercontent" class="container">
+            <div class="row">
+                <div class="group">
+                    @Html.Label("usernameOfMember", string.Format("{0} {1}", ViewLang.Username, "(*)"))
+                    @Html.TextBox("usernameOfMember")
+                </div>
+                <div class="group">
+                    <p id="lbUserExtra" style="padding: 10px 0px;">(CC:)</p>
+                </div>
+                <div class="group">
+                    @Html.Label("parlayType", ViewLang.ParlayType, new { Style = "text-align: right; width: 75px;" })
+                    @Html.DropDownList("parlayType", Config.SpecialParlayTypes)
+                </div>
+                <div class="group">
+                    @Html.Label("fromDate", ViewLang.From)
+                    @Html.TextBox("fromDate")
+                </div>
+                <div class="group">
+                    @Html.Label("toDate", ViewLang.To, new { style = "text-align: right; width: 32px;" })
+                    @Html.TextBox("toDate")
+                </div>
+            </div>
+            <div class="row">
+                <div class="group">
+                    @Html.Label("combo", ViewLang.Combo, new { style = "text - align: right; width: 95px; " })
+                    @Html.DropDownList("combo", Config.Combos)
+                </div>
+                <div id="divSportsTypes" class="group">
+                    @Html.Label("sportsType", ViewLang.SportsType)
+                    @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
+                </div>
+                <div class="group">
+                    @Html.Label("", ViewLang.LiveType)
+                    @Html.DropDownList("ddlLiveType", Config.LiveTypes)
+                </div>
+                <div class="group">
+                    <button id="btnSearch" class="button">
+                        <span class="text">@ViewLang.Submit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div style="clear: both; padding-top: 20px;" id="divResult"></div>
+	<div style="clear: both; padding-top: 20px;" id="divReportByDate"></div>
+    <script type="text/ecmascript" src="/Scripts/Report/MemberWinLoss.js?v=3"></script>
+    
+    <script type="text/javascript">
+        var dateRanges = {
+            LimitDataFromDate: '@ViewBag.LimitDate', //Minimun date that support query data
+            NowDate: '@DateTime.Now'
+        };
+    </script>
+</div>

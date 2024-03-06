@@ -1,38 +1,46 @@
+using Fanex.Data;
 using Fanex.NAP.Client;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Web;
-using ParlayRMS.Site;
-using ParlayRMS.Site.CrossCuttingConcern;
-using ParlayRMS.Site.Extensions;
-using Fanex.Data.SqlServer;
+using Fanex.NAP.SignIn.Attribute;
+using Microsoft.AspNetCore.Mvc;
+using ONEbook.UM.AspNetCore.Filters;
+using ParlayRMS.Site.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-services.AddCustomCors();
-services.AddCustomAuthorization();
-services.AddCustomAuthentication(configuration);
+services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new ServiceFilterAttribute(typeof(CheckUMFilterAttribute)));
+    options.Filters.Add(new SessionAuthorizeAttribute());
+});
+services.AddBundle();
+services.AddRazorPages();
+services.AddCorsPolicy();
+services.AddAuthorizationPolicy();
+services.AddAuthentication(configuration);
 services.AddRedis(configuration);
-services.AddCustomSession(configuration);
+services.AddSession(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
+services.AddOneBookUm(configuration);
+services.AddFanexData(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
 services.AddManageAlertServices();
-services.AddOnebookUM(configuration);
-services.AddFanexSql(configuration);
-
-services.AddRazorPages();
-services.AddControllersWithViews();
+services.AddLegacyService();
 
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
+app.UseWebOptimizer();
 app.UseStaticFiles();
+
 app.UseCookiePolicy();
-app.UseMiddleware<ErrorHandler>();
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseSession();
 app.UseRouting();
 app.UseCors("AllowOrigin");
@@ -43,8 +51,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
-#if DEBUG
 app.Run();
-#else
-await app.RunAsync("http://0.0.0.0:5000");
-#endif

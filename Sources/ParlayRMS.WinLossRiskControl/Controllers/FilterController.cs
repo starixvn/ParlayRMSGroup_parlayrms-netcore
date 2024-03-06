@@ -8,16 +8,9 @@ namespace ParlayRMS.WinLossRiskControl.Controllers;
 [ApiController]
 [Route("api/win-loss-risk-control/[controller]")]
 [EnableCors("AllowOrigin")]
-public class FilterController : ControllerBase
+public class FilterController(IMediator mediator) : ControllerBase
 {
-	private readonly IMediator mediator;
-
-	public FilterController(IMediator mediator)
-	{
-		this.mediator = mediator;
-	}
-
-	[Route("sports")]
+    [Route("sports")]
 	public async Task<ActionResult> Sports() => Ok(await mediator.Send(new SportRequest()));
 
 	[Route("parlay-types")]

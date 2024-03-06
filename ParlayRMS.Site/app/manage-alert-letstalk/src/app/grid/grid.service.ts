@@ -1,0 +1,99 @@
+import { Injectable } from '@angular/core';
+import { HttpService } from 'nap-components/http';
+import { Helper } from 'nap-components/helper';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { SimilarTicketModel } from './similar-ticket/similar-ticket.model';
+import { PotentialWinningModel } from './potential-winning/potential-winning.model';
+import { LogModel } from './log/log.model';
+import { FilterModel, ItemModel } from '../filter/filter.model';
+import { AlertDetailModel, BetDetails, DataModel, TakeActionModel } from './grid.model';
+import { HttpClient } from '@angular/common/http';
+import { SpinnerService } from 'nap-components/spinner';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GridService {
+  private api = 'api/manage-alert/';
+
+  constructor(
+    private httpService: HttpService,
+    private readonly httpClient: HttpClient,
+    private readonly spinnerService: SpinnerService
+    ) { }
+
+  getAlerts(filterModel: FilterModel): Observable<DataModel> {
+    return this.httpService.post(`${this.api}alerts`, filterModel);
+  }
+  
+  getSimilarTickets(alertDetail: AlertDetailModel): Observable<SimilarTicketModel[]> {
+    return this.httpService.post(`${this.api}similar-detail`, alertDetail);
+  }
+
+  getPotentialWinning(alertDetail: AlertDetailModel): Observable<PotentialWinningModel[]> {
+    return this.httpService.post(`${this.api}potential-winning-detail`, alertDetail);
+  }
+
+  getLogs(id: string): Observable<LogModel[]> {
+    return this.httpService.post(`${this.api}log`, { alertId : id });
+  }
+
+  takeAction(model: TakeActionModel): Observable<LogModel[]> {
+    return this.httpService.post(`${this.api}take-action`, model);
+  }
+
+  getActions(): ItemModel[] {
+    return [
+      { id: '4', name: 'Choose Action', checked: true },
+      { id: '1', name: 'Send S&V', checked: false },
+      { id: '2', name: 'Send OS', checked: false },
+      { id: '3', name: 'Take Note', checked: false }
+    ]
+  }
+
+  getBetDetail(betDetails: BetDetails): Observable<string> {
+    let url = '';
+    switch(betDetails.betType) { 
+      case 38: { 
+         url = `BetList/SingleMatchParlayDetailPopup?transId=${betDetails.transId}&custId=${betDetails.custId}&username${betDetails.userName}`;
+         break; 
+      } 
+      case 376: { 
+        url = `BetList/PenaltyShootoutParlayDetailPopup?transId=${betDetails.transId}&username${betDetails.userName}`;
+         break; 
+      } 
+      default: { 
+        url = `BetList/BetDetails?transId=${betDetails.transId}&refNo=${betDetails.refNo}&username${betDetails.userName}`;
+         break; 
+      }
+    }
+    this.spinnerService.show();
+    return this.httpClient.post(url, {}, { responseType: 'text'})
+            .pipe(tap(() => this.spinnerService.hide()));
+  }
+
+  public exportExcel(filterModel: FilterModel): void {
+    const api = `${this.api}export-excel-alerts`;
+    this.httpService.download(api, filterModel).subscribe(response => {
+        const fileName = `Manage-Alerts.xlsx`;
+        Helper.downloadFile(response, fileName);
+    });
+  }
+
+  public exportExcelForSimilarBet(alertDetail: AlertDetailModel): void {
+    const api = `${this.api}export-excel-similar-bet`;
+    this.httpService.download(api, alertDetail).subscribe(response => {
+        const fileName = `Similar-Bet.xlsx`;
+        Helper.downloadFile(response, fileName);
+    });
+  }
+
+  public exportExcelForPotentialWinning(alertDetail: AlertDetailModel): void {
+    const api = `${this.api}export-excel-potential-winning`;
+    this.httpService.download(api, alertDetail).subscribe(response => {
+        const fileName = `Potential-Winning.xlsx`;
+        Helper.downloadFile(response, fileName);
+    });
+  }
+}

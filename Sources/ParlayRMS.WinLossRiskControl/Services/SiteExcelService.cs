@@ -12,7 +12,7 @@ public interface SiteExcelService
 	ExcelPackage CreateExcelPackage(WinLossModel model, ExcelSetting settings);
 }
 
-public class SiteExcelServiceImp : SiteExcelService
+public class SiteExcelServiceImp(IMapper mapper) : SiteExcelService
 {
 	private ExcelWorksheet bodySheet;
 
@@ -20,16 +20,9 @@ public class SiteExcelServiceImp : SiteExcelService
 
 	private ExcelWorksheet groupSheet;
 
-	private readonly IMapper mapper;
+    private int startRowIndex;
 
-	private int startRowIndex;
-
-	public SiteExcelServiceImp(IMapper mapper)
-	{
-		this.mapper = mapper;
-	}
-
-	public ExcelPackage CreateExcelPackage(WinLossModel model, ExcelSetting settings)
+    public ExcelPackage CreateExcelPackage(WinLossModel model, ExcelSetting settings)
 	{
 		var excelPackage = LoadTemplate(settings.FileName);
 		BuildBody(model.Rows, settings);
@@ -87,7 +80,7 @@ public class SiteExcelServiceImp : SiteExcelService
 
 	private ExcelPackage LoadTemplate(string fileName)
 	{
-		var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplate", "WinLossRiskControl", fileName);
+		var filePath = Path.Combine("ExcelTemplates", "WinLossRiskControl", fileName);
 
 		using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 		var excelPackage = new ExcelPackage(stream);

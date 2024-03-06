@@ -1,0 +1,247 @@
+﻿if (typeof ParlayRMS == 'undefined') {
+    ParlayRMS = {};
+};
+
+ParlayRMS.Winloss = {
+    Init: function () {
+        var nowDate = moment(dateRanges.NowDate).format('MMMM DD, YYYY');
+        var minDate = moment(dateRanges.LimitDataFromDate).format('MMMM DD, YYYY');
+
+        $("#parlayType").multiselect({
+            minWidth: 210,
+            height: 165,
+            create: function () {
+                $("#parlayType").multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $('#parlayType').on('change', function () {
+            var selectedParlays = $(this).multiselect("getChecked").map(function () {
+                return this.value;
+            });
+            if ($.inArray('1', selectedParlays) > -1) {
+                if ($.inArray('7', selectedParlays) < 0) {
+                    selectedParlays.push('7');
+                    $('input[name^=multiselect_parlayType]')[1].checked = true;
+                }
+                if ($.inArray('6', selectedParlays) < 0) {
+                    selectedParlays.push('6');
+                    $('input[name^=multiselect_parlayType]')[2].checked = true;
+                }
+            }
+        });
+
+        $("#combo").multiselect({
+            minWidth: 132,
+            height: 136,
+            create: function () {
+                $("#combo").multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $("#ddlSite").multiselect({
+            minWidth: 80,
+            height: 80,
+            header: false,
+            multiple: false,
+            selectedList: 1
+        });
+
+        $("#ddlLiveType").multiselect({
+            minWidth: 100,
+            height: 110,
+            header: false,
+            multiple: false,
+            selectedList: 1
+        });
+
+        $("#sportsType").multiselect({
+            minWidth: 220,
+            height: 300,
+            create: function () {
+                $("#sportsType").multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $("#fromDate").datepicker({
+            dateFormat: "MM dd, yy",
+            showButtonPanel: true,
+            changeMonth: true,
+            changeYear: true,
+            minDate: minDate,
+            maxDate: nowDate,
+            onSelect: function (dateText, inst) {
+                if (dateText != inst.lastVal) {
+                    $("#dateRange option[value='7']").attr('selected', 1);
+                    $("#dateRange").multiselect("refresh");
+                }
+            },
+            onClose: function (selectedDate) {
+                $("#toDate").datepicker("option", "minDate", selectedDate);
+            }
+        });
+
+        $("#toDate").datepicker({
+            dateFormat: "MM dd, yy",
+            showButtonPanel: true,
+            changeMonth: true,
+            changeYear: true,
+            minDate: minDate,
+            maxDate: nowDate,
+            onSelect: function (dateText, inst) {
+                if (dateText != inst.lastVal) {
+                    $("#dateRange option[value='7']").attr('selected', 1);
+                    $("#dateRange").multiselect("refresh");
+                }
+            },
+            onClose: function (selectedDate) {
+                $("#fromDate").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+
+        var nowDate = moment(dateRanges.NowDate);
+        $("#fromDate").val(nowDate.format('MMMM DD, YYYY'));
+        $("#toDate").val(nowDate.format('MMMM DD, YYYY'));
+
+        $("#btnSearch").addClass("button");
+        $('#btnSearch').click(function () {
+            $("#divResult").html('');
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+
+            if (validator.validateDate("#fromDate")) {
+                return;
+            }
+
+            if (validator.validateDate("#toDate")) {
+                return;
+            }
+
+            var parlayTypes = $("#parlayType").multiselect("getChecked").map(function () {
+                return this.value;
+            }).get().join(',');
+            if (parlayTypes == '') {
+                Validators.show($("#parlayType").multiselect("getButton").get(0), 'Please select your options');
+                return;
+            }
+
+            var combos = $("#combo").multiselect("getChecked").map(function () {
+                return this.value;
+            }).get().join(',');
+            if (combos == '') {
+                Validators.show($("#combo").multiselect("getButton").get(0), 'Please select your options');
+                return;
+            }
+
+            var site = parseInt($("#ddlSite").val());
+
+            var liveType = parseInt($("#ddlLiveType").val());
+
+            var sportsTypes = $("#sportsType").multiselect("getChecked").map(function () {
+                return this.value;
+            }).get().join(',');
+            if (sportsTypes == '') {
+                Validators.show($("#sportsType").multiselect("getButton").get(0), 'Please select your options');
+                return;
+            }
+
+            var reportType = $('input[name=ReportTypes]:checked').val();
+
+            ParlayRMS.Winloss.Data(parlayTypes, fromDate, toDate, sportsTypes, combos, site, liveType, reportType);
+        });
+    },
+    Data: function (parlayTypes, fromDate, toDate, sportsType, combos, site, liveType, reportType) {
+        var data = {
+            FromDate: fromDate,
+            ToDate: toDate,
+            ParlayTypes: parlayTypes,
+            SportsType: sportsType,
+            Combos: combos,
+            Site: site,
+            LiveType: liveType,
+            ReportType: reportType
+        }
+
+        $.ajax({
+            url: resolveClientUrl('Winloss/Data'),
+            type: 'POST',
+            data: data,
+            dataType: 'html',
+            cache: false,
+            beforeSend: function (xhr) {
+                loading.show();
+            },
+            success: function (result) {
+                $("#divResult").html(result);
+            },
+            error: function (xhr, status, err) {
+                alertBox.showError(xhr);
+            },
+            complete: function () {
+                loading.hide();
+            }
+        });
+    },
+    ExportExcel: function (parlayTypes, fromDate, toDate, sportsType, combos, site, liveType, reportType) {
+        var data = {
+            FromDate: fromDate,
+            ToDate: toDate,
+            ParlayTypes: parlayTypes,
+            SportsType: sportsType,
+            Combos: combos,
+            Site: site,
+            LiveType: liveType,
+            ReportType: reportType
+        }
+
+        var url = 'Winloss/Excel?' + $.param(data);
+        window.location.href = resolveClientUrl(url);
+    }
+}
+
+$(document).ready(function () {
+    note.init();
+    ParlayRMS.Winloss.Init();
+});

@@ -13,8 +13,8 @@ public class HeaderController : ControllerBase
 	{
 		var header = new Header
 		{
-			Menus = new List<Menu>()
-		};
+			Menus = []
+        };
 
 		return Ok(header);
 	}

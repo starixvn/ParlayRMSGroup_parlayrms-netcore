@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
   </PropertyGroup>
@@ -12,9 +12,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;8632</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Fanex.RemotingRef" Version="1.5.1" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fanex.Data.ProxyClient" Version="0.0.2" />
+    <PackageReference Include="Fanex.RemotingRef" Version="1.5.2" />
   </ItemGroup>
 
 </Project>

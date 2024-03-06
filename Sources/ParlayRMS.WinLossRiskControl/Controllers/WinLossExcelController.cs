@@ -9,16 +9,9 @@ namespace ParlayRMS.WinLossRiskControl.Controllers;
 [ApiController]
 [Route("api/win-loss-risk-control")]
 [EnableCors("AllowOrigin")]
-public class WinLossExcelController
+public class WinLossExcelController(IMediator mediator)
 {
-	private readonly IMediator mediator;
-
-	public WinLossExcelController(IMediator mediator)
-	{
-		this.mediator = mediator;
-	}
-
-	[Route("site-win-loss-excel")]
+    [Route("site-win-loss-excel")]
 	public async Task<IActionResult> ExcelSite(SiteWinLossExcelRequest request)
 	{
 		var excelPackage = await mediator.Send(request);

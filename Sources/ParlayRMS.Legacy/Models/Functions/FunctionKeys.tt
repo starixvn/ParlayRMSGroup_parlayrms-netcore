@@ -1,0 +1,34 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".generated.cs" #>
+<#@ Assembly Name="System.Data" #>
+<#@ Import Namespace="System.Data" #>
+<#@ Import Namespace="System.Data.SqlClient" #>
+<#
+	string connectionString = "data source=10.18.200.54;initial catalog=NAP_UserControl;User Id=vnteam; pwd=@readonly#;";
+#>
+namespace ParlayRMS.Models.Functions
+{
+	public class FunctionKeys
+	{
+	<#
+		SqlConnection conn = new SqlConnection(connectionString);
+
+		string command = string.Format("SELECT DISTINCT FunctionKey FROM [NAP_Functions] WHERE SiteId = 88 AND IsActive = 1");
+
+		SqlCommand comm = new SqlCommand(command, conn);
+
+		conn.Open();
+
+		SqlDataReader reader = comm.ExecuteReader();
+
+		while(reader.Read())
+		{#>
+		public const string <#= reader["FunctionKey"].ToString() #> = "<#= reader["FunctionKey"].ToString() #>";
+
+		<#}#>
+		<#  
+		reader.Close();
+		conn.Close();
+		#> 
+	}	
+}

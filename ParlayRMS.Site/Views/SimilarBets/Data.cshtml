@@ -1,0 +1,295 @@
+﻿@using Formatter = ParlayRMS.Legacy.Utilities.Formatter﻿
+@{
+    var counter = 0;
+}
+@model ParlayRMS.Legacy.DTO.SimilarBets.RMS_Similar_Parlay_Betlist
+<div>
+    <table class="main">
+        <thead>
+            <tr>
+                <th style="width: 170px">
+                    @ViewLang.TransTime
+                </th>
+                <th style="width: 130px">
+                    @ViewLang.BetID
+                </th>
+                <th style="width: 75px">
+                    @ViewLang.Site
+                </th>
+                <th style="width: 120px">
+                    @ViewLang.Username
+                </th>
+                <th style="width: 100px">
+                    @ViewLang.CustomerClass
+                </th>
+                <th style="width: 75px">
+                    @ViewLang.Odds
+                </th>
+                <th style="width: 120px">
+                    @(Model.StatusID == 0 ? ViewLang.Stake : ViewLang.StakeAfterPT)
+                </th>
+                <th style="width: 120px">
+                    @(Model.StatusID == 0 ? ViewLang.PotentialWinningAmount : ViewLang.HouseLoseAmount)
+                </th>
+                <th style="width: 120px">
+                    @(Model.StatusID == 0 ? ViewLang.NetWinAfterPT : ViewLang.WinningAmount)
+                </th>
+                <th style="width: 90px">
+                    Total Combo Bets
+                </th>
+                <th style="width: 90px">
+                    @ViewLang.TotalSelections
+                </th>
+                <th style="width: 130px">
+                    Sport Type
+                </th>
+                <th style="width: 100px">
+                    @ViewLang.BetDetails
+                </th>
+                <th style="width: 100px">
+                    @ViewLang.SimilarBets
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.Transdate
+                </td>
+                <td class="numeric">
+                    @Model.Transid
+                </td>
+                <td class="center">
+                    @Model.SiteGroup
+                </td>
+                <td class="@ModelsHelper.GetClassByMemberLevel(@Model.Level)">
+                    @Model.Username
+                </td>
+                <td class="numeric">
+                    @Model.CustomerClass
+                </td>
+                <td class="numeric">
+                    @Formatter.FormatOdds(Model.Odds)
+                </td>
+                <td class="numeric">
+                    @Formatter.FormatNumber2(Model.Stake)
+                </td>
+                <td class="numeric">
+                    @(Model.StatusID == 0 ? @Formatter.FormatWithoutRounding(Model.PotentialWinningAmount) : @Formatter.FormatNumber3(Model.HouseLoseAmount))
+                </td>
+                <td class="numeric">
+                    @Formatter.FormatWithoutRounding(Model.Max_payout)
+                </td>
+	            <td class="center">
+		            @{
+			            var totalBetText = Model.TotalBet > 1 ? " bets" : " bet";
+
+			            if (Model.BetType == 38)
+			            {
+				            totalBetText += " (S)";
+			            }
+
+			            if (Model.BetType == 376)
+			            {
+				            totalBetText += " (P)";
+			            }
+
+			            if (Model.IsParlayGenerator)
+			            {
+				            totalBetText += " (PG)";
+			            }
+
+			            if (Model.IsBoostBonus)
+			            {
+				            totalBetText += " (B)";
+			            }
+		            }
+		            @string.Format("{0} {1}", Model.TotalBet, totalBetText)
+	            </td>
+                <td class="center">
+                    @if (Model.NumberWon == 0 || Model.BetType == (int)BetType.SingleMatchParlay)
+                    {
+                        @Html.Raw(Model.TotalSelection)
+                    }
+                    else
+                    {
+                        @Html.Raw(string.Format("{0}/{1}", Model.NumberWon, Model.TotalSelection))
+                    }
+                </td>
+                <td class="center">
+                    @Model.SportTypeName
+                </td>
+                <td class="center">
+                    <button class="button-disable" style="width:40px;" onclick="ViewBetDetails('@Model.Username', '@Model.Transid', '@Model.Transid', '@Model.Refno', '@Model.Refno', @Model.CustId, @Model.CustId, @Model.BetType);">
+                        @ViewLang.View
+                    </button>
+                </td>
+                <td class="center">
+                    @if (Model.Cnt_bets <= 0)
+                    {
+                        <button disabled class="button-disable" style="width: 40px;" onclick="ViewSimilarBets();">
+                            @Model.Cnt_bets
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="button-disable" style="width: 40px;" onclick="ViewSimilarBets();">
+                            @Model.Cnt_bets
+                        </button>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="similarbetlist" class="details" style="display: none; width: 1520px">
+    <div class="title">
+        <span class="title" style="padding-left: 10px;">@ViewLang.SimilarBetList</span>
+        <img class="close" src="Content/images/Content/closeButton.png" alt="@ViewLang.Close" title="@ViewLang.Close" onclick="CloseSimilarBets();" />
+    </div>
+    <div style="width: 1524px">
+        <table class="sub thead">
+            <colgroup>
+                <col width="50px" />
+                <col width="140px" />
+                <col width="75px" />
+                <col width="150px" />
+                <col width="100px" />
+                <col width="160px" />
+                <col width="160px" />
+                <col width="160px" />
+                <col width="150px" />
+                <col width="275px" />
+                <col width="100px" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        @ViewLang.No
+                    </th>
+                    <th>
+                        @ViewLang.BetID
+                    </th>
+                    <th>
+                        @ViewLang.Site
+                    </th>
+                    <th>
+                        @ViewLang.Username
+                    </th>
+                    <th>
+                        @ViewLang.CustomerClass
+                    </th>
+                    <th class="sortable">
+                        @ViewLang.Stake
+                    </th>
+                    <th class="sortable">
+                        @(Model.StatusID == 0 ? ViewLang.PotentialWinningAmount : ViewLang.HouseLoseAmount)
+                    </th>
+                    <th class="sortable">
+                        @(Model.StatusID == 0 ? ViewLang.NetWinAfterPT : ViewLang.WinningAmount)
+                    </th>
+	                <th>
+		                @ViewLang.SimilarSelectionFound
+	                </th>
+	                <th>
+		                @ViewLang.IP
+	                </th>
+                    <th>
+                        @ViewLang.BetDetails
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="scrollGridContent" style="max-height: 500px; width: 1538px">
+        <table class="sub tbody">
+            <colgroup>
+                <col width="50px" />
+                <col width="140px" />
+                <col width="75px" />
+                <col width="150px" />
+                <col width="100px" />
+                <col width="160px" />
+                <col width="160px" />
+                <col width="160px" />
+                <col width="150px" />
+                <col width="275px" />
+                <col width="100px" />
+            </colgroup>
+            <tbody>
+                @foreach (var item in Model.Details)
+                {
+                    counter = counter + 1;
+                    <tr id="@item.TransId">
+                        <td class="center">
+                            @counter
+                        </td>
+                        <td class="numeric">
+                            @item.TransId
+                        </td>
+                        <td class="center">
+                            @item.SiteGroup
+                        </td>
+                        <td class="@ModelsHelper.GetClassByMemberLevel(item.Level)">
+                            @item.Username
+                        </td>
+                        <td class="numeric">
+                            @item.CustomerClass
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatWithoutRounding(item.Stake)
+                        </td>
+                        <td class="numeric">
+                            @(Model.StatusID == 0 ? @Formatter.FormatWithoutRounding(item.PotentialWinningAmount) : @Formatter.FormatNumber3(item.HouseLoseAmount))
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatWithoutRounding(item.Max_Payout)
+                        </td>
+	                    <td class="center">
+		                    @item.Similar_Selection
+	                    </td>
+	                    <td class="center">
+                            <a href="#" onclick="OpenViewIpInfo('@item.Ip', '@item.TransDateString')">@item.Ip</a>
+	                    </td>
+                        <td class="center">
+                            <button class="button-disable" style="width:40px;" onclick="ViewBetDetails('@item.Username', '@item.TransId', '@Model.Transid', '@item.Refno','@Model.Refno', @Model.CustId, @item.CustId, @Model.BetType);">
+                                @ViewLang.View
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 1521px" class="mainfooter">
+        <table class="main" id="footer">
+            <colgroup>
+                <col width='515px' />
+                <col width='160px' />
+                <col width='160px' />
+                <col width='160px' />
+                <col width='525px' />
+            </colgroup>
+            <tfoot>
+                @if (Model.TotalData != null)
+                {
+                    <tr>
+                        <td class="center">
+                            Total of @Model.TotalData.SimilarBetsTotal similar bets
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatWithoutRounding(Model.TotalData.Stake)
+                        </td>
+                        <td class="numeric">
+                            @(Model.StatusID == 0 ? @Formatter.FormatWithoutRounding(Model.TotalData.PotentialWinningAmount) : @Formatter.FormatNumber3(Model.TotalData.HouseLoseAmount))
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatWithoutRounding(Model.TotalData.MaxPayout)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            </tfoot>
+        </table>
+    </div>
+</div>

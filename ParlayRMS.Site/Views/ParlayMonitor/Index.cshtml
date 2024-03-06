@@ -1,0 +1,142 @@
+﻿@using ParlayRMS.Legacy.Utilities
+@using Fanex.NAP.Client.Helpers.Web
+@inject INapSession napSession
+@{
+    ViewBag.Title = ViewBag.HeaderText = ViewLang.ParlayMonitor;
+}
+<link rel="stylesheet" href="/Content/jquery-ui-multiselect.css" type="text/css" />
+<link rel="stylesheet" href="/Content/ParlayMonitor.css" type="text/css" />
+@await Component.InvokeAsync("ParlayMonitorFilter")
+<div id="noflash" style="display: none">
+    Adobe Flash Player or an HTML5 supported browser is required for this feature
+    <br />
+    Use one of the following ways to get it back:
+    <br />
+    <ul>
+        <li>
+            <a href="http://get.adobe.com/flashplayer" target="_blank">
+                Download the latest Flash
+                Player
+            </a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/html5" target="_blank">
+                Upgrade to an HTML5 supported
+                browser
+            </a>
+        </li>
+    </ul>
+</div>
+<div style="clear: both; display: none" id="divResult">
+    <div style="width: 1830px">
+        <table class="main" id="header">
+            <colgroup>
+	            <col width="50" />
+	            <col width="150" />
+	            <col width="180" />
+	            <col width="100" />
+	            <col width="75" />
+	            <col width="150" />
+	            <col width="100" />
+	            <col width="75" />
+	            <col width="120" />
+	            <col width="120" />
+	            <col width="120" />
+	            <col width="90" />
+	            <col width="90" />
+	            <col width="130" />
+	            <col width="110" />
+	            <col width="140" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th>
+                    @ViewLang.No
+                </th>
+                <th class="sortable" data-col-type="date" id="transTime">
+                    @ViewLang.TransTime
+                </th>
+	            <th>
+		            @ViewLang.BetID
+	            </th>
+	            <th>
+		            @ViewLang.BetDetails
+	            </th>
+                <th class="sortable" data-col-type="ignorecase">
+                    @ViewLang.Site
+                </th>
+                <th class="sortable" data-col-type="ignorecase">
+                    @ViewLang.Username
+                </th>
+                <th class="sortable" data-col-type="int-string">
+                    @ViewLang.CustomerClass
+                </th>
+                <th class="sortable" data-col-type="float">
+                    @ViewLang.Odds
+                </th>
+                <th class="sortable" data-col-type="float">
+                    @ViewLang.Stake
+                </th>
+                <th class="sortable" data-col-type="float">
+                    @ViewLang.PotentialWinningAmount
+                </th>
+                <th class="sortable" data-col-type="float">
+                    @ViewLang.NetWinAfterPT
+                </th>
+                <th>
+                    Total Combo Bets
+                </th>
+                <th>
+                    @ViewLang.TotalSelections
+                </th>
+                <th>
+                    Sport Type
+                </th>
+                <th>
+                    @ViewLang.IP
+                </th>
+	            <th>
+                    Checked By
+                </th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="scrollGridContent" style="width: 1820px; margin-bottom: 10px;">
+        <table class="main" id="result">
+            <colgroup>
+	            <col width="50" />
+	            <col width="150" />
+	            <col width="180" />
+	            <col width="100" />
+	            <col width="75" />
+	            <col width="150" />
+	            <col width="100" />
+	            <col width="75" />
+	            <col width="120" />
+	            <col width="120" />
+	            <col width="120" />
+	            <col width="90" />
+	            <col width="90" />
+	            <col width="130" />
+	            <col width="110" />
+	            <col width="140" />
+            </colgroup>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<script type="text/ecmascript" src="/Scripts/jquery-ui-multiselect.js"></script>
+<script type="text/ecmascript" src="/Scripts/Monitor/Parlay.js?v=5"></script>
+<script type="text/ecmascript" src="/Scripts/Member/Core.js"></script>
+<script type="text/javascript">
+    var _resource = {
+        'allSports': '@ViewLang.Allsports',
+        'soccerOnly': '@ViewLang.Socceronly',
+        'combinedSports': '@ViewLang.Combinedsports',
+        'otherSports': '@ViewLang.Othersports'
+    };
+    var hasIpPermission = @JavascriptHelper.GetString(ViewBag.HasReadPermission);
+    var userId = @napSession.UserId;
+    var userName = '@napSession.UserName';
+</script>

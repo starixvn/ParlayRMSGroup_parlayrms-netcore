@@ -1,0 +1,64 @@
+namespace ParlayRMS.Legacy.DTO.ViewIPInfo;
+
+using System;
+
+public class RMS_Rpt_Parlay_ViewIPInfoByUser
+{
+    public long TransID { get; set; }
+
+    public long RefNo { get; set; }
+
+    public DateTime TransDate { get; set; }
+
+    public int BetType { get; set; }
+
+    public decimal? Odds { get; set; }
+
+    public decimal Odds2 { get; set; }
+
+    public decimal Bbp { get; set; }
+
+    public decimal Bba { get; set; }
+
+    public decimal Stake { get; set; }
+
+    public decimal ActualStake { get; set; }
+
+    public string StakeString { get; set; }
+
+    public int StatusId { get; set; }
+
+    public string Status { get; set; }
+
+    public decimal Winlost { get; set; }
+
+    public int Hdp1 { get; set; }
+
+    public int Hdp2 { get; set; }
+
+    public string BetTeam { get; set; }
+
+    public string BetCheck { get; set; }
+
+    public string Choice { get; set; }
+
+    public int HomeId { get; set; }
+
+    public int AwayId { get; set; }
+
+    public bool IsNeutral { get; set; }
+
+    public int SportTypeId { get; set; }
+
+    public int LeagueId { get; set; }
+
+    public DateTime EventDate { get; set; }
+
+    public decimal OddsSpread { get; set; }
+
+    public string ExtraInfo { get; set; }
+
+    public bool IsGOF { get; set; }
+
+    public bool IsBoostBonus { get; set; }
+}

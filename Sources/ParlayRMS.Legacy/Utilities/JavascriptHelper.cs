@@ -1,0 +1,9 @@
+﻿namespace ParlayRMS.Legacy.Utilities;
+
+public static class JavascriptHelper
+{
+    public static string GetString(bool value)
+    {
+        return value.ToString().ToLower();
+    }
+}

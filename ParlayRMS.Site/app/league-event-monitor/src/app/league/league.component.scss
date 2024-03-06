@@ -1,0 +1,24 @@
+@import '~nap-theme/scss/grid';
+.nap-grid {
+    padding: 0.3rem;
+    .body {
+        max-height: none;
+    }
+}
+
+::ng-deep thead tr th{
+    color: white;
+    cursor: pointer;
+    span {
+      display: inline-grid;
+      margin-left: 0.25rem;
+      em {
+          height: 2px;
+      }
+    }
+}
+
+::ng-deep .sort-icon {
+    position: relative;
+    top: 3px;
+}

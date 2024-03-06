@@ -9,24 +9,12 @@ using ParlayRMS.ManageAlert.Services;
 
 namespace ParlayRMS.ManageAlert.Handlers;
 
-public class ExcelHandler : IRequestHandler<ManageAlertExcelRequest, ExcelPackage>,
-	IRequestHandler<SimilarTicketDetailExcelRequest, ExcelPackage>,
-	IRequestHandler<PotentialWinningDetailExcelRequest, ExcelPackage>
+public class ExcelHandler(ExcelBuilder builder, IMapper mapper, ManageAlertService alertService)
+    : IRequestHandler<ManageAlertExcelRequest, ExcelPackage>,
+        IRequestHandler<SimilarTicketDetailExcelRequest, ExcelPackage>,
+        IRequestHandler<PotentialWinningDetailExcelRequest, ExcelPackage>
 {
-	private readonly ExcelBuilder excelBuilder;
-
-	private readonly IMapper mapper;
-
-	private readonly ManageAlertService manageAlertService;
-
-	public ExcelHandler(ExcelBuilder excelBuilder, IMapper mapper, ManageAlertService manageAlertService)
-	{
-		this.excelBuilder = excelBuilder;
-		this.mapper = mapper;
-		this.manageAlertService = manageAlertService;
-	}
-
-	public async Task<ExcelPackage> Handle(ManageAlertExcelRequest request, CancellationToken cancellationToken)
+    public async Task<ExcelPackage> Handle(ManageAlertExcelRequest request, CancellationToken cancellationToken)
 	{
 		var excelSetting = new ExcelSetting
 		{
@@ -34,10 +22,10 @@ public class ExcelHandler : IRequestHandler<ManageAlertExcelRequest, ExcelPackag
 			SheetName = "Manage_Alert"
 		};
 		var criteria = mapper.Map<ManageAlertCriteria>(request);
-		var data = await manageAlertService.GetAlerts(criteria);
+		var data = await alertService.GetAlerts(criteria);
 		var list = mapper.Map<List<ManageAlertExcelModel>>(data.Items);
 		UpdateViewModel(list);
-		return excelBuilder.CreateExcelPackage(list, excelSetting);
+		return builder.CreateExcelPackage(list, excelSetting);
 	}
 
 	public async Task<ExcelPackage> Handle(SimilarTicketDetailExcelRequest request, CancellationToken cancellationToken)
@@ -48,11 +36,11 @@ public class ExcelHandler : IRequestHandler<ManageAlertExcelRequest, ExcelPackag
 			SheetName = "Similar_Bet"
 		};
 		var criteria = mapper.Map<ViewDetailCriteria>(request);
-		var data = await manageAlertService.GetSimilarTicketDetail(criteria);
+		var data = await alertService.GetSimilarTicketDetail(criteria);
 		var list = mapper.Map<List<SimilarTicketDetailExcelModel>>(data);
 		var index = 1;
 		foreach (var item in list) item.No = index++;
-		return excelBuilder.CreateExcelPackage(list, excelSetting);
+		return builder.CreateExcelPackage(list, excelSetting);
 	}
 
 	public async Task<ExcelPackage> Handle(PotentialWinningDetailExcelRequest request, CancellationToken cancellationToken)
@@ -63,11 +51,11 @@ public class ExcelHandler : IRequestHandler<ManageAlertExcelRequest, ExcelPackag
 			SheetName = "Potential_Winning"
 		};
 		var criteria = mapper.Map<ViewDetailCriteria>(request);
-		var data = await manageAlertService.GetPotentialWinningDetail(criteria);
+		var data = await alertService.GetPotentialWinningDetail(criteria);
 		var list = mapper.Map<List<PotentialWinningDetailExcelModel>>(data);
 		var index = 1;
 		foreach (var item in list) item.No = index++;
-		return excelBuilder.CreateExcelPackage(list, excelSetting);
+		return builder.CreateExcelPackage(list, excelSetting);
 	}
 
 	private static void UpdateViewModel(IEnumerable<ManageAlertExcelModel> list)

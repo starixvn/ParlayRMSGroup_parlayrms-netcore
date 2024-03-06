@@ -8,15 +8,9 @@ public interface FilterService
 	IEnumerable<SportModel> GetSportTypes();
 }
 
-public class FilterServiceImp : FilterService
+public class FilterServiceImp(IRemotingRefService refService) : FilterService
 {
-	private readonly IRemotingRefService remotingRefService;
-	public FilterServiceImp(IRemotingRefService remotingRefService)
-	{
-		this.remotingRefService = remotingRefService;
-	}
-
-	public IEnumerable<SportModel> GetSportTypes()
+    public IEnumerable<SportModel> GetSportTypes()
 	{
 		var sportTypes = new List<SportModel>
 		{
@@ -27,7 +21,7 @@ public class FilterServiceImp : FilterService
 		var otherSports = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
 		sportTypes.AddRange(otherSports.Select(item => item == -5 ?
 			new SportModel { SportId = -5, SportName = "Virtual Basketball", SportGroup = 1 } :
-			new SportModel { SportId = item, SportName = remotingRefService.GetSportName(item.ToString(), "en"), SportGroup = 1 }
+			new SportModel { SportId = item, SportName = refService.GetSportName(item.ToString(), "en"), SportGroup = 1 }
 		));
 		sportTypes.Add(new SportModel { SportId = -2, SportName = "Other sports", SportGroup = 1 });
 		sportTypes.Add(new SportModel { SportId = -1, SportName = "Combined other sports", SportGroup = 1 });

@@ -14,29 +14,20 @@ public interface LeagueEventService
 	Task<IEnumerable<MainTicketModel>> GetMainTickets(ExcelRequest request);
 }
 
-public class LeagueEventServiceImp : LeagueEventService
+public class LeagueEventServiceImp(IDynamicRepository repository, IMapper mapper) : LeagueEventService
 {
-	private readonly IDynamicRepository dynamicRepository;
-	private readonly IMapper mapper;
-
     private const string Others = "Others";
 
-	public LeagueEventServiceImp(IDynamicRepository dynamicRepository, IMapper mapper)
-	{
-		this.dynamicRepository = dynamicRepository;
-		this.mapper = mapper;
-	}
-
-	public Task<IEnumerable<LeagueDataModel>> GetLeaguesData(LeagueDataRequest request)
+    public Task<IEnumerable<LeagueDataModel>> GetLeaguesData(LeagueDataRequest request)
 	{
 		var criteria = mapper.Map<LeagueDataCriteria>(request);
-		return dynamicRepository.FetchAsync<LeagueDataModel>(criteria);
+		return repository.FetchAsync<LeagueDataModel>(criteria);
 	}
 
 	public Task<IEnumerable<EventGroupModel>> GetEvents(EventRequest request)
 	{
 		var criteria = mapper.Map<EventCriteria>(request);
-		var rawData = dynamicRepository.Fetch<EventModel>(criteria);
+		var rawData = repository.Fetch<EventModel>(criteria);
 		var eventGroup = UpdateModelView(rawData);
 		return Task.FromResult(eventGroup);
 	}
@@ -45,7 +36,7 @@ public class LeagueEventServiceImp : LeagueEventService
 	{
 		var result = new List<EventDetailModel>();
 		var criteria = mapper.Map<EventDetailCriteria>(request);
-		var data = dynamicRepository.Fetch<EventDetailModel>(criteria);
+		var data = repository.Fetch<EventDetailModel>(criteria);
 		var (stakeTotal, ticketTotal) = data.Aggregate((Stake: 0m, Ticket: 0), (sums, item) => (sums.Stake + item.Stake, sums.Ticket + item.Ticket));
 		result.Add(new EventDetailModel { Stake = stakeTotal, Ticket = ticketTotal });
 		result.AddRange(data.OrderByDescending(x => x.Stake));
@@ -55,7 +46,7 @@ public class LeagueEventServiceImp : LeagueEventService
 	public Task<IEnumerable<MainTicketModel>> GetMainTickets(ExcelRequest request)
 	{
 		var criteria = mapper.Map<EventDetailCriteria>(request);
-		var result = dynamicRepository.Fetch<MainTicketModel>(criteria);
+		var result = repository.Fetch<MainTicketModel>(criteria);
 		return Task.FromResult(result);
 	}
 
@@ -95,19 +86,19 @@ public class LeagueEventServiceImp : LeagueEventService
 				});
 			}
 			eventGroupModel.MatchId = item.MatchId;
-			eventGroupModel.EventList = new List<EventModel>
-			{
-				new()
-				{
-					HomeTotalStake = subHomeTotalStake,
-					HomeTotalTicket = subHomeTotalTicket,
-					AwayTotalStake = subAwayTotalStake,
-					AwayTotalTicket = subAwayTotalTicket,
-					HomeName = homeName,
-					AwayName = awayName,
-					LeagueName = leagueName
-				}
-			};
+			eventGroupModel.EventList =
+            [
+                new EventModel
+                {
+                    HomeTotalStake = subHomeTotalStake,
+                    HomeTotalTicket = subHomeTotalTicket,
+                    AwayTotalStake = subAwayTotalStake,
+                    AwayTotalTicket = subAwayTotalTicket,
+                    HomeName = homeName,
+                    AwayName = awayName,
+                    LeagueName = leagueName
+                }
+            ];
 			var sortedFixedBetTypeList = SortFixedBetTypeList(item.EventList, awayEventModelList);
 			eventGroupModel.EventList.AddRange(sortedFixedBetTypeList);
 			AddMoreThanTwoWayBetTypeList(eventGroupModel.EventList, item.EventList, homeName, awayName);

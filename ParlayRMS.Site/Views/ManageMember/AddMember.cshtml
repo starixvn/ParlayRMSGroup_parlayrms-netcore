@@ -1,0 +1,34 @@
+﻿@model ParlayRMS.Legacy.ViewModel.ManageMember.AddMemberModel
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = ViewLang.AddSpecialMember;
+    ViewBag.Submit = "AddMemberPost()";
+}
+<div class="popup-content-label">
+    @Html.LabelFor(m => m.UserName)
+</div>
+<div class="popup-content-input">
+    @Html.TextBoxFor(m => m.UserName, string.Empty, new { @class = "popup-content-textbox w175" })
+</div>
+<div class="popup-content-label2">
+    @Html.LabelFor(m => m.Level)
+</div>
+<div class="popup-content-input2">
+    <div class="member-level level1">
+        <span id="addNewLevelName">Level 1</span> <span id="getColor" class="arrowDown" valcolor="1"
+            title="Click to change level"></span>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#getColor").contextMenu({
+            menu: 'LevelList'
+        }, function (elOption, elMenu, pos) {
+            $("#addNewLevelName").text(elOption.html());
+            var currentClass = $(elMenu).parent().attr('class');
+            $(elMenu).parent().removeClass(currentClass);
+            $(elMenu).parent().addClass("level " + elOption.attr('color'));
+            $(elMenu).attr('valColor', elOption.attr('level'));
+        });
+    });
+</script>

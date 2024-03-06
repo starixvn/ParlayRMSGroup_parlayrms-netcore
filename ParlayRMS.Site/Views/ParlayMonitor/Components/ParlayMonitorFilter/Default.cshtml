@@ -1,0 +1,107 @@
+﻿<div class="filter">
+    <div class="filter-control" style="border: 1px solid black; width: 1344px;">
+        <div class="minimizetitle">
+            <div class="minimizecontent">
+                @ViewLang.FilterControl
+            </div>
+            <div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+                -
+            </div>
+        </div>
+        <div id="filtercontent" class="container">
+            <div class="row">
+                <div class="group">
+                    @Html.Label("combo", ViewLang.Combo, new { @class = "lable" })
+                    @Html.DropDownList("combo", (List<SelectListItem>)ViewBag.Combos, new { multiple = "multiple" })
+                </div>
+                <div class="group">
+                    @Html.Label("parlayType", ViewLang.ParlayType, new { @class = "lable" })
+                    @Html.DropDownList("parlayType", (List<SelectListItem>)ViewBag.ParlayTypes, new { multiple = "multiple" })
+                </div>
+                <div class="group">
+                    @Html.CheckBox("cornerParlay")
+                    @Html.Label("cornerParlay", ViewLang.CornerParlay, new { @class = "lable" })
+                </div>
+                <div class="group">
+                    @Html.Label("market", ViewLang.Market, new { @class = "lable" })
+                    @Html.DropDownList("market", (List<SelectListItem>)ViewBag.Markets, new { multiple = "multiple" })
+                </div>
+                <div class="group">
+                    <input type="radio" id="radStake" name="radFilterStake"
+                           value="1">
+                    @Html.Label("radStake", ViewLang.Stake, new { @class = "lable" })
+                </div>
+                <div class="group">
+                    <input type="radio" id="radNetWinAfterPT" checked="checked" name="radFilterStake" value="2">
+                    @Html.Label("radNetWinAfterPT", ViewLang.NetWinAfterPT, new { @class = "lable" })
+                </div>
+                <div class="group">
+                    @Html.TextBox("filterAfterPT", (string)ViewBag.NetWinStakeAfterPT, new { @maxlength = 15 })
+                </div>
+            </div>
+            <div class="row">
+                <div class="group">
+                    @Html.Label("level", @ViewLang.Level, new { @class = "lable" })
+                    @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels, new { multiple = "multiple" })
+                </div>
+                <div class="group">
+                    @Html.Label("selectTop", @ViewLang.SelectTop, new { @class = "lable" })
+                    @Html.DropDownList("selectTop", (List<SelectListItem>)ViewBag.SelectTops)
+                </div>
+                <div class="group">
+                    @Html.Label("group", @ViewLang.Group, new { @class = "lable" })
+                    @Html.DropDownList("ddlGroup", Config.LeagueGroups, new { multiple = "multiple" })
+                </div>
+                <div class="group">
+                    @Html.Label("sportType", @ViewLang.SportsType, new { @class = "lable" })
+                    @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
+                </div>
+                <div class="group">
+                    @Html.Label("customerClass", @ViewLang.CustomerClass, new { @class = "lable" })
+                    @Html.TextBox("txtCustomerClass", "", new { @class = "inputtext w100", maxlength = "6", onkeypress = "return isNumber(event)" })
+                </div>
+                <div class="group">
+                    @Html.Label("odds", "Odds=<", new { @class = "lable" })
+                    <input type="text" id="txtOdds" style="width: 65px">
+                </div>
+            </div>
+            <div class="row">
+                <div class="group">
+                    @Html.Label("company", "Company", new { @class = "lable" })
+                    @Html.DropDownList("ddlCompany", new List<SelectListItem>(), new { multiple = "multiple" })
+                </div>
+	            <div class="group">
+		            @Html.Label("username", "SMA/Member", new { @class = "lable" })
+		            @Html.TextBox("smaMember", "", new { @class = "inputtext w100" })
+	            </div>
+	            <div class="group">
+		            @Html.Label("ip", @ViewLang.IP, new { @class = "lable" })
+		            @Html.TextBox("txtIp", "", new { @class = "inputtext w100" })
+	            </div>
+	            <div class="group">
+		            @Html.Label("", ViewLang.LiveType)
+		            @Html.DropDownList("ddlLiveType", Config.LiveTypes)
+	            </div>
+                <div class="group">
+                    @Html.Label("refreshTime", @ViewLang.Refreshtime, new { @class = "lable" })
+                    @Html.DropDownList("refreshTime", (List<SelectListItem>)ViewBag.RefreshTimes) @ViewLang.Seconds
+                </div>
+                <div class="group">
+                    <div id="refreshNow" style="width: 140px">
+                        @ViewLang.RefreshNow
+                        <div id="timer" style="float: right; width: 30px; padding-left: 2px;">
+                            [60]
+                        </div>
+                    </div>
+                    <div style="float:right;">
+                        @Html.CheckBox("pause", new { style = "float:left; margin-top: 7px;" })
+                        @Html.Label("pause", @ViewLang.Pause, new { @class = "lable" })
+                        <button id="submit" class="button" style="margin-left: 10px;">
+                            <span class="text">@ViewLang.Submit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
