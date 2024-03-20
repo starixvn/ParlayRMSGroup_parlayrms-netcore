@@ -4,17 +4,15 @@
     var totalRows = @Convert.ToInt32(ViewBag.TotalRows);
     var view = filterOption.ReportBy switch
     {
-	    1 => "_LeagueData",
-	    2 => "_BetTypeData",
-	    3 => "_LeagueDetailData",
-	    _ => "_BetTypeDetailData"
+        1 => filterOption.IsDetail ? "_LeagueDetailData" : "_LeagueData",
+        2 => filterOption.IsDetail ? "_BetTypeDetailData" : "_BetTypeData",
+	    _ => "_LeagueData"
 	};
     var width = filterOption.ReportBy switch
     {
-        1 => "1290px",
-        2 => "1190px",
-        3 => "1460px",
-        _ => "1390px"
+        1 => filterOption.IsDetail ? "1460px" : "1290px",
+        2 => filterOption.IsDetail ? "1390px" : "1190px",
+	    _ => "1290px"
 	};
 }
 @if (totalRows > 0)
@@ -23,7 +21,7 @@
         <div class="information">
             @ViewBag.Title
         </div>
-        <div class="excel" onclick="LeagueBetTypeAnalysis.ExportExcel('@filterOption.ParlayType', '@filterOption.FromDate', '@filterOption.ToDate', '@filterOption.Leagues',  '@filterOption.LeagueGroups','@filterOption.Site', '@filterOption.Ratio', '@filterOption.ReportBy', '@filterOption.SportType', '@filterOption.BetType', '@filterOption.HouseWL')" title="Export Excel">
+        <div class="excel" onclick="LeagueBetTypeAnalysis.ExportExcel('@filterOption.ParlayType', '@filterOption.FromDate', '@filterOption.ToDate', '@filterOption.Leagues',  '@filterOption.LeagueGroups','@filterOption.Site', '@filterOption.Ratio', '@filterOption.ReportBy', '@filterOption.SportType', '@filterOption.BetType', '@filterOption.HouseWL', '@filterOption.IsDetail')" title="Export Excel">
         </div>
     </div>
 }

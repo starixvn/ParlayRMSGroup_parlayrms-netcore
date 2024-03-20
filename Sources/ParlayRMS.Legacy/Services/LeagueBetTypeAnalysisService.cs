@@ -27,13 +27,14 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
                 options.ReportBy,
                 options.SportType,
                 options.BetType,
-                options.HouseWL);
+                options.HouseWL,
+                options.IsDetail);
             if (options.SortById.HasValue)
             {
                 data = SortData(data, options.SortById.Value, options.IsSortAsc);
             }
             return data;
-        }
+    }
 
     public IEnumerable<LeagueGroup> GetLeagueGroups(int sportType)
     {
@@ -45,20 +46,25 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
             return _dataAccess.RMS_LeagueSel(leagueName, groupId, sportType, fromDate, toDate);
         }
 
-    public IEnumerable<WonTicketModel> GetWonTickets(string transList)
+    public IEnumerable<WonTicketModel> GetWonTickets(LeagueBetTypeAnalysisDetailOptions options)
     {
-        return _dataAccess.GetWonTickets(transList);
+        return _dataAccess.GetWonTickets(options.FromDate,
+            options.ToDate,
+            options.ParlayType,
+            options.LeagueGroups,
+            options.Leagues,
+            options.Site,
+            options.ReportBy,
+            options.SportType,
+            options.BetType,
+            options.HouseWL,
+            options.BetTeam,
+            options.Match);
     }
 
-    public IEnumerable<GroupedBettypeModel> GetBettypes(int sportType)
+    public IEnumerable<BettypeModel> GetBettypes(int sportType)
     {
-	    var data = _dataAccess.GetBettypes(sportType).GroupBy(g => g.GroupId);
-        var result = new List<GroupedBettypeModel>();
-        foreach (var group in data)
-        {
-            result.Add(new GroupedBettypeModel { GroupId = group.Key, Items = group });
-        }
-        return result;
+	    return _dataAccess.GetBettypes(sportType);
     }
 
 	private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)

@@ -223,7 +223,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         writer.SyncColumnWidths(12);
 
         var ms = writer.Render();
-        return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");
+        return File(ms, "application/vnd.ms-excel", "LeagueDetails.xls");
     }
 
     [HttpPost]
@@ -276,18 +276,18 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         writer.SyncColumnWidths(12);
 
         var ms = writer.Render();
-        return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");
+        return File(ms, "application/vnd.ms-excel", "BetTypeDetails.xls");
     }
 
     [HttpPost]
-    public ActionResult ExportExcelForWonTickets(string transList, string title)
+    public ActionResult ExportExcelForWonTickets(LeagueBetTypeAnalysisDetailOptions options)
     {
-	    var records = service.GetWonTickets(transList);
+	    var records = service.GetWonTickets(options);
 
 	    var templatePath = "ExcelTemplates/LeagueBetTypeAnalysis/ParlayWonTickets.xls";
 	    var writer = new TemplateWriter(templatePath);
 
-	    writer.WriteRow(0, new object[] { title });
+	    writer.WriteRow(0, new object[] { options.Title });
 
 	    var header = new object[]
 	    {
@@ -332,6 +332,6 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 	    writer.SyncColumnWidths(12);
 
 	    var ms = writer.Render();
-	    return File(ms, "application/vnd.ms-excel", "LeagueBetTypeDataAnalysis.xls");
+	    return File(ms, "application/vnd.ms-excel", "ParlayWonTickets.xls");
     }
 }

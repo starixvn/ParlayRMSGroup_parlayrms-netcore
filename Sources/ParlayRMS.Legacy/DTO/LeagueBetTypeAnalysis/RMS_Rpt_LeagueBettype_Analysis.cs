@@ -37,4 +37,8 @@ public class RMS_Rpt_LeagueBettype_Analysis
     public decimal MemberWinloss { get; set; }
 
     public decimal MainHouseWinloss { get; set; }
+
+    public string BetTeam { get; set; }
+
+    public int MatchId { get; set; }
 }

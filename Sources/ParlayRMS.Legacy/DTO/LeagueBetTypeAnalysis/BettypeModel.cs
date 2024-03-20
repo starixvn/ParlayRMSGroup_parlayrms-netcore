@@ -8,11 +8,4 @@
 
 		public string TypeNamee { get; set; }
 	}
-
-	public class GroupedBettypeModel
-	{
-		public int GroupId { get; set; }
-
-		public IEnumerable<BettypeModel> Items { get; set; }
-	}
 }

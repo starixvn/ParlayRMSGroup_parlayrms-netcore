@@ -22,6 +22,7 @@
             sportType: null,
             betType: null,
             houseWL: null,
+            isDetail: null,
             sortById: null,
             isSortAsc: null,
             page: 1,
@@ -102,27 +103,10 @@
         $("#ddlBetType").multiselect({
             menuHeight: 300,
             buttonWidth: 180,
-            groupsCollapsable: true,
-            create: function () {
-                $("#ddlBetType").multiselect("checkAll");
-            },
-            selectedText: function (numChecked, numTotal, checkedItems) {
-                if (numChecked == 0) {
-                    return "Select options";
-                }
-                else if (numChecked == 1) {
-                    return checkedItems[0].labels[0].innerText;
-                }
-                else if (numChecked == numTotal) {
-                    return "All";
-                }
-                else {
-                    return numChecked + ' options';
-                }
-            }
-        }).multiselectfilter({
-            autoReset: true
-        });
+            header: false,
+            multiple: false,
+            selectedList: 1,
+        })
 
         $("#ddlLeague").multiselect({
             beforeopen: function () { $(this).multiselect('widget').width(200); },
@@ -259,7 +243,7 @@
                 }
             }
 
-            if (leagues == '') {
+            if ($("#tabs").tabs('option', 'active') !== 2 && leagues == '') {
                 Validators.show($("#ddlLeague").multiselect("getButton").get(0), 'Please select your options');
                 return;
             }
@@ -272,7 +256,7 @@
                 Validators.show($("#ddlGroup").multiselect("getButton").get(0), 'Please select another option to get correct report!');
             }
 
-            if (leagues.split(',').length > 1 && reportBy == '2' && $("#ddlGroup").multiselect("getButton").get(0).innerText != 'All') {
+            if ($("#tabs").tabs('option', 'active') !== 2 && leagues.split(',').length > 1 && reportBy == '2' && $("#ddlGroup").multiselect("getButton").get(0).innerText != 'All') {
                 Validators.show($("#ddlLeague").multiselect("getButton").get(0), 'Please select single League to get correct report!');
             }
 
@@ -292,17 +276,20 @@
 
             var betType = '';
             var houseWL = 0;
+            var isDetail = false;
 
             if ($("#tabs").tabs('option', 'active') == 1) {
-                reportBy = 3;
+                reportBy = 1;
                 houseWL = $.trim($('#txtHouseWL').val().replace(/,/g, ''));
+                isDetail = true;
             }
 
             if ($("#tabs").tabs('option', 'active') == 2) {
-                reportBy = 4;
-                betType = $("#ddlBetType").multiselect("getChecked").map(function () {
-                    return this.value;
-                }).get().join(',');
+                reportBy = 2;
+                betType = parseInt($("#ddlBetType").val());
+                isDetail = true;
+                houseWL = $.trim($('#txtHouseWL').val().replace(/,/g, ''));
+                leagues = '';
             }
 
             LeagueBetTypeAnalysis.Data(parlayType,
@@ -316,6 +303,7 @@
                 sportType,
                 betType,
                 houseWL,
+                isDetail,
                 LeagueBetTypeAnalysis.cachedObject.sortById,
                 LeagueBetTypeAnalysis.cachedObject.isSortAsc,
                 LeagueBetTypeAnalysis.cachedObject.page,
@@ -413,6 +401,7 @@
                 LeagueBetTypeAnalysis.cachedObject.sportType,
                 LeagueBetTypeAnalysis.cachedObject.betType,
                 LeagueBetTypeAnalysis.cachedObject.houseWL,
+                LeagueBetTypeAnalysis.cachedObject.isDetail,
                 LeagueBetTypeAnalysis.cachedObject.sortById,
                 LeagueBetTypeAnalysis.cachedObject.isSortAsc,
                 LeagueBetTypeAnalysis.cachedObject.page,
@@ -430,10 +419,11 @@
                 leagueId,
                 LeagueBetTypeAnalysis.cachedObject.site,
                 LeagueBetTypeAnalysis.cachedObject.ratio,
-                3,
+                1,
                 LeagueBetTypeAnalysis.cachedObject.sportType,
                 '',
-                -50000,
+                $.trim($('#txtHouseWL').val().replace(/,/g, '')),
+                true,
                 null,
                 null,
                 1,
@@ -448,13 +438,14 @@
                 LeagueBetTypeAnalysis.cachedObject.fromDate,
                 LeagueBetTypeAnalysis.cachedObject.toDate,
                 LeagueBetTypeAnalysis.cachedObject.leagueGroups,
-                LeagueBetTypeAnalysis.cachedObject.leagues,
+                '',
                 LeagueBetTypeAnalysis.cachedObject.site,
                 LeagueBetTypeAnalysis.cachedObject.ratio,
-                4,
+                2,
                 LeagueBetTypeAnalysis.cachedObject.sportType,
                 bettype,
-                -50000,
+                $.trim($('#txtHouseWL').val().replace(/,/g, '')),
+                true,
                 null,
                 null,
                 1,
@@ -464,8 +455,9 @@
         $(document).on('click', '.parlayWonTicket', function () {
             var title = $("#tabs").tabs('option', 'active') === 1 ?
                 "Group [" + $(this).data('group') + "] - League [" + $(this).data('league') + "] - Event [" + $(this).data('event') + "] - [" + $(this).data('bettype') + "] - [" + $(this).data('betchoice') + "]"
-                : "Group [" + $(this).data('group') + "] - League [" + $(this).data('league') + "] - Event [" + $(this).data('event') + "] - [" + $(this).data('bettype') + "]";
-            LeagueBetTypeAnalysis.ExportExcelForWonTickets($(this).data('translist'), title);
+                : "Group [" + $(this).data('group') + "] - League [" + $(this).data('league') + "] - Event [" + $(this).data('event') + "] - [" + $("#ddlBetType").find("option:checked").text() + "]";
+            var bettypeId = $("#tabs").tabs('option', 'active') === 1 ? $(this).data('bettypeid') : LeagueBetTypeAnalysis.cachedObject.betType;
+            LeagueBetTypeAnalysis.ExportExcelForWonTickets($(this).data('betteam'), $(this).data('match'), bettypeId, title);
         });
     },
 
@@ -531,7 +523,7 @@
         });
     },
 
-    Data: function (parlayType, fromDate, toDate, leagueGroups, leagues, site, ratio, reportBy, sportType, betType, houseWL, sortById, isSortAsc, page, pageSize) {
+    Data: function (parlayType, fromDate, toDate, leagueGroups, leagues, site, ratio, reportBy, sportType, betType, houseWL, isDetail, sortById, isSortAsc, page, pageSize) {
         var data = {
             fromDate: fromDate,
             toDate: toDate,
@@ -544,6 +536,7 @@
             sportType: sportType,
             betType: betType,
             houseWL: houseWL,
+            isDetail: isDetail,
             page: page,
             sortById: sortById,
             isSortAsc: isSortAsc,
@@ -586,6 +579,7 @@
                         LeagueBetTypeAnalysis.cachedObject.sportType,
                         LeagueBetTypeAnalysis.cachedObject.betType,
                         LeagueBetTypeAnalysis.cachedObject.houseWL,
+                        LeagueBetTypeAnalysis.cachedObject.isDetail,
                         LeagueBetTypeAnalysis.cachedObject.sortById,
                         LeagueBetTypeAnalysis.cachedObject.isSortAsc,
                         LeagueBetTypeAnalysis.cachedObject.page,
@@ -600,26 +594,23 @@
             }
         });
     },
-    ExportExcel: function (parlayType, fromDate, toDate, leagues, leagueGroups, site, ratio, reportBy, sportType, betType, houseWL) {
+    ExportExcel: function (parlayType, fromDate, toDate, leagues, leagueGroups, site, ratio, reportBy, sportType, betType, houseWL, isDetail) {
 
         var params = 'fromDate=' + fromDate + '&toDate=' + toDate + '&parlayType=' + parlayType + '&leagueGroups=' + leagueGroups
             + '&leagues=' + leagues + '&site=' + site + '&ratio=' + ratio + '&reportBy=' + reportBy + '&sportType=' + sportType
-            + '&betType=' + betType + '&houseWL=' + houseWL;
+            + '&betType=' + betType + '&houseWL=' + houseWL + '&isDetail=' + isDetail;
 
         var url = '';
 
         switch (reportBy) {
             case '1':
-                url = 'LeagueBetTypeAnalysis/ExportExcelForLeague';
+                url = isDetail === 'True' ? 'LeagueBetTypeAnalysis/ExportExcelForLeagueDetails' : 'LeagueBetTypeAnalysis/ExportExcelForLeague';
                 break;
             case '2':
-                url = 'LeagueBetTypeAnalysis/ExportExcelForBetType';
-                break;
-            case '3':
-                url = 'LeagueBetTypeAnalysis/ExportExcelForLeagueDetails';
+                url = isDetail === 'True' ? 'LeagueBetTypeAnalysis/ExportExcelForBetTypeDetails' : 'LeagueBetTypeAnalysis/ExportExcelForBetType';
                 break;
             default:
-                url = 'LeagueBetTypeAnalysis/ExportExcelForBetTypeDetails';
+                url = 'LeagueBetTypeAnalysis/ExportExcelForLeague';
                 break;
         }
 
@@ -627,29 +618,37 @@
         xhttp.onreadystatechange = function () {
             var element;
             if (xhttp.readyState === 4 && xhttp.status === 200) {
+                const fileName = xhttp.getResponseHeader('content-disposition').split('filename=')[1].split(';')[0];
                 element = document.createElement('a');
                 element.href = window.URL.createObjectURL(xhttp.response);
-                element.download = "LeagueBetTypeDataAnalysis.xls";
+                element.download = fileName;
                 element.style.display = 'none';
                 document.body.appendChild(element);
                 element.click();
             }
+            loading.hide();
         };
         xhttp.open("POST", resolveClientUrl(url), true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttp.responseType = 'blob';
+        loading.show();
         xhttp.send(params);
     },
 
-    ExportExcelForWonTickets: function (transList, title) {
-        var params = 'transList=' + transList + "&title=" + title;
+    ExportExcelForWonTickets: function (betTeam, match, bettypeId, title) {
+        var params = 'fromDate=' + LeagueBetTypeAnalysis.cachedObject.fromDate + '&toDate=' + LeagueBetTypeAnalysis.cachedObject.toDate
+            + '&parlayType=' + LeagueBetTypeAnalysis.cachedObject.parlayType + '&leagueGroups=' + LeagueBetTypeAnalysis.cachedObject.leagueGroups
+            + '&leagues=' + LeagueBetTypeAnalysis.cachedObject.leagues + '&site=' + LeagueBetTypeAnalysis.cachedObject.site
+            + '&reportBy=3' + '&sportType=' + LeagueBetTypeAnalysis.cachedObject.sportType
+            + '&betType=' + bettypeId + '&houseWL=' + LeagueBetTypeAnalysis.cachedObject.houseWL + '&betTeam=' + betTeam + '&match=' + match + "&title=" + title;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             var element;
             if (xhttp.readyState === 4 && xhttp.status === 200) {
+                const fileName = xhttp.getResponseHeader('content-disposition').split('filename=')[1].split(';')[0];
                 element = document.createElement('a');
                 element.href = window.URL.createObjectURL(xhttp.response);
-                element.download = "ParlayWonTickets.xls";
+                element.download = fileName;
                 element.style.display = 'none';
                 document.body.appendChild(element);
                 element.click();
@@ -717,18 +716,8 @@
     LoadBettypeControl: function (data) {
         var html = '';
         $.each(data, function (key, obj) {
-            if (obj.GroupId == 1) {
-                html += '<optgroup label="Major Bet Types">';
-            }
-            else {
-                html += '<optgroup label="Minor Bet Types">';
-            }
-            $.each(obj.Items, function (inx, bettype) {
-                html += '<option value="' + bettype.Bettype + '">' + bettype.TypeNamee + '</option>';
-            })
-            html += '</optgroup>';
+            html += '<option value="' + obj.Bettype + '">' + obj.TypeNamee + '</option>';
         });
-
         $('#ddlBetType').html(html);
         $('#ddlBetType').multiselect('refresh');
     },
@@ -775,7 +764,7 @@
     },
 
     HandleElementForBetTypeTab: function (bettype) {
-        bettype !== '' ? $("#ddlBetType").val([bettype]).multiselect("refresh") : $("#ddlBetType").multiselect("checkAll");
+        $("#ddlBetType").val(bettype);
         $(LeagueBetTypeAnalysis.DOM.houseWinLossDiv).show();
         $(LeagueBetTypeAnalysis.DOM.reportByDiv).hide();
         $(LeagueBetTypeAnalysis.DOM.ratioDiv).hide();
@@ -800,6 +789,7 @@ function MovePage(pageNumber) {
         LeagueBetTypeAnalysis.cachedObject.sportType,
         LeagueBetTypeAnalysis.cachedObject.betType,
         LeagueBetTypeAnalysis.cachedObject.houseWL,
+        LeagueBetTypeAnalysis.cachedObject.isDetail,
         LeagueBetTypeAnalysis.cachedObject.sortById,
         LeagueBetTypeAnalysis.cachedObject.isSortAsc,
         pageNumber,

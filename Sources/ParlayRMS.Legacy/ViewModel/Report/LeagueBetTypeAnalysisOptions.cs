@@ -1,5 +1,3 @@
-using Org.BouncyCastle.Crypto;
-
 namespace ParlayRMS.Legacy.ViewModel.Report;
 
 using System;
@@ -25,9 +23,11 @@ public class LeagueBetTypeAnalysisOptions
 
     public int SportType { get; set; }
 
-    public string BetType { get; set; }
+    public int BetType { get; set; }
 
     public decimal? HouseWL { get; set; }
+
+    public bool IsDetail { get; set; }
 
     public byte? SortById { get; set; }
 
@@ -46,9 +46,8 @@ public class LeagueBetTypeAnalysisOptions
 
     private string GetReportName() => ReportBy switch
     {
-        1 => "League Report",
-        2 => "BetType Report",
-        3 => "League Details Report",
-        _ => "BetType Details Report"
+        1 => IsDetail ? "League Details Report" : "League Report",
+        2 => IsDetail ? "BetType Details Report" : "BetType Report",
+        _ => ""
     };
 }
