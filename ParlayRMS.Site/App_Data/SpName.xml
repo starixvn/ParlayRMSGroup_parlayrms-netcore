@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Functions SiteName="NAP - Parlay RMS">
 	<Function Name="Auth">
-		<Setting Key="RMS_UserLogin" SpName="RMS_UserLogin" DbName="DBCUST.CustDB.bodbRMSNet" />
+		<Setting Key="RMS_UserLogin" SpName="RMS_UserLogin" DbName="DBCUST.CustDB.wsv_rms" />
 	</Function>
 	<Function Name="Win Loss Risk Control">
-		<Setting Key="RMS_Rpt_Winloss_Risk_Control" SpName="RMS_Rpt_Winloss_Risk_Control" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Company" SpName="RMS_Rpt_Winloss_Risk_Control_Company" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Agent" SpName="RMS_Rpt_Winloss_Risk_Control_Agent" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_SiteByGroupSel" SpName="RMS_SiteByGroupSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_Rpt_Winloss_Risk_Control" SpName="RMS_Rpt_Winloss_Risk_Control" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Company" SpName="RMS_Rpt_Winloss_Risk_Control_Company" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Agent" SpName="RMS_Rpt_Winloss_Risk_Control_Agent" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_SiteByGroupSel" SpName="RMS_SiteByGroupSel" DbName="DBRMS.bodb_RMS.wsv_rms" />
 	</Function>
 	<Function Name="League Event Control">
-		<Setting Key="RMS_ESport_LeagueSel" SpName="RMS_ESport_LeagueSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Monitor_EventPerformance_Summary" SpName="RMS_Monitor_EventPerformance_Summary" DbName="DBRMS.bodb_RMS.bodbRMSNet" TimeOut="0" />
-		<Setting Key="RMS_BettypeSel" SpName="RMS_BettypeSel" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_Monitor_EventPerformance_Detail" SpName="RMS_Monitor_EventPerformance_Detail" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_ESport_LeagueSel" SpName="RMS_ESport_LeagueSel" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_Monitor_EventPerformance_Summary" SpName="RMS_Monitor_EventPerformance_Summary" DbName="DBRMS.bodb_RMS.wsv_rms" TimeOut="0" />
+		<Setting Key="RMS_BettypeSel" SpName="RMS_BettypeSel" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_Monitor_EventPerformance_Detail" SpName="RMS_Monitor_EventPerformance_Detail" DbName="DBRMS.bodb_RMS.wsv_rms" />
 	</Function>
 	<Function Name="Manage Alert">
-		<Setting Key="RMS_ManageAlert_Alert" SpName="RMS_ManageAlert_Alert" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_ManageAlert_AlertDetail" SpName="RMS_ManageAlert_AlertDetail" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_ManageAlert_ViewLog" SpName="RMS_ManageAlert_ViewLog" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
-		<Setting Key="RMS_ManageAlert_TakeAction" SpName="RMS_ManageAlert_TakeAction" DbName="DBRMS.bodb_RMS.bodbRMSNet" />
+		<Setting Key="RMS_ManageAlert_Alert" SpName="RMS_ManageAlert_Alert" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_ManageAlert_AlertDetail" SpName="RMS_ManageAlert_AlertDetail" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_ManageAlert_ViewLog" SpName="RMS_ManageAlert_ViewLog" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_ManageAlert_TakeAction" SpName="RMS_ManageAlert_TakeAction" DbName="DBRMS.bodb_RMS.wsv_rms" />
 	</Function>
 </Functions>
