@@ -31,7 +31,6 @@
 
   
   <ItemGroup>
-    <None Remove="App_Data\LegacySpName.xml" />
     <None Remove="ExcelTemplates\AgentWinLoss.xls" />
     <None Remove="ExcelTemplates\BetTypeDataAnalysis.xls" />
     <None Remove="ExcelTemplates\BetTypeDetail.xls" />
