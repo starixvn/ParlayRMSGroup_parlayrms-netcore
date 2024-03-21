@@ -36,14 +36,29 @@
         $("#tabs").tabs({
             activate: function (event, ui) {
                 var element = ui.newPanel.selector;
+                var leagueGroups = $("#ddlGroup").multiselect("getChecked").map(function () {
+                    return this.value;
+                }).get().join(',');
                 switch (element) {
                     case '#tabs-league-bettype':
                         LeagueBetTypeAnalysis.HandleElementForLeagueBetTypeTab();
+                        if (LeagueBetTypeAnalysis.IsDisabled($('input[name=rdlReportBy]:checked').val(), leagueGroups, null)) {
+                            $("#ddlLeague").multiselect("disable");
+                        } else {
+                            $("#ddlLeague").multiselect("enable");
+                        }
                         break;
                     case '#tabs-league':
+                        $('#txtHouseWL').val('-50,000');
+                        if (LeagueBetTypeAnalysis.IsDisabled($('input[name=rdlReportBy]:checked').val(), leagueGroups, null)) {
+                            $("#ddlLeague").multiselect("disable");
+                        } else {
+                            $("#ddlLeague").multiselect("enable");
+                        }
                         LeagueBetTypeAnalysis.HandleElementForLeagueTab(-1);
                         break;
                     default:
+                        $('#txtHouseWL').val('-50,000');
                         LeagueBetTypeAnalysis.HandleElementForBetTypeTab('');
                     // code block
                 }
@@ -410,6 +425,7 @@
 
         $(document).on('click', '.leagueTab', function () {
             $("#tabs").tabs("option", "active", 1);
+            $('#txtHouseWL').val('-50,000');
             var leagueId = this.getAttribute('data-leagueId');
             LeagueBetTypeAnalysis.HandleElementForLeagueTab(leagueId);
             LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
@@ -432,6 +448,7 @@
 
         $(document).on('click', '.betTypeTab', function () {
             $("#tabs").tabs("option", "active", 2);
+            $('#txtHouseWL').val('-50,000');
             var bettype = this.getAttribute('data-bettypeId');
             LeagueBetTypeAnalysis.HandleElementForBetTypeTab(bettype);
             LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
@@ -725,7 +742,7 @@
     IsDisabled: function (reportBy, leagueGroups, leagues) {
         return leagueGroups == '-1' || leagueGroups == '' ||
             (leagueGroups.split(',').length == LeagueBetTypeAnalysis.totalLeagueGroup
-                && reportBy == '2');
+            && reportBy == '2' && $("#tabs").tabs('option', 'active') === 0);
     },
 
     HandleLeagueControl: function (type) {
