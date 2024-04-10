@@ -46,3 +46,8 @@ ul.ddlLeague.ui-multiselect-checkboxes {
 .ui-multiselect-optgroup {
     padding-left: 3px;
 }
+
+#tabs-league-bettype, #tabs-league, #tabs-bettype {
+    padding-left: 0px;
+    padding-bottom: 0px;
+}

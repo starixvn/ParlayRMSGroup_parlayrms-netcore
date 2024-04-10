@@ -181,7 +181,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         var templatePath = "ExcelTemplates/LeagueBetTypeAnalysis/LeagueDetail.xls";
         var writer = new TemplateWriter(templatePath);
 
-        var title = "League Details Report";
+        var title = !string.IsNullOrEmpty(options.LeagueTitle) ? $"League Details Report of {options.LeagueTitle}" : "League Details Report";
         writer.WriteRow(0, new object[] { title });
 
         var header = new object[]
@@ -234,7 +234,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         var templatePath = "ExcelTemplates/LeagueBetTypeAnalysis/BetTypeDetail.xls";
         var writer = new TemplateWriter(templatePath);
 
-        var title = "BetType Details Report";
+        var title = !string.IsNullOrEmpty(options.BetTypeTitle) ? $"BetType Details Report of {options.BetTypeTitle}" : "BetType Details Report";
         writer.WriteRow(0, new object[] { title });
 
         var header = new object[]
