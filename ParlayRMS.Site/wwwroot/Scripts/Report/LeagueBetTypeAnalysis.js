@@ -24,8 +24,13 @@
         btnSearch: ".btnSearch",
         txtHouseWLOfLeague: "#txtHouseWL-League",
         txtHouseWLOfBetType: "#txtHouseWL-BetType",
+        divResult: "#divResult",
+        divResultOfLeague: "#divResult-League",
+        divResultOfBetType: "#divResult-BetType"
     },
     cachedObject: {},
+    cachedObjectOfLeague: {},
+    cachedObjectOfBetType: {},
     LeagueList: [],
     totalLeagueGroup: 0,
     Init: function () {
@@ -442,9 +447,6 @@
         $(LeagueBetTypeAnalysis.DOM.toDate + ',' + LeagueBetTypeAnalysis.DOM.toDateOfLeague + ',' + LeagueBetTypeAnalysis.DOM.toDateOfBetType).val(nowDate.format('MMMM DD, YYYY'));
         $(LeagueBetTypeAnalysis.DOM.btnSearch).on('click', function () {
             Validators.hide();
-            $("#divResult").html('');
-            LeagueBetTypeAnalysis.ResetCachedObject();
-
             var fromDate = null;
             var toDate = null;
             var parlayType = '';
@@ -461,6 +463,8 @@
             var leagueTitle = null;
 
             if ($("#tabs").tabs('option', 'active') == 0) {
+                LeagueBetTypeAnalysis.ResetCachedObject();
+                $(LeagueBetTypeAnalysis.DOM.divResult).html('');
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDate).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDate).val();
 
@@ -528,6 +532,8 @@
             }
 
             if ($("#tabs").tabs('option', 'active') == 1) {
+                LeagueBetTypeAnalysis.ResetCachedObjectOfLeague();
+                $(LeagueBetTypeAnalysis.DOM.divResultOfLeague).html('');
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDateOfLeague).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDateOfLeague).val();
 
@@ -586,6 +592,8 @@
             }
 
             if ($("#tabs").tabs('option', 'active') == 2) {
+                LeagueBetTypeAnalysis.ResetCachedObjectOfBetType();
+                $(LeagueBetTypeAnalysis.DOM.divResultOfBetType).html('');
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDateOfBetType).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).val();
 
@@ -731,57 +739,18 @@
         });
 
         $(document).on("click", '#header .sortable', function () {
-            var currentObject = this;
-            var currentColIndex = parseInt($(currentObject).attr("data-col-index"));
-
-            if (currentColIndex == LeagueBetTypeAnalysis.cachedObject.sortById) {
-                if (LeagueBetTypeAnalysis.cachedObject.isSortAsc) {
-                    LeagueBetTypeAnalysis.cachedObject.isSortAsc = false;
-                    $(this).removeClass("headerSortUp").addClass("headerSortDown");
-                } else {
-                    LeagueBetTypeAnalysis.cachedObject.isSortAsc = true;
-                    $(this).removeClass("headerSortDown").addClass("headerSortUp");
-                }
-            } else {
-                if (currentObject.sortDirection == 'asc') {
-                    LeagueBetTypeAnalysis.cachedObject.isSortAsc = true;
-                    $(this).removeClass("headerSortDown").addClass("headerSortUp");
-                } else {
-                    LeagueBetTypeAnalysis.cachedObject.isSortAsc = false;
-                    $(this).removeClass("headerSortUp").addClass("headerSortDown");
-                }
-
-                $('#header').find(".sortable").each(function () {
-                    if ($(currentObject).index() != $(this).index()) {
-                        $(this).removeClass("headerSortDown").removeClass("headerSortUp");
-                        this.sortDirection = "";
-                    }
-                });
-            }
-
-            if (!currentColIndex) {
-                currentColIndex = $(currentObject).index();
-            }
-
-            LeagueBetTypeAnalysis.cachedObject.sortById = parseInt(currentColIndex);
-            LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
-                LeagueBetTypeAnalysis.cachedObject.fromDate,
-                LeagueBetTypeAnalysis.cachedObject.toDate,
-                LeagueBetTypeAnalysis.cachedObject.leagueGroups,
-                LeagueBetTypeAnalysis.cachedObject.leagues,
-                LeagueBetTypeAnalysis.cachedObject.site,
-                LeagueBetTypeAnalysis.cachedObject.ratio,
-                LeagueBetTypeAnalysis.cachedObject.reportBy,
-                LeagueBetTypeAnalysis.cachedObject.sportType,
-                LeagueBetTypeAnalysis.cachedObject.betType,
-                LeagueBetTypeAnalysis.cachedObject.houseWL,
-                LeagueBetTypeAnalysis.cachedObject.isDetail,
-                LeagueBetTypeAnalysis.cachedObject.leagueTitle,
-                LeagueBetTypeAnalysis.cachedObject.betTypeTitle,
-                LeagueBetTypeAnalysis.cachedObject.sortById,
-                LeagueBetTypeAnalysis.cachedObject.isSortAsc,
-                LeagueBetTypeAnalysis.cachedObject.page,
-                LeagueBetTypeAnalysis.cachedObject.pageSize);
+            var data = {};
+            switch ($("#tabs").tabs('option', 'active')) {
+                case 0:
+                    data = LeagueBetTypeAnalysis.cachedObject;
+                    break;
+                case 1:
+                    data = LeagueBetTypeAnalysis.cachedObjectOfLeague;
+                    break;
+                default:
+                    data = LeagueBetTypeAnalysis.cachedObjectOfBetType;
+            };
+            LeagueBetTypeAnalysis.SortData(this, data);
         });
 
         $(document).on('click', '.leagueTab', function () {
@@ -846,6 +815,60 @@
             var bettypeId = $("#tabs").tabs('option', 'active') === 1 ? $(this).data('bettypeid') : LeagueBetTypeAnalysis.cachedObject.betType;
             LeagueBetTypeAnalysis.ExportExcelForWonTickets($(this).data('betteam'), $(this).data('match'), bettypeId, title);
         });
+    },
+
+    SortData: function (element, data) {
+        var currentObject = element;
+        var currentColIndex = parseInt($(currentObject).attr("data-col-index"));
+
+        if (currentColIndex ==data.sortById) {
+            if (data.isSortAsc) {
+                data.isSortAsc = false;
+                $(element).removeClass("headerSortUp").addClass("headerSortDown");
+            } else {
+                data.isSortAsc = true;
+                $(element).removeClass("headerSortDown").addClass("headerSortUp");
+            }
+        } else {
+            if (currentObject.sortDirection == 'asc') {
+                data.isSortAsc = true;
+                $(element).removeClass("headerSortDown").addClass("headerSortUp");
+            } else {
+                data.isSortAsc = false;
+                $(element).removeClass("headerSortUp").addClass("headerSortDown");
+            }
+
+            $(element).find(".sortable").each(function () {
+                if ($(currentObject).index() != $(element).index()) {
+                    $(element).removeClass("headerSortDown").removeClass("headerSortUp");
+                    element.sortDirection = "";
+                }
+            });
+        }
+
+        if (!currentColIndex) {
+            currentColIndex = $(currentObject).index();
+        }
+
+        data.sortById = parseInt(currentColIndex);
+        LeagueBetTypeAnalysis.Data(data.parlayType,
+            data.fromDate,
+            data.toDate,
+            data.leagueGroups,
+            data.leagues,
+            data.site,
+            data.ratio,
+            data.reportBy,
+            data.sportType,
+            data.betType,
+            data.houseWL,
+            data.isDetail,
+            data.leagueTitle,
+            data.betTypeTitle,
+            data.sortById,
+            data.isSortAsc,
+            data.page,
+            data.pageSize);
     },
 
     GroupsAndLeagues: function (sportType, groupElement, leagueElement, fromDate, toDate) {
@@ -931,8 +954,19 @@
             isSortAsc: isSortAsc,
             pageSize: pageSize
         }
-
-        LeagueBetTypeAnalysis.cachedObject = data;
+        var divResult = "";
+        if (isDetail) {
+            if (reportBy === 1) {
+                LeagueBetTypeAnalysis.cachedObjectOfLeague = data;
+                divResult = LeagueBetTypeAnalysis.DOM.divResultOfLeague;
+            } else {
+                LeagueBetTypeAnalysis.cachedObjectOfBetType = data;
+                divResult = LeagueBetTypeAnalysis.DOM.divResultOfBetType;
+            }
+        } else {
+            LeagueBetTypeAnalysis.cachedObject = data;
+            divResult = LeagueBetTypeAnalysis.DOM.divResult;
+        }
 
         $.ajax({
             url: resolveClientUrl('LeagueBetTypeAnalysis/Data'),
@@ -944,37 +978,35 @@
                 loading.show();
             },
             success: function (result) {
-                $("#divResult").html(result);
-                $('#header').find(".sortable").each(function () {
-                    if ($(this).attr("data-col-index") == LeagueBetTypeAnalysis.cachedObject.sortById) {
-                        if (LeagueBetTypeAnalysis.cachedObject.isSortAsc) {
+                if (isDetail) {
+                    if (reportBy === 1) {
+                        $(LeagueBetTypeAnalysis.DOM.divResultOfLeague).html(result);
+                    } else {
+                        $(LeagueBetTypeAnalysis.DOM.divResultOfBetType).html(result);
+                    }
+                } else {
+                    $(LeagueBetTypeAnalysis.DOM.divResult).html(result);
+                }
+                
+                $(divResult + ' #header').find(".sortable").each(function () {
+                    if ($(this).attr("data-col-index") == sortById) {
+                        if (isSortAsc) {
                             $(this).removeClass("headerSortDown").addClass("headerSortUp");
                         } else {
                             $(this).removeClass("headerSortUp").addClass("headerSortDown");
                         }
                     }
                 });
-                $('#pageSize').on('change', function () {
-                    LeagueBetTypeAnalysis.cachedObject.pageSize = parseInt($(this).val());
-                    LeagueBetTypeAnalysis.cachedObject.page = 1;
-                    LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
-                        LeagueBetTypeAnalysis.cachedObject.fromDate,
-                        LeagueBetTypeAnalysis.cachedObject.toDate,
-                        LeagueBetTypeAnalysis.cachedObject.leagueGroups,
-                        LeagueBetTypeAnalysis.cachedObject.leagues,
-                        LeagueBetTypeAnalysis.cachedObject.site,
-                        LeagueBetTypeAnalysis.cachedObject.ratio,
-                        LeagueBetTypeAnalysis.cachedObject.reportBy,
-                        LeagueBetTypeAnalysis.cachedObject.sportType,
-                        LeagueBetTypeAnalysis.cachedObject.betType,
-                        LeagueBetTypeAnalysis.cachedObject.houseWL,
-                        LeagueBetTypeAnalysis.cachedObject.isDetail,
-                        LeagueBetTypeAnalysis.cachedObject.leagueTitle,
-                        LeagueBetTypeAnalysis.cachedObject.betTypeTitle,
-                        LeagueBetTypeAnalysis.cachedObject.sortById,
-                        LeagueBetTypeAnalysis.cachedObject.isSortAsc,
-                        LeagueBetTypeAnalysis.cachedObject.page,
-                        LeagueBetTypeAnalysis.cachedObject.pageSize);
+                $(divResult +' #pageSize').on('change', function () {
+                    if (isDetail) {
+                        if (reportBy === 1) {
+                            LeagueBetTypeAnalysis.HandlePaging(LeagueBetTypeAnalysis.cachedObjectOfLeague, parseInt($(this).val()));
+                        } else {
+                            LeagueBetTypeAnalysis.HandlePaging(LeagueBetTypeAnalysis.cachedObjectOfBetType, parseInt($(this).val()));
+                        }
+                    } else {
+                        LeagueBetTypeAnalysis.HandlePaging(LeagueBetTypeAnalysis.cachedObject, parseInt($(this).val()));
+                    }
                 });
             },
             error: function (xhr, status, err) {
@@ -985,6 +1017,30 @@
             }
         });
     },
+
+    HandlePaging: function (data, pageSize) {
+        data.pageSize = pageSize;
+        data.page = 1;
+        LeagueBetTypeAnalysis.Data(data.parlayType,
+            data.fromDate,
+            data.toDate,
+            data.leagueGroups,
+            data.leagues,
+            data.site,
+            data.ratio,
+            data.reportBy,
+            data.sportType,
+            data.betType,
+            data.houseWL,
+            data.isDetail,
+            data.leagueTitle,
+            data.betTypeTitle,
+            data.sortById,
+            data.isSortAsc,
+            data.page,
+            data.pageSize);
+    },
+
     ExportExcel: function (parlayType, fromDate, toDate, leagues, leagueGroups, site, ratio, reportBy, sportType, betType, houseWL, isDetail, leagueTitle, betTypeTitle) {
 
         var params = 'fromDate=' + fromDate + '&toDate=' + toDate + '&parlayType=' + parlayType + '&leagueGroups=' + leagueGroups
@@ -1071,6 +1127,42 @@
         LeagueBetTypeAnalysis.cachedObject.pageSize = 100;
     },
 
+    ResetCachedObjectOfLeague: function () {
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.fromDate = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.toDate = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.parlayType = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.leagueGroups = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.leagues = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.site = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.ratio = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.reportBy = 0;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.sportType = 1;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.betType = 0;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.houseWL = 0;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.sortById = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.isSortAsc = null;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.page = 1;
+        LeagueBetTypeAnalysis.cachedObjectOfLeague.pageSize = 100;
+    },
+
+    ResetCachedObjectOfBetType: function () {
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.fromDate = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.toDate = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.parlayType = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.leagueGroups = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.leagues = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.site = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.ratio = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.reportBy = 0;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.sportType = 1;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.betType = 0;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.houseWL = 0;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.sortById = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.isSortAsc = null;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.page = 1;
+        LeagueBetTypeAnalysis.cachedObjectOfBetType.pageSize = 100;
+    },
+
     IsNumber: function (event) {
         var code = event.keyCode;
         if (code >= 48 && code <= 57) {
@@ -1148,7 +1240,7 @@
     },
 
     HandleElementForBetTypeTab: function (bettype) {
-        $("#ddlBetType").val(bettype);
+        $("#ddlBetType").val(bettype).multiselect("refresh");
         $(LeagueBetTypeAnalysis.DOM.fromDateOfBetType).datepicker("setDate", LeagueBetTypeAnalysis.cachedObject.fromDate);
         $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).datepicker("setDate", LeagueBetTypeAnalysis.cachedObject.toDate);
         $(LeagueBetTypeAnalysis.DOM.ddlSportOfBetType).val(LeagueBetTypeAnalysis.cachedObject.sportType).multiselect("refresh");
@@ -1163,23 +1255,67 @@ $(document).ready(function () {
 });
 
 function MovePage(pageNumber) {
-    LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
-        LeagueBetTypeAnalysis.cachedObject.fromDate,
-        LeagueBetTypeAnalysis.cachedObject.toDate,
-        LeagueBetTypeAnalysis.cachedObject.leagueGroups,
-        LeagueBetTypeAnalysis.cachedObject.leagues,
-        LeagueBetTypeAnalysis.cachedObject.site,
-        LeagueBetTypeAnalysis.cachedObject.ratio,
-        LeagueBetTypeAnalysis.cachedObject.reportBy,
-        LeagueBetTypeAnalysis.cachedObject.sportType,
-        LeagueBetTypeAnalysis.cachedObject.betType,
-        LeagueBetTypeAnalysis.cachedObject.houseWL,
-        LeagueBetTypeAnalysis.cachedObject.isDetail,
-        LeagueBetTypeAnalysis.cachedObject.leagueTitle,
-        LeagueBetTypeAnalysis.cachedObject.betTypeTitle,
-        LeagueBetTypeAnalysis.cachedObject.sortById,
-        LeagueBetTypeAnalysis.cachedObject.isSortAsc,
-        pageNumber,
-        LeagueBetTypeAnalysis.cachedObject.pageSize);
+    switch ($("#tabs").tabs('option', 'active')) {
+        case 0:
+            LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
+                LeagueBetTypeAnalysis.cachedObject.fromDate,
+                LeagueBetTypeAnalysis.cachedObject.toDate,
+                LeagueBetTypeAnalysis.cachedObject.leagueGroups,
+                LeagueBetTypeAnalysis.cachedObject.leagues,
+                LeagueBetTypeAnalysis.cachedObject.site,
+                LeagueBetTypeAnalysis.cachedObject.ratio,
+                LeagueBetTypeAnalysis.cachedObject.reportBy,
+                LeagueBetTypeAnalysis.cachedObject.sportType,
+                LeagueBetTypeAnalysis.cachedObject.betType,
+                LeagueBetTypeAnalysis.cachedObject.houseWL,
+                LeagueBetTypeAnalysis.cachedObject.isDetail,
+                LeagueBetTypeAnalysis.cachedObject.leagueTitle,
+                LeagueBetTypeAnalysis.cachedObject.betTypeTitle,
+                LeagueBetTypeAnalysis.cachedObject.sortById,
+                LeagueBetTypeAnalysis.cachedObject.isSortAsc,
+                pageNumber,
+                LeagueBetTypeAnalysis.cachedObject.pageSize);
+            break;
+        case 1:
+            LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObjectOfLeague.parlayType,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.fromDate,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.toDate,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.leagueGroups,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.leagues,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.site,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.ratio,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.reportBy,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.sportType,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.betType,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.houseWL,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.isDetail,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.leagueTitle,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.betTypeTitle,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.sortById,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.isSortAsc,
+                pageNumber,
+                LeagueBetTypeAnalysis.cachedObjectOfLeague.pageSize);
+            break;
+        default:
+            LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObjectOfBetType.parlayType,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.fromDate,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.toDate,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.leagueGroups,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.leagues,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.site,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.ratio,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.reportBy,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.sportType,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.betType,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.houseWL,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.isDetail,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.leagueTitle,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.betTypeTitle,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.sortById,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.isSortAsc,
+                pageNumber,
+                LeagueBetTypeAnalysis.cachedObjectOfBetType.pageSize);
+    }
+    
 }
 

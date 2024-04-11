@@ -51,3 +51,37 @@ ul.ddlLeague.ui-multiselect-checkboxes {
     padding-left: 0px;
     padding-bottom: 0px;
 }
+
+#divResult-League div.mainfooter, #divResult-BetType div.mainfooter {
+    background-color: #3f536b;
+    color: #fff;
+    border: solid 1px #3f536b;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#divResult-League div.maintitle div.information, #divResult-BetType div.maintitle div.information {
+    float: left;
+    line-height: 20px;
+    margin-left: 20px;
+    flex: 1;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#divResult-League div.maintitle, #divResult-BetType div.maintitle {
+    clear: both;
+    background-color: #454513;
+    color: #fff;
+    border: soild 1px #454513;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 1px;
+    display: flex
+}
+
+#divResult-League .subTotal, #divResult-BetType .subTotal {
+    background-color: #efefef;
+    color: #30465d;
+    font-weight: bold
+}
