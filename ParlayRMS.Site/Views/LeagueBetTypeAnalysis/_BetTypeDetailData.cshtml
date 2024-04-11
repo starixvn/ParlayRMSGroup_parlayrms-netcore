@@ -110,7 +110,7 @@
 	                <td class="numeric">
 						@if (item.ParlayWonTickets > 0)
 						{
-							<a href="#" class="parlayWonTicket" data-match="@item.MatchId" data-bettypeid="@item.BetTypeId" data-betteam="@item.BetTeam" data-group="@item.GroupName" data-bettype="@item.BetType" data-translist="@item.TransList" data-league="@item.LeagueName" data-event="@item.Event" data-betchoice="@item.BetChoice">
+							<a href="#" class="parlayWonTicket" data-match="@item.MatchId" data-bettypeid="@filterOption.BetType" data-betteam="@item.BetTeam" data-group="@item.GroupName" data-bettype="@item.BetType" data-translist="@item.TransList" data-league="@item.LeagueName" data-event="@item.Event" data-betchoice="@item.BetChoice">
 								@Formatter.FormatNumber3(item.ParlayWonTickets)
 							</a>
 						}

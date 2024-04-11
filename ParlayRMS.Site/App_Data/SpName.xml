@@ -75,7 +75,9 @@
 		<Setting Key="RMS_Rpt_LeagueBettype_Analysis" SpName="RMS_Rpt_LeagueBettype_Analysis" DbName="DBRMS.bodb_RMS.wsv_rms" >
 			<Mapping DataField="Stake" ObjectProperty="TurnOver" />
 		</Setting>
-		<Setting Key="RMS_Rpt_LeagueBettype_Detail" SpName="RMS_Rpt_LeagueBettype_Detail" DbName="DBRMS.bodb_RMS.wsv_rms" />
+		<Setting Key="RMS_Rpt_LeagueBettype_Detail" SpName="RMS_Rpt_LeagueBettype_Detail" DbName="DBRMS.bodb_RMS.wsv_rms">
+			<Mapping DataField="Stake" ObjectProperty="TurnOver" />
+		</Setting>
 		<Setting Key="RMS_LeagueGroupSel" SpName="RMS_LeagueGroupSel" DbName="DBRMS.bodb_RMS.wsv_rms" >
 			<Mapping DataField="LeagueGroupName" ObjectProperty="Name" />
 			<Mapping DataField="LeagueGroupID" ObjectProperty="Id" />
