@@ -85,3 +85,7 @@ ul.ddlLeague.ui-multiselect-checkboxes {
     color: #30465d;
     font-weight: bold
 }
+
+.ui-multiselect-single div.ui-multiselect-hasfilter ul.ui-helper-reset {
+    display: none !important;
+}

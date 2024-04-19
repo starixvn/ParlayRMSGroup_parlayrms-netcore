@@ -109,7 +109,7 @@
 							@Html.Label("", ViewLang.Group)
 							@Html.DropDownList("ddlGroup-League", new List<SelectListItem>(), new { multiple = "multiple" })
 						</div>
-						<div class="group" id="leagueDiv">
+						<div class="group">
 							@Html.Label("", ViewLang.League)
 							@Html.DropDownList("ddlLeague-League", new List<SelectListItem>(), new { multiple = "multiple" })
 						</div>
@@ -158,6 +158,10 @@
 							@Html.Label("", ViewLang.HouseWinLoss + " <=")
 							@Html.TextBox("txtHouseWL-BetType", "-50,000", new { @class = "inputtext" })
 						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Bettype)
+							@Html.DropDownList("ddlBetType", new List<SelectListItem>())
+						</div>
 					</div>
 					<div class="row">
 						<div class="group">
@@ -172,8 +176,8 @@
 							@Html.DropDownList("ddlGroup-BetType", new List<SelectListItem>(), new { multiple = "multiple" })
 						</div>
 						<div class="group">
-							@Html.Label("", ViewLang.Bettype)
-							@Html.DropDownList("ddlBetType", new List<SelectListItem>())
+							@Html.Label("", ViewLang.League)
+							@Html.DropDownList("ddlLeague-BetType", new List<SelectListItem>(), new { multiple = "multiple" })
 						</div>
 						<div class="group">
 							@Html.Label("", ViewLang.Site)
