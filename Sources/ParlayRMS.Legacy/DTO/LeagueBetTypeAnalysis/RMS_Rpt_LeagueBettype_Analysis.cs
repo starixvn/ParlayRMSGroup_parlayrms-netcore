@@ -16,6 +16,8 @@ public class RMS_Rpt_LeagueBettype_Analysis
 
     public string BetType { get; set; }
 
+    public int GroupId { get; set; }
+
     public string GroupName { get; set; }
 
     public string League { get; set; }

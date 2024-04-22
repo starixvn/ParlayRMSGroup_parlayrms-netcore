@@ -8,7 +8,7 @@ public class WonTicketModel
 
 	public string UserName { get; set; }
 
-	public int CustomerClass { get; set; }
+	public int? CustomerClass { get; set; }
 
 	public string CurrencyName { get; set; }
 

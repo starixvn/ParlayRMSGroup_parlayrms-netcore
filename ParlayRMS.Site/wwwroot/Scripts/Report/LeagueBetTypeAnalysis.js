@@ -830,11 +830,12 @@
             $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfLeague).val('-50,000');
             var leagueId = this.getAttribute('data-leagueid');
             var leagueName = this.getAttribute('data-leaguename');
-            LeagueBetTypeAnalysis.HandleElementForLeagueTab(leagueId);
+            var groupId = this.getAttribute('data-groupid');
+            LeagueBetTypeAnalysis.HandleElementForLeagueTab(leagueId, groupId);
             LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
                 LeagueBetTypeAnalysis.cachedObject.fromDate,
                 LeagueBetTypeAnalysis.cachedObject.toDate,
-                LeagueBetTypeAnalysis.cachedObject.leagueGroups,
+                groupId,
                 leagueId,
                 LeagueBetTypeAnalysis.cachedObject.site,
                 LeagueBetTypeAnalysis.cachedObject.ratio,
@@ -1314,7 +1315,7 @@
         }
     },
 
-    HandleElementForLeagueTab: function (leagueId) {
+    HandleElementForLeagueTab: function (leagueId, groupId) {
         $(LeagueBetTypeAnalysis.DOM.fromDateOfLeague).datepicker("setDate", LeagueBetTypeAnalysis.cachedObject.fromDate);
         $(LeagueBetTypeAnalysis.DOM.toDateOfLeague).datepicker("setDate", LeagueBetTypeAnalysis.cachedObject.toDate);
         $(LeagueBetTypeAnalysis.DOM.ddlSportOfLeague).val(LeagueBetTypeAnalysis.cachedObject.sportType).multiselect("refresh");
@@ -1325,14 +1326,16 @@
             [LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague],
             LeagueBetTypeAnalysis.cachedObject.fromDate,
             LeagueBetTypeAnalysis.cachedObject.toDate, function () {
-                $(LeagueBetTypeAnalysis.DOM.ddlGroupOfLeague).val(LeagueBetTypeAnalysis.cachedObject.leagueGroups.split(',')).multiselect("refresh");
-                LeagueBetTypeAnalysis.ReloadLeagues(LeagueBetTypeAnalysis.cachedObject.leagueGroups, LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague);
+                $(LeagueBetTypeAnalysis.DOM.ddlGroupOfLeague).val([groupId]).multiselect("refresh");
+                if (groupId !== '-1') {
+                    LeagueBetTypeAnalysis.ReloadLeagues(groupId, LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague);
+                }
                 if (leagueId > 0) {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).val([leagueId]).multiselect("refresh");
                 };
-                if (LeagueBetTypeAnalysis.IsDisabled(1, LeagueBetTypeAnalysis.cachedObject.leagueGroups, leagueId)) {
+                if (LeagueBetTypeAnalysis.IsDisabled(1,groupId, leagueId)) {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).multiselect("disable");
-                    if (LeagueBetTypeAnalysis.cachedObject.leagueGroups == '-1') {
+                    if (groupId == '-1') {
                         var html = leagueGroups == '' ? '' : '<option value="0" aria-selected="true">All</option>';
                         $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).html(html);
                         $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).multiselect('refresh');
