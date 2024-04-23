@@ -1336,7 +1336,7 @@
                 if (LeagueBetTypeAnalysis.IsDisabled(1,groupId, leagueId)) {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).multiselect("disable");
                     if (groupId == '-1') {
-                        var html = leagueGroups == '' ? '' : '<option value="0" aria-selected="true">All</option>';
+                        var html = '<option value="0" aria-selected="true">All</option>';
                         $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).html(html);
                         $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).multiselect('refresh');
                     }
@@ -1366,7 +1366,7 @@
                 if (LeagueBetTypeAnalysis.IsDisabled(2, LeagueBetTypeAnalysis.cachedObject.leagueGroups, LeagueBetTypeAnalysis.cachedObject.leagues)) {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType).multiselect("disable");
                     if (LeagueBetTypeAnalysis.cachedObject.leagueGroups == '-1') {
-                        var html = LeagueBetTypeAnalysis.cachedObject.leagueGroups == '' ? '' : '<option value="0" aria-selected="true">All</option>';
+                        var html = '<option value="0" aria-selected="true">All</option>';
                         $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType).html(html);
                         $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType).multiselect('refresh');
                     }
