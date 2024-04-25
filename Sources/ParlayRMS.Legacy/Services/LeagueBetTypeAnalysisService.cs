@@ -25,13 +25,16 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
                 options.Site,
                 options.Ratio,
                 options.ReportBy,
-                options.SportType);
+                options.SportType,
+                options.BetType,
+                options.HouseWL,
+                options.IsDetail);
             if (options.SortById.HasValue)
             {
                 data = SortData(data, options.SortById.Value, options.IsSortAsc);
             }
             return data;
-        }
+    }
 
     public IEnumerable<LeagueGroup> GetLeagueGroups(int sportType)
     {
@@ -43,7 +46,28 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
             return _dataAccess.RMS_LeagueSel(leagueName, groupId, sportType, fromDate, toDate);
         }
 
-    private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)
+    public IEnumerable<WonTicketModel> GetWonTickets(LeagueBetTypeAnalysisDetailOptions options)
+    {
+        return _dataAccess.GetWonTickets(options.FromDate,
+            options.ToDate,
+            options.ParlayType,
+            options.LeagueGroups,
+            options.Leagues,
+            options.Site,
+            options.ReportBy,
+            options.SportType,
+            options.BetType,
+            options.HouseWL,
+            options.BetTeam,
+            options.Match);
+    }
+
+    public IEnumerable<BettypeModel> GetBettypes(int sportType)
+    {
+	    return _dataAccess.GetBettypes(sportType);
+    }
+
+	private List<RMS_Rpt_LeagueBettype_Analysis> SortData(List<RMS_Rpt_LeagueBettype_Analysis> list, byte sortId, bool isSortAsc)
     {
             switch (sortId)
             {

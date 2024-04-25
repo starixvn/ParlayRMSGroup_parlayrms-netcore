@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = ViewBag.HeaderText = "League & Bet Type Data Analysis";
+    ViewBag.Title = "League & Bet Type Data Analysis";
 }
 <link rel="stylesheet" href="/Content/LeagueBetTypeAnalysis.css" type="text/css" />
+<link rel="stylesheet" href="/Content/jquery-ui-multiselect.css" type="text/css" />
+<script type="text/ecmascript" src="/Scripts/jquery-ui-multiselect.js"></script>
 <script type="text/ecmascript" src="/Scripts/Libs/simplepagination/jquery.simplePagination.js"></script>
-<script type="text/ecmascript" src="/Scripts/Report/LeagueBetTypeAnalysis.js"></script>
+<script type="text/ecmascript" src="/Scripts/Report/LeagueBetTypeAnalysis.js?v=11"></script>
 @await Html.PartialAsync("Filter" )
-<div style="clear: both; margin-bottom: 10px;" id="divResult">
-</div>
 <script type="text/javascript">
     var dateRanges = {
         LimitDataFromDate: '@DateTime.Now.AddMonths(-6)',

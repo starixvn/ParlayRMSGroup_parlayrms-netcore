@@ -846,6 +846,7 @@ function ViewPenaltyShootoutParlayDetails(transId, username) {
             $("#simplemodal-container").width($("#simplemodal-container").width() + 20);
         },
         error: function (xhr, status, err) {
+            CreateNoInfoRow
             alertBox.showError(xhr.responseText);
         },
         complete: function () {

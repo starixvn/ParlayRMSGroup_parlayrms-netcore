@@ -1,32 +1,35 @@
 ﻿@model IEnumerable<ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis.RMS_Rpt_LeagueBettype_Analysis>
-    @{
-        var filterOption = (ParlayRMS.Legacy.ViewModel.Report.LeagueBetTypeAnalysisOptions)ViewBag.FilterOption;
-        var totalRows = @Convert.ToInt32(ViewBag.TotalRows);
-        var isReportByLeague = filterOption.ReportBy == 1 ? true : false;
-    }
-    @if (totalRows > 0)
+@{
+    var filterOption = (ParlayRMS.Legacy.ViewModel.Report.LeagueBetTypeAnalysisOptions)ViewBag.FilterOption;
+    var totalRows = @Convert.ToInt32(ViewBag.TotalRows);
+    var view = filterOption.ReportBy switch
     {
-        <div style="width: @(isReportByLeague ? "1290px" : "1190px")" class="maintitle">
-            <div class="information">
-                @ViewBag.Title
-            </div>
-            <div class="excel" onclick="LeagueBetTypeAnalysis.ExportExcel('@filterOption.ParlayType', '@filterOption.FromDate', '@filterOption.ToDate', '@filterOption.Leagues',  '@filterOption.LeagueGroups','@filterOption.Site', '@filterOption.Ratio', '@filterOption.ReportBy', '@filterOption.SportType')" title="Export Excel">
-            </div>
+        1 => filterOption.IsDetail ? "_LeagueDetailData" : "_LeagueData",
+        2 => filterOption.IsDetail ? "_BetTypeDetailData" : "_BetTypeData",
+	    _ => "_LeagueData"
+	};
+    var width = filterOption.ReportBy switch
+    {
+        1 => filterOption.IsDetail ? "1460px" : "1290px",
+        2 => filterOption.IsDetail ? "1390px" : "1190px",
+	    _ => "1290px"
+	};
+}
+@if (totalRows > 0)
+{
+	<div style="width: @width" class="maintitle">
+        <div class="information">
+            @ViewBag.Title
         </div>
-    }
-    @if (isReportByLeague)
-    {
-        @await Html.PartialAsync("_LeagueData", Model)
-    }
-    else
-    {
-        @await Html.PartialAsync("_BetTypeData", Model)
-
-    }
-    <br />
-    @if (totalRows > 100)
-    {
-        <div style="width: @(isReportByLeague ? "1290px" : "1190px")">
-            @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
+        <div class="excel" onclick="LeagueBetTypeAnalysis.ExportExcel('@filterOption.ParlayType', '@filterOption.FromDate', '@filterOption.ToDate', '@filterOption.Leagues',  '@filterOption.LeagueGroups','@filterOption.Site', '@filterOption.Ratio', '@filterOption.ReportBy', '@filterOption.SportType', '@filterOption.BetType', '@filterOption.HouseWL', '@filterOption.IsDetail', '@filterOption.LeagueTitle', '@filterOption.BetTypeTitle')" title="Export Excel">
         </div>
-    }
+    </div>
+}
+@await Html.PartialAsync(view, Model)
+<br />
+@if (totalRows > 100)
+{
+	<div style="width: @width">
+        @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
+    </div>
+}

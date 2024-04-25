@@ -1,66 +1,202 @@
 ﻿@using ParlayRMS.Legacy.Web
-
-<div class="filter">
-    <div class="filter-control" style="width: 1122px; margin-bottom: 10px;">
-        <div class="minimizetitle">
-            <div class="minimizecontent">
-                @ViewLang.FilterControl
-            </div>
-            <div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
-                -
-            </div>
-        </div>
-        <div id="filtercontent" class="container">
-            <div class="row">
-                <div class="group">
-                    @Html.Label("", ViewLang.From)
-                    @Html.TextBox("fromDate", "", new { @readonly = "true" })
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.To)
-                    @Html.TextBox("toDate", "", new { @readonly = "true" })
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.Ratio + " >=")
-                    @Html.TextBox("txtRatio", "40", new { @class = "inputtext w100", onkeypress = "return LeagueBetTypeAnalysis.IsNumber(event)" })
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.ReportBy)
-                    @Html.RadioButtonList("rdlReportBy", Config.ReportBy)
-                </div>
-            </div>
-            <div class="row">
-                <div class="group">
-                    @Html.Label("", "Sport")
-                    @Html.DropDownList("ddlSport", new List<SelectListItem> {
-                    new SelectListItem { Text = "Soccer", Value = "1" },
-                    new SelectListItem { Text = "Basketball", Value = "2" }
-                    })
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.Group)
-                    @Html.DropDownList("ddlGroup", new List<SelectListItem>())
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.League)
-                    @Html.DropDownList("ddlLeague", new List<SelectListItem>())
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.Site)
-                    @Html.DropDownList("ddlSite", Config.Sites)
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.ParlayType)
-                    @Html.DropDownList("ddlParlayType", Config.SimpleParlayTypes)
-                </div>
-                <div class="group">
-                    <button id="btnSearch">
-                        <span class="text">@ViewLang.Submit</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-league-bettype" style="font-weight: bold">League & Bet Type Data Analysis</a></li>
+		<li><a href="#tabs-league" style="font-weight: bold">League Details</a></li>
+		<li><a href="#tabs-bettype" style="font-weight: bold">Bet Type Details</a></li>
+	</ul>
+	<div id="tabs-league-bettype" style="display: inline-block">
+		<div class="filter">
+			<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
+				<div class="minimizetitle">
+					<div class="minimizecontent">
+						@ViewLang.FilterControl
+					</div>
+					<div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+						-
+					</div>
+				</div>
+				<div id="filtercontent" class="container">
+					<div class="row">
+						<div class="group">
+							@Html.Label("", ViewLang.From)
+							@Html.TextBox("fromDate", "", new { @readonly = "true" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.To)
+							@Html.TextBox("toDate", "", new { @readonly = "true" })
+						</div>
+						<div class="group" >
+							@Html.Label("", ViewLang.Ratio + " >=")
+							@Html.TextBox("txtRatio", "40", new { @class = "inputtext w100", onkeypress = "return LeagueBetTypeAnalysis.IsNumber(event)" })
+						</div>
+						<div class="group" >
+							@Html.Label("", ViewLang.ReportBy)
+							@Html.RadioButtonList("rdlReportBy", Config.ReportBy)
+						</div>
+					</div>
+					<div class="row">
+						<div class="group">
+							@Html.Label("", "Sport")
+							@Html.DropDownList("ddlSport", new List<SelectListItem> {
+								new SelectListItem { Text = "Soccer", Value = "1" },
+								new SelectListItem { Text = "Basketball", Value = "2" }
+							})
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Group)
+							@Html.DropDownList("ddlGroup", new List<SelectListItem>(), new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.League)
+							@Html.DropDownList("ddlLeague", new List<SelectListItem>(), new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Site)
+							@Html.DropDownList("ddlSite", Config.Sites)
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.ParlayType)
+							@Html.DropDownList("ddlParlayType", Config.SimpleParlayTypes, new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							<button class="btnSearch button">
+								<span class="text">@ViewLang.Submit</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both; margin-bottom: 10px;" id="divResult">
+		</div>
+	</div>
+	<div id="tabs-league" style="display: inline-block">
+		<div class="filter">
+			<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
+				<div class="minimizetitle">
+					<div class="minimizecontent">
+						@ViewLang.FilterControl
+					</div>
+					<div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+						-
+					</div>
+				</div>
+				<div id="filtercontent" class="container">
+					<div class="row">
+						<div class="group">
+							@Html.Label("", ViewLang.From)
+							@Html.TextBox("fromDate-League", "", new { @readonly = "true" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.To)
+							@Html.TextBox("toDate-League", "", new { @readonly = "true" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.HouseWinLoss + " <=")
+							@Html.TextBox("txtHouseWL-League", "-50,000", new { @class = "inputtext" })
+						</div>
+					</div>
+					<div class="row">
+						<div class="group">
+							@Html.Label("", "Sport")
+							@Html.DropDownList("ddlSport-League", new List<SelectListItem> {
+								new SelectListItem { Text = "Soccer", Value = "1" },
+								new SelectListItem { Text = "Basketball", Value = "2" }
+							})
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Group)
+							@Html.DropDownList("ddlGroup-League", new List<SelectListItem>(), new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.League)
+							@Html.DropDownList("ddlLeague-League", new List<SelectListItem>(), new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Site)
+							@Html.DropDownList("ddlSite-League", Config.Sites)
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.ParlayType)
+							@Html.DropDownList("ddlParlayType-League", Config.SimpleParlayTypes, new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							<button class="btnSearch button">
+								<span class="text">@ViewLang.Submit</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both; margin-bottom: 10px;" id="divResult-League">
+		</div>
+	</div>
+	<div id="tabs-bettype" style="display: inline-block">
+		<div class="filter">
+			<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
+				<div class="minimizetitle">
+					<div class="minimizecontent">
+						@ViewLang.FilterControl
+					</div>
+					<div id="filterminimize" class="minimize" onclick="Minimize('filtercontent','filterminimize');">
+						-
+					</div>
+				</div>
+				<div id="filtercontent" class="container">
+					<div class="row">
+						<div class="group">
+							@Html.Label("", ViewLang.From)
+							@Html.TextBox("fromDate-BetType", "", new { @readonly = "true" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.To)
+							@Html.TextBox("toDate-BetType", "", new { @readonly = "true" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.HouseWinLoss + " <=")
+							@Html.TextBox("txtHouseWL-BetType", "-50,000", new { @class = "inputtext" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Bettype)
+							@Html.DropDownList("ddlBetType", new List<SelectListItem>())
+						</div>
+					</div>
+					<div class="row">
+						<div class="group">
+							@Html.Label("", "Sport")
+							@Html.DropDownList("ddlSport-BetType", new List<SelectListItem> {
+								new SelectListItem { Text = "Soccer", Value = "1" },
+								new SelectListItem { Text = "Basketball", Value = "2" }
+							})
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Group)
+							@Html.DropDownList("ddlGroup-BetType", new List<SelectListItem>(), new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.League)
+							@Html.DropDownList("ddlLeague-BetType", new List<SelectListItem>(), new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.Site)
+							@Html.DropDownList("ddlSite-BetType", Config.Sites)
+						</div>
+						<div class="group">
+							@Html.Label("", ViewLang.ParlayType)
+							@Html.DropDownList("ddlParlayType-BetType", Config.SimpleParlayTypes, new { multiple = "multiple" })
+						</div>
+						<div class="group">
+							<button class="btnSearch button">
+								<span class="text">@ViewLang.Submit</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both; margin-bottom: 10px;" id="divResult-BetType">
+		</div>
+	</div>
 </div>
-
-

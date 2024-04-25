@@ -82,10 +82,10 @@
                             @(index + 1)
                         </td>
 	                    <td class="center">
-		                    @item.GroupName
+							@item.GroupName
 	                    </td>
                         <td class="left">
-                            @item.League
+                        <a class="leagueTab" href="#" data-groupid="@item.GroupId" data-leaguename="@item.League" data-leagueid="@item.LeagueId">@item.League</a>
                         </td>
                         <td class="numeric">
                             @Formatter.FormatNumber3(item.TotalTickets)
@@ -99,9 +99,9 @@
                         <td class="center">
                             @item.Ratio
                         </td>
-                        <td class="numeric">
-                            @Formatter.FormatNumber3(item.ParlayWonTickets)
-                        </td>
+	                    <td class="numeric">
+							@Formatter.FormatNumber3(item.ParlayWonTickets)
+	                    </td>
                         <td class="numeric">
                             @item.TurnOver.ToString("#,##0.00")
                         </td>

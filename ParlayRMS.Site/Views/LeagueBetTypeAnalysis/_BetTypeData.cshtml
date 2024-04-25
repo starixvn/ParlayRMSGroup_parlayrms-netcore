@@ -77,7 +77,7 @@
                             @(index + 1)
                         </td>
 	                    <td class="left">
-							@item.Bettype
+                        <a class="betTypeTab" href="#" data-bettypeid="@item.BetTypeId" data-bettypename="@item.BetType">@item.BetType</a>
 	                    </td>
                         <td class="numeric">
                             @Formatter.FormatNumber3(item.TotalTickets)

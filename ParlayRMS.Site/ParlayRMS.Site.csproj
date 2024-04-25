@@ -31,12 +31,15 @@
 
   
   <ItemGroup>
-    <None Remove="App_Data\LegacySpName.xml" />
     <None Remove="ExcelTemplates\AgentWinLoss.xls" />
     <None Remove="ExcelTemplates\BetTypeDataAnalysis.xls" />
+    <None Remove="ExcelTemplates\BetTypeDetail.xls" />
     <None Remove="ExcelTemplates\IpInfo.xls" />
     <None Remove="ExcelTemplates\IpStats.xls" />
+    <None Remove="ExcelTemplates\LeagueBetTypeAnalysis\Bettype_ParlayWonTickets.xlsx" />
+    <None Remove="ExcelTemplates\LeagueBetTypeAnalysis\League_ParlayWonTickets.xlsx" />
     <None Remove="ExcelTemplates\LeagueDataAnalysis.xls" />
+    <None Remove="ExcelTemplates\LeagueDetail.xls" />
     <None Remove="ExcelTemplates\MemberWinLoss.xls" />
     <None Remove="ExcelTemplates\ParlayWon.xls" />
     <None Remove="ExcelTemplates\SpecialLeague.xls" />

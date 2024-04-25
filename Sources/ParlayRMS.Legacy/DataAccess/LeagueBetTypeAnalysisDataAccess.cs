@@ -20,29 +20,51 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         int site,
         double ratio,
         int reportBy,
-        int sportType)
+        int sportType,
+        int betType,
+        decimal? houseWL,
+        bool isDetail)
     {
-        var criteria = new Rpt_LeagueBettype_Analysis_Criteria
+        var list = new List<RMS_Rpt_LeagueBettype_Analysis>();
+        if (isDetail)
         {
-            FromDate = fromDate,
-            ToDate = toDate,
-            ParlayType = parlayTypes,
-            LeagueGroups = leagueGroups,
-            Leagues = leagues,
-            Site = site,
-            Ratio = ratio,
-            ReportBy = reportBy,
-            SportType = sportType
-        };
-
-        var list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();
+            var criteria = new LeagueBettypeDetailCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                ParlayType = parlayTypes,
+                LeagueGroups = leagueGroups,
+                Leagues = leagues,
+                Site = site,
+                ReportBy = reportBy,
+                SportType = sportType,
+                BetType = betType,
+                HouseWL = houseWL
+            };
+            list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();
+        }
+        else
+        {
+            var criteria = new Rpt_LeagueBettype_Analysis_Criteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                ParlayType = parlayTypes,
+                LeagueGroups = leagueGroups,
+                Leagues = leagues,
+                Site = site,
+                ReportBy = reportBy,
+                SportType = sportType,
+                Ratio = ratio
+            };
+            list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();
+        }
         var index = 1;
         list.ForEach(d =>
         {
             d.No = index++;
-            d.Bettype = reportBy == 2 ? CacheRef.GetBettype(d.BetTypeId) : "";
+            d.BetType = reportBy == 2 ? CacheRef.GetBettype(d.BetTypeId) : d.BetType;
             d.League = reportBy == 1 ? CacheRef.GetLeagueName(d.LeagueId) : "";
-            d.GroupName = reportBy == 1 ? d.GroupName : string.Empty;
             d.Ratio = GetRatio(d.WonTickets, d.TotalTickets);
         });
 
@@ -65,7 +87,38 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         return repository.Fetch<LeagueGroup>(criteria);
     }
 
-    public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType, DateTime fromDate, DateTime toDate)
+    public IEnumerable<WonTicketModel> GetWonTickets(DateTime fromDate,
+        DateTime toDate,
+        string parlayTypes,
+        string leagueGroups,
+        string leagues,
+        int site,
+        int reportBy,
+        int sportType,
+        int betType,
+        decimal? houseWL,
+        string betTeam,
+        int match)
+    {
+        var criteria = new LeagueBettypeDetailCriteria
+        {
+            FromDate = fromDate,
+            ToDate = toDate,
+            ParlayType = parlayTypes,
+            LeagueGroups = leagueGroups,
+            Leagues = leagues,
+            Site = site,
+            ReportBy = reportBy,
+            SportType = sportType,
+            BetType = betType,
+            HouseWL = houseWL,
+            BetTeam = betTeam,
+            Match = match
+        };
+        return repository.Fetch<WonTicketModel>(criteria);
+    }
+
+	public List<RMS_LeagueSel> RMS_LeagueSel(string leagueName, int groupId, int sportType, DateTime fromDate, DateTime toDate)
     {
         var criteria = new LeagueSel_Criteria
         {
@@ -81,4 +134,10 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
 
         return leagues;
     }
+
+	public IEnumerable<BettypeModel> GetBettypes(int sportType)
+	{
+		var criteria = new BettypeCriteria { SportType = sportType };
+		return repository.Fetch<BettypeModel>(criteria);
+	}
 }

@@ -13,8 +13,8 @@ public class Rpt_LeagueBettype_Analysis_Criteria : CriteriaBase
     public double Ratio { get; set; }
     public int ReportBy { get; set; }
     public int SportType { get; set; }
-
+    public string BetType { get; set; }
+    public decimal? HouseWL { get; set; }
     public override string GetSettingKey() => "RMS_Rpt_LeagueBettype_Analysis";
-
     public override bool IsValid() => true;
 }
