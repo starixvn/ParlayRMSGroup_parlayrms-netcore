@@ -31,7 +31,7 @@ public class WinlossService(WinlossDataAccess _winlossDataAccess, CommonService 
         {
             x.OurPT_NetWinloss = x.OurPT_Won + x.OurPT_Lose;
             x.Combo = x.Combo == "10" ? $"{x.Combo} UP" : x.Combo;
-            x.Margin = x.OurPT_NetWinloss / (x.Stake_Won + x.Stake_Lose);
+            x.Margin = x.Stake_Won + x.Stake_Lose == 0 ? 0 : x.OurPT_NetWinloss / (x.Stake_Won + x.Stake_Lose);
         });
 
         return GroupData(data);
