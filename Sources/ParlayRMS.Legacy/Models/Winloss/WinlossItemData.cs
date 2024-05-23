@@ -30,7 +30,7 @@ public class WinlossItemData
                 Total.OurPT_Won += item.OurPT_Won;
                 Total.OurPT_Lose += item.OurPT_Lose;
                 Total.OurPT_NetWinloss += item.OurPT_NetWinloss;
-                Total.Margin = Total.OurPT_NetWinloss / (Total.Stake_Won + Total.Stake_Lose);
+                Total.Margin = Total.Stake_Won + Total.Stake_Lose == 0 ? 0 : Total.OurPT_NetWinloss / (Total.Stake_Won + Total.Stake_Lose);
             }
         }
 }

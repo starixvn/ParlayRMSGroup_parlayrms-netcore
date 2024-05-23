@@ -23,34 +23,27 @@ public class WinlossController(WinlossService _winlossService) : BaseController
     [HttpPost]
     public ActionResult Data(WinlossOptions options)
     {
-        try
+        if (options.FromDate > options.ToDate)
         {
-            if (options.FromDate > options.ToDate)
-            {
-                ModelState.AddModelError("FromDate", "FromDate must be less than ToDate");
-            }
-
-            var lastMonth = DateTime.Now.AddMonths(-3).Date;
-            if (options.FromDate.Date < lastMonth)
-            {
-                ModelState.AddModelError("FromDate",
-                    $"FromDate must be greater or equal than {lastMonth.ToShortDateString()}");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return PartialView("_ErrorMessage", GetModelErrorMessage());
-            }
-
-            var model = _winlossService.GetWinloss(options);
-            ViewBag.Title = options.GetTitle();
-            ViewBag.FilterOption = options;
-            return PartialView(model);
+            ModelState.AddModelError("FromDate", "FromDate must be less than ToDate");
         }
-        catch (Exception ex)
+
+        var lastMonth = DateTime.Now.AddMonths(-3).Date;
+        if (options.FromDate.Date < lastMonth)
         {
-            return PartialView("_ErrorMessage", ex.Message);
+            ModelState.AddModelError("FromDate",
+                $"FromDate must be greater or equal than {lastMonth.ToShortDateString()}");
         }
+
+        if (!ModelState.IsValid)
+        {
+            return PartialView("_ErrorMessage", GetModelErrorMessage());
+        }
+
+        var model = _winlossService.GetWinloss(options);
+        ViewBag.Title = options.GetTitle();
+        ViewBag.FilterOption = options;
+        return PartialView(model);
     }
 
     [HttpGet]
