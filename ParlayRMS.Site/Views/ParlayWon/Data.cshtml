@@ -1,7 +1,7 @@
 ﻿@using Formatter = ParlayRMS.Legacy.Utilities.Formatter
 @model IEnumerable<ParlayRMS.Legacy.DTO.ParlayWon.RMS_Rpt_Parlay_ParlayWon>
     @{
-    var filterOption = (ParlayRMS.Legacy.ViewModel.Report.ParlayWonOptions)ViewBag.FilterOption;
+    var filterOption = (Legacy.ViewModel.Report.ParlayWonOptions)ViewBag.FilterOption;
         var index = (filterOption.PageIndex - 1) * filterOption.PageSize;
         var start = index;
     }
@@ -18,23 +18,23 @@
     <div style="width: 1925px">
         <table class="main" id="header">
             <colgroup>
-                <col width='70' />
-                <col width='150' />
-                <col width='150' />
-                <col width='75' />
-                <col width='150' />
-                <col width='100' />
-                <col width='80' />
-                <col width='80' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='150' />
-                <col width='80' />
+                <col width="70" />
+                <col width="150" />
+                <col width="150" />
+                <col width="75" />
+                <col width="150" />
+                <col width="100" />
+                <col width="80" />
+                <col width="80" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="150" />
+                <col width="80" />
             </colgroup>
             <thead>
                 <tr>
@@ -96,23 +96,23 @@
     <div class="scrollGridContent" id="scrollGridContent" style="max-height: 500px; width: 1945px">
         <table class="main" id="result">
             <colgroup>
-                <col width='70' />
-                <col width='150' />
-                <col width='150' />
-                <col width='75' />
-                <col width='150' />
-                <col width='100' />
-                <col width='80' />
-                <col width='80' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='150' />
-                <col width='80' />
+                <col width="70" />
+                <col width="150" />
+                <col width="150" />
+                <col width="75" />
+                <col width="150" />
+                <col width="100" />
+                <col width="80" />
+                <col width="80" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="150" />
+                <col width="80" />
             </colgroup>
             <tbody>
                 @foreach (var item in Model)
@@ -180,23 +180,23 @@
     <div style="width: 1925px" class="mainfooter">
         <table class="main" id="footer">
             <colgroup>
-                <col width='70' />
-                <col width='150' />
-                <col width='150' />
-                <col width='75' />
-                <col width='150' />
-                <col width='100' />
-                <col width='80' />
-                <col width='80' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='150' />
-                <col width='80' />
+                <col width="70" />
+                <col width="150" />
+                <col width="150" />
+                <col width="75" />
+                <col width="150" />
+                <col width="100" />
+                <col width="80" />
+                <col width="80" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="150" />
+                <col width="80" />
             </colgroup>
             <tfoot>
                 @if (index == 0)
@@ -214,10 +214,10 @@
                 @Html.Label("pageSizes", ViewLang.PageSize)
                 @Html.DropDownList("ddlPageSize", new List<SelectListItem>
                 {
-                new SelectListItem { Text = "100", Value = "100" },
-                new SelectListItem { Text = "200", Value = "200" },
-                new SelectListItem { Text = "300", Value = "300" },
-                new SelectListItem { Text = "500", Value = "500" }})
+                new() { Text = "100", Value = "100" },
+                new() { Text = "200", Value = "200" },
+                new() { Text = "300", Value = "300" },
+                new() { Text = "500", Value = "500" }})
             </div>
             <ul></ul>
             <div id="detailPagination">Displaying <b>@start</b> to <b>@index</b> of <b>@ViewBag.TotalRows</b> item(s)</div>

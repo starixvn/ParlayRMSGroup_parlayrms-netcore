@@ -102,7 +102,7 @@
                             @Formatter.FormatWithoutRounding(item.Val.CompanyLoseAmount)
                         </td>
                         <td class="numeric">
-                            @if (item.Val.Ip == null || item.Val.Ip == "" || item.Val.Ip == "null")
+                            @if (string.IsNullOrEmpty(item.Val.Ip) || item.Val.Ip == "null")
                             {
                                 <span>----</span>
                             }
@@ -139,7 +139,7 @@
 			                    }
 		                    }
 
-		                    @Formatter.FormatNumber3(@item.Val.TotalBet) @betText
+		                    @Formatter.FormatNumber3(item.Val.TotalBet) @betText
 	                    </td>
                         <td class="center">
                             @if (item.Val.NumberWon == 0 || item.Val.BetType == (int)BetType.SingleMatchParlay)
@@ -148,7 +148,7 @@
                             }
                             else
                             {
-                                @Html.Raw(string.Format("{0}/{1}", item.Val.NumberWon, item.Val.TotalSelection))
+	                            @Html.Raw($"{item.Val.NumberWon}/{item.Val.TotalSelection}")
                             }
                         </td>
                         <td class="center">

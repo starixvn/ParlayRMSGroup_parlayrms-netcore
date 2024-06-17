@@ -1,6 +1,6 @@
 ﻿@using Formatter = ParlayRMS.Legacy.Utilities.Formatter
 @{
-    int id = 0;
+    var id = 0;
 }
 @model IEnumerable<ParlayRMS.Legacy.DTO.MemberWinLoss.RMS_Rpt_Parlay_MemberWinLoss_Detail>
     <div class="details">
@@ -86,7 +86,7 @@
                         </td>
                         <td>
                             @{
-                                var betText = (@item.TotalCombo > 1) ? " bets" : " bet";
+                                var betText = item.TotalCombo > 1 ? " bets" : " bet";
                                 var parlayText = string.Empty;
                                 if (item.IsParlayGenerator)
                                 {
@@ -110,7 +110,7 @@
 
                             }
 
-                            @Formatter.FormatNumber3(@item.TotalCombo) @betText @parlayText
+                            @Formatter.FormatNumber3(item.TotalCombo) @betText @parlayText
                         </td>
                         <td>
                             @item.Selection.ToString("#,##0")

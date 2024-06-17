@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<ParlayRMS.Legacy.DTO.Members.RMS_CustomerSel>
     @{
         Layout = null;
-        var levelName = string.Empty;
     }
     <div id="groupScrollGrid" class="scrollGridContent" style="width: 560px; max-height: 630px;">
         <table id="tblSpecialMemberList" class="scrollGrid" style="width: 542px;">
@@ -28,7 +27,11 @@
                         @customer.Username
                     </td>
                     <td style="width: 130px">
-                        @if (customer.Level == 0)
+
+	                    @{
+		                    string levelName;
+	                    }
+	                    @if (customer.Level == 0)
                         {
                             levelName = "None";
                         }
@@ -48,4 +51,4 @@
             }
         </table>
     </div>
-    @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
+    @await Html.PartialAsync("_Pager", (object)ViewBag.Pager)

@@ -12,12 +12,12 @@
         <div style="margin-left: 12px; margin-bottom: 12px; margin-top: 12px;">
             <table class="main" id="header">
                 <colgroup>
-                    <col width='80px' />
-                    <col width='250px' />
-                    <col width='130px' />
-                    <col width='80px' />
-                    <col width='80px' />
-                    <col width='70px' />
+                    <col width="80px" />
+                    <col width="250px" />
+                    <col width="130px" />
+                    <col width="80px" />
+                    <col width="80px" />
+                    <col width="70px" />
                 </colgroup>
                 <thead>
                     <tr>
@@ -46,12 +46,12 @@
                 <div style="width: 690px">
                     <table class="main" id="header">
                         <colgroup>
-                            <col width='80px' />
-                            <col width='250px' />
-                            <col width='130px' />
-                            <col width='80px' />
-                            <col width='80px' />
-                            <col width='70px' />
+                            <col width="80px" />
+                            <col width="250px" />
+                            <col width="130px" />
+                            <col width="80px" />
+                            <col width="80px" />
+                            <col width="70px" />
                         </colgroup>
                         <tbody>
                             @{
@@ -68,7 +68,7 @@
                                         @if (needSpan)
                                         {
                                             var numSpan = item.Value.Count + 1;
-                                            <td class="center" rowspan=@numSpan>@Formatter.FormatDate(@item.Key)</td>
+                                            <td class="center" rowspan=@numSpan>@Formatter.FormatDate(item.Key)</td>
                                             needSpan = false;
                                         }
                                         <td class="left">
@@ -102,7 +102,7 @@
 			                                        if (viewModel.Status == 113)
 			                                        {
 				                                        var oddsData = viewModel.Odds > 0 ? viewModel.Odds : viewModel.OriginalOdds;
-				                                        @oddsData.ToString("#,##0.####");
+				                                        @oddsData.ToString("#,##0.####")
 			                                        }
 			                                        else
 			                                        {
@@ -157,12 +157,12 @@
                 <div class="scrollGridContent" style="max-height: 470px; width: 690px">
                     <table class="main" id="result">
                         <colgroup>
-                            <col width='80px' />
-                            <col width='250px' />
-                            <col width='130px' />
-                            <col width='80px' />
-                            <col width='80px' />
-                            <col width='70px' />
+                            <col width="80px" />
+                            <col width="250px" />
+                            <col width="130px" />
+                            <col width="80px" />
+                            <col width="80px" />
+                            <col width="70px" />
                         </colgroup>
                         <tbody></tbody>
                     </table>
@@ -171,12 +171,12 @@
             <div style="width: 690px" class="mainfooter">
                 <table class="main foot" id="footer">
                     <colgroup>
-                        <col width='80px' />
-                        <col width='250px' />
-                        <col width='130px' />
-                        <col width='80px' />
-                        <col width='80px' />
-                        <col width='70px' />
+                        <col width="80px" />
+                        <col width="250px" />
+                        <col width="130px" />
+                        <col width="80px" />
+                        <col width="80px" />
+                        <col width="70px" />
                     </colgroup>
                     @if (!(Model.ViewDict.Count == 0 && Model.Outstanding == -1))
                     {

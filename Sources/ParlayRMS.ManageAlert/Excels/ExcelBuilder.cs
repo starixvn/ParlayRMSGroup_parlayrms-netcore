@@ -14,7 +14,7 @@ public class ExcelBuilderImp : ExcelBuilder
 
 	private ExcelWorksheet bodySheet;
 
-	private static readonly string[] sheetNames = { "Manage_Alert", "Similar_Bet", "Potential_Winning" };
+	private static readonly string[] sheetNames = ["Manage_Alert", "Similar_Bet", "Potential_Winning"];
 
 	public ExcelPackage CreateExcelPackage<T>(IEnumerable<T> list, ExcelSetting settings) where T : class, new()
 	{

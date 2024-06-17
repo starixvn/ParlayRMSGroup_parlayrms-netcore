@@ -12,12 +12,12 @@
 <div style="width: 960px">
     <table class="main" id="header">
         <colgroup>
-            <col width='80px' />
-            <col width='200px' />
-            <col width='120px' />
-            <col width='150px' />
-            <col width='200px' />
-            <col width='200px' />
+            <col width="80px" />
+            <col width="200px" />
+            <col width="120px" />
+            <col width="150px" />
+            <col width="200px" />
+            <col width="200px" />
         </colgroup>
         <thead>
             <tr>
@@ -46,19 +46,19 @@
 <div class="scrollGridContent" style="max-height: 680px; width: 970px">
     <table class="main" id="result-ip-stats">
         <colgroup>
-            <col width='80px' />
-            <col width='200px' />
-            <col width='120px' />
-            <col width='150px' />
-            <col width='200px' />
-            <col width='200px' />
+            <col width="80px" />
+            <col width="200px" />
+            <col width="120px" />
+            <col width="150px" />
+            <col width="200px" />
+            <col width="200px" />
         </colgroup>
         <tbody>
-            @if (Model.IPStats.Count() > 0)
+            @if (Model.IPStats.Any())
             {
                 foreach (var row in Model.IPStats)
                 {
-                    counter = counter + 1;
+                    counter += 1;
                     <tr style="height: 22px;">
                         <td class="center">
                             @counter
@@ -99,4 +99,4 @@
     }
     var startCounter = @ViewBag.StartCounter;
 </script>
-@await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
+@await Html.PartialAsync("_Pager", (object)ViewBag.Pager)

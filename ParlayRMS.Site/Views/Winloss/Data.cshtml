@@ -3,7 +3,7 @@
 @using Formatter = ParlayRMS.Legacy.Utilities.Formatter
 @model ParlayRMS.Legacy.Models.Winloss.WinlossData
 @{
-    var filterOption = (ParlayRMS.Legacy.ViewModel.Report.WinlossOptions)ViewBag.FilterOption;
+    var filterOption = (Legacy.ViewModel.Report.WinlossOptions)ViewBag.FilterOption;
 }
 <div style="width: 1391px;" class="maintitle">
     <div class="information">
@@ -15,18 +15,18 @@
 <div style="width: 1391px">
     <table class="main">
         <colgroup>
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='130' />
-	        <col width='130' />
-	        <col width='150' />
-	        <col width='100' />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="130" />
+	        <col width="130" />
+	        <col width="150" />
+	        <col width="100" />
         </colgroup>
         <thead>
             <tr>
@@ -94,18 +94,18 @@
 <div class="scrollGridContent" style="max-height: 500px; width: 1408px">
     <table class="main" id="result">
         <colgroup>
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='130' />
-	        <col width='130' />
-	        <col width='150' />
-	        <col width='100' />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="130" />
+	        <col width="130" />
+	        <col width="150" />
+	        <col width="100" />
         </colgroup>
         <tbody>
             @foreach (var group in Model.Records)
@@ -197,18 +197,18 @@
 <div style="width: 1391px" class="mainfooter">
     <table class="main" id="footer">
         <colgroup>
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='100' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='120' />
-	        <col width='130' />
-	        <col width='130' />
-	        <col width='150' />
-	        <col width='100' />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="100" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="120" />
+	        <col width="130" />
+	        <col width="130" />
+	        <col width="150" />
+	        <col width="100" />
         </colgroup>
         <tfoot>
             @if (Model.Records.Any())
@@ -218,7 +218,7 @@
                         @ViewLang.Total
                     </td>
                     <td class="numeric">
-                        @Formatter.FormatNumber3(@Model.Total.Tickets_Won)
+                        @Formatter.FormatNumber3(Model.Total.Tickets_Won)
                     </td>
                     <td class="numeric">
                         @Formatter.FormatNumber3(Model.Total.Tickets_Lose)

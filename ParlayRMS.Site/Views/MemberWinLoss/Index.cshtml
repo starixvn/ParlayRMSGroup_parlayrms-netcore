@@ -15,8 +15,8 @@
         <div id="filtercontent" class="container">
             <div class="row">
                 <div class="group">
-                    @Html.Label("usernameOfMember", string.Format("{0} {1}", ViewLang.Username, "(*)"))
-                    @Html.TextBox("usernameOfMember")
+	                @Html.Label("usernameOfMember", $"{ViewLang.Username} (*)")
+	                @Html.TextBox("usernameOfMember")
                 </div>
                 <div class="group">
                     <p id="lbUserExtra" style="padding: 10px 0px;">(CC:)</p>

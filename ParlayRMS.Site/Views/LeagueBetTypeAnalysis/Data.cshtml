@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis.RMS_Rpt_LeagueBettype_Analysis>
 @{
-    var filterOption = (ParlayRMS.Legacy.ViewModel.Report.LeagueBetTypeAnalysisOptions)ViewBag.FilterOption;
-    var totalRows = @Convert.ToInt32(ViewBag.TotalRows);
+    var filterOption = (Legacy.ViewModel.Report.LeagueBetTypeAnalysisOptions)ViewBag.FilterOption;
+    var totalRows = Convert.ToInt32(ViewBag.TotalRows);
     var view = filterOption.ReportBy switch
     {
         1 => filterOption.IsDetail ? "_LeagueDetailData" : "_LeagueData",
@@ -30,6 +30,6 @@
 @if (totalRows > 100)
 {
 	<div style="width: @width">
-        @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
+        @await Html.PartialAsync("_Pager", (object)ViewBag.Pager)
     </div>
 }
