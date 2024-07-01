@@ -12,30 +12,30 @@ namespace ParlayRMS.WinLossRiskControl.Controllers;
 public class WinLossExcelController(IMediator mediator)
 {
     [Route("site-win-loss-excel")]
-	public async Task<IActionResult> ExcelSite(SiteWinLossExcelRequest request)
-	{
-		var excelPackage = await mediator.Send(request);
-		return new EpplusExcelResult(excelPackage);
-	}
+    public async Task<IActionResult> ExcelSite(SiteWinLossExcelRequest request)
+    {
+        var excelPackage = await mediator.Send(request);
+        return new EpplusExcelResult(excelPackage);
+    }
 
-	[Route("company-win-loss-excel")]
-	public async Task<IActionResult> ExcelCompany(SuperWinLossExcelRequest request)
-	{
-		var excelPackage = await mediator.Send(request);
-		return new EpplusExcelResult(excelPackage);
-	}
+    [Route("company-win-loss-excel")]
+    public async Task<IActionResult> ExcelCompany(SuperWinLossExcelRequest request)
+    {
+        var excelPackage = await mediator.Send(request);
+        return new EpplusExcelResult(excelPackage);
+    }
 
-	[Route("agent-win-loss-excel")]
-	public async Task<IActionResult> ExcelAgent(AgentWinLossExcelRequest request)
-	{
-		var excelPackage = await mediator.Send(request);
-		return new EpplusExcelResult(excelPackage);
-	}
+    [Route("agent-win-loss-excel")]
+    public async Task<IActionResult> ExcelAgent(AgentWinLossExcelRequest request)
+    {
+        var excelPackage = await mediator.Send(request);
+        return new EpplusExcelResult(excelPackage);
+    }
 
-	[Route("member-win-loss-excel")]
-	public async Task<IActionResult> ExcelMember(MemberWinLossExcelRequest request)
-	{
-		var excelPackage = await mediator.Send(request);
-		return new EpplusExcelResult(excelPackage);
-	}
+    [Route("member-win-loss-excel")]
+    public async Task<IActionResult> ExcelMember(MemberWinLossExcelRequest request)
+    {
+        var excelPackage = await mediator.Send(request);
+        return new EpplusExcelResult(excelPackage);
+    }
 }

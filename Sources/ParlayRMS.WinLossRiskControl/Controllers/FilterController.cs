@@ -11,14 +11,14 @@ namespace ParlayRMS.WinLossRiskControl.Controllers;
 public class FilterController(IMediator mediator) : ControllerBase
 {
     [Route("sports")]
-	public async Task<ActionResult> Sports() => Ok(await mediator.Send(new SportRequest()));
+    public async Task<ActionResult> Sports() => Ok(await mediator.Send(new SportRequest()));
 
-	[Route("parlay-types")]
-	public async Task<ActionResult> ParlayTypes() => Ok(await mediator.Send(new ParlayTypeRequest()));
+    [Route("parlay-types")]
+    public async Task<ActionResult> ParlayTypes() => Ok(await mediator.Send(new ParlayTypeRequest()));
 
-	[Route("company")]
-	public async Task<ActionResult> Company() => Ok(await mediator.Send(new CompanyRequest()));
+    [Route("company")]
+    public async Task<ActionResult> Company() => Ok(await mediator.Send(new CompanyRequest()));
 
-	[Route("comboes")]
-	public async Task<ActionResult> Comboes() => Ok(await mediator.Send(new ComboRequest()));
+    [Route("comboes")]
+    public async Task<ActionResult> Comboes() => Ok(await mediator.Send(new ComboRequest()));
 }

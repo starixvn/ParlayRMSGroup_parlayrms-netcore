@@ -3,8 +3,6 @@
 	<Function Name="Auth">
 		<Setting Key="RMS_UserLogin" SpName="RMS_UserLogin" DbName="DBCUST.CustDB.wsv_rms" />
 	</Function>
-	
-	
 	<Function Name="Win Loss Risk Control">
 		<Setting Key="RMS_Rpt_Winloss_Risk_Control" SpName="RMS_Rpt_Winloss_Risk_Control" DbName="DBRMS.bodb_RMS.wsv_rms" />
 		<Setting Key="RMS_Rpt_Winloss_Risk_Control_Company" SpName="RMS_Rpt_Winloss_Risk_Control_Company" DbName="DBRMS.bodb_RMS.wsv_rms" />

@@ -5,5 +5,5 @@ namespace ParlayRMS.LeagueEventControl.Requests;
 
 public class BettypeRequest : IRequest<IEnumerable<BettypeModel>>
 {
-	public int SportType { get; set; }
+    public int SportType { get; set; }
 }

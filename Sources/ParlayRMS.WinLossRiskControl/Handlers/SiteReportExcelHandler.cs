@@ -12,14 +12,14 @@ public class SiteReportExcelHandler(WinLossService service, IMapper mapper, Site
     : IRequestHandler<SiteWinLossExcelRequest, ExcelPackage>
 {
     public async Task<ExcelPackage> Handle(SiteWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
-	{
-		var excelSetting = new ExcelSetting
-		{
-			Title = "Site"
-		};
-		var request = mapper.Map<WinLossRequest>(excelRequest);
-		var data = await service.SitesWinLoss(request);
+    {
+        var excelSetting = new ExcelSetting
+        {
+            Title = "Site"
+        };
+        var request = mapper.Map<WinLossRequest>(excelRequest);
+        var data = await service.SitesWinLoss(request);
 
-		return excelService.CreateExcelPackage(data, excelSetting);
-	}
+        return excelService.CreateExcelPackage(data, excelSetting);
+    }
 }

@@ -5,5 +5,5 @@ namespace ParlayRMS.ManageAlert.Requests;
 
 public class ViewLogRequest : IRequest<IEnumerable<ViewLogModel>>
 {
-	public long AlertId { get; set; }
+    public long AlertId { get; set; }
 }

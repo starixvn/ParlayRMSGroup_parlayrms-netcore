@@ -7,5 +7,5 @@ namespace ParlayRMS.ManageAlert.Handlers;
 public class TakeActionHandler(ManageAlertService alertService) : IRequestHandler<TakeActionRequest, int>
 {
     public Task<int> Handle(TakeActionRequest request, CancellationToken cancellationToken) =>
-		alertService.TakeAction(request);
+        alertService.TakeAction(request);
 }

@@ -10,19 +10,19 @@ public class ReportHandler(WinLossService service) : IRequestHandler<WinLossRequ
     IRequestHandler<AgentWinLossRequest, WinLossModel>
 {
     public Task<WinLossModel> Handle(WinLossRequest request, CancellationToken cancellationToken)
-	{
-		return service.SitesWinLoss(request);
-	}
+    {
+        return service.SitesWinLoss(request);
+    }
 
-	public Task<WinLossModel> Handle(SuperWinLossRequest request, CancellationToken cancellationToken)
-	{
-		return service.SuperWinLoss(request);
-	}
+    public Task<WinLossModel> Handle(SuperWinLossRequest request, CancellationToken cancellationToken)
+    {
+        return service.SuperWinLoss(request);
+    }
 
-	public async Task<WinLossModel> Handle(AgentWinLossRequest request, CancellationToken cancellationToken)
-	{
-		return request.CustId < 1
-			? await service.AgentWinLossBySite(request)
-			: await service.AgentWinLossByMaster(request);
-	}
+    public async Task<WinLossModel> Handle(AgentWinLossRequest request, CancellationToken cancellationToken)
+    {
+        return request.CustId < 1
+            ? await service.AgentWinLossBySite(request)
+            : await service.AgentWinLossByMaster(request);
+    }
 }

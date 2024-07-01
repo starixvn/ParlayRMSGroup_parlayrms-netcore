@@ -11,8 +11,8 @@ namespace ParlayRMS.LeagueEventControl.Controllers;
 public class FilterController(IMediator mediator) : ControllerBase
 {
     [Route("league")]
-	public async Task<ActionResult> League(LeagueRequest request) => Ok(await mediator.Send(request));
+    public async Task<ActionResult> League(LeagueRequest request) => Ok(await mediator.Send(request));
 
-	[Route("bettype")]
-	public async Task<ActionResult> Bettype(BettypeRequest request) => Ok(await mediator.Send(request));
+    [Route("bettype")]
+    public async Task<ActionResult> Bettype(BettypeRequest request) => Ok(await mediator.Send(request));
 }
