@@ -10,8 +10,8 @@ public class LeagueEventMappingProfile : Profile
 {
     public LeagueEventMappingProfile()
     {
-        CreateMap<LeagueDataRequest, LeagueDataCriteria>();
-        CreateMap<EventRequest, EventCriteria>();
+        CreateMap<LeagueDataRequest, LeagueEventCriteria>();
+        CreateMap<EventRequest, LeagueEventCriteria>();
         CreateMap<LeagueRequest, LeagueCriteria>();
         CreateMap<BettypeRequest, BettypeCriteria>();
         CreateMap<EventDetailRequest, EventDetailCriteria>();

@@ -20,13 +20,13 @@ public class LeagueEventServiceImp(IDynamicRepository repository, IMapper mapper
 
     public Task<IEnumerable<LeagueDataModel>> GetLeaguesData(LeagueDataRequest request)
     {
-        var criteria = mapper.Map<LeagueDataCriteria>(request);
+        var criteria = mapper.Map<LeagueEventCriteria>(request);
         return repository.FetchAsync<LeagueDataModel>(criteria);
     }
 
     public Task<IEnumerable<EventGroupModel>> GetEvents(EventRequest request)
     {
-        var criteria = mapper.Map<EventCriteria>(request);
+        var criteria = mapper.Map<LeagueEventCriteria>(request);
         var rawData = repository.Fetch<EventModel>(criteria);
         var eventGroup = UpdateModelView(rawData);
         return Task.FromResult(eventGroup);

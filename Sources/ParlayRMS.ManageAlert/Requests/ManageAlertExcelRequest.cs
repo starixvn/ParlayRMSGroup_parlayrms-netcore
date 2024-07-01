@@ -26,8 +26,4 @@ public class ManageAlertExcelRequest : IRequest<ExcelPackage>
     public string Selection { get; set; }
 
     public decimal? Odds { get; set; }
-
-    public int PageIndex { get; set; }
-
-    public int PageSize { get; set; }
 }

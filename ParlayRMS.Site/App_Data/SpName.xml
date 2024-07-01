@@ -123,12 +123,10 @@
 		<Setting Key="RMS_SelBalanceUpDay" SpName="RMS_SelBalanceUpDay" DbName="DBRMS.bodb_RMS.wsv_rms" />
 		<Setting Key="RMS_SiteByGroupSel" SpName="RMS_SiteByGroupSel" DbName="DBRMS.bodb_RMS.wsv_rms" />
 	</Function>
-
 	<Function Name="BetBuilder">
 		<Setting Key="RMS_BetList_BetBuilder_Detail" SpName="RMS_BetList_BetBuilder_Detail" DbName="DBACC.bodb02.wsv_rms" />
 		<Setting Key="RMS_BetList_BetBuilder_MatchDetail" SpName="RMS_BetList_BetBuilder_MatchDetail" DbName="DBRMS.bodb_RMS.wsv_rms" />
 	</Function>
-
 	<Function Name="BetDetail">
 		<Setting Key="RMS_Rpt_Parlay_TopWinners_Bet_Details" SpName="RMS_Rpt_Parlay_TopWinners_Bet_Details" DbName="DBRMS.bodb_RMS.wsv_rms" />
 		<Setting Key="RMS_Rpt_ComboParlay_TopWinner_BetInfo" SpName="RMS_Rpt_ComboParlay_TopWinner_BetInfo" DbName="DBRMS.bodb_RMS.wsv_rms" />

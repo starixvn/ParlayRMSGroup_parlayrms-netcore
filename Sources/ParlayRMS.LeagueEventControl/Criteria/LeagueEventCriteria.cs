@@ -2,7 +2,7 @@
 
 namespace ParlayRMS.LeagueEventControl.Criteria;
 
-public class EventCriteria : CriteriaBase
+public class LeagueEventCriteria: CriteriaBase
 {
     public string Selection { get; set; }
 
