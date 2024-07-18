@@ -68,14 +68,6 @@
           </div>
         </div>
       </div>
-      <div class="nap-col">
-        <div class="nap-group">
-          <label class="width-50">Odds=&lt;</label>
-          <div class="nap-control">
-            <input class="form-control" [(ngModel)]="odds" (keypress)="onlyDigits($event)">
-          </div>
-        </div>
-      </div>
     </div>
     <div class="row">
       <div class="nap-col">
@@ -88,7 +80,6 @@
           </div>
         </div>
       </div>
-
       <div class="nap-col">
         <div class="nap-group">
           <label class="width-50">Tickets status</label>
@@ -99,31 +90,14 @@
           </div>
         </div>
       </div>
-
       <div class="nap-col">
         <div class="nap-group">
-          <label>Refresh every</label>
+          <label class="width-50">Odds=&lt;</label>
           <div class="nap-control">
-            <select class="nap-textbox" (change)="changeRefreshnow()" [(ngModel)]="selectedRefresh">
-              <option *ngFor="let refresh of refreshItems" [attr.checked]="refresh.checked" [value]="refresh.id">
-                   {{refresh.name}}
-               </option>
-            </select>
+            <input class="form-control" [(ngModel)]="odds" (keypress)="onlyDigits($event)">
           </div>
         </div>
       </div>
-      <div class="nap-col">
-        <label>Seconds</label>
-      </div>
-      <div class="nap-col">
-        <button class="btn btn-light" [disabled]="!isClickedSubmit" (click)="getData()">
-          Refresh now [{{timer}}]
-        </button>
-      </div>
-      <div class="nap-col">
-        <input type="checkbox" [disabled]="!isClickedSubmit" (change)="pauseTimer()" [(ngModel)]="checkedRefresh"> Pause
-      </div>
-      
       <div class="nap-col col-buttons">
         <button class="btn btn-primary" (click)="getData()">Submit</button>
       </div>

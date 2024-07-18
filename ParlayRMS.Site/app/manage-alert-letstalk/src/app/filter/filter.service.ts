@@ -38,14 +38,6 @@ export class FilterService {
     ]
   }
 
-  public getRefreshs(): ItemModel[]
-  {
-    return [
-      { id: '60', name: '60', checked: true },
-      { id: '120', name: '120', checked: false }
-    ]
-  }
-
   public getCombos(): ItemModel[] {
     var combos: ItemModel[] = [];
     for(let i = 2; i <= 9; i++) {
