@@ -35,11 +35,6 @@ export class FilterComponent implements OnInit {
     maxHeight: 500
   });
 
-  refreshItems: ItemModel[] = [];
-  selectedRefresh: string = '60';
-  checkedRefresh: boolean = false;
-  isClickedSubmit: boolean = false;
-
   fromDate = DateHelper.convertMomentToDateStruct(CONFIG.date.yesterday);
   toDate = DateHelper.convertMomentToDateStruct(CONFIG.date.today);
 
@@ -59,7 +54,6 @@ export class FilterComponent implements OnInit {
     this.alertTypeItems = this.filterService.getAlertTypes();
     this.actionItems = this.filterService.getActions();
     this.ticketStatusItems = this.filterService.getTicketStatuses();
-    this.refreshItems = this.filterService.getRefreshs();
     this.comboItems = this.filterService.getCombos();
     this.filterService.getSports().subscribe(data => this.sportItems = data);
   }
@@ -70,34 +64,6 @@ export class FilterComponent implements OnInit {
     }
     const model = this.createQueryModel();
     this.generated.emit(model);
-  }
-
-  startCountdown(): void {
-    this.clearTimer();
-    this.startTimer();
-    this.isClickedSubmit = true;
-    this.checkedRefresh = false;
-  }
-
-  pauseTimer(): void {
-    if (this.checkedRefresh) {
-      this.selectedSeconds = Number(this.timer);
-      this.clearTimer();
-    } else {
-      this.startTimer();
-    }
-  }
-
-  changeRefreshnow(): void {
-    this.seconds = Number(this.selectedRefresh);
-    this.selectedSeconds = Number(this.selectedRefresh);
-    this.checkedRefresh = false;
-    this.clearTimer();
-    if (this.isClickedSubmit) {
-      this.startTimer();
-    } else {
-      this.timer = this.selectedRefresh;
-    }
   }
 
   onFromDateChange() {
@@ -140,6 +106,12 @@ export class FilterComponent implements OnInit {
       return false;
     }
 
+    const maxDate = DateHelper.convertDateStructToMoment(this.fromDate).add(7, 'day');
+    if (!DateHelper.convertDateStructToMoment(this.toDate).isBefore(maxDate)) {
+        this.toastService.activate(`Date range should not exceed 7 days!`);
+        return false;
+    }
+
     if (this.selectedSport.length === 0) {
       this.toastService.activate(`Please select at least one Sport type!`);
       return false;
@@ -161,22 +133,6 @@ export class FilterComponent implements OnInit {
     }
 
     return true;
-  }
-
-  private startTimer(): void {
-    this.timer = this.selectedSeconds.toString();
-    this.intervalId = window.setInterval(() => {
-      this.selectedSeconds--;
-      if (this.selectedSeconds === 0) {
-        this.getData();
-        this.selectedSeconds = Number(this.selectedRefresh);
-      }
-      this.timer = this.selectedSeconds.toString();
-    }, 1000)
-  }
-
-  private clearTimer(): void {
-    window.clearInterval(this.intervalId);
   }
 
   onlyDigits(event: KeyboardEvent) {

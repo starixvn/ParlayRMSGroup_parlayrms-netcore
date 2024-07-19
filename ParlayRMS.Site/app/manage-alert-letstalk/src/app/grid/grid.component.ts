@@ -23,7 +23,6 @@ import { PaginationInstance, PaginationService } from 'nap-components/pagination
 export class GridComponent implements OnChanges {
   @Input() filterModel!: FilterModel;
   @Input() webInfoModel!: WebInfoModel;
-  @Output() onGetData = new EventEmitter();
 
   data!: DataModel;
   displayedData: DataModelItem[] = [];
@@ -65,7 +64,6 @@ export class GridComponent implements OnChanges {
         this.paginationInstance = this.paginationService.createPaginationInstance(this.data.totalItems);
         this.isPageChanged = false;
         this.onPageChange();
-        this.onGetData.emit();
       })
     }
   }

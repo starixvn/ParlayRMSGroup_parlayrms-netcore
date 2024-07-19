@@ -26,8 +26,4 @@ export class AppComponent {
   generate(filterModel: FilterModel): void {
     this.filterModel = filterModel;
   }
-
-  startTimer(): void {
-    this.appFilter.startCountdown();
-  }
 }
