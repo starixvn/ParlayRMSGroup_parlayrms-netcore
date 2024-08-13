@@ -376,6 +376,12 @@
                     $("#dateRange option[value='7']").attr('selected', 1);
                     $("#dateRange").multiselect("refresh");
                 }
+                LeagueBetTypeAnalysis.GroupsAndLeagues(parseInt(parseInt($(LeagueBetTypeAnalysis.DOM.ddlSport).val())),
+                    [LeagueBetTypeAnalysis.DOM.ddlGroup],
+                    [LeagueBetTypeAnalysis.DOM.ddlLeague],
+                    $(this).val(),
+                    $(LeagueBetTypeAnalysis.DOM.toDate).val()
+                );
             },
             onClose: function (selectedDate) {
                 $(LeagueBetTypeAnalysis.DOM.toDate).datepicker("option", "minDate", selectedDate);
@@ -394,6 +400,12 @@
                     $("#dateRange option[value='7']").attr('selected', 1);
                     $("#dateRange").multiselect("refresh");
                 }
+                LeagueBetTypeAnalysis.GroupsAndLeagues(parseInt(parseInt($(LeagueBetTypeAnalysis.DOM.ddlSport).val())),
+                    [LeagueBetTypeAnalysis.DOM.ddlGroup],
+                    [LeagueBetTypeAnalysis.DOM.ddlLeague],
+                    $(LeagueBetTypeAnalysis.DOM.fromDate).val(),
+                    $(this).val()
+                );
             },
             onClose: function (selectedDate) {
                 $(LeagueBetTypeAnalysis.DOM.fromDate).datepicker("option", "maxDate", selectedDate);
@@ -412,6 +424,12 @@
                     $("#dateRange option[value='7']").attr('selected', 1);
                     $("#dateRange").multiselect("refresh");
                 }
+                LeagueBetTypeAnalysis.GroupsAndLeagues(parseInt(parseInt($(LeagueBetTypeAnalysis.DOM.ddlSport).val())),
+                    [LeagueBetTypeAnalysis.DOM.ddlGroupOfLeague],
+                    [LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague],
+                    $(this).val(),
+                    $(LeagueBetTypeAnalysis.DOM.toDateOfLeague).val()
+                );
             },
             onClose: function (selectedDate) {
                 $(LeagueBetTypeAnalysis.DOM.toDateOfLeague).datepicker("option", "minDate", selectedDate);
@@ -430,6 +448,12 @@
                     $("#dateRange option[value='7']").attr('selected', 1);
                     $("#dateRange").multiselect("refresh");
                 }
+                LeagueBetTypeAnalysis.GroupsAndLeagues(parseInt(parseInt($(LeagueBetTypeAnalysis.DOM.ddlSport).val())),
+                    [LeagueBetTypeAnalysis.DOM.ddlGroupOfLeague],
+                    [LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague],
+                    $(LeagueBetTypeAnalysis.DOM.fromDateOfLeague).val(),
+                    $(this).val()
+                );
             },
             onClose: function (selectedDate) {
                 $(LeagueBetTypeAnalysis.DOM.fromDateOfLeague).datepicker("option", "maxDate", selectedDate);
@@ -448,6 +472,12 @@
                     $("#dateRange option[value='7']").attr('selected', 1);
                     $("#dateRange").multiselect("refresh");
                 }
+                LeagueBetTypeAnalysis.GroupsAndLeagues(parseInt(parseInt($(LeagueBetTypeAnalysis.DOM.ddlSport).val())),
+                    [LeagueBetTypeAnalysis.DOM.ddlGroupOfBetType],
+                    [LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType],
+                    $(this).val(),
+                    $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).val()
+                );
             },
             onClose: function (selectedDate) {
                 $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).datepicker("option", "minDate", selectedDate);
@@ -466,6 +496,12 @@
                     $("#dateRange option[value='7']").attr('selected', 1);
                     $("#dateRange").multiselect("refresh");
                 }
+                LeagueBetTypeAnalysis.GroupsAndLeagues(parseInt(parseInt($(LeagueBetTypeAnalysis.DOM.ddlSport).val())),
+                    [LeagueBetTypeAnalysis.DOM.ddlGroupOfBetType],
+                    [LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType],
+                    $(LeagueBetTypeAnalysis.DOM.fromDateOfBetType).val(),
+                    $(this).val()
+                );
             },
             onClose: function (selectedDate) {
                 $(LeagueBetTypeAnalysis.DOM.fromDateOfBetType).datepicker("option", "maxDate", selectedDate);

@@ -29,7 +29,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
     public ActionResult GroupsAndLeagues(int sportType, DateTime fromDate, DateTime toDate)
     {
         var leagueGroups = service.GetLeagueGroups(sportType);
-        var leagueList = sportType == SOCCER ? leagueService.GetListLeague("", 0, sportType) : service.GetListLeague("", 0, sportType, fromDate, toDate);    
+        var leagueList = service.GetListLeague("", -2, sportType, fromDate, toDate);    
         return Json(new
         {
             Groups = leagueGroups,
