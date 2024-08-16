@@ -208,6 +208,7 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
         ViewBag.ResultTexts = selectionAndResult.Item2;
         ViewBag.Choice = choice.Item2;
         ViewBag.IsBlackListLeague = choice.Item1;
+        ViewBag.Score = choice.Item3;
 
         return View();
     }

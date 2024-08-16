@@ -9,6 +9,8 @@ export class AlertTypeConstants {
     static readonly LAST_TICKET_PENDING_COLOR = '#c6e0b4';
     static readonly SMALL_LEAGUE_ODDS = 'Small League & Odds';
     static readonly SMALL_LEAGUE_ODDS_COLOR = '#f9cb9c';
+    static readonly SMP_BIG_ODDS = "SMP Big Odds";
+    static readonly SMP_BIG_ODDS_COLOR = "#00ffff";
 }
 
 export class PotentialWinningLevelConstants {
