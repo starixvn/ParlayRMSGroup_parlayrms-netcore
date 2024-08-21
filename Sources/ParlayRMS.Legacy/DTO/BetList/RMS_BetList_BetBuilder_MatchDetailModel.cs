@@ -17,4 +17,6 @@ public class RMS_BetList_BetBuilder_MatchDetailModel
     public DateTime EventDate { get; set; }
 
     public bool IsBlacklistLeague { get; set; }
+
+    public string Score { get; set; }
 }

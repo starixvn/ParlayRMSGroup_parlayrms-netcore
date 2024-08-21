@@ -133,6 +133,7 @@ public class BetListController(BetListService _betlistService, CommonService _co
         ViewBag.SelectionNames = selectionNames;
         ViewBag.Choice = choice;
         ViewBag.IsBlackListLeague = model?.IsBlacklistLeague ?? false;
+        ViewBag.Score = model?.Score;
 
         return View();
     }

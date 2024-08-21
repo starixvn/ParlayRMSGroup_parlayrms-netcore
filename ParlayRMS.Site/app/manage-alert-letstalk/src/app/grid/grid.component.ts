@@ -81,7 +81,10 @@ export class GridComponent implements OnChanges {
     if (type === AlertTypeConstants.SMALL_LEAGUE_ODDS) {
       return AlertTypeConstants.SMALL_LEAGUE_ODDS_COLOR;
     }
-    return AlertTypeConstants.POTENTIAL_WINNING_COLOR;
+    if (type === AlertTypeConstants.POTENTIAL_WINNING) {
+      return AlertTypeConstants.POTENTIAL_WINNING_COLOR;
+    }
+    return AlertTypeConstants.SMP_BIG_ODDS_COLOR;
   }
 
   getColorViaSportType(sportType: string, alertType: string): string {

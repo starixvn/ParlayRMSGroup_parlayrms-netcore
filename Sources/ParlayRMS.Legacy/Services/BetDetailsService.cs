@@ -53,7 +53,7 @@ public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService
         };
     }
 
-    public Tuple<bool, string> GetChoiceForSingleMatchParlay(long transId)
+    public Tuple<bool, string, string> GetChoiceForSingleMatchParlay(long transId)
     {
         return GetChoiceForSingleMatchParlayDetailPopup(transId);
     }
@@ -133,13 +133,13 @@ public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService
             : $"{Math.Floor(stake):#,0}";
     }
 
-    private Tuple<bool, string> GetChoiceForSingleMatchParlayDetailPopup(long transId)
+    private Tuple<bool, string, string> GetChoiceForSingleMatchParlayDetailPopup(long transId)
     {
         var model = _betlistService.RMS_BetList_BetBuilder_MatchDetail(transId).FirstOrDefault();
 
         if (model == null)
         {
-            return new Tuple<bool, string>(false, string.Empty);
+            return new Tuple<bool, string, string>(false, string.Empty, string.Empty);
         }
 
         ITicketHelper ticketHelper = new TicketHelper { IsShowOddsWithChoice = false };
@@ -177,7 +177,7 @@ public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService
             document.ChildNodes.Add(leagueNode);
         }
 
-        return new Tuple<bool, string>(model.IsBlacklistLeague, document.OuterHtml);
+        return new Tuple<bool, string, string>(model.IsBlacklistLeague, document.OuterHtml, model.Score);
     }
 
     private Tuple<bool, string> GetPenaltyShootoutParlayDetailPopup(long transId)

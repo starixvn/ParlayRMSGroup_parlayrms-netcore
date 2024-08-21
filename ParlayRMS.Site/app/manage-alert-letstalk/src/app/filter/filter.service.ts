@@ -17,7 +17,8 @@ export class FilterService {
       { id: '2', name: 'Small Odds', checked: true },
       { id: '3', name: 'Potential Winning', checked: true },
       { id: '4', name: 'Last Pending Tickets', checked: true },
-      { id: '5', name: 'Small League & Odds', checked: true }
+      { id: '5', name: 'Small League & Odds', checked: true },
+      { id: '6', name: 'SMP Big Odds', checked: true }
     ]
   }
 

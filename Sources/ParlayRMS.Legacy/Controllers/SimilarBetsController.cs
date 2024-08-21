@@ -137,6 +137,7 @@ public class SimilarBetsController(
         ViewBag.Differences = differences;
         ViewBag.Choice = choice.Item2;
         ViewBag.IsBlackListLeague = choice.Item1;
+        ViewBag.Score = choice.Item3;
 
         return View();
     }
