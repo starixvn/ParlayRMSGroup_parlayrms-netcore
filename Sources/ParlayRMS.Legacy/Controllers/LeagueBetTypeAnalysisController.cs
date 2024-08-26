@@ -1,11 +1,15 @@
 
+using ParlayRMS.Legacy.Constants;
+
 namespace ParlayRMS.Legacy.Controllers;
 
 using ExcelService.Writers;
+using Fanex.Caching;
 using Fanex.NAP.Client.Attributes;
 using Fanex.NAP.Client.Helpers.Business;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis;
 using ParlayRMS.Models.Functions;
 using Services;
 using System;
@@ -14,7 +18,7 @@ using Utilities;
 using ViewModel.Report;
 using X.PagedList;
 
-public class LeagueBetTypeAnalysisController(LeaguesService leagueService, LeagueBetTypeAnalysisService service) : BaseController
+public class LeagueBetTypeAnalysisController(LeaguesService leagueService, LeagueBetTypeAnalysisService service, ICacheService cacheService) : BaseController
 {
     private const int SOCCER = 1;
 
@@ -29,6 +33,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
     public ActionResult GroupsAndLeagues(int sportType, DateTime fromDate, DateTime toDate)
     {
         var leagueGroups = service.GetLeagueGroups(sportType);
+        cacheService.Set($"{CachedKeyConstant.LeagueGroupsOfLeagueBetTypeAnalysis}-{sportType}", leagueGroups);
         var leagueList = service.GetListLeague("", -2, sportType, fromDate, toDate);    
         return Json(new
         {
@@ -53,7 +58,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
             ViewBag.FilterOption = options;
             var page = options.Page <= 0 ? 1 : options.Page;
             ViewBag.FilterOption = options;
-            ViewBag.Title = options.GetTitle();
+            ViewBag.Title = options.GetTitle(GetLeagueGroupsName(options.LeagueGroups, options.SportType));
             ViewBag.TotalRows = model.Count;
             ViewBag.Pager = Pager.Items(model.Count).PerPage(options.PageSize).Move(page).Segment(5).Center();
             var pageSizesValues = new List<int> { 100, 200, 500 };
@@ -333,5 +338,16 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 
 	    var ms = writer.Render();
 	    return File(ms, "application/vnd.ms-excel", "ParlayWonTickets.xls");
+    }
+
+    private string GetLeagueGroupsName(string data, int sportType)
+    {
+        var filterLeagueGroups = data.Split(',');
+        var leagueGroups =
+            cacheService.Get<List<LeagueGroup>>($"{CachedKeyConstant.LeagueGroupsOfLeagueBetTypeAnalysis}-{sportType}") ??
+            new List<LeagueGroup>();
+        if (filterLeagueGroups.Length == leagueGroups.Count) return ViewLang.All;
+        if (filterLeagueGroups.Length == 1) return leagueGroups.FirstOrDefault(l => l.Id.ToString() == data)?.Name;
+        return $"{filterLeagueGroups.Length} options";
     }
 }

@@ -41,10 +41,10 @@ public class LeagueBetTypeAnalysisOptions
 
     public int PageSize { get; set; }
 
-    public string GetTitle()
+    public string GetTitle(string leagueGroups)
     {
         var title =
-            $"{GetReportName()} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {ModelsHelper.GetLeagueGroupTitle(LeagueGroups)} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}{GetLeagueOrBetTypeTitle()}";
+            $"{GetReportName()} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {leagueGroups} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}{GetLeagueOrBetTypeTitle()}";
         return title;
     }
 

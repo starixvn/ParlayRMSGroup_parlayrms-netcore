@@ -224,56 +224,6 @@ public static class ModelsHelper
             }
         }
 
-    public static string GetLeagueGroup(int leagueGroup)
-    {
-            switch (leagueGroup)
-            {
-                case -1:
-                    return "None";
-                case 1:
-                    return "MJ";
-                case 2:
-                    return "M1";
-                case 3:
-                    return "M2";
-                case 4:
-                    return "M3";
-                case 5:
-                    return "M4 (a)";
-                case 6:
-                    return "M4 (b)";
-                case 7:
-                    return "M4 (x)";
-                case 10:
-                    return "CUP";
-                case 11:
-                    return "CORNER";
-                case 12:
-                    return "WORLD CUP";
-                case 8:
-                    return "Blacklist";
-                default:
-                    return "Virtual";
-            }
-        }
-
-    public static string GetLeagueGroupTitle(string leagueGroups)
-    {
-            var list = leagueGroups.Split(',');
-            switch (list.Length)
-            {
-                case 10:
-                    return ViewLang.All;
-                case 1:
-                    {
-                        var sportType = Convert.ToInt32(list[0]);
-                        return GetLeagueGroup(sportType);
-                    }
-                default:
-                    return $"{list.Length} options";
-            }
-        }
-
     public static string GetCustomerClassTitle(int? customerClass)
     {
             return customerClass == null ? "All" : customerClass.ToString();
