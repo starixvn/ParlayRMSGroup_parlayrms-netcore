@@ -3,7 +3,7 @@
 @using Formatter = ParlayRMS.Legacy.Utilities.Formatter
 @model ParlayRMS.Legacy.Models.MemberWinLoss.MemberWinLossData
 @{
-    var filterOption = (ParlayRMS.Legacy.ViewModel.Report.MemberWinLossOptions)ViewBag.FilterOption;
+    var filterOption = (Legacy.ViewModel.Report.MemberWinLossOptions)ViewBag.FilterOption;
 	var index = 0;
 	var isReportByDate = (bool)ViewBag.ReportByDate;
 	var btnViewDetails = isReportByDate ? "btnViewDetails-ByDate" : "btnViewDetails";
@@ -181,7 +181,7 @@
                         @ViewLang.Total
                     </td>
                     <td class="numeric">
-                        @Formatter.FormatNumber3(@Model.Total.Tickets_Won)
+                        @Formatter.FormatNumber3(Model.Total.Tickets_Won)
                     </td>
                     <td class="numeric">
                         @Formatter.FormatNumber3(Model.Total.Tickets_Lose)

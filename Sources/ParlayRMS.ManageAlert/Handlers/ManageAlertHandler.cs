@@ -11,8 +11,8 @@ public class ManageAlertHandler(ManageAlertService alertService, IMapper mapper)
     : IRequestHandler<ManageAlertRequest, ManageAlertViewModel>
 {
     public Task<ManageAlertViewModel> Handle(ManageAlertRequest request, CancellationToken cancellationToken)
-	{
-		var criteria = mapper.Map<ManageAlertCriteria>(request);
-		return alertService.GetAlerts(criteria);
-	}
+    {
+        var criteria = mapper.Map<ManageAlertCriteria>(request);
+        return alertService.GetAlerts(criteria);
+    }
 }

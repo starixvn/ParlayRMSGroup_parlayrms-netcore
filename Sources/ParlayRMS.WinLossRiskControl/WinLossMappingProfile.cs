@@ -9,18 +9,18 @@ namespace ParlayRMS.WinLossRiskControl;
 
 public class WinLossMappingProfile : Profile
 {
-	public WinLossMappingProfile()
-	{
-		CreateMap<WinLossRequest, WinLossCriteria>();
-		CreateMap<SuperWinLossRequest, CompanyWinLossCriteria>();
-		CreateMap<AgentWinLossRequest, CompanyWinLossCriteria>();
-		CreateMap<AgentWinLossRequest, AgentWinLossCriteria>();
+    public WinLossMappingProfile()
+    {
+        CreateMap<WinLossRequest, WinLossCriteria>();
+        CreateMap<SuperWinLossRequest, CompanyWinLossCriteria>();
+        CreateMap<AgentWinLossRequest, CompanyWinLossCriteria>();
+        CreateMap<AgentWinLossRequest, AgentWinLossCriteria>();
 
-		CreateMap<SiteWinLossExcelRequest, WinLossRequest>();
-		CreateMap<SuperWinLossExcelRequest, SuperWinLossRequest>();
-		CreateMap<AgentWinLossExcelRequest, AgentWinLossRequest>();
-		CreateMap<MemberWinLossExcelRequest, AgentWinLossRequest>();
-		CreateMap<WinLossModel, MemberWinLossExcelModel>();
-		CreateMap<WinLossModel, WinLossExcelModel>();
-	}
+        CreateMap<SiteWinLossExcelRequest, WinLossRequest>();
+        CreateMap<SuperWinLossExcelRequest, SuperWinLossRequest>();
+        CreateMap<AgentWinLossExcelRequest, AgentWinLossRequest>();
+        CreateMap<MemberWinLossExcelRequest, AgentWinLossRequest>();
+        CreateMap<WinLossModel, MemberWinLossExcelModel>();
+        CreateMap<WinLossModel, WinLossExcelModel>();
+    }
 }

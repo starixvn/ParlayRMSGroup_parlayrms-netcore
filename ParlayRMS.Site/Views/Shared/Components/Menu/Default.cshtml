@@ -3,7 +3,7 @@
 @using Fanex.NAP.Client.Models
 @using Fanex.NAP.Client.Helpers.Web
 @{
-    var menuItemList = napSession.MenuItemList != null ? napSession.MenuItemList : new List<MenuItem>();
+    var menuItemList = napSession.MenuItemList ?? new List<MenuItem>();
     var parentMenuItemList = menuItemList.Where(m => m.ParentId == 0).OrderBy(m => m.DisplayOrder).ToList();
     var isFirstParent = true;
 }
@@ -15,7 +15,7 @@
             var childrenMenu = menuItemList.Where(m => m.ParentId == parentMenu.Id).OrderBy(m => m.DisplayOrder).ToList();
             <ul class="@(isFirstParent ? " nav nav_line" : "nav" )">
                 <li class="tab">
-                    <a href="@(string.IsNullOrEmpty(parentMenu.Url) ? "#" : @Url.Content("~" + parentMenu.Url))">
+                    <a href="@(string.IsNullOrEmpty(parentMenu.Url) ? "#" : Url.Content("~" + parentMenu.Url))">
                         <span>@parentMenu.Name</span>
                     </a>
                     @if (childrenMenu.Count > 0)
@@ -23,7 +23,7 @@
                         <ul class="sub-nav" style="display: none">
                             @foreach (var menu in childrenMenu)
                             {
-                                <li><a href='@(menu.Url != "" ? @Url.Content("~" + menu.Url) : "#")'>@menu.Name</a></li>
+                                <li><a href='@(menu.Url != "" ? Url.Content("~" + menu.Url) : "#")'>@menu.Name</a></li>
                             }
                         </ul>
                     }

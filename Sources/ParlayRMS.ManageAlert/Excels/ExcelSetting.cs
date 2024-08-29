@@ -1,9 +1,10 @@
 ﻿namespace ParlayRMS.ManageAlert.Excels;
+
 public class ExcelSetting
 {
-	public string? FileName { get; set; }
+    public string? FileName { get; set; }
 
-	public int StartRowIndex => 2;
+    public int StartRowIndex => 2;
 
-	public string SheetName { get; set; }
+    public string SheetName { get; set; }
 }

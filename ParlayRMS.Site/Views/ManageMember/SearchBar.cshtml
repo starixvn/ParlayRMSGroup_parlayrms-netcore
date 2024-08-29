@@ -2,7 +2,7 @@
 <div class="search-content" style="width: 530px">
     <div class="search-input">
         @Html.Label("lblUserName", ViewLang.Username)
-        @Html.TextBox("txtUserName", @Model.UserName, new { @class = "inputtext w150" })
+        @Html.TextBox("txtUserName", Model.UserName, new { @class = "inputtext w150" })
     </div>
     <div class="level @Model.ClassName">
         <span id="searchLevelName">

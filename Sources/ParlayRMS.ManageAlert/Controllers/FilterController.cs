@@ -10,9 +10,9 @@ namespace ParlayRMS.ManageAlert.Controllers;
 public class FilterController(FilterService service) : ControllerBase
 {
     [Route("sports")]
-	public IActionResult GetSports()
-	{
-		var result = service.GetSportTypes();
-		return Ok(result);
-	}
+    public IActionResult GetSports()
+    {
+        var result = service.GetSportTypes();
+        return Ok(result);
+    }
 }

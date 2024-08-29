@@ -2,19 +2,19 @@
 
 public class LeagueDataModel
 {
-	public int LeagueId { get; set; }
+    public int LeagueId { get; set; }
 
-	public string LeagueName { get; set; }
+    public string LeagueName { get; set; }
 
-	public decimal HomeTotalStake { get; set; }
+    public decimal HomeTotalStake { get; set; }
 
-	public int HomeTotalTicket { get; set; }
+    public int HomeTotalTicket { get; set; }
 
-	public decimal AwayTotalStake { get; set; }
+    public decimal AwayTotalStake { get; set; }
 
-	public int AwayTotalTicket { get; set; }
+    public int AwayTotalTicket { get; set; }
 
-	public decimal OtherTotalStake { get; set; }
+    public decimal OtherTotalStake { get; set; }
 
-	public int OtherTotalTicket { get; set; }
+    public int OtherTotalTicket { get; set; }
 }

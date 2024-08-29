@@ -36,28 +36,28 @@
                     @Html.Label("radNetWinAfterPT", ViewLang.NetWinAfterPT, new { @class = "lable" })
                 </div>
                 <div class="group">
-                    @Html.TextBox("filterAfterPT", (string)ViewBag.NetWinStakeAfterPT, new { @maxlength = 15 })
+                    @Html.TextBox("filterAfterPT", (string)ViewBag.NetWinStakeAfterPT, new { maxlength = 15 })
                 </div>
             </div>
             <div class="row">
                 <div class="group">
-                    @Html.Label("level", @ViewLang.Level, new { @class = "lable" })
+                    @Html.Label("level", ViewLang.Level, new { @class = "lable" })
                     @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels, new { multiple = "multiple" })
                 </div>
                 <div class="group">
-                    @Html.Label("selectTop", @ViewLang.SelectTop, new { @class = "lable" })
+                    @Html.Label("selectTop", ViewLang.SelectTop, new { @class = "lable" })
                     @Html.DropDownList("selectTop", (List<SelectListItem>)ViewBag.SelectTops)
                 </div>
                 <div class="group">
-                    @Html.Label("group", @ViewLang.Group, new { @class = "lable" })
+                    @Html.Label("group", ViewLang.Group, new { @class = "lable" })
                     @Html.DropDownList("ddlGroup", Config.LeagueGroups, new { multiple = "multiple" })
                 </div>
                 <div class="group">
-                    @Html.Label("sportType", @ViewLang.SportsType, new { @class = "lable" })
+                    @Html.Label("sportType", ViewLang.SportsType, new { @class = "lable" })
                     @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
                 </div>
                 <div class="group">
-                    @Html.Label("customerClass", @ViewLang.CustomerClass, new { @class = "lable" })
+                    @Html.Label("customerClass", ViewLang.CustomerClass, new { @class = "lable" })
                     @Html.TextBox("txtCustomerClass", "", new { @class = "inputtext w100", maxlength = "6", onkeypress = "return isNumber(event)" })
                 </div>
                 <div class="group">
@@ -75,7 +75,7 @@
 		            @Html.TextBox("smaMember", "", new { @class = "inputtext w100" })
 	            </div>
 	            <div class="group">
-		            @Html.Label("ip", @ViewLang.IP, new { @class = "lable" })
+		            @Html.Label("ip", ViewLang.IP, new { @class = "lable" })
 		            @Html.TextBox("txtIp", "", new { @class = "inputtext w100" })
 	            </div>
 	            <div class="group">
@@ -83,7 +83,7 @@
 		            @Html.DropDownList("ddlLiveType", Config.LiveTypes)
 	            </div>
                 <div class="group">
-                    @Html.Label("refreshTime", @ViewLang.Refreshtime, new { @class = "lable" })
+                    @Html.Label("refreshTime", ViewLang.Refreshtime, new { @class = "lable" })
                     @Html.DropDownList("refreshTime", (List<SelectListItem>)ViewBag.RefreshTimes) @ViewLang.Seconds
                 </div>
                 <div class="group">
@@ -95,7 +95,7 @@
                     </div>
                     <div style="float:right;">
                         @Html.CheckBox("pause", new { style = "float:left; margin-top: 7px;" })
-                        @Html.Label("pause", @ViewLang.Pause, new { @class = "lable" })
+                        @Html.Label("pause", ViewLang.Pause, new { @class = "lable" })
                         <button id="submit" class="button" style="margin-left: 10px;">
                             <span class="text">@ViewLang.Submit</span>
                         </button>

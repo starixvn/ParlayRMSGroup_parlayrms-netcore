@@ -6,7 +6,7 @@
         <div class="popup-content-title">
             @if (IsSectionDefined("Title"))
             {
-                @RenderSection("Title")
+	            @await RenderSectionAsync("Title")
             }
             else
             {

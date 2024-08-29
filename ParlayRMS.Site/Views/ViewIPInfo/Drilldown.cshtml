@@ -1,13 +1,5 @@
 ﻿@{
-    var sportName = string.Empty;
-    if (ViewBag.SportType == (int)SportsType.SoccerOnly)
-    {
-        sportName = ViewLang.Socceronly;
-    }
-    else
-    {
-        sportName = ViewLang.Others;
-    }
+    var sportName = ViewBag.SportType == (int)SportsType.SoccerOnly ? ViewLang.Socceronly : ViewLang.Others;
     ViewBag.Title = ViewBag.HeaderText = sportName + " bet list - " + ViewBag.UserName;
     var counter = 0;
     decimal totalWinLoss = 0;
@@ -17,13 +9,13 @@
     <div style="width: 1040px">
         <table class="main" id="header">
             <colgroup>
-                <col width='100px' />
-                <col width='150px' />
-                <col width='300px' />
-                <col width='120px' />
-                <col width='120px' />
-                <col width='120px' />
-                <col width='120px' />
+                <col width="100px" />
+                <col width="150px" />
+                <col width="300px" />
+                <col width="120px" />
+                <col width="120px" />
+                <col width="120px" />
+                <col width="120px" />
             </colgroup>
             <thead>
                 <tr>
@@ -55,20 +47,20 @@
     <div class="scrollGridContent" style="max-height: 780px; width: 1050px">
         <table class="main" id="result">
             <colgroup>
-                <col width='100px' />
-                <col width='150px' />
-                <col width='300px' />
-                <col width='120px' />
-                <col width='120px' />
-                <col width='120px' />
-                <col width='120px' />
+                <col width="100px" />
+                <col width="150px" />
+                <col width="300px" />
+                <col width="120px" />
+                <col width="120px" />
+                <col width="120px" />
+                <col width="120px" />
             </colgroup>
             <tbody>
                 @foreach (var item in Model)
                 {
                     var isHideDetails = string.Equals(item.Status, "void", StringComparison.OrdinalIgnoreCase) || string.Equals(item.Status, "reject", StringComparison.OrdinalIgnoreCase);
                     isHideDetails = isHideDetails || item.BetType == 38 || item.BetType == 376;
-                    counter = counter + 1;
+                    counter += 1;
                     <tr>
                         <td class="center">
                             @counter
@@ -85,7 +77,7 @@
                             <a href="#" class="tdChoice" data-transid="@item.TransID" data-refno="@item.RefNo" data-bet-type="@item.BetType" data-bet-team="@item.BetTeam" data-bet-check="@item.BetCheck" data-hdp1="@item.Hdp1" data-hdp2="@item.Hdp2">
                                 @if (item.BetType == (int)BetType.MixParlay)
                                 {
-                                    @ViewLang.MixparLay;
+                                    @ViewLang.MixparLay
                                 }
                                 else if (item.BetType == (int)BetType.SystemParlay)
                                 {
@@ -165,14 +157,14 @@
                             var winLossNegative = item.Winlost < 0 && item.StatusId != 0 ? "negative" : "";
                         }
                         <td class="numeric @winLossNegative">
-                            @if (item.StatusId == 0 || item.StatusId == 1)
+                            @if (item.StatusId is 0 or 1)
                             {
                                 @Html.Raw("-")
                             }
                             else
                             {
                                 @item.Winlost.ToString("#,##0.00")
-                                totalWinLoss += @item.Winlost;
+                                totalWinLoss += item.Winlost;
                             }
                         </td>
 

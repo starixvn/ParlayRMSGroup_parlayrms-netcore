@@ -3,14 +3,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ParlayRMS.Legacy.Utilities;
-using ParlayRMS.Legacy;
-using ParlayRMS.Legacy.Services;
+using Legacy;
+using Legacy.Services;
 
 public class ParlayWonFilterViewComponent(CommonService commonService) : ViewComponent
 {
     public IViewComponentResult Invoke()
     {
-        var levels = new List<SelectListItem> { new SelectListItem { Text = ViewLang.None, Value = "0" } };
+        var levels = new List<SelectListItem> { new() { Text = ViewLang.None, Value = "0" } };
         for (var i = 1; i <= 10; i++)
         {
             levels.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
@@ -18,11 +18,7 @@ public class ParlayWonFilterViewComponent(CommonService commonService) : ViewCom
         ViewBag.Levels = levels;
 
         var currenciesList = commonService.GetCurrencies();
-        var currencies = new List<SelectListItem>();
-        foreach (var currency in currenciesList)
-        {
-            currencies.Add(new SelectListItem { Text = currency.CurrencyCode, Value = currency.Id.ToString() });
-        }
+        var currencies = currenciesList.Select(currency => new SelectListItem { Text = currency.CurrencyCode, Value = currency.Id.ToString() }).ToList();
         ViewBag.Currencies = currencies;
 
         ViewBag.HouseLoseAmountFrom = Formatter.FormatNumber3(AppSetting.HouseLoseAmountFrom);

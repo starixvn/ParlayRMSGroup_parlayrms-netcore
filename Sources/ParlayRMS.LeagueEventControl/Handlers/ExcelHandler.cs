@@ -17,49 +17,49 @@ public class ExcelHandler(
     IRemotingRefService refService)
     : IRequestHandler<ExcelRequest, ExcelPackage>
 {
-	private const string LanguageCode = "en";
+    private const string LanguageCode = "en";
 
     public async Task<ExcelPackage> Handle(ExcelRequest request, CancellationToken cancellationToken)
-	{
-		var excelSetting = new ExcelSetting
-		{
-			Title = request.Title,
-			FileName = "league-event-monitor.xlsx"
-		};
+    {
+        var excelSetting = new ExcelSetting
+        {
+            Title = request.Title,
+            FileName = "league-event-monitor.xlsx"
+        };
 
-		var data = await eventService.GetMainTickets(request);
-		UpdateViewModel(data);
-		var list = mapper.Map<List<MainTicketExcelModel>>(data);
-		return builder.CreateExcelPackage(list, excelSetting);
-	}
+        var data = await eventService.GetMainTickets(request);
+        UpdateViewModel(data);
+        var list = mapper.Map<List<MainTicketExcelModel>>(data);
+        return builder.CreateExcelPackage(list, excelSetting);
+    }
 
-	private void UpdateViewModel(IEnumerable<MainTicketModel> list)
-	{
-		var index = 1;
-		foreach(var item in list)
-		{
-			item.No = index;
-			item.TransDateString = item.TransDate.ToString("MM/dd/yyyy h:mm:ss tt");
-			item.Stake = Math.Round(item.Stake, 2);
-			item.MaxPayOut = Math.Floor(item.MaxPayOut);
-			item.SportTypeName = GetSportName(item.SportType);
-			item.CustomerClass = string.IsNullOrEmpty(item.CustomerClass) ? "None" : item.CustomerClass;
-			item.PotentialWinningAmt = Math.Floor(item.PotentialWinningAmt);
-			item.Odds = item.Odds < 10 ? Math.Round(item.Odds, 2) : Math.Floor(item.Odds);
-			index++;
-		}    
-	}
+    private void UpdateViewModel(IEnumerable<MainTicketModel> list)
+    {
+        var index = 1;
+        foreach (var item in list)
+        {
+            item.No = index;
+            item.TransDateString = item.TransDate.ToString("MM/dd/yyyy h:mm:ss tt");
+            item.Stake = Math.Round(item.Stake, 2);
+            item.MaxPayOut = Math.Floor(item.MaxPayOut);
+            item.SportTypeName = GetSportName(item.SportType);
+            item.CustomerClass = string.IsNullOrEmpty(item.CustomerClass) ? "None" : item.CustomerClass;
+            item.PotentialWinningAmt = Math.Floor(item.PotentialWinningAmt);
+            item.Odds = item.Odds < 10 ? Math.Round(item.Odds, 2) : Math.Floor(item.Odds);
+            index++;
+        }
+    }
 
-	private string GetSportName(int sportId)
-	{
-		return sportId switch
-		{
-			-1 => "Combined other sports",
-			-2 => "Other sports",
-			-3 => "Combined sports",
-			-4 => "Virtual Soccer",
-			-5 => "Virtual Basketball",
-			_ => refService.GetSportName(sportId.ToString(), LanguageCode)
-		};
-	}
+    private string GetSportName(int sportId)
+    {
+        return sportId switch
+        {
+            -1 => "Combined other sports",
+            -2 => "Other sports",
+            -3 => "Combined sports",
+            -4 => "Virtual Soccer",
+            -5 => "Virtual Basketball",
+            _ => refService.GetSportName(sportId.ToString(), LanguageCode)
+        };
+    }
 }

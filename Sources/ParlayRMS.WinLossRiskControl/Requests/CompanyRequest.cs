@@ -5,5 +5,4 @@ namespace ParlayRMS.WinLossRiskControl.Requests;
 
 public class CompanyRequest : IRequest<List<CompanyModel>>
 {
-        
 }

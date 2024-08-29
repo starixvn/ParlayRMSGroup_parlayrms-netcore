@@ -47,7 +47,7 @@
                             </td>
                             <td style="width: 5px"></td>
                             <td>
-                                @Html.TextBox("txtWinningAmount", Formatter.FormatNumber3(30000), new { @maxlength = 12 })
+                                @Html.TextBox("txtWinningAmount", Formatter.FormatNumber3(30000), new { maxlength = 12 })
                             </td>
                             <td><label>(RM)</label></td>
                             <td>
@@ -65,19 +65,19 @@
                         </tr>
                         <tr>
                             <td>
-                                @Html.Label("", @ViewLang.Level, new { @class = "lable" })
+                                @Html.Label("", ViewLang.Level, new { @class = "lable" })
                             </td>
                             <td>
                                 @Html.DropDownList("ddlLevel", (List<SelectListItem>)ViewBag.Levels)
                             </td>
                             <td>
-                                @Html.Label("", @ViewLang.SelectTop, new { @class = "lable" })
+                                @Html.Label("", ViewLang.SelectTop, new { @class = "lable" })
                             </td>
                             <td>
                                 @Html.DropDownList("ddlSelectTop", (List<SelectListItem>)ViewBag.SelectTops)
                             </td>
                             <td>
-                                @Html.Label("", @ViewLang.Refreshtime, new { @class = "lable" })
+                                @Html.Label("", ViewLang.Refreshtime, new { @class = "lable" })
                             </td>
                             <td colspan="2">
                                 @Html.DropDownList("ddlRefreshTime", (List<SelectListItem>)ViewBag.RefreshTimes) @ViewLang.Seconds
@@ -92,7 +92,7 @@
                             </td>
                             <td>
                                 @Html.CheckBox("chkPause", new { style = "float:left; margin-top: 7px;" })
-                                @Html.Label("", @ViewLang.Pause, new { @class = "lable" })
+                                @Html.Label("", ViewLang.Pause, new { @class = "lable" })
                             </td>
                             <td>
                                 <button id="submit" class="button" style="float:right">

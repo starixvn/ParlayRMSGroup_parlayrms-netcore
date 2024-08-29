@@ -8,17 +8,17 @@
     <div style="width: 1195px">
         <table class="main" id="header">
             <colgroup>
-                <col width='30' />
-                <col width='170' />
-                <col width='130' />
-                <col width='75' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='90' />
-                <col width='90' />
-                <col width='130' />
-                <col width='100' />
+                <col width="30" />
+                <col width="170" />
+                <col width="130" />
+                <col width="75" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="90" />
+                <col width="90" />
+                <col width="130" />
+                <col width="100" />
             </colgroup>
             <thead>
                 <tr>
@@ -62,17 +62,17 @@
     <div class="scrollGridContent" style="max-height: 500px; width: 1195px">
         <table class="main" id="result">
             <colgroup>
-                <col width='30' />
-                <col width='170' />
-                <col width='130' />
-                <col width='75' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='90' />
-                <col width='90' />
-                <col width='130' />
-                <col width='100' />
+                <col width="30" />
+                <col width="170" />
+                <col width="130" />
+                <col width="75" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="90" />
+                <col width="90" />
+                <col width="130" />
+                <col width="100" />
             </colgroup>
             <tbody>
                 @foreach (var item in Model)
@@ -125,7 +125,7 @@
 		                        }
 	                        }
 
-	                        @Formatter.FormatNumber3(@item.TotalBet) @betText
+	                        @Formatter.FormatNumber3(item.TotalBet) @betText
                         </td>
                         <td class="center">
                             @if (item.NumberWon == 0 || item.BetType == (int)BetType.SingleMatchParlay)
@@ -134,7 +134,7 @@
                             }
                             else
                             {
-                                @Html.Raw(string.Format("{0}/{1}", item.NumberWon, item.TotalSelection))
+	                            @Html.Raw($"{item.NumberWon}/{item.TotalSelection}")
                             }
                         </td>
                         <td class="center">
@@ -153,17 +153,17 @@
     <div style="width: 1176px" class="mainfooter">
         <table class="main" id="footer">
             <colgroup>
-                <col width='30' />
-                <col width='170' />
-                <col width='130' />
-                <col width='75' />
-                <col width='120' />
-                <col width='120' />
-                <col width='120' />
-                <col width='90' />
-                <col width='90' />
-                <col width='130' />
-                <col width='100' />
+                <col width="30" />
+                <col width="170" />
+                <col width="130" />
+                <col width="75" />
+                <col width="120" />
+                <col width="120" />
+                <col width="120" />
+                <col width="90" />
+                <col width="90" />
+                <col width="130" />
+                <col width="100" />
             </colgroup>
             <tfoot>
                 @if (totalData != null)

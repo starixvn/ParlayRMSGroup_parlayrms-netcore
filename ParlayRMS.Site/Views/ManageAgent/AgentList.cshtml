@@ -4,7 +4,7 @@
     <div id="groupScrollGrid" class="scrollGridContent" style="width: 355px; max-height: 630px;">
         <table id="tblDangerousAgentList" class="scrollGrid" style="width: 337px;">
             @{
-                if (Model == null || Model.Count() == 0)
+                if (Model == null || !Model.Any())
                 {
                     <tr>
                         <td colspan="3" style="text-align: center">
@@ -31,4 +31,4 @@
             }
         </table>
     </div>
-    @await Html.PartialAsync("_Pager", (object)@ViewBag.Pager)
+    @await Html.PartialAsync("_Pager", (object)ViewBag.Pager)

@@ -62,7 +62,7 @@
                 <td class="center">
                     @Model.SiteGroup
                 </td>
-                <td class="@ModelsHelper.GetClassByMemberLevel(@Model.Level)">
+                <td class="@ModelsHelper.GetClassByMemberLevel(Model.Level)">
                     @Model.Username
                 </td>
                 <td class="numeric">
@@ -75,7 +75,7 @@
                     @Formatter.FormatNumber2(Model.Stake)
                 </td>
                 <td class="numeric">
-                    @(Model.StatusID == 0 ? @Formatter.FormatWithoutRounding(Model.PotentialWinningAmount) : @Formatter.FormatNumber3(Model.HouseLoseAmount))
+                    @(Model.StatusID == 0 ? Formatter.FormatWithoutRounding(Model.PotentialWinningAmount) : Formatter.FormatNumber3(Model.HouseLoseAmount))
                 </td>
                 <td class="numeric">
                     @Formatter.FormatWithoutRounding(Model.Max_payout)
@@ -104,7 +104,8 @@
 				            totalBetText += " (B)";
 			            }
 		            }
-		            @string.Format("{0} {1}", Model.TotalBet, totalBetText)
+
+		            @($"{Model.TotalBet} {totalBetText}")
 	            </td>
                 <td class="center">
                     @if (Model.NumberWon == 0 || Model.BetType == (int)BetType.SingleMatchParlay)
@@ -113,7 +114,7 @@
                     }
                     else
                     {
-                        @Html.Raw(string.Format("{0}/{1}", Model.NumberWon, Model.TotalSelection))
+	                    @Html.Raw($"{Model.NumberWon}/{Model.TotalSelection}")
                     }
                 </td>
                 <td class="center">
@@ -219,7 +220,7 @@
             <tbody>
                 @foreach (var item in Model.Details)
                 {
-                    counter = counter + 1;
+                    counter += 1;
                     <tr id="@item.TransId">
                         <td class="center">
                             @counter
@@ -240,7 +241,7 @@
                             @Formatter.FormatWithoutRounding(item.Stake)
                         </td>
                         <td class="numeric">
-                            @(Model.StatusID == 0 ? @Formatter.FormatWithoutRounding(item.PotentialWinningAmount) : @Formatter.FormatNumber3(item.HouseLoseAmount))
+                            @(Model.StatusID == 0 ? Formatter.FormatWithoutRounding(item.PotentialWinningAmount) : Formatter.FormatNumber3(item.HouseLoseAmount))
                         </td>
                         <td class="numeric">
                             @Formatter.FormatWithoutRounding(item.Max_Payout)
@@ -264,11 +265,11 @@
     <div style="width: 1521px" class="mainfooter">
         <table class="main" id="footer">
             <colgroup>
-                <col width='515px' />
-                <col width='160px' />
-                <col width='160px' />
-                <col width='160px' />
-                <col width='525px' />
+                <col width="515px" />
+                <col width="160px" />
+                <col width="160px" />
+                <col width="160px" />
+                <col width="525px" />
             </colgroup>
             <tfoot>
                 @if (Model.TotalData != null)
@@ -281,7 +282,7 @@
                             @Formatter.FormatWithoutRounding(Model.TotalData.Stake)
                         </td>
                         <td class="numeric">
-                            @(Model.StatusID == 0 ? @Formatter.FormatWithoutRounding(Model.TotalData.PotentialWinningAmount) : @Formatter.FormatNumber3(Model.TotalData.HouseLoseAmount))
+                            @(Model.StatusID == 0 ? Formatter.FormatWithoutRounding(Model.TotalData.PotentialWinningAmount) : Formatter.FormatNumber3(Model.TotalData.HouseLoseAmount))
                         </td>
                         <td class="numeric">
                             @Formatter.FormatWithoutRounding(Model.TotalData.MaxPayout)

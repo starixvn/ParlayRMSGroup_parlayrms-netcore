@@ -49,7 +49,7 @@
                                 @Html.Label("radAgent", ViewLang.Agent, new { @class = "lable" })
                             </td>
                             <td>
-                                @Html.TextBox("winningAmount", Formatter.FormatNumber3(200000), new { @maxlength = 12 })
+                                @Html.TextBox("winningAmount", Formatter.FormatNumber3(200000), new { maxlength = 12 })
                             </td>
                             <td>
                                 <label>(RM)</label>
@@ -60,17 +60,17 @@
                         </tr>
                         <tr>
                             <td>
-                                @Html.Label("level", @ViewLang.Level, new { @class = "lable" })
+                                @Html.Label("level", ViewLang.Level, new { @class = "lable" })
                             </td>
                             <td>
                                 @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels, new { multiple = "multiple" })
                             </td>
                             <td>
-                                @Html.Label("selectTop", @ViewLang.SelectTop, new { @class = "lable" })
+                                @Html.Label("selectTop", ViewLang.SelectTop, new { @class = "lable" })
                             </td>
                             <td>
                                 @Html.DropDownList("selectTop", (List<SelectListItem>)ViewBag.SelectTops)
-                                @Html.Label("customerClass", @ViewLang.CustomerClass, new { @class = "lable", @style = "float: initial" })
+                                @Html.Label("customerClass", ViewLang.CustomerClass, new { @class = "lable", style = "float: initial" })
                             </td>
                             <td>
                                 @Html.TextBox("customerClass", "", new { @class = "inputtext w100", maxlength = "6", onkeypress = "return isNumber(event)" })
@@ -82,11 +82,11 @@
                                 @Html.DropDownList("ddlCompany", new List<SelectListItem>(), new { multiple = "multiple" })
                             </td>
                             <td>
-                                @Html.Label("username", "SMA/Member", new { @class = "lable", @id = "username" })
+                                @Html.Label("username", "SMA/Member", new { @class = "lable", id = "username" })
                                 @Html.TextBox("smaMember", "", new { @class = "inputtext w100" })
                             </td>
                             <td colspan="3">
-                                @Html.Label("refreshTime", @ViewLang.Refreshtime, new { @class = "lable" })
+                                @Html.Label("refreshTime", ViewLang.Refreshtime, new { @class = "lable" })
                                 @Html.DropDownList("refreshTime", (List<SelectListItem>)ViewBag.RefreshTimes)
                                 @ViewLang.Seconds
                                 <div id="refreshNow" style="width: 140px">
@@ -97,7 +97,7 @@
                                 </div>
                             </td>
                             <td>
-                                @Html.CheckBox("pause", new { style = "float:left; margin-top: 7px;" }) @Html.Label("pause", @ViewLang.Pause, new { @class = "lable" })
+                                @Html.CheckBox("pause", new { style = "float:left; margin-top: 7px;" }) @Html.Label("pause", ViewLang.Pause, new { @class = "lable" })
                             </td>
 
                         </tr>

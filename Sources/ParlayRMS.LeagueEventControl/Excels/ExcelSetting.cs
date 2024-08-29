@@ -2,9 +2,9 @@
 
 public class ExcelSetting
 {
-	public string FileName { get; set; }
+    public string FileName { get; set; }
 
-	public int StartRowIndex { get; set; } = 3;
+    public int StartRowIndex { get; set; } = 3;
 
-	public string Title { get; set; }
+    public string Title { get; set; }
 }
