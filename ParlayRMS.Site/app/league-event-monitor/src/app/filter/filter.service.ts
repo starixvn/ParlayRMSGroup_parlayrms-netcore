@@ -27,6 +27,7 @@ export class FilterService {
       { name: 'Mix Parlay', id: '1', checked: true },
       { name: 'Parlay Generator', id: '6', checked: true },
       { name: 'Combo Parlay', id: '2', checked: true },
+      { name: 'Single Match Parlay', id: '3', checked: true },
     ]
   }
 

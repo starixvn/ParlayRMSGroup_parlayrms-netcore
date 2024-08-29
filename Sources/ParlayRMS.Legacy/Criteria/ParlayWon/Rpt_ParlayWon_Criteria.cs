@@ -26,6 +26,8 @@ public class Rpt_ParlayWon_Criteria : CriteriaBase
 
     public string Ip { get; set; }
 
+    public string LeagueGroup { get; set; }
+
     public override string GetSettingKey() => "RMS_Rpt_ParlayWon";
 
     public override bool IsValid() => true;

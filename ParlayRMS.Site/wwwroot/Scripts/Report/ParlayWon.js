@@ -119,6 +119,28 @@
             }
         });
 
+        $("#ddlGroup").multiselect({
+            minWidth: 132,
+            height: 200,
+            create: function () {
+                $("#ddlGroup").multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
         $("#currencies").multiselect({
             minWidth: 132,
             height: 136,
@@ -252,6 +274,14 @@
                 return;
             }
 
+            var leagueGroup = $("#ddlGroup").multiselect("getChecked").map(function () {
+                return this.value;
+            }).get().join(',');
+            if (leagueGroup == '') {
+                Validators.show($("#ddlGroup").multiselect("getButton").get(0), 'Please select your options');
+                return;
+            }
+
             var currencies = $("#currencies").multiselect("getChecked").map(function () {
                 return this.value;
             }).get().join(',');
@@ -294,6 +324,7 @@
                 liveType,
                 customerClass,
                 ip,
+                leagueGroup,
                 ParlayWon.cachedObject.sortById,
                 ParlayWon.cachedObject.isSortAsc,
                 ParlayWon.cachedObject.pageIndex,
@@ -316,6 +347,7 @@
                 ParlayWon.cachedObject.liveType,
                 ParlayWon.cachedObject.customerClass,
                 ParlayWon.cachedObject.ip,
+                ParlayWon.cachedObject.leagueGroup,
                 ParlayWon.cachedObject.sortById,
                 ParlayWon.cachedObject.isSortAsc,
                 ParlayWon.cachedObject.pageIndex,
@@ -359,6 +391,7 @@
                 ParlayWon.cachedObject.liveType,
                 ParlayWon.cachedObject.customerClass,
                 ParlayWon.cachedObject.ip,
+                ParlayWon.cachedObject.leagueGroup,
                 ParlayWon.cachedObject.sortById,
                 ParlayWon.cachedObject.isSortAsc,
                 ParlayWon.cachedObject.pageIndex,
@@ -406,13 +439,14 @@
                 ParlayWon.cachedObject.liveType,
                 ParlayWon.cachedObject.customerClass,
                 ParlayWon.cachedObject.ip,
+                ParlayWon.cachedObject.leagueGroup,
                 ParlayWon.cachedObject.sortById,
                 ParlayWon.cachedObject.isSortAsc,
                 ParlayWon.cachedObject.pageIndex,
                 ParlayWon.cachedObject.pageSize);
         });
     },
-    Data: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, houseLoseAmountTo, currencies, site, liveType, customerClass, ip, sortById, isSortAsc, pageIndex, pageSize) {
+    Data: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, houseLoseAmountTo, currencies, site, liveType, customerClass, ip, leagueGroup, sortById, isSortAsc, pageIndex, pageSize) {
         var data = {
             fromDate: fromDate,
             toDate: toDate,
@@ -427,6 +461,7 @@
             liveType: liveType,
             customerClass: customerClass,
             ip: ip,
+            leagueGroup: leagueGroup,
             sortById: sortById,
             isSortAsc: isSortAsc,
             pageIndex: pageIndex,
@@ -470,7 +505,7 @@
             }
         });
     },
-    ExportExcel: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, houseLoseAmountTo, currencies, site, liveType, customerClass, ip) {
+    ExportExcel: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, houseLoseAmountTo, currencies, site, liveType, customerClass, ip, leagueGroup) {
         var data = {
             fromDate: fromDate,
             toDate: toDate,
@@ -485,6 +520,7 @@
             liveType: liveType,
             customerClass: customerClass,
             ip: ip,
+            leagueGroup: leagueGroup,
             sortById: null,
             isSortAsc: null,
             pageIndex: 0,
@@ -602,6 +638,7 @@
         ParlayWon.cachedObject.liveType = '3';
         ParlayWon.cachedObject.customerClass = null;
         ParlayWon.cachedObject.ip = null;
+        ParlayWon.cachedObject.leagueGroup = null;
         ParlayWon.cachedObject.sortById = null;
         ParlayWon.cachedObject.isSortAsc = null;
         ParlayWon.cachedObject.pageIndex = 1;

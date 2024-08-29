@@ -30,6 +30,7 @@ public class ParlayWonService(ParlayWonDataAccess _dataAccess, CommonService _co
             options.LiveType,
             options.CustomerClass,
             options.Ip,
+            options.LeagueGroup,
             out totalRows);
     }
 }

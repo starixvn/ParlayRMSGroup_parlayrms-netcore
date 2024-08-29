@@ -28,6 +28,7 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
         byte liveType,
         int? customerClass,
         string ip,
+        string leagueGroup,
         out int totalRows)
     {
             var criteria = new Rpt_ParlayWon_Criteria
@@ -49,7 +50,8 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
                 Site = site,
                 LiveStatus = liveType,
                 CustomerClass = customerClass,
-                Ip = ip
+                Ip = ip,
+                LeagueGroup = leagueGroup
             };
 
             var list = repository.Fetch<RMS_Rpt_Parlay_ParlayWon>(criteria).ToList();

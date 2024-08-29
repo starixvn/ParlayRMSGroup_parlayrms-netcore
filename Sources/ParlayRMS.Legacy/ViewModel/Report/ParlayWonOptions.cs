@@ -36,6 +36,8 @@ public class ParlayWonOptions
 
     public string Ip { get; set; }
 
+    public string LeagueGroup { get; set; }
+
     public int SortById { get; set; }
 
     public bool IsSortAsc { get; set; }
@@ -68,7 +70,11 @@ public class ParlayWonOptions
             levelTitle = levelTitle.Replace("0,", "None,");
 
             var title =
-                $"{ViewLang.ParlayWon} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetParlayTitle(ParlayTypes)} - [{ViewLang.Combo}] - {combosTitle} [{ViewLang.SportsType}] - {ModelsHelper.GetSportType(SportsType)} - [{ViewLang.Level}] {levelTitle} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)} - [{ViewLang.LiveType}] {ModelsHelper.GetLiveTypeTitle(LiveType)} - {ViewLang.CustomerClass} [{ModelsHelper.GetCustomerClassTitle(CustomerClass)}]";
+                $"{ViewLang.ParlayWon} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - " +
+                $"[{ViewLang.ParlayType}] {ModelsHelper.GetParlayTitle(ParlayTypes)} - [{ViewLang.Combo}] {combosTitle} - " +
+                $"[{ViewLang.Group}] {ModelsHelper.GetLeagueGroupTitle(LeagueGroup)} - [{ViewLang.SportsType}] {ModelsHelper.GetSportType(SportsType)} - " +
+                $"[{ViewLang.Level}] {levelTitle} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)} - " +
+                $"[{ViewLang.LiveType}] {ModelsHelper.GetLiveTypeTitle(LiveType)} - {ViewLang.CustomerClass} [{ModelsHelper.GetCustomerClassTitle(CustomerClass)}]";
             return title;
         }
 }

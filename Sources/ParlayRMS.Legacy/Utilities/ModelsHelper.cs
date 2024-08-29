@@ -1,5 +1,6 @@
 ﻿using ParlayRMS.Legacy.Models.Members;
 using ParlayRMS.Legacy.Models;
+using System.Linq;
 
 namespace ParlayRMS.Legacy.Utilities;
 
@@ -59,6 +60,7 @@ public static class ModelsHelper
     public static Dictionary<int, string> LeagueGroupNames = new Dictionary<int, string>
     {
         { 0, "All Group" },
+        { -1, "None" },
         { 1, "MJ" },
         { 2, "M1" },
         { 3, "M2" },
@@ -231,16 +233,29 @@ public static class ModelsHelper
 
     public static string GetLiveTypeTitle(int site)
     {
-            switch (site)
-            {
-                case 1:
-                    return "Live";
-                case 0:
-                    return "Non Live";
-                case 2:
-                    return "Mix";
-                default:
-                    return ViewLang.All;
-            }
+        switch (site)
+        {
+            case 1:
+                return "Live";
+            case 0:
+                return "Non Live";
+            case 2:
+                return "Mix";
+            default:
+                return ViewLang.All;
         }
+    }
+
+    public static string GetLeagueGroupTitle(string leagueGroups)
+    {
+        var list = leagueGroups.Split(',');
+        if (list.Length == 13) return ViewLang.All;
+        var title = new List<string>();
+        foreach (var item in list)
+        {
+            title.Add(GetNameByLeagueGroup(Convert.ToInt32(item)));
+        }
+
+        return string.Join(",", title);
+    }
 }
