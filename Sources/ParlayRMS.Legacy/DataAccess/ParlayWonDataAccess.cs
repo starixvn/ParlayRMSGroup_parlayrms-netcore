@@ -6,6 +6,7 @@ using System.Linq;
 using Criteria.ParlayWon;
 using DTO.ParlayWon;
 using Fanex.Data.Repository;
+using ParlayRMS.Legacy.Models;
 
 public class ParlayWonDataAccess(IDynamicRepository repository)
 {
@@ -58,7 +59,7 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
             list.ForEach(l =>
             {
                 l.CustomerClass = string.IsNullOrWhiteSpace(l.CustomerClass)?"None":l.CustomerClass;
-                l.TotalBet = GetTotalBet(l.TotalBet, l.IsParlayGenerator, l.IsBoostBonus);
+                l.TotalBet = GetTotalBet(l.TotalBet, l.IsParlayGenerator, l.IsBoostBonus, l.BetType);
             });
 
             totalRows = criteria.TotalRows;
@@ -66,7 +67,7 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
             return list;
         }
 
-    private string GetTotalBet(string totalBet, bool isParlayGenerator, bool isBoostBonus)
+    private string GetTotalBet(string totalBet, bool isParlayGenerator, bool isBoostBonus, int betType)
     {
 	        var result = totalBet;
 	        if (isParlayGenerator)
@@ -77,6 +78,10 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
 	        {
 		        result += " (B)";
 	        }
-	        return result;
+            if (betType == (int)BetType.SingleMatchParlay)
+            {
+                result += " (S)";
+            }
+        return result;
         }
 }
