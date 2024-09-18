@@ -6,9 +6,9 @@ public class AppSetting
 
     public static int PageSize => 100;
 
-    public static int HouseLoseAmountFrom => 1000;
+    public static int HouseLoseAmountFrom => 500;
 
-    public static int HouseLoseAmountTo => 10000;
+    public static int HouseLoseAmountTo => 200000;
 
     public static int MixParlayStakeAfterPT => 5000;
 
