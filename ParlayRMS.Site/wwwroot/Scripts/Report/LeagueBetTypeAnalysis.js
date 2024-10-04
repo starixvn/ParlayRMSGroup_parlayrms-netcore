@@ -821,7 +821,7 @@
 
         $(document).on('click', '.leagueTab', function () {
             $("#tabs").tabs("option", "active", 1);
-            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfLeague).val('-50,000');
+            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfLeague).val('-5,000');
             var leagueId = this.getAttribute('data-leagueid');
             var leagueName = this.getAttribute('data-leaguename');
             var groupId = this.getAttribute('data-groupid');
