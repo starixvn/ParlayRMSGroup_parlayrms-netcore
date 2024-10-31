@@ -3,8 +3,6 @@ namespace ParlayRMS.Legacy.DataAccess;
 using Criteria.SimilarBets;
 using DTO.SimilarBets;
 using Fanex.Data.Repository;
-using System;
-using System.Data;
 
 public class SimilarBetsDataAccess(IDynamicRepository repository)
 {

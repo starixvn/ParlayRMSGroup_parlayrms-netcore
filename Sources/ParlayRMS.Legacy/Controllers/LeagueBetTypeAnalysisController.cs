@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using Utilities;
 using ViewModel.Report;
-using X.PagedList;
+using X.PagedList.Extensions;
 
 public class LeagueBetTypeAnalysisController(LeaguesService leagueService, LeagueBetTypeAnalysisService service, ICacheService cacheService) : BaseController
 {

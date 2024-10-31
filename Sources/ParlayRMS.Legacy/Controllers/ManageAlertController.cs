@@ -2,7 +2,7 @@ namespace ParlayRMS.Legacy.Controllers;
 
 using Fanex.NAP.Client.Attributes;
 using Fanex.NAP.Client.Helpers.Business;
-using Fanex.NAP.Client.Helpers.Web;
+using Fanex.NAP.Client;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.Models.Functions;
 

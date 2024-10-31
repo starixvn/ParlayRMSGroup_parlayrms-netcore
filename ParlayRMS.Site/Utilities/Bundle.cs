@@ -3,10 +3,11 @@
 using NUglify.Css;
 using NUglify.JavaScript;
 using WebOptimizer;
+using WebOptimizer.Processors;
 
 public static class Bundle
 {
-    public static void AddLayoutBundle(this IAssetPipeline pipeline, CssSettings cssSetting, CodeSettings scriptSetting)
+    public static void AddLayoutBundle(this IAssetPipeline pipeline, CssSettings cssSetting, JsSettings jsSettings)
     {
         pipeline.AddCssBundle("/Content/jquery-ui.css",
             cssSetting,
@@ -56,7 +57,7 @@ public static class Bundle
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.css");
 
         pipeline.AddJavaScriptBundle("/Scripts/lib.js", 
-            scriptSetting,
+            jsSettings,
             "Scripts/jquery-1.9.0.js",
             "Scripts/Libs/bettertooltip/jquery.betterTooltip.js",
             "Scripts/Libs/contextmenu/jquery.contextMenu.js",
@@ -73,7 +74,7 @@ public static class Bundle
             "Scripts/Libs/sortElements/jquery.sortElements.js",
             "Scripts/Libs/soundManager/soundmanager2-nodebug.js");
         pipeline.AddJavaScriptBundle("/Scripts/core.js",
-            scriptSetting, 
+            jsSettings, 
             "Scripts/Core.js",
             "Scripts/Components.js",
             "Scripts/Confirm.js",
@@ -84,12 +85,12 @@ public static class Bundle
         );
 
         pipeline.AddJavaScriptBundle("/Scripts/Menu.LayoutAngular.js",
-            scriptSetting,
+            jsSettings,
             "Scripts/jquery-1.9.0.js",
             "Scripts/Menu.LayoutAngular.js");
 
         pipeline.AddJavaScriptBundle("/Scripts/jquery-ui-multiselect.js",
-            scriptSetting,
+            jsSettings,
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.js",
             "Scripts/Libs/multiselect/jquery-ui-multiselect-widget-3.0.0/jquery.multiselect.filter.js");
 
