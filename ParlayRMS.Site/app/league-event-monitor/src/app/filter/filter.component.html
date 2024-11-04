@@ -16,7 +16,7 @@
           <label>Parlay type</label>
           <div class="nap-control">
             <ngx-dropdown-treeview [items]="parlayTypeItems | itemTreeview"
-              [config]="itemConfig" (selectedChange)="selectedParlayTypes = $event">
+              [config]="itemConfig" (selectedChange)="changeParlayType($event)">
             </ngx-dropdown-treeview>
           </div>
         </div>
@@ -97,7 +97,7 @@
       <div class="nap-col">
         <div class="nap-group">
           <label class="width-50">Bettype</label>
-          <div class="nap-control">
+          <div class="nap-control" [ngClass]="isEnabledBetType ? '' : 'disabledControl'">
             <ngx-dropdown-treeview [items]="bettypeItems | bettypeTreeview"
               [config]="itemConfig" (selectedChange)="selectedBettypes = $event">
             </ngx-dropdown-treeview>

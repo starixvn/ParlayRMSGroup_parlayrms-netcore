@@ -3,7 +3,7 @@ import { TreeviewConfig } from 'ngx-treeview';
 import { BettypeModel, FilterModel, ItemModel, LeagueModel } from './filter.model';
 import { FilterService } from './filter.service';
 import { SelectItem } from 'nap-components/dropdown-select';
-import { ReportTypeConsts, SportTypeConsts } from '../common/constants';
+import { BetTypeConsts, ReportTypeConsts, SportTypeConsts } from '../common/constants';
 import { ToastService } from 'nap-components/toast';
 import * as _ from 'lodash';
 import { Subscription, interval } from 'rxjs';
@@ -35,7 +35,8 @@ export class FilterComponent implements OnInit {
   public checkedRefresh: boolean = false;
   public isClickedSubmit: boolean = false;
   public sportItems: ItemModel[] = [];
-  public selectedSport: string = SportTypeConsts.ESPORT; 
+  public selectedSport: string = SportTypeConsts.ESPORT;
+  isEnabledBetType = true;
 
   public itemConfig = TreeviewConfig.create({
     hasFilter: true,
@@ -108,7 +109,7 @@ export class FilterComponent implements OnInit {
       level: this.selectedLevels.join(','),
       customerClass: this.customerClass === '' || this.customerClass === null ? undefined : Number(this.customerClass),
       sportType: Number(this.selectedSport),
-      betTypes: this.selectedBettypes.join(','),
+      betTypes: this.isEnabledBetType ? this.selectedBettypes.join(',') : '',
       userName: this.smaMember
     };
   }
@@ -174,5 +175,10 @@ export class FilterComponent implements OnInit {
     } else {
       this.startTimer();
     }
+  }
+
+  changeParlayType(parlayTypes: string[]): void {
+    this.selectedParlayTypes = parlayTypes;
+    this.isEnabledBetType = parlayTypes.join(',') !== BetTypeConsts.SingleMatchParlay;
   }
 }
