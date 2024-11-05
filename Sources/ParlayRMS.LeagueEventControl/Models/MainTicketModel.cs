@@ -41,6 +41,11 @@ public class MainTicketModel
                 result += " (B)";
             }
 
+            if (IsSMP)
+            {
+                result += " (S)";
+            }
+
             return result;
         }
     }
@@ -56,4 +61,6 @@ public class MainTicketModel
     public bool IsParlayGenerator { get; set; }
 
     public bool IsBoostBonus { get; set; }
+
+    public bool IsSMP { get; set; }
 }
