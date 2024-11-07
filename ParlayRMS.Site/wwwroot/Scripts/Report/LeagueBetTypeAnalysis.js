@@ -848,11 +848,12 @@
 
         $(document).on('click', '.betTypeTab', function () {
             $("#tabs").tabs("option", "active", 2);
-            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfBetType).val('-50,000');
+            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfBetType).val('-5,000');
             var bettype = this.getAttribute('data-bettypeid');
             var bettypeName = this.getAttribute('data-bettypename');
+            var parlayType = bettype == '38' ? '3' : LeagueBetTypeAnalysis.cachedObject.parlayType;
             LeagueBetTypeAnalysis.HandleElementForBetTypeTab(bettype);
-            LeagueBetTypeAnalysis.Data(LeagueBetTypeAnalysis.cachedObject.parlayType,
+            LeagueBetTypeAnalysis.Data(parlayType,
                 LeagueBetTypeAnalysis.cachedObject.fromDate,
                 LeagueBetTypeAnalysis.cachedObject.toDate,
                 LeagueBetTypeAnalysis.cachedObject.leagueGroups,
@@ -1283,6 +1284,7 @@
         $.each(data, function (key, obj) {
             html += '<option value="' + obj.Bettype + '">' + obj.TypeNamee + '</option>';
         });
+        html += '<option value="0"></option>';
         $('#ddlBetType').html(html);
         $('#ddlBetType').multiselect('refresh');
     },
@@ -1337,10 +1339,18 @@
         $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).datepicker("setDate", LeagueBetTypeAnalysis.cachedObject.toDate);
         $(LeagueBetTypeAnalysis.DOM.ddlSportOfBetType).val(LeagueBetTypeAnalysis.cachedObject.sportType).multiselect("refresh");
         LeagueBetTypeAnalysis.BetTypes(LeagueBetTypeAnalysis.cachedObject.sportType, function () {
-            $("#ddlBetType").val(bettype).multiselect("refresh");
+            if (bettype == '38') {
+                $("#ddlBetType").val('0').multiselect("refresh");
+            } else {
+                $("#ddlBetType").val(bettype).multiselect("refresh");
+            }
         });
         $(LeagueBetTypeAnalysis.DOM.ddlSiteOfBetType).val(LeagueBetTypeAnalysis.cachedObject.site).multiselect("refresh");
-        $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfBetType).val(LeagueBetTypeAnalysis.cachedObject.parlayType.split(',')).multiselect("refresh");
+        if (bettype == '38') {
+            $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfBetType).val(['3']).multiselect("refresh");
+        } else {
+            $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfBetType).val(LeagueBetTypeAnalysis.cachedObject.parlayType.split(',')).multiselect("refresh");
+        }
         LeagueBetTypeAnalysis.GroupsAndLeagues(LeagueBetTypeAnalysis.cachedObject.sportType,
             [LeagueBetTypeAnalysis.DOM.ddlGroupOfBetType],
             [LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType],
