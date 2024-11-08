@@ -202,13 +202,14 @@ public static class ModelsHelper
 
     public static string GetSimpleParlayTitle(string parlayTypes)
     {
-            if (parlayTypes == "1,2")
+            if (parlayTypes == "1,2,3")
             {
                 return ViewLang.All;
             }
 
             return parlayTypes.Replace("1", ViewLang.MixparLay)
                 .Replace("2", ViewLang.ComboParlay)
+                .Replace("3", ViewLang.SingleMatchParlay)
                 .Replace(",", ", ");
         }
 

@@ -326,7 +326,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 		    x.StakeAfterPT,
 		    x.WinningAmount,
             x.NetWinAfterPT,
-		    x.TotalBet,
+		    TotalBet = x.IsSMP ? $"{x.TotalBet} (S)" : x.TotalBet.ToString(),
             x.TotalSelection,
             SportType = CacheRef.GetSportNameDropDown(x.SportType),
             x.IP
