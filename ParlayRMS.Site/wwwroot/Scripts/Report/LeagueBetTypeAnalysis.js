@@ -876,7 +876,7 @@
         $(document).on('click', '.parlayWonTicket', function () {
             var title = $("#tabs").tabs('option', 'active') === 1 ?
                 "Group [" + $(this).data('group') + "] - League [" + $(this).data('league') + "] - Event [" + $(this).data('event') + "] - [" + $(this).data('bettype') + "] - [" + $(this).data('betchoice') + "]"
-                : "Group [" + $(this).data('group') + "] - League [" + $(this).data('league') + "] - Event [" + $(this).data('event') + "] - [" + $("#ddlBetType").find("option:checked").text() + "]";
+                : "Group [" + $(this).data('group') + "] - League [" + $(this).data('league') + "] - Event [" + $(this).data('event') + "] - [" + ($("#ddlBetType").find("option:checked").val() == 0 ? "Single Match Parlay" : $("#ddlBetType").find("option:checked").text()) + "]";
             LeagueBetTypeAnalysis.ExportExcelForWonTickets($(this).data('betteam'), $(this).data('match'), $(this).data('bettypeid'), title);
         });
     },
