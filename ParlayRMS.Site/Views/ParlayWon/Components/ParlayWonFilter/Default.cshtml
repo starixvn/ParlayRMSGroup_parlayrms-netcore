@@ -2,7 +2,7 @@
     ViewBag.Title = ViewBag.HeaderText = ViewLang.WinLoss;
 }
 <div class="filter">
-    <div class="filter-control" style="width: 1100px; margin-bottom: 10px;">
+    <div class="filter-control" style="width: 1265px; margin-bottom: 10px;">
         <div class="minimizetitle">
             <div class="minimizecontent">
                 @ViewLang.FilterControl
@@ -36,10 +36,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="group">
-                    @Html.Label(ViewLang.Level)
-                    @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels)
-                </div>
+	            <div class="group">
+		            @Html.Label(ViewLang.Level)
+		            @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels)
+	            </div>
+	            <div class="group">
+		            @Html.Label("", ViewLang.Group)
+                    @Html.DropDownList("ddlGroup", Config.LeagueGroups, new { multiple = "multiple" })
+	            </div>
                 <div class="group">
                     @Html.Label(ViewLang.SportsType)
                     @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })

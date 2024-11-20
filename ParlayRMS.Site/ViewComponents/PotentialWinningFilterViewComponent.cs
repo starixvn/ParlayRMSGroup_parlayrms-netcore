@@ -4,7 +4,6 @@ namespace ParlayRMS.Site.ViewComponents;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ParlayRMS.Legacy.Models;
 using ParlayRMS.Legacy.Utilities;
 using Legacy;
 

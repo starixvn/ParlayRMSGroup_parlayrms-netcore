@@ -59,6 +59,7 @@ public static class ModelsHelper
     public static Dictionary<int, string> LeagueGroupNames = new Dictionary<int, string>
     {
         { 0, "All Group" },
+        { -1, "None" },
         { 1, "MJ" },
         { 2, "M1" },
         { 3, "M2" },
@@ -201,13 +202,14 @@ public static class ModelsHelper
 
     public static string GetSimpleParlayTitle(string parlayTypes)
     {
-            if (parlayTypes == "1,2")
+            if (parlayTypes == "1,2,3")
             {
                 return ViewLang.All;
             }
 
             return parlayTypes.Replace("1", ViewLang.MixparLay)
                 .Replace("2", ViewLang.ComboParlay)
+                .Replace("3", ViewLang.SingleMatchParlay)
                 .Replace(",", ", ");
         }
 
@@ -231,16 +233,29 @@ public static class ModelsHelper
 
     public static string GetLiveTypeTitle(int site)
     {
-            switch (site)
-            {
-                case 1:
-                    return "Live";
-                case 0:
-                    return "Non Live";
-                case 2:
-                    return "Mix";
-                default:
-                    return ViewLang.All;
-            }
+        switch (site)
+        {
+            case 1:
+                return "Live";
+            case 0:
+                return "Non Live";
+            case 2:
+                return "Mix";
+            default:
+                return ViewLang.All;
         }
+    }
+
+    public static string GetLeagueGroupTitle(string leagueGroups)
+    {
+        var list = leagueGroups.Split(',');
+        if (list.Length == 13) return ViewLang.All;
+        var title = new List<string>();
+        foreach (var item in list)
+        {
+            title.Add(GetNameByLeagueGroup(Convert.ToInt32(item)));
+        }
+
+        return string.Join(",", title);
+    }
 }

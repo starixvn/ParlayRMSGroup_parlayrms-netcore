@@ -1,8 +1,5 @@
 using Fanex.Data;
-using Fanex.NAP.Client;
-using Fanex.NAP.Client.Configuration;
-using Fanex.NAP.Client.Helpers.Web;
-using Fanex.NAP.SignIn.Attribute;
+using Fanex.NAP.Client.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ONEbook.UM.AspNetCore.Filters;
 using ParlayRMS.Site.Utilities;
@@ -25,6 +22,7 @@ services.AddRedis(configuration);
 services.AddSession(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
+services.AddNapClient(configuration);
 services.AddOneBookUm(configuration);
 services.AddFanexData(configuration);
 services.AddWinLossRiskControlServices();
@@ -44,9 +42,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseSession();
 app.UseRouting();
 app.UseCors("AllowOrigin");
-NapClientManager
-	.UseConfig(app.Services.GetService<INapSettings>())
-	.UseSession(app.Services.GetService<INapSession>());
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");

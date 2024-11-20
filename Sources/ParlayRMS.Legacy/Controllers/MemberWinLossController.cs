@@ -11,7 +11,7 @@ using Services;
 using Utilities;
 using ViewModel.Report;
 using Web;
-using X.PagedList;
+using X.PagedList.Extensions;
 
 public class MemberWinLossController(MemberWinLossService _memberWinLossService, BetDetailsService _betDetailsService, MembersService _membersService) : BaseController
 {

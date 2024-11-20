@@ -108,6 +108,11 @@
 			                    {
 				                    totalBetText += " (B)";
 			                    }
+
+			                    if (item.Val.BetType == 38)
+			                    {
+				                    totalBetText += " (S)";
+			                    }
 		                    }
 
 		                    @($"{item.Val.Combo} {totalBetText}")

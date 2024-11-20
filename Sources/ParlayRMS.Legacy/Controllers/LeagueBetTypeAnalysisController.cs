@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using Utilities;
 using ViewModel.Report;
-using X.PagedList;
+using X.PagedList.Extensions;
 
 public class LeagueBetTypeAnalysisController(LeaguesService leagueService, LeagueBetTypeAnalysisService service, ICacheService cacheService) : BaseController
 {
@@ -326,7 +326,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 		    x.StakeAfterPT,
 		    x.WinningAmount,
             x.NetWinAfterPT,
-		    x.TotalBet,
+		    TotalBet = x.IsSMP ? $"{x.TotalBet} (S)" : x.TotalBet.ToString(),
             x.TotalSelection,
             SportType = CacheRef.GetSportNameDropDown(x.SportType),
             x.IP

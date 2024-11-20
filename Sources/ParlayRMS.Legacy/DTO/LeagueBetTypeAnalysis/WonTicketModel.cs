@@ -27,4 +27,6 @@ public class WonTicketModel
 	public short SportType { get; set; }
 
 	public string IP { get; set; }
+
+	public bool IsSMP { get; set; }
 }

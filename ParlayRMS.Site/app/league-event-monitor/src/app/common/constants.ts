@@ -13,3 +13,7 @@ export class BettypeGroupConsts {
     static readonly Major = 'Major Bet Types';
     static readonly Minor = 'Minor Bet Types';
 }
+
+export class BetTypeConsts {
+    static readonly SingleMatchParlay = '3';
+}

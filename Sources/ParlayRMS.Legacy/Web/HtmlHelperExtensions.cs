@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ParlayRMS.Legacy.Utilities;
 namespace ParlayRMS.Legacy.Web;
 
-using System.Web;
-
 public static class HtmlHelperExtensions
 {
     public static IHtmlContent DropDownListWithMultipleSelected(this IHtmlHelper helper, string id, List<SelectListItem> items)

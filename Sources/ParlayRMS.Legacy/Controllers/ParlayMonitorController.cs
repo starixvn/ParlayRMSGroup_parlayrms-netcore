@@ -4,7 +4,7 @@ using DTO.ParlayMonitor;
 using Fanex.NAP.Client.Attributes;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Business;
-using Fanex.NAP.Client.Helpers.Web;
+using Fanex.NAP.Client;
 using Fanex.NAP.Client.Services;
 using Microsoft.AspNetCore.Mvc;
 using ParlayRMS.Models.Functions;
