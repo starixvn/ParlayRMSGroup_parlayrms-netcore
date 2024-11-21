@@ -1,7 +1,6 @@
 ﻿namespace ParlayRMS.Site.Utilities;
 
 using NUglify.Css;
-using NUglify.JavaScript;
 using WebOptimizer;
 using WebOptimizer.Processors;
 
