@@ -4,9 +4,6 @@ using Fanex.Data.Repository;
 using Fanex.Logging;
 using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.AspNetCore;
-using Fanex.NAP.Client.Configuration;
-using Fanex.NAP.Client;
-using Fanex.NAP.Client.Services;
 using Fanex.RemotingRef;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -148,16 +145,6 @@ public static class ServiceCollectionExtensions
 
 	public static void AddFanex(this IServiceCollection services, IConfiguration configuration)
 	{
-		LogManager
-			.SetDefaultLogCategory(configuration.GetSection("LogCategory").Value)
-			.Use(new List<ILogEngine>
-			{
-				new SentryLogging(new SentryEngineOptions
-				{
-					Dsn = new Dsn(configuration.GetSection("SentryEngineOptions:Dsn").Value)
-				})
-			});
-
 		RefDataTypeContainer
 			.ConnectTo(new Uri(configuration.GetSection("RemotingRef").Value))
 			.FromApplication("PRMS")
