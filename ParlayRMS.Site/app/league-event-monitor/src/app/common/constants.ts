@@ -7,6 +7,8 @@ export class SportTypeConsts {
     static readonly ESPORT = '43';
     static readonly BASKETBALL = '2';
     static readonly SOCCER = '1';
+    static readonly TENNIS = '5';
+    static readonly BADMINTON = '9';
 }
 
 export class BettypeGroupConsts {

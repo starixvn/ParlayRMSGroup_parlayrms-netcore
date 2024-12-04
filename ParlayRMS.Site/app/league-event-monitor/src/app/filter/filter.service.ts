@@ -80,6 +80,8 @@ export class FilterService {
       { id: SportTypeConsts.ESPORT, name: 'E-Sports', checked: true },
       { id: SportTypeConsts.BASKETBALL, name: 'Basketball ', checked: false },
       { id: SportTypeConsts.SOCCER, name: 'Soccer ', checked: false },
+      { id: SportTypeConsts.TENNIS, name: 'Tennis ', checked: false },
+      { id: SportTypeConsts.BADMINTON, name: 'Badminton ', checked: false }
     ]
   }
 
