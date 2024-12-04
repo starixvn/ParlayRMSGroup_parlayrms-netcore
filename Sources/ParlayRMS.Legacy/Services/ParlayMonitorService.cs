@@ -43,6 +43,6 @@ public class ParlayMonitorService (ParlayMonitorDataAccess _parlayDataAccess)
 
     public UserTracking UpdateCheckedUser(int userid, string username, string transid)
     {
-            return _parlayDataAccess.RMS_Monitor_Parlay_UserTracking(userid, username, transid);
-        }
+        return _parlayDataAccess.RMS_Monitor_Parlay_UserTracking(userid, username, transid);
+    }
 }

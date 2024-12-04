@@ -38,10 +38,17 @@ public class TopWinnersController(INapSession napSession, INapSettings napSettin
         }
         ViewBag.Currencies = currencies;
 
+        var levels = new List<SelectListItem> { new() { Text = ViewLang.None, Value = "0" } };
+        for (var i = 1; i <= 10; i++)
+        {
+            levels.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+        }
+        ViewBag.Levels = levels;
+
         ViewBag.HasWritePermission = _userService.IsHavingPermission(
             napSession.UserId,
             napSettings.SiteId,
-            FunctionKeys.ManageMember,
+            FunctionKeys.TopWinners,
             Constant.Policy.Host);
 
         return View();

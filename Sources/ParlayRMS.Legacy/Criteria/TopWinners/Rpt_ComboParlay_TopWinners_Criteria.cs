@@ -21,6 +21,8 @@ public class Rpt_ComboParlay_TopWinners_Criteria : CriteriaBase
     public int Site { get; set; }
     public int LiveStatus { get; set; }
     public int? CustomerClass { get; set; }
+
+    public string Level { get; set; }
         
     public override string GetSettingKey() => "RMS_Rpt_ComboParlay_TopWinners";
 

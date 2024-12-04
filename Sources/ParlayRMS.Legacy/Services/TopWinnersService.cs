@@ -24,7 +24,8 @@ public class TopWinnersService (TopWinnersDataAccess _topwinnersDataAccess, Comm
                 options.LiveType,
                 options.Currencies,
                 options.Site,
-                options.CustomerClass);
+                options.CustomerClass,
+                options.Level);
         }
 
     public IEnumerable<RMS_Rpt_Parlay_TopWinner_Detail> GetTopWinnerDetails(TopWinnerDetailsOptions options)
