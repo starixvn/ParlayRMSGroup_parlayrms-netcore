@@ -24,6 +24,8 @@ public class TopWinnersOptions
 
     public int? CustomerClass { get; set; }
 
+    public string Level { get; set; }
+
     public string GetTile()
     {
         var combosTitle = ViewLang.All;
@@ -33,8 +35,15 @@ public class TopWinnersOptions
             combosTitle = string.Join(",", combos.Select(x => x == "10" ? ViewLang.TenUp : x));
         }
 
+        var levelsTitle = ViewLang.All;
+        var level = Level.Split(',');
+        if (level.Length < 11)
+        {
+            levelsTitle = string.Join(",", level.Select(x => x == "0" ? ViewLang.None : x));
+        }
+
         var title =
-            $"Top {SelectTop} winners - from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - {ViewLang.Combo} [{combosTitle}] - {ViewLang.ParlayType} [{ModelsHelper.GetParlayTitle(ParlayTypes)}] - {ViewLang.SportsType} [{ModelsHelper.GetSportType(SportsType)}] - {ViewLang.Site} [{ModelsHelper.GetSiteTitle(Site)}] - {ViewLang.CustomerClass} [{ModelsHelper.GetCustomerClassTitle(CustomerClass)}] - {ViewLang.LiveType} [{ModelsHelper.GetLiveTypeTitle(LiveType)}]";
+            $"Top {SelectTop} winners - from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - {ViewLang.Combo} [{combosTitle}] - {ViewLang.ParlayType} [{ModelsHelper.GetParlayTitle(ParlayTypes)}] - {ViewLang.SportsType} [{ModelsHelper.GetSportType(SportsType)}] - {ViewLang.Site} [{ModelsHelper.GetSiteTitle(Site)}] - {ViewLang.CustomerClass} [{ModelsHelper.GetCustomerClassTitle(CustomerClass)}] - {ViewLang.LiveType} [{ModelsHelper.GetLiveTypeTitle(LiveType)}] - {ViewLang.Level} [{levelsTitle}]";
         return title;
     }
 }

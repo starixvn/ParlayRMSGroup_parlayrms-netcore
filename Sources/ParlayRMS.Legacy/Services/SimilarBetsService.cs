@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using DataAccess;
 using DTO.SimilarBets;
+using ParlayRMS.Legacy.DTO.PotentialWinning;
 using Utilities;
 
 public class SimilarBetsService (SimilarBetsDataAccess _similarbetsDataAccess)
@@ -25,7 +26,7 @@ public class SimilarBetsService (SimilarBetsDataAccess _similarbetsDataAccess)
                         maxPayout += item.Max_Payout;
                         potentialWinningAmount += item.PotentialWinningAmount;
                         houseLoseAmount += item.HouseLoseAmount;
-                    }
+                }
 
                     data.TotalData = new TotalDataModel
                     {
@@ -43,5 +44,10 @@ public class SimilarBetsService (SimilarBetsDataAccess _similarbetsDataAccess)
             }
 
             return data;
-        }
+    }
+
+    public UserTracking UpdateCheckedUser(int userid, string username, string transid)
+    {
+        return _similarbetsDataAccess.RMS_Similar_Parlay_UserTracking(userid, username, transid);
+    }
 }

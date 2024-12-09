@@ -4,7 +4,7 @@
 }
 <link rel="stylesheet" href="/Content/TopWinners.css" type="text/css" />
 <div class="filter">
-    <div class="filter-control" style="width: 840px">
+    <div class="filter-control" style="width: 930px">
         <div class="minimizetitle">
             <div class="minimizecontent">
                 @ViewLang.FilterControl
@@ -65,8 +65,12 @@
                     @Html.DropDownList("currencies", (List<SelectListItem>)ViewBag.Currency)
                 </div>
                 <div class="group">
-                    @Html.Label("", ViewLang.CustomerClass)
-                    @Html.TextBox("txtCustomerClass", "", new { @class = "inputtext w100", maxlength = "6", onkeypress = "return IsNumber(event)" })
+	                @Html.Label("", ViewLang.CustomerClass)
+	                @Html.TextBox("txtCustomerClass", "", new { @class = "inputtext w100", maxlength = "6", onkeypress = "return IsNumber(event)" })
+                </div>
+                <div class="group">
+	                @Html.Label(ViewLang.Level)
+	                @Html.DropDownList("level", (List<SelectListItem>)ViewBag.Levels)
                 </div>
             </div>
         </div>
@@ -208,7 +212,7 @@
         </table>
     </div>
 </div>
-<script type="text/ecmascript" src="/Scripts/Report/TopWinners.js?v=3"></script>
+<script type="text/ecmascript" src="/Scripts/Report/TopWinners.js?v=4"></script>
 <script type="text/javascript">
     var dateRanges = {
         Yesterday : @Convert.ToInt32(DateRange.Yesterday),

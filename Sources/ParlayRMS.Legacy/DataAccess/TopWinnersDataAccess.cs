@@ -22,7 +22,8 @@ public class TopWinnersDataAccess(IDynamicRepository repository)
         byte liveType,
         string currencies,
         byte site,
-        int? customerClass)
+        int? customerClass,
+        string level)
     {
             var criteria = new Rpt_ComboParlay_TopWinners_Criteria
             {
@@ -37,7 +38,8 @@ public class TopWinnersDataAccess(IDynamicRepository repository)
                 LiveStatus = liveType,
                 CustomerClass = customerClass,
                 Site = site,
-                Currency = currencies
+                Currency = currencies,
+                Level = level
             };
 
             var list = repository.Fetch<RMS_Rpt_Parlay_TopWinner>(criteria).ToList();

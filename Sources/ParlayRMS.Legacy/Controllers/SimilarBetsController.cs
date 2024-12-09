@@ -8,6 +8,7 @@ using Fanex.BetList.Core.TicketHelper;
 using Fanex.NAP.Client.Attributes;
 using Fanex.NAP.Client.Helpers.Business;
 using Microsoft.AspNetCore.Mvc;
+using ParlayRMS.Legacy.ViewModel.Monitoring;
 using ParlayRMS.Models.Functions;
 using Services;
 using ViewModel.Report;
@@ -140,5 +141,12 @@ public class SimilarBetsController(
         ViewBag.Score = choice.Item3;
 
         return View();
+    }
+
+    [HttpPost]
+    public ActionResult CheckBy(UserTrackingCriteria criteria)
+    {
+        var data = _similarbetsService.UpdateCheckedUser(criteria.UserId, criteria.Username, criteria.TransId);
+        return Json(data);
     }
 }

@@ -3,6 +3,8 @@ namespace ParlayRMS.Legacy.DataAccess;
 using Criteria.SimilarBets;
 using DTO.SimilarBets;
 using Fanex.Data.Repository;
+using ParlayRMS.Legacy.Criteria.ParlayMonitor;
+using ParlayRMS.Legacy.DTO.PotentialWinning;
 
 public class SimilarBetsDataAccess(IDynamicRepository repository)
 {
@@ -60,9 +62,31 @@ public class SimilarBetsDataAccess(IDynamicRepository repository)
                 CustomerClass = row.CustomerClass == null ? "None" : row.CustomerClass,
                 SiteGroup = row.SiteGroup,
                 Ip = row.Ip,
-                TransDateString = similar.Transdate.ToString("MM/dd/yyyy h:mm:ss tt")
+                TransDateString = similar.Transdate.ToString("MM/dd/yyyy h:mm:ss tt"),
+                IsTrackedUser = !string.IsNullOrWhiteSpace(row.TrackingUser),
+                TrackingUser = string.IsNullOrWhiteSpace(row.TrackingUser) ? "None" : row.TrackingUser
             })
         };
         return result;
+    }
+
+    public UserTracking RMS_Similar_Parlay_UserTracking(int userid, string username, string transid)
+    {
+        var command = new ComboParlay_PotentialWinning_UserTracking_Command
+        {
+            Username = username,
+            UserId = userid,
+            TransId = transid
+        };
+
+        repository.Execute(command);
+
+        var userTracking = new UserTracking
+        {
+            StatusId = command.StatusId,
+            Message = command.Message
+        };
+
+        return userTracking;
     }
 }

@@ -29,4 +29,8 @@ public class RMS_Similar_Parlay_Betlist_Detail
     public string Ip { get; set; }
 
     public string TransDateString { get; set; }
+
+    public string TrackingUser { get; set; }
+
+    public bool IsTrackedUser { get; set; }
 }

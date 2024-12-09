@@ -11,7 +11,8 @@
     CustomerClass: '',
     CustId: 0,
     UserName: '',
-    Save: function (fromDate, toDate, sportsType, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass) {
+    Level: '',
+    Save: function (fromDate, toDate, sportsType, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass, level) {
         this.FromDate = fromDate;
         this.ToDate = toDate;
         this.SportsType = sportsType;
@@ -22,6 +23,7 @@
         this.LiveType = liveType;
         this.Currencies = currencies;
         this.CustomerClass = customerClass;
+        this.Level = level;
     }
 };
 
@@ -253,6 +255,28 @@ $(function () {
         selectedList: 1
     });
 
+    $("#level").multiselect({
+        minWidth: 132,
+        height: 136,
+        create: function () {
+            $("#level").multiselect("checkAll");
+        },
+        selectedText: function (numChecked, numTotal, checkedItems) {
+            if (numChecked == 0) {
+                return "Select options";
+            }
+            else if (numChecked == 1) {
+                return $(checkedItems).attr('title');
+            }
+            else if (numChecked == numTotal) {
+                return "All";
+            }
+            else {
+                return numChecked + ' options';
+            }
+        }
+    });
+
     $("#dateRange").change();
 
     $('#parlayType').on('change', function () {
@@ -323,12 +347,20 @@ $(function () {
 
         var customerClass = parseInt($("#txtCustomerClass").val());
 
+        var levels = $("#level").multiselect("getChecked").map(function () {
+            return this.value;
+        }).get().join(',');
+        if (levels == '') {
+            Validators.show($("#level").multiselect("getButton").get(0), 'Please select your options');
+            return;
+        }
+
         header.find(".sortable").each(function () {
             $(this).removeClass("headerSortDown").removeClass("headerSortUp");
             this.sortDirection = "";
         });
 
-        ViewTopWinners(fromDate, toDate, sportsTypes, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass);
+        ViewTopWinners(fromDate, toDate, sportsTypes, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass, levels);
     });
 
     tableSorter.bind2(header, table, {
@@ -347,8 +379,8 @@ $(function () {
     });
 });
 
-function ViewTopWinners(fromDate, toDate, sportsType, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass) {
-    userOptions.Save(fromDate, toDate, sportsType, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass);
+function ViewTopWinners(fromDate, toDate, sportsType, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass, level) {
+    userOptions.Save(fromDate, toDate, sportsType, selectTop, combos, site, parlayTypes, liveType, currencies, customerClass, level);
 
     var data = {
         FromDate: fromDate,
@@ -360,7 +392,8 @@ function ViewTopWinners(fromDate, toDate, sportsType, selectTop, combos, site, p
         ParlayTypes: parlayTypes,
         LiveType: liveType,
         Currencies: currencies,
-        CustomerClass: customerClass
+        CustomerClass: customerClass,
+        Level: level
     }
     $.ajax({
         url: resolveClientUrl('TopWinners/Data'),
@@ -541,7 +574,8 @@ function ExportExcel() {
         ParlayTypes: userOptions.ParlayTypes,
         LiveType: userOptions.LiveType,
         Currencies: userOptions.Currencies,
-        CustomerClass: userOptions.CustomerClass
+        CustomerClass: userOptions.CustomerClass,
+        Level: userOptions.Level
     }
 
     var url = 'TopWinners/Excel?' + $.param(data);
