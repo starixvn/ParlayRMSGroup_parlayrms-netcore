@@ -1,9 +1,9 @@
 using Fanex.Data;
 using Fanex.Logging.Sentry.RavenClient;
 using Fanex.NAP.Client.Attributes;
-using Fanex.NAP.SignIn;
 using Microsoft.AspNetCore.Mvc;
-using ONEbook.UM.AspNetCore.Filters;
+using ONEbook.UM.DependencyInjection;
+using ONEbook.UM.Filters;
 using ParlayRMS.Site.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);

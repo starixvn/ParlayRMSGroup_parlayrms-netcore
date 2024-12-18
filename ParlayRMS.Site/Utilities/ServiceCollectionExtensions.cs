@@ -27,12 +27,10 @@ namespace ParlayRMS.Site.Utilities;
 
 using Fanex.BetList.Core;
 using Fanex.BetList.Core.RemotingRef;
-using Fanex.Logging.Sentry.RavenClient;
 using Legacy.DataAccess;
 using Legacy.Services;
 using NUglify.Css;
 using NUglify.JavaScript;
-using SharpRaven;
 using WebOptimizer.Processors;
 
 public static class ServiceCollectionExtensions
