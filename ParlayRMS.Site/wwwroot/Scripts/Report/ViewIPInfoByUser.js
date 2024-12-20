@@ -114,7 +114,7 @@
     }
 });
 
-function showSingleMatchParlayDetail(transId, custId, index) {
+function showSingleMatchParlayDetail(transId, custId, status, index) {
     var queryData = {
         transId: transId,
         custId: custId,
