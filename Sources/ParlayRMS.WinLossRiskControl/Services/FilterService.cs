@@ -43,7 +43,7 @@ public class FilterServiceImp(IDynamicRepository repository, IRemotingRefService
 
     public Task<List<SportModel>> GetSports()
     {
-        var otherSports = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
+        var otherSports = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44, 50 };
         var listSports = new List<SportModel>
         {
             CreateSport(1, "Soccer only", 0),

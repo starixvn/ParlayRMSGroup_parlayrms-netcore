@@ -54,7 +54,7 @@ public class FilterServiceUnitTests
         var actualResults = await filterService.GetSports();
 
         // Assert
-        const int expectedItems = 17;
+        const int expectedItems = 18;
         Assert.Equal(expectedItems, actualResults.Count);
     }
 
