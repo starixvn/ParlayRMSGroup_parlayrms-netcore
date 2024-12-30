@@ -1,5 +1,8 @@
 ﻿using Fanex.RemotingRef;
+using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
+using ParlayRMS.ManageAlert.Controllers;
+using ParlayRMS.ManageAlert.Models;
 using ParlayRMS.ManageAlert.Services;
 
 namespace ParlayRMS.ManageAlert.UnitTests.Controllers;
@@ -17,10 +20,9 @@ public class FilterControllerUnitTests
     public void GetSportTypes_Always_ReturnsExpectedTotalItems()
     {
         // Act
-        var actualResults = filterService.GetSportTypes();
+        var actualResults = new FilterController(filterService).GetSports() as OkObjectResult;
 
         // Assert
-        const int expectedItems = 18;
-        Assert.Equal(expectedItems, actualResults.Count());
+        Assert.Equal(18, ((actualResults!.Value as List<SportModel>)!).Count);
     }
 }

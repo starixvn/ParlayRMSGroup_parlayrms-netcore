@@ -35,9 +35,7 @@ public class FilterServiceUnitTests
     public async Task GetCompany_Always_ReturnNotNull()
     {
         // Arrange
-        var fixture = new Fixture();
-        var company = fixture.CreateMany<CompanyModel>(2).ToList();
-        repository.FetchAsync<CompanyModel>(Arg.Any<CompanyCriteria>()).Returns(company);
+        repository.FetchAsync<CompanyModel>(Arg.Any<CompanyCriteria>()).Returns(DataHelper.GetCompany());
 
         // Act
         var actualResult = await filterService.GetCompany();

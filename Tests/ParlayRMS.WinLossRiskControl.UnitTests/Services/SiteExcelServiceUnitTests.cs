@@ -54,7 +54,6 @@ public class SiteExcelServiceUnitTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("Result", result.Workbook.Worksheets["Result"].Name);
         Assert.Equal("Site", result.Workbook.Worksheets["Result"].Cells["A1"].Value);
         Assert.Equal("Grand Total", result.Workbook.Worksheets["Result"].Cells["A9"].Value);
     }

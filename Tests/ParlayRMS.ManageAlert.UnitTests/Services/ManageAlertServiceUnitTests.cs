@@ -31,38 +31,14 @@ public class ManageAlertServiceUnitTests
         // Arrange
         var criteria = new ManageAlertCriteria
             { FromDate = "", ToDate = "", ActionType = "", AlertType = "", Selection = "", TicketStatus = "" };
-        var manageAlerts = new List<ManageAlertModel>
-        {
-            new()
-            {
-                Action = "Take Note",
-                AlertId = "1",
-                AlertTime = new DateTime(),
-                BetId = "123456",
-                AlertType = "Similar Bet",
-                BetType = 1,
-                CheckedBy = null,
-                CompanyLose = 1,
-                CustId = 1,
-                MemberStake = 10,
-                Odds = 1,
-                PotentialWinning = 1,
-                RefNo = "1234",
-                Selection = "2",
-                SimilarTickets = null,
-                SportType = "Soccer Only",
-                TotalBets = "1",
-                UserName = "user"
-            }
-        };
-        repository.FetchMultipleAsync<ManageAlertModel, int>(Arg.Any<ManageAlertCriteria>()).Returns((manageAlerts, [1]));
+        repository.FetchMultipleAsync<ManageAlertModel, int>(Arg.Any<ManageAlertCriteria>()).Returns((DataHelper.GetManageAlerts(), [1]));
 
         // Act
         var actualResults = await service.GetAlerts(criteria);
 
         // Assert
         Assert.Equal(1, actualResults.TotalItems);
-        Assert.Equal(1, actualResults.Items.Count());
+        Assert.Single(actualResults.Items);
     }
 
     [Fact]
@@ -70,30 +46,13 @@ public class ManageAlertServiceUnitTests
     {
         // Arrange
         var criteria = new ViewDetailCriteria { Selection = "", TicketStatus = "" };
-        var similarTicketDetails = new List<SimilarTicketDetailModel>
-        {
-            new()
-            {
-                RefNo = "12345",
-                CustId = 1,
-                UserName = "user",
-                BetType = 1,
-                CustomerClass = 1,
-                HouseAmt = 10,
-                SiteGroup = "",
-                Stake = 10,
-                Status = "Running",
-                TransId = "123456789",
-                WinningAmt = 10
-            }
-        };
-        repository.FetchAsync<SimilarTicketDetailModel>(criteria).Returns(similarTicketDetails);
+        repository.FetchAsync<SimilarTicketDetailModel>(criteria).Returns(DataHelper.GetSimilarTicketDetails());
 
         // Act
         var actualResults = await service.GetSimilarTicketDetail(criteria);
 
         // Assert
-        Assert.Equal(1, actualResults.Count());
+        Assert.Single(actualResults);
     }
 
     [Fact]
@@ -101,37 +60,13 @@ public class ManageAlertServiceUnitTests
     {
         // Arrange
         var criteria = new ViewDetailCriteria { Selection = "", TicketStatus = "" };
-        var potentialWinningDetails = new List<PotentialWinningDetailModel>
-        {
-            new()
-            {
-                RefNo = "12345",
-                CustId = 1,
-                UserName = "user",
-                BetType = 1,
-                HouseAmt = 10,
-                Stake = 10,
-                Status = "Running",
-                TransId = "123456789",
-                WinningAmt = 10,
-                TotalSelection = 2,
-                Odds = 2,
-                SportType = "Other sports",
-                HousePt = 10,
-                Ip = "127.0.0.1",
-                IsBoostBonus = false,
-                IsParlayGenerator = false,
-                TotalBet = 1,
-                TransDate = new DateTime()
-            }
-        };
-        repository.FetchAsync<PotentialWinningDetailModel>(criteria).Returns(potentialWinningDetails);
+        repository.FetchAsync<PotentialWinningDetailModel>(criteria).Returns(DataHelper.GetPotentialWinningDetails());
 
         // Act
         var actualResults = await service.GetPotentialWinningDetail(criteria);
 
         // Assert
-        Assert.Equal(1, actualResults.Count());
+        Assert.Single(actualResults);
     }
 
     [Fact]
@@ -139,22 +74,13 @@ public class ManageAlertServiceUnitTests
     {
         // Arrange
         var request = new ViewLogRequest();
-        var viewLogs = new List<ViewLogModel>
-        {
-            new()
-            {
-                UserName = "user",
-                ActionName = "Take Note",
-                LogTime = new DateTime()
-            }
-        };
-        repository.FetchAsync<ViewLogModel>(Arg.Any<ViewLogCriteria>()).Returns(viewLogs);
+        repository.FetchAsync<ViewLogModel>(Arg.Any<ViewLogCriteria>()).Returns(DataHelper.GetViewLogs());
 
         // Act
         var actualResults = await service.GetViewLogs(request);
 
         // Assert
-        Assert.Equal(1, actualResults.Count());
+        Assert.Single(actualResults);
     }
 
     [Fact]
