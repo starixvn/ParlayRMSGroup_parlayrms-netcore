@@ -4,7 +4,7 @@ public class WinLossModel
 {
     private string username;
 
-    public string customerClass;
+    private string customerClass;
 
     public string Username
     {
@@ -49,7 +49,11 @@ public class WinLossModel
 
     public string Site { get; set; }
 
-    public string CustomerClass => !string.IsNullOrWhiteSpace(customerClass) ? customerClass : "None";
+    public string CustomerClass
+    {
+        get => !string.IsNullOrWhiteSpace(customerClass) ? customerClass : "None";
+        set => customerClass = value;
+    }
 
     public int TotalRecords { get; set; }
 
