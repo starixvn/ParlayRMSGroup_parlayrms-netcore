@@ -16,9 +16,9 @@
 
 @{
     var sportTypes = Model;
-    var listSportsbookSportTypes = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
+    var listSportsbookSportTypes = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44, 50 };
     var listSportTypes = sportTypes.Split(',');
-    var optgroupSelected = sportTypes.Contains("2,-5,3,4,5,6,7,8,9,11,43,44,-2,-1") ? "selected=\"selected\"" : string.Empty;
+    var optgroupSelected = sportTypes.Contains("2,-5,3,4,5,6,7,8,9,11,43,44,50,-2,-1") ? "selected=\"selected\"" : string.Empty;
 	<select id="sportsType" multiple="multiple" name="sportsType">
 		@{
 			await SportTypesDropDownOption("1", "Soccer only", listSportTypes.Contains("1"));

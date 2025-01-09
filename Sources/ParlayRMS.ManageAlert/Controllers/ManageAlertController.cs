@@ -18,7 +18,7 @@ public class ManageAlertController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> Detail(SimilarTicketDetailRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
     [Route("potential-winning-detail")]
-    public async Task<IActionResult> Detail(PotentialWinningDetailRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
+    public async Task<IActionResult> PotentialWinningDetail(PotentialWinningDetailRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
     [Route("log")]
     public async Task<IActionResult> Logs(ViewLogRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
@@ -27,21 +27,21 @@ public class ManageAlertController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> TakeAction(TakeActionRequest request) => Ok(await mediator.Send(request).ConfigureAwait(false));
 
     [Route("export-excel-alerts")]
-    public async Task<IActionResult> ExportExcel(ManageAlertExcelRequest request)
+    public async Task<IActionResult> ExportExcelForAlerts(ManageAlertExcelRequest request)
     {
         var excelPackage = await mediator.Send(request);
         return new EpplusExcelResult(excelPackage);
     }
 
     [Route("export-excel-similar-bet")]
-    public async Task<IActionResult> ExportExcel(SimilarTicketDetailExcelRequest request)
+    public async Task<IActionResult> ExportExcelForSimilarBet(SimilarTicketDetailExcelRequest request)
     {
         var excelPackage = await mediator.Send(request);
         return new EpplusExcelResult(excelPackage);
     }
 
     [Route("export-excel-potential-winning")]
-    public async Task<IActionResult> ExportExcel(PotentialWinningDetailExcelRequest request)
+    public async Task<IActionResult> ExportExcelForPotentialWinning(PotentialWinningDetailExcelRequest request)
     {
         var excelPackage = await mediator.Send(request);
         return new EpplusExcelResult(excelPackage);

@@ -25,171 +25,19 @@ public class WinLossServiceUnitTests
         service = new WinLossServiceImp(repository, mapper);
     }
 
-    private static WinLossModel CreateWinLoss(decimal commission, decimal realInCome, decimal realTurnover)
-    {
-        return new WinLossModel
-        {
-            Username = "A",
-            NoMember = 1,
-            BetCount = 2,
-            MemberWinLoss = 3,
-            SmaWinLoss = 4,
-            ExtraPT = 5,
-            Commission = commission,
-            RealIncome = realInCome,
-            RealTurnover = realTurnover
-        };
-    }
-
-    private static WinLossModel CreateWinLoss(decimal commission, decimal realInCome, decimal realTurnover, decimal margin)
-    {
-        var model = CreateWinLoss(commission, realInCome, realTurnover);
-        model.Margin = margin;
-
-        return model;
-    }
-
-    private WinLossModel ExpectedAgentWinLoss()
-    {
-        return new WinLossModel
-        {
-            Username = "Grand Total",
-            NoMember = 3,
-            BetCount = 6,
-            MemberWinLoss = 9,
-            SmaWinLoss = 12,
-            ExtraPT = 15,
-            Commission = 6,
-            RealIncome = 17,
-            RealTurnover = 22,
-            Margin = Convert.ToDecimal("77.272727272727272727272727270"),
-            Rows = FakeAgentWinLoss,
-            TotalRecords = 3
-        };
-    }
-
-    private List<WinLossModel> FakeAgentWinLoss =>
-    [
-        CreateWinLoss(1, 3, 4, 57),
-        CreateWinLoss(2, 7, 8, Convert.ToDecimal(87.5)),
-        CreateWinLoss(3, 7, 10, 70)
-    ];
-
-    private WinLossModel ExpectedCompanyWinLoss()
-    {
-        return new WinLossModel
-        {
-            Username = "Grand Total",
-            NoMember = 4,
-            BetCount = 8,
-            MemberWinLoss = 12,
-            SmaWinLoss = 16,
-            ExtraPT = 20,
-            Commission = 10,
-            RealIncome = 17,
-            RealTurnover = 22,
-            Margin = Convert.ToDecimal("77.272727272727272727272727270"),
-            Rows = FakeCompanyWinLoss
-        };
-    }
-
-    private List<WinLossModel> FakeCompanyWinLoss =>
-    [
-        CreateWinLoss(1, 3, 4, 57),
-        CreateWinLoss(2, 7, 8, Convert.ToDecimal(87.5)),
-        CreateWinLoss(3, 7, 10, 70),
-        CreateWinLoss(4, 0, 0, 0)
-    ];
-
-    private WinLossModel ExpectedSiteWinLoss()
-    {
-        var credit = new WinLossModel
-        {
-            Username = "MBC Group",
-            NoMember = 1,
-            BetCount = 2,
-            MemberWinLoss = 3,
-            SmaWinLoss = 4,
-            ExtraPT = 5,
-            Commission = 1,
-            RealIncome = 3,
-            RealTurnover = 4,
-            Margin = Convert.ToDecimal("75.00"),
-            IsDeposit = false,
-            Rows = [MBCGroup]
-        };
-
-        var deposit = new WinLossModel
-        {
-            Username = "Licensee Group",
-            NoMember = 1,
-            BetCount = 2,
-            MemberWinLoss = 3,
-            SmaWinLoss = 4,
-            ExtraPT = 5,
-            Commission = 3,
-            RealIncome = 7,
-            RealTurnover = 10,
-            Margin = 70,
-            IsDeposit = true,
-            Rows = [LicenseeGroup]
-        };
-
-        return new WinLossModel
-        {
-            Username = "Grand Total",
-            NoMember = 2,
-            BetCount = 4,
-            MemberWinLoss = 6,
-            SmaWinLoss = 8,
-            ExtraPT = 10,
-            Commission = 4,
-            RealIncome = 10,
-            RealTurnover = 14,
-            Margin = Convert.ToDecimal("71.428571428571428571428571430"),
-            Rows = [credit, deposit]
-        };
-    }
-
-    private static WinLossModel MBCGroup
-    {
-        get
-        {
-            var credit = CreateWinLoss(1, 3, 4, 57);
-            credit.IsDeposit = false;
-            return credit;
-        }
-    }
-
-    private WinLossModel LicenseeGroup
-    {
-        get
-        {
-            var deposit = CreateWinLoss(3, 7, 10, 70);
-            deposit.IsDeposit = true;
-            return deposit;
-        }
-    }
-
-    private IEnumerable<WinLossModel> FakeSiteWinLoss =>
-        new List<WinLossModel> {
-            MBCGroup,
-            LicenseeGroup
-        };
-
     [Fact]
     public async Task GetSites_Always_ReturnsExpectedList()
     {
         // Arrange
         var request = new WinLossRequest();
-        var fakeData = FakeSiteWinLoss;
+        var fakeData = DataHelper.SiteWinLoss;
         repository.FetchAsync<WinLossModel>(Arg.Any<WinLossCriteria>()).Returns(fakeData);
 
         // Act
         var actualResults = await service.SitesWinLoss(request);
 
         // Assert
-        var expectedList = ExpectedSiteWinLoss();
+        var expectedList = DataHelper.ExpectedSiteWinLoss();
         AssertExtension.AreEqual(expectedList, actualResults);
     }
 
@@ -198,14 +46,14 @@ public class WinLossServiceUnitTests
     {
         // Arrange
         var request = new SuperWinLossRequest();
-        var fakeData = FakeCompanyWinLoss;
+        var fakeData = DataHelper.CompanyWinLoss;
         repository.FetchAsync<WinLossModel>(Arg.Any<CompanyWinLossCriteria>()).Returns(fakeData);
 
         // Act
         var actualResults = await service.SuperWinLoss(request);
 
         // Assert
-        var expectedList = ExpectedCompanyWinLoss();
+        var expectedList = DataHelper.ExpectedCompanyWinLoss();
         AssertExtension.AreEqual(expectedList, actualResults);
     }
 
@@ -216,7 +64,7 @@ public class WinLossServiceUnitTests
         var request = new AgentWinLossRequest();
         var fakeData = new ValueTuple<IEnumerable<WinLossModel>, IEnumerable<int>>
         {
-            Item1 = FakeAgentWinLoss,
+            Item1 = DataHelper.AgentWinLoss,
             Item2 = new List<int> { 3 }
         };
 
@@ -226,7 +74,7 @@ public class WinLossServiceUnitTests
         var actualResults = await service.AgentWinLossByMaster(request);
 
         // Assert
-        var expectedList = ExpectedAgentWinLoss();
+        var expectedList = DataHelper.ExpectedAgentWinLoss();
         AssertExtension.AreEqual(expectedList, actualResults);
     }
 
@@ -236,7 +84,7 @@ public class WinLossServiceUnitTests
         // Arrange
         var request = new AgentWinLossRequest();
 
-        repository.FetchAsync<WinLossModel>(Arg.Any<CompanyWinLossCriteria>()).Returns(FakeAgentWinLoss);
+        repository.FetchAsync<WinLossModel>(Arg.Any<CompanyWinLossCriteria>()).Returns(DataHelper.AgentWinLoss);
 
         // Act
         var actualResults = await service.AgentWinLossBySite(request);
@@ -254,7 +102,7 @@ public class WinLossServiceUnitTests
             RealIncome = 17,
             RealTurnover = 22,
             Margin = Convert.ToDecimal("77.272727272727272727272727270"),
-            Rows = FakeAgentWinLoss
+            Rows = DataHelper.AgentWinLoss
         };
         AssertExtension.AreEqual(expectedList, actualResults);
     }

@@ -18,7 +18,7 @@ public class FilterServiceImp(IRemotingRefService refService) : FilterService
             new() { SportId = -4, SportName = "Virtual Soccer", SportGroup = 0 },
             new() { SportId = -3, SportName = "Combined sports", SportGroup = 0 }
         };
-        var otherSports = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44 };
+        var otherSports = new[] { 2, -5, 3, 4, 5, 6, 7, 8, 9, 11, 43, 44, 50 };
         sportTypes.AddRange(otherSports.Select(item => item == -5 ?
             new SportModel { SportId = -5, SportName = "Virtual Basketball", SportGroup = 1 } :
             new SportModel { SportId = item, SportName = refService.GetSportName(item.ToString(), "en"), SportGroup = 1 }
