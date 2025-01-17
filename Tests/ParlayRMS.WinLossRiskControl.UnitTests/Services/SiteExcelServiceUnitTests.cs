@@ -16,6 +16,7 @@ public class SiteExcelServiceUnitTests
         {
             cfg.CreateMap<WinLossModel, MemberWinLossExcelModel>();
             cfg.CreateMap<WinLossModel, WinLossExcelModel>();
+            cfg.CreateMap<WinLossModel, SiteWinLossExcelModel>();
         });
 
         var mapper = mockMapper.CreateMapper();

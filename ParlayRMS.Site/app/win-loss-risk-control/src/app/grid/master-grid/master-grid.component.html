@@ -2,6 +2,7 @@
   <colgroup>
       <col style="width: 140px" />
       <col style="width: 130px" />
+      <col style="width: 130px" />
       <col style="width: 90px" />
       <col style="width: 130px" />
       <col style="width: 130px" />
@@ -20,6 +21,7 @@
             No. Member
             <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
           </th>
+          <th scope="col">Customer Class</th>
           <th scope="col" [appSort]="[winLoss.rows]" data-order="desc" data-prop="betCount">
             Bet Count
             <span><em class="fa fa-sort-up"></em><em class="fa fa-sort-down"></em></span>
@@ -50,8 +52,10 @@
   </thead>
 </ng-template>
 <ng-template #rowItem let-item="item">
-  <td><a href="javascript:;" (click)="showAgent(item.username, item.custId, item.site)">{{ item.username }}</a></td>
+  <td *ngIf="item.roleId !== 1"><a href="javascript:;" (click)="showAgent(item.username, item.custId, item.site)">{{ item.username }}</a></td>
+  <td *ngIf="item.roleId === 1">{{ item.username }}</td>
   <td class="text-right">{{item.noMember}}</td>
+  <td class="text-right">{{item.customerClass}}</td>
   <td class="text-right">{{item.betCount}}</td>
   <td [ngClass]="{'red': item.memberWinLoss > 0, 'text-right' : 1}" [napDecimalFormat]="item.memberWinLoss"></td>
   <td [ngClass]="{'red': item.smaWinLoss > 0, 'text-right' : 1}" [napDecimalFormat]="item.smaWinLoss"></td>
@@ -65,7 +69,7 @@
 </ng-template>
 <div *ngIf="winLoss" [ngSwitch]="winLoss.rows.length > 0">
   <div class="nap-grid">
-      <div style="width: 1290px;">
+      <div style="width: 1420px;">
           <div class="header">
               <table>
                   <ng-template [ngTemplateOutlet]="colgroup"></ng-template>
@@ -87,7 +91,7 @@
               <table>
                   <tbody>
                       <tr>
-                          <th class="no-data" colspan="10">
+                          <th class="no-data" colspan="11">
                               There is no data
                           </th>
                       </tr>
@@ -101,6 +105,7 @@
                       <tr class="font-weight-bold">
                           <td class="text-right">{{winLoss.username}}</td>
                           <td class="text-right">{{winLoss.noMember}}</td>
+                          <td class="text-right"></td>
                           <td class="text-right">{{winLoss.betCount}}</td>
                           <td [ngClass]="{'red': winLoss.memberWinLoss > 0, 'text-right' : 1}" [napDecimalFormat]="winLoss.memberWinLoss"></td>
                           <td [ngClass]="{'red': winLoss.smaWinLoss > 0, 'text-right' : 1}" [napDecimalFormat]="winLoss.smaWinLoss"></td>

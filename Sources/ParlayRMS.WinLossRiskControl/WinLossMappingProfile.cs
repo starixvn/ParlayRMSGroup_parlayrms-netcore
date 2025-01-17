@@ -22,5 +22,6 @@ public class WinLossMappingProfile : Profile
         CreateMap<MemberWinLossExcelRequest, AgentWinLossRequest>();
         CreateMap<WinLossModel, MemberWinLossExcelModel>();
         CreateMap<WinLossModel, WinLossExcelModel>();
+        CreateMap<WinLossModel, SiteWinLossExcelModel>();
     }
 }

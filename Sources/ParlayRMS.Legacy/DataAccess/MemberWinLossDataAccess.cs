@@ -54,7 +54,7 @@ public class MemberWinLossDataAccess(IDynamicRepository repository)
         string sportsType,
         byte liveType,
         string combos,
-        List<int> custIds,
+        string userName,
         byte reportBy)
     {
             var criteria = new Rpt_ComboParlay_Winloss_Ag_Criteria
@@ -63,7 +63,7 @@ public class MemberWinLossDataAccess(IDynamicRepository repository)
                 ToDate = toDate,
                 MoveBetsDay = moveBetsDay,
                 BalanceUpDay = balanceUpDay,
-                Recommends = string.Join(",", custIds),
+                UserName = userName,
                 SportType = sportsType,
                 LiveStatus = liveType,
                 Selection = combos,

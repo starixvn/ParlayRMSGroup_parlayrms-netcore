@@ -68,7 +68,7 @@ public class SiteExcelServiceImp(IMapper mapper) : SiteExcelService
 
     private void ApplyBody(List<WinLossModel> rows, int rowIndex)
     {
-        var list = mapper.Map<List<WinLossExcelModel>>(rows);
+        var list = mapper.Map<List<SiteWinLossExcelModel>>(rows);
         bodySheet.ApplyVertical(list, rowIndex);
     }
 
@@ -78,7 +78,7 @@ public class SiteExcelServiceImp(IMapper mapper) : SiteExcelService
         {
             return;
         }
-        var total = mapper.Map<WinLossExcelModel>(model);
+        var total = mapper.Map<SiteWinLossExcelModel>(model);
         bodySheet.ApplyModel(sheet, total, rowIndex);
     }
 

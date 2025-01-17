@@ -79,12 +79,8 @@ public class MemberWinLossService(
                                  reportBy);
                     CacheInstance.Set(sessionKey, memberWinLossData, new MemoryCacheEntryOptions { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30) });
                 }
-                else if (user.RoleId == (int)RoleId.Agent || user.RoleId == (int)RoleId.Master)
+                else
                 {
-                    var agentIds = user.RoleId == (int)RoleId.Agent
-                        ? [user.CustId]
-                        : _membersService.GetAgents(user.CustId);
-
                     memberWinLossData = GetAgentWinLossData(
                                  fromDate,
                                  toDate,
@@ -94,7 +90,7 @@ public class MemberWinLossService(
                                  sportsType,
                                  liveType,
                                  combos,
-                                 agentIds,
+                                 username,
                                  reportBy);
                     CacheInstance.Set(sessionKey, memberWinLossData, new MemoryCacheEntryOptions { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30) });
                 }
@@ -157,7 +153,7 @@ public class MemberWinLossService(
         string sportsType,
         byte liveType,
         string combos,
-        List<int> custIds,
+        string userName,
         byte reportBy)
     {
             var total = new RMS_Rpt_Parlay_MemberWinLoss();
@@ -171,7 +167,7 @@ public class MemberWinLossService(
                                                        sportsType,
                                                        liveType,
                                                        combos,
-                                                       custIds,
+                                                       userName,
                                                        reportBy).ToList();
 
             Utils.Round(rawData);

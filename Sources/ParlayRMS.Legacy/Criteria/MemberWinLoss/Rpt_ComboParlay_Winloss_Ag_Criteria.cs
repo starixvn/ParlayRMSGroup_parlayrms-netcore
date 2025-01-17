@@ -5,8 +5,7 @@ using Fanex.Data.Repository;
 
 public class Rpt_ComboParlay_Winloss_Ag_Criteria : CriteriaBase
 {
-    public string Recommends { get; set; }
-
+    public string UserName { get; set; }
     public DateTime FromDate { get; set; }
     public DateTime ToDate { get; set; }
     public DateTime MoveBetsDay { get; set; }
