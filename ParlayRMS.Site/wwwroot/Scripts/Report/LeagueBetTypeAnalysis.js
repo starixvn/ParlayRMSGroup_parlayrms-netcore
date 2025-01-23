@@ -26,7 +26,10 @@
         txtHouseWLOfBetType: "#txtHouseWL-BetType",
         divResult: "#divResult",
         divResultOfLeague: "#divResult-League",
-        divResultOfBetType: "#divResult-BetType"
+        divResultOfBetType: "#divResult-BetType",
+        ddlCombo: "#ddlCombo",
+        ddlComboOfLeague: "#ddlCombo-League",
+        ddlComboOfBetType: "#ddlCombo-BetType"
     },
     cachedObject: {},
     cachedObjectOfLeague: {},
@@ -362,6 +365,72 @@
             header: false,
             multiple: false,
             selectedList: 1
+        });
+
+        $(LeagueBetTypeAnalysis.DOM.ddlCombo).multiselect({
+            buttonWidth: 135,
+            menuHeight: 200,
+            create: function () {
+                $(LeagueBetTypeAnalysis.DOM.ddlCombo).multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $(LeagueBetTypeAnalysis.DOM.ddlComboOfLeague).multiselect({
+            buttonWidth: 135,
+            menuHeight: 200,
+            create: function () {
+                $(LeagueBetTypeAnalysis.DOM.ddlComboOfLeague).multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
+        });
+
+        $(LeagueBetTypeAnalysis.DOM.ddlComboOfBetType).multiselect({
+            buttonWidth: 135,
+            menuHeight: 200,
+            create: function () {
+                $(LeagueBetTypeAnalysis.DOM.ddlComboOfBetType).multiselect("checkAll");
+            },
+            selectedText: function (numChecked, numTotal, checkedItems) {
+                if (numChecked == 0) {
+                    return "Select options";
+                }
+                else if (numChecked == 1) {
+                    return $(checkedItems).attr('title');
+                }
+                else if (numChecked == numTotal) {
+                    return "All";
+                }
+                else {
+                    return numChecked + ' options';
+                }
+            }
         });
 
         $(LeagueBetTypeAnalysis.DOM.fromDate).datepicker({

@@ -7,7 +7,7 @@
 	</ul>
 	<div id="tabs-league-bettype" style="display: inline-block">
 		<div class="filter">
-			<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
+			<div class="filter-control" style="width: 1280px; margin-bottom: 10px;">
 				<div class="minimizetitle">
 					<div class="minimizecontent">
 						@ViewLang.FilterControl
@@ -19,6 +19,13 @@
 				<div id="filtercontent" class="container">
 					<div class="row">
 						<div class="group">
+							@Html.Label("username", $"{ViewLang.Username} (*)")
+							@Html.TextBox("username")
+						</div>
+						<div class="group">
+							<p id="lbUserExtra" style="padding: 10px 0px;">(CC:)</p>
+						</div>
+						<div class="group">
 							@Html.Label("", ViewLang.From)
 							@Html.TextBox("fromDate", "", new { @readonly = "true" })
 						</div>
@@ -26,19 +33,24 @@
 							@Html.Label("", ViewLang.To)
 							@Html.TextBox("toDate", "", new { @readonly = "true" })
 						</div>
-						<div class="group" >
+						<div class="group">
 							@Html.Label("", ViewLang.Ratio + " >=")
 							@Html.TextBox("txtRatio", "40", new { @class = "inputtext w100", onkeypress = "return LeagueBetTypeAnalysis.IsNumber(event)" })
 						</div>
-						<div class="group" >
+						<div class="group">
 							@Html.Label("", ViewLang.ReportBy)
 							@Html.RadioButtonList("rdlReportBy", Config.ReportBy)
 						</div>
 					</div>
 					<div class="row">
 						<div class="group">
+							@Html.Label("ddlCombo", ViewLang.Combo)
+							@Html.DropDownList("ddlCombo", Config.Combos, new { multiple = "multiple" })
+						</div>
+						<div class="group">
 							@Html.Label("", "Sport")
-							@Html.DropDownList("ddlSport", new List<SelectListItem> {
+							@Html.DropDownList("ddlSport", new List<SelectListItem>
+							{
 								new() { Text = "Soccer", Value = "1" },
 								new() { Text = "Basketball", Value = "2" }
 							})
@@ -73,7 +85,7 @@
 	</div>
 	<div id="tabs-league" style="display: inline-block">
 		<div class="filter">
-			<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
+			<div class="filter-control" style="width: 1280px; margin-bottom: 10px;">
 				<div class="minimizetitle">
 					<div class="minimizecontent">
 						@ViewLang.FilterControl
@@ -84,6 +96,13 @@
 				</div>
 				<div id="filtercontent" class="container">
 					<div class="row">
+						<div class="group">
+							@Html.Label("username", $"{ViewLang.Username} (*)")
+							@Html.TextBox("username-League")
+						</div>
+						<div class="group">
+							<p id="lbUserExtra-League" style="padding: 10px 0px;">(CC:)</p>
+						</div>
 						<div class="group">
 							@Html.Label("", ViewLang.From)
 							@Html.TextBox("fromDate-League", "", new { @readonly = "true" })
@@ -99,8 +118,13 @@
 					</div>
 					<div class="row">
 						<div class="group">
+							@Html.Label("ddlCombo", ViewLang.Combo)
+							@Html.DropDownList("ddlCombo-League", Config.Combos, new { multiple = "multiple" })
+						</div>
+						<div class="group">
 							@Html.Label("", "Sport")
-							@Html.DropDownList("ddlSport-League", new List<SelectListItem> {
+							@Html.DropDownList("ddlSport-League", new List<SelectListItem>
+							{
 								new() { Text = "Soccer", Value = "1" },
 								new() { Text = "Basketball", Value = "2" }
 							})
@@ -135,7 +159,7 @@
 	</div>
 	<div id="tabs-bettype" style="display: inline-block">
 		<div class="filter">
-			<div class="filter-control" style="width: 1090px; margin-bottom: 10px;">
+			<div class="filter-control" style="width: 1280px; margin-bottom: 10px;">
 				<div class="minimizetitle">
 					<div class="minimizecontent">
 						@ViewLang.FilterControl
@@ -146,6 +170,13 @@
 				</div>
 				<div id="filtercontent" class="container">
 					<div class="row">
+						<div class="group">
+							@Html.Label("username", $"{ViewLang.Username} (*)")
+							@Html.TextBox("username-BetType")
+						</div>
+						<div class="group">
+							<p id="lbUserExtra-BetType" style="padding: 10px 0px;">(CC:)</p>
+						</div>
 						<div class="group">
 							@Html.Label("", ViewLang.From)
 							@Html.TextBox("fromDate-BetType", "", new { @readonly = "true" })
@@ -165,8 +196,13 @@
 					</div>
 					<div class="row">
 						<div class="group">
+							@Html.Label("ddlCombo", ViewLang.Combo)
+							@Html.DropDownList("ddlCombo-BetType", Config.Combos, new { multiple = "multiple" })
+						</div>
+						<div class="group">
 							@Html.Label("", "Sport")
-							@Html.DropDownList("ddlSport-BetType", new List<SelectListItem> {
+							@Html.DropDownList("ddlSport-BetType", new List<SelectListItem>
+							{
 								new() { Text = "Soccer", Value = "1" },
 								new() { Text = "Basketball", Value = "2" }
 							})
