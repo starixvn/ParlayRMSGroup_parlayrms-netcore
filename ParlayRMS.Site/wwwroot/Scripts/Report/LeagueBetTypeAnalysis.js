@@ -719,10 +719,10 @@
                 isDetail,
                 leagueTitle,
                 betTypeTitle,
-                LeagueBetTypeAnalysis.cachedObject.sortById,
-                LeagueBetTypeAnalysis.cachedObject.isSortAsc,
-                LeagueBetTypeAnalysis.cachedObject.page,
-                LeagueBetTypeAnalysis.cachedObject.pageSize);
+                null,
+                null,
+                1,
+                100);
         })
         $(LeagueBetTypeAnalysis.DOM.ddlGroup).on('change', function () {
             var leagueGroups = $(LeagueBetTypeAnalysis.DOM.ddlGroup).multiselect("getChecked").map(function () {
