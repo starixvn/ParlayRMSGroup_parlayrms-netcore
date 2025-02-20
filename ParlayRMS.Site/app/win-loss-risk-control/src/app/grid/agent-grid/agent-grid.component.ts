@@ -51,4 +51,8 @@ export class AgentGridComponent implements Grid {
         this.memberGridService.model = this.agentGridService.createMemberGridModel(username, custId, site);
         this.gridService.generate(GridType.Member);
     }
+
+    getAgentHeaderText(): string {
+        return this.agentGridService.model.isDeposit ? 'Agent' : 'Agent/Direct Member';
+    }
 }

@@ -44,7 +44,13 @@ public class ReportExcelHandler(WinLossService service, IMapper mapper, WinLossE
 
         var total = mapper.Map<WinLossExcelModel>(data);
         var list = mapper.Map<List<WinLossExcelModel>>(data.Rows);
-        return builder.CreateExcelPackage(list, total, excelSetting);
+        var excelPackage = builder.CreateExcelPackage(list, total, excelSetting);
+        if (excelRequest.isDeposit)
+        {
+            excelPackage.Workbook.Worksheets["Result"].Cells["A2"].Value = "Agent";
+        }
+
+        return excelPackage;
     }
 
     public async Task<ExcelPackage> Handle(MemberWinLossExcelRequest excelRequest, CancellationToken cancellationToken)
