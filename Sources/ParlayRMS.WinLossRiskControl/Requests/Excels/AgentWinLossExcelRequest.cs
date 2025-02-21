@@ -26,4 +26,6 @@ public class AgentWinLossExcelRequest : IRequest<ExcelPackage>
     public string Site { get; set; }
 
     public byte LiveStatus { get; set; }
+
+    public bool isDeposit { get; set; }
 }

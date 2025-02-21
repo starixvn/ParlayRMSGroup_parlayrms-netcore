@@ -66,7 +66,7 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
 
     private void BuildTitle(string title)
     {
-        bodySheet.Cells["A1:I1"].Value = title;
+        bodySheet.Cells["A1:K1"].Value = title;
     }
 
     private void ApplyBody<T>(IEnumerable<T> list) where T : class, new()
@@ -84,6 +84,10 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
         if (isMerged)
         {
             bodySheet.Cells[$"A{endRowIndex}:B{endRowIndex}"].Merge = true;
+        }
+        else
+        {
+            bodySheet.Cells[$"C{endRowIndex}"].Value = string.Empty;
         }
     }
 

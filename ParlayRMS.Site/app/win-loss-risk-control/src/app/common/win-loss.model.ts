@@ -14,4 +14,5 @@ export interface WinLossModel {
   isCollapsed: boolean;
   site: string;
   customerClass: string;
+  roleId: number;
 }
