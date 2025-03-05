@@ -105,6 +105,7 @@ public static class Config
                 new SelectListItem { Text = "Virtual", Value = "9" },
                 new SelectListItem { Text = "CUP", Value = "10" },
                 new SelectListItem { Text = "CORNER", Value = "11" },
+                new SelectListItem { Text = "BOOKING", Value = "13" },
                 new SelectListItem { Text = "WORLD CUP", Value = "12" },
                 new SelectListItem { Text = "Blacklist", Value = "8" }
             ];
