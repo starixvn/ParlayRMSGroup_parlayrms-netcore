@@ -48,6 +48,7 @@ public static class ModelsHelper
         { 9, "#2244bf"},
         { 10, "#fbbcc7"},
         { 11, "#772677"},
+        { 13, "#757575"},
         { 12, "#1d8191" },
         { 8, "#ff0000" }
     };
@@ -70,6 +71,7 @@ public static class ModelsHelper
         { 9, "Virtual"},
         { 10, "CUP"},
         { 11, "CORNER"},
+        { 13, "BOOKING"},
         { 12, "WORLD CUP" },
         { 8, "Blacklisted" }
     };
@@ -249,7 +251,7 @@ public static class ModelsHelper
     public static string GetLeagueGroupTitle(string leagueGroups)
     {
         var list = leagueGroups.Split(',');
-        if (list.Length == 13) return ViewLang.All;
+        if (list.Length == 14) return ViewLang.All;
         var title = new List<string>();
         foreach (var item in list)
         {
