@@ -18,6 +18,8 @@ public class RMS_Rpt_Parlay_MemberWinLoss
 
     public decimal Member_Lose { get; set; }
 
+    public decimal NetWinloss { get; set; }
+
     public decimal OurPT_Won { get; set; }
 
     public decimal OurPT_Lose { get; set; }
@@ -44,6 +46,7 @@ public class RMS_Rpt_Parlay_MemberWinLoss
             Stake_Lose += obj.Stake_Lose;
             Member_Won += obj.Member_Won;
             Member_Lose += obj.Member_Lose;
+            NetWinloss += obj.NetWinloss;
             OurPT_Won += obj.OurPT_Won;
             OurPT_Lose += obj.OurPT_Lose;
             OurPT_NetWinloss += obj.OurPT_NetWinloss;

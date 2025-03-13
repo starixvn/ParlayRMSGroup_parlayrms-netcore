@@ -13,7 +13,6 @@ public class Rpt_ParlayWon_Criteria : CriteriaBase
     public string Level { get; set; }
     public string Sporttype { get; set; }
     public decimal FromHouseAmt { get; set; }
-    public decimal ToHouseAmt { get; set; }
     public int SortById { get; set; }
     public bool IsSortAsc { get; set; }
     public int PageIndex { get; set; }

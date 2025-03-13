@@ -2,7 +2,7 @@
     ViewBag.Title = ViewBag.HeaderText = ViewLang.WinLoss;
 }
 <div class="filter">
-    <div class="filter-control" style="width: 1265px; margin-bottom: 10px;">
+    <div class="filter-control" style="width: 1040px; margin-bottom: 10px;">
         <div class="minimizetitle">
             <div class="minimizecontent">
                 @ViewLang.FilterControl
@@ -53,10 +53,6 @@
                     @Html.Label("", ViewLang.HouseLoseAmount)
                     @Html.Label("", ViewLang.From)
                     @Html.TextBox("houseLoseAmountFrom", (object)ViewBag.HouseLoseAmountFrom, new { onkeypress = "return ParlayWon.IsNumber(event)" })
-                </div>
-                <div class="group">
-                    @Html.Label("", ViewLang.To)
-                    @Html.TextBox("houseLoseAmountTo", (object)ViewBag.HouseLoseAmountTo, new { onkeypress = "return ParlayWon.IsNumber(event)" })
                 </div>
             </div>
             <div class="row">

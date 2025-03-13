@@ -20,7 +20,6 @@ public class ParlayWonService(ParlayWonDataAccess _dataAccess, CommonService _co
             options.Combos,
             options.Levels,
             options.HouseAmountFrom,
-            options.HouseAmountTo,
             options.SortById,
             options.IsSortAsc,
             options.PageIndex,

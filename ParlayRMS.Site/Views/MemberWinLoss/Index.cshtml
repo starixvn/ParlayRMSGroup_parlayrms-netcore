@@ -3,7 +3,7 @@
 }
 <link rel="stylesheet" href="/Content/MemberWinLoss.css" type="text/css" />
 <div class="filter">
-    <div class="filter-control" style="width: 1015px">
+    <div class="filter-control" style="width: 1050px">
         <div class="minimizetitle">
             <div class="minimizecontent">
                 @ViewLang.FilterControl
@@ -44,8 +44,12 @@
                     @await Component.InvokeAsync(typeof(SportTypesDropDownViewComponent), new { sportTypes = string.Empty })
                 </div>
                 <div class="group">
-                    @Html.Label("", ViewLang.LiveType)
-                    @Html.DropDownList("ddlLiveType", Config.LiveTypes)
+	                @Html.Label("", ViewLang.LiveType)
+	                @Html.DropDownList("ddlLiveType", Config.LiveTypes)
+                </div>
+                <div class="group">
+	                @Html.Label("", "House Win Loss <=")
+                    @Html.TextBox("houseLoseAmount", (object)ViewBag.HouseWL, new { style = "width: 80px;", onkeypress = "return MemberWinLoss.IsNumber(event)" })
                 </div>
                 <div class="group">
                     <button id="btnSearch" class="button">

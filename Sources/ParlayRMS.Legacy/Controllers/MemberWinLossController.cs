@@ -20,6 +20,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
     public ActionResult Index()
     {
         ViewBag.LimitDate = MemberWinLossOptions.GetLimitDate();
+        ViewBag.HouseWL = Formatter.FormatNumber3(AppSetting.HouseLoseAmount);
         return View();
     }
 
@@ -56,6 +57,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
                 options.LiveType,
                 options.Combos,
                 options.Username,
+                options.HouseWL,
                 options.IsCached,
                 out var roleId,
                 options.ReportBy);
@@ -73,6 +75,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             ViewBag.SiteGroup = isAgent || !model.Records.Any() ? string.Empty : model.Records.FirstOrDefault().SiteGroup;
             ViewBag.IsAgent = isAgent;
             ViewBag.ReportByDate = options.ReportBy == 2;
+            ViewBag.HouseWL = options.HouseWL;
             if (isAgent)
             {
                 var page = options.PageIndex ?? 1;
@@ -99,6 +102,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             options.LiveType,
             options.Combos,
             options.Username,
+            options.HouseWL,
             options.IsCached,
             out var roleId,
             options.ReportBy);
@@ -124,7 +128,8 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             string.Empty,
             ViewLang.StakeAfterPT,
             string.Empty,
-            ViewLang.WinLoss,
+            ViewLang.MemberWinLoss,
+            string.Empty,
             string.Empty,
             ViewLang.OurPT,
             string.Empty,
@@ -141,6 +146,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             ViewLang.Lose,
             ViewLang.Won,
             ViewLang.Lose,
+            ViewLang.NetWinloss,
             ViewLang.Won,
             ViewLang.Lose,
             ViewLang.NetWinloss
@@ -155,6 +161,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             model.Total.Stake_Lose,
             model.Total.Member_Won,
             model.Total.Member_Lose,
+            model.Total.NetWinloss,
             model.Total.OurPT_Won,
             model.Total.OurPT_Lose,
             model.Total.OurPT_NetWinloss,
@@ -174,6 +181,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
                 item.Stake_Lose,
                 item.Member_Won,
                 item.Member_Lose,
+                item.NetWinloss,
                 item.OurPT_Won,
                 item.OurPT_Lose,
                 item.OurPT_NetWinloss,
@@ -184,7 +192,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
         writer.WriteRow(4, footer);
 
-        writer.SyncColumnWidths(11);
+        writer.SyncColumnWidths(12);
 
         return writer.Render();
     }
@@ -206,7 +214,8 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             string.Empty,
             ViewLang.StakeAfterPT,
             string.Empty,
-            ViewLang.WinLoss,
+            ViewLang.MemberWinLoss,
+            string.Empty,
             string.Empty,
             ViewLang.OurPT,
             string.Empty,
@@ -226,6 +235,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             ViewLang.Lose,
             ViewLang.Won,
             ViewLang.Lose,
+            ViewLang.NetWinloss,
             ViewLang.Won,
             ViewLang.Lose,
             ViewLang.NetWinloss,
@@ -244,6 +254,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
             model.Total.Stake_Lose,
             model.Total.Member_Won,
             model.Total.Member_Lose,
+            model.Total.NetWinloss,
             model.Total.OurPT_Won,
             model.Total.OurPT_Lose,
             model.Total.OurPT_NetWinloss,
@@ -268,6 +279,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
                     item.Stake_Lose,
                     item.Member_Won,
                     item.Member_Lose,
+                    item.NetWinloss,
                     item.OurPT_Won,
                     item.OurPT_Lose,
                     item.OurPT_NetWinloss,
@@ -289,6 +301,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
                     item.Stake_Lose,
                     item.Member_Won,
                     item.Member_Lose,
+                    item.NetWinloss,
                     item.OurPT_Won,
                     item.OurPT_Lose,
                     item.OurPT_NetWinloss,
@@ -300,7 +313,7 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
 
         writer.WriteRow(5, footer);
 
-        writer.SyncColumnWidths(14);
+        writer.SyncColumnWidths(15);
 
         return writer.Render();
     }

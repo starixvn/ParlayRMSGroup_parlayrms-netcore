@@ -15,7 +15,7 @@
 }
 <input type="hidden" id="inpCustomerClass" value="@ViewBag.CustomerClass" />
 <input type="hidden" id="inpIsAgent" value="@ViewBag.IsAgent" />
-<div style="width: 1471px" class="maintitle">
+<div style="width: 1591px" class="maintitle">
     <div class="information">
 	    @if (isReportByDate)
 	    {
@@ -29,7 +29,7 @@
     <div class="excel" id="@exportMemberWinLoss" title="@ViewLang.ExportExcel">
     </div>
 </div>
-<div style="width: 1706px">
+<div style="width: 1826px">
     <table class="main">
         <colgroup>
 	        <col width="100" />
@@ -38,6 +38,7 @@
 	        <col width="100" />
 	        <col width="70" />
 	        <col width="70" />
+	        <col width="120" />
 	        <col width="120" />
 	        <col width="120" />
 	        <col width="120" />
@@ -80,8 +81,8 @@
                 <th colspan="2">
                     @ViewLang.StakeAfterPT
                 </th>
-                <th colspan="2">
-                    @ViewLang.WinLoss
+                <th colspan="3">
+                    @ViewLang.MemberWinLoss
                 </th>
                 <th colspan="3">
                     @ViewLang.OurPT
@@ -109,15 +110,18 @@
                         @ViewLang.Won
                     </th>
                     <th class="@sortedClass" data-col-index="8">
-                        @ViewLang.Lose
+	                    @ViewLang.Lose
                     </th>
                     <th class="@sortedClass" data-col-index="9">
-                        @ViewLang.Won
+	                    @ViewLang.NetWinloss
                     </th>
                     <th class="@sortedClass" data-col-index="10">
-                        @ViewLang.Lose
+                        @ViewLang.Won
                     </th>
                     <th class="@sortedClass" data-col-index="11">
+                        @ViewLang.Lose
+                    </th>
+                    <th class="@sortedClass" data-col-index="12">
                         @ViewLang.NetWinloss
                     </th>
                 }
@@ -139,7 +143,10 @@
                         @ViewLang.Won
                     </th>
                     <th>
-                        @ViewLang.Lose
+	                    @ViewLang.Lose
+                    </th>
+                    <th>
+	                    @ViewLang.NetWinloss
                     </th>
                     <th>
                         @ViewLang.Won
@@ -155,7 +162,7 @@
         </thead>
     </table>
 </div>
-<div class="scrollGridContent" style="max-height: 530px; width: 1490px">
+<div class="scrollGridContent" style="max-height: 530px; width: 1610px">
     <table class="main" id="result">
         <colgroup>
 	        <col width="100" />
@@ -164,6 +171,7 @@
 	        <col width="100" />
 	        <col width="70" />
 	        <col width="70" />
+	        <col width="120" />
 	        <col width="120" />
 	        <col width="120" />
 	        <col width="120" />
@@ -236,7 +244,10 @@
                             @Formatter.FormatNumber2(record.Member_Won)
                         </td>
                         <td class="numeric">
-                            @Formatter.FormatNumber2(record.Member_Lose)
+	                        @Formatter.FormatNumber2(record.Member_Lose)
+                        </td>
+                        <td class="numeric">
+                            @Formatter.FormatNumber2(record.NetWinloss)
                         </td>
                         <td class="numeric negative">
                             @Formatter.FormatNumber2(record.OurPT_Won)
@@ -261,7 +272,7 @@
         </tbody>
     </table>
 </div>
-<div style="width: 1471px" class="mainfooter">
+<div style="width: 1591px" class="mainfooter">
     <table class="main" id="footer">
         <colgroup>
 	        <col width="100" />
@@ -270,6 +281,7 @@
 	        <col width="100" />
 	        <col width="70" />
 	        <col width="70" />
+	        <col width="120" />
 	        <col width="120" />
 	        <col width="120" />
 	        <col width="120" />
@@ -302,7 +314,10 @@
                         @Formatter.FormatNumber2(ViewBag.GrandTotal.Member_Won)
                     </td>
                     <td class="numeric">
-                        @Formatter.FormatNumber2(ViewBag.GrandTotal.Member_Lose)
+	                    @Formatter.FormatNumber2(ViewBag.GrandTotal.Member_Lose)
+                    </td>
+                    <td class="numeric">
+                        @Formatter.FormatNumber2(ViewBag.GrandTotal.NetWinloss)
                     </td>
                     <td class="numeric">
                         @Formatter.FormatNumber2(ViewBag.GrandTotal.OurPT_Won)
@@ -321,7 +336,7 @@
             else
             {
                 <tr>
-                    <td colspan="14" style="text-align: center; width: 1471px">
+                    <td colspan="15" style="text-align: center; width: 1591px">
                         @ViewLang.NoInformation
                     </td>
                 </tr>
@@ -339,6 +354,7 @@
         Combos: '@filterOption.Combos',
         LiveType: '@filterOption.LiveType',
         Username: '@filterOption.Username',
+        HouseWinLoss: '@filterOption.HouseWL',
         IsCached: false
     }
     var isReportByDate = @isReportByDate.ToString().ToLower();

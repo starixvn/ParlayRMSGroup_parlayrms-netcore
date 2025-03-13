@@ -35,9 +35,10 @@ public class MemberWinLossService(
     private const byte SORT_BY_STAKE_LOSE = 6;
     private const byte SORT_BY_WINLOSS_WON = 7;
     private const byte SORT_BY_WINLOSS_LOSE = 8;
-    private const byte SORT_BY_HOUSEWL_WON = 9;
-    private const byte SORT_BY_HOUSEWL_LOSE = 10;
-    private const byte SORT_BY_HOUSEWL_NETWL = 11;
+    private const byte SORT_BY_NETWL = 9;
+    private const byte SORT_BY_HOUSEWL_WON = 10;
+    private const byte SORT_BY_HOUSEWL_LOSE = 11;
+    private const byte SORT_BY_HOUSEWL_NETWL = 12;
 
 
     public MemberWinLossData GetMemberWinLoss(
@@ -48,6 +49,7 @@ public class MemberWinLossService(
         byte liveType,
         string combos,
         string username,
+        decimal? housewl,
         bool isCached,
         out int roleId,
         byte reportBy)
@@ -76,6 +78,7 @@ public class MemberWinLossService(
                                  liveType,
                                  combos,
                                  user.CustId,
+                                 housewl,
                                  reportBy);
                     CacheInstance.Set(sessionKey, memberWinLossData, new MemoryCacheEntryOptions { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30) });
                 }
@@ -91,6 +94,7 @@ public class MemberWinLossService(
                                  liveType,
                                  combos,
                                  username,
+                                 housewl,
                                  reportBy);
                     CacheInstance.Set(sessionKey, memberWinLossData, new MemoryCacheEntryOptions { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(30) });
                 }
@@ -110,6 +114,7 @@ public class MemberWinLossService(
         byte liveType,
         string combos,
         int custId,
+        decimal? housewl,
         byte reportBy)
     {
             var total = new RMS_Rpt_Parlay_MemberWinLoss();
@@ -124,12 +129,14 @@ public class MemberWinLossService(
                 liveType,
                 combos,
                 custId,
+                housewl,
                 reportBy).ToList();
 
             Utils.Round(records);
             records.ToList().ForEach(x =>
             {
                 x.OurPT_NetWinloss = x.OurPT_Won + x.OurPT_Lose;
+                x.NetWinloss = x.Member_Won + x.Member_Lose;
                 if (reportBy == 1)
                 {
                     x.Month = ReFormatMonthStr(x.Month.Trim());
@@ -154,6 +161,7 @@ public class MemberWinLossService(
         byte liveType,
         string combos,
         string userName,
+        decimal? housewl,
         byte reportBy)
     {
             var total = new RMS_Rpt_Parlay_MemberWinLoss();
@@ -168,12 +176,14 @@ public class MemberWinLossService(
                                                        liveType,
                                                        combos,
                                                        userName,
+                                                       housewl,
                                                        reportBy).ToList();
 
             Utils.Round(rawData);
             rawData.ToList().ForEach(x =>
             {
                 x.OurPT_NetWinloss = x.OurPT_Won + x.OurPT_Lose;
+                x.NetWinloss = x.Member_Won + x.Member_Lose;
                 if (reportBy == 1)
                 {
                     x.Month = ReFormatMonthStr(x.Month.Trim());
@@ -262,6 +272,8 @@ public class MemberWinLossService(
                     return isSortAsc ? list.OrderBy(m => m.Member_Won) : list.OrderByDescending(m => m.Member_Won);
                 case SORT_BY_WINLOSS_LOSE:
                     return isSortAsc ? list.OrderBy(m => m.Member_Lose) : list.OrderByDescending(m => m.Member_Lose);
+                case SORT_BY_NETWL:
+                    return isSortAsc ? list.OrderBy(m => m.NetWinloss) : list.OrderByDescending(m => m.NetWinloss);
                 case SORT_BY_HOUSEWL_WON:
                     return isSortAsc ? list.OrderBy(m => m.OurPT_Won) : list.OrderByDescending(m => m.OurPT_Won);
                 case SORT_BY_HOUSEWL_LOSE:

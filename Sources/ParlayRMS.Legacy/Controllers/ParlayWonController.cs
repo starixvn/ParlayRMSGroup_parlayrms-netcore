@@ -32,7 +32,6 @@ public class ParlayWonController(
             ModelState.Remove("CustomerClass");
             ModelState.Remove("Ip");
             ModelState.Remove("HouseAmountFrom");
-            ModelState.Remove("HouseAmountTo");
             ModelState.Remove("SortById");
             ModelState.Remove("IsSortAsc");
 
