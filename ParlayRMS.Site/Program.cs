@@ -1,5 +1,6 @@
 using Fanex.Data;
 using Fanex.Logging.Sentry.RavenClient;
+using Fanex.NAP.Client;
 using Fanex.NAP.Client.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ONEbook.UM.DependencyInjection;
@@ -26,7 +27,7 @@ services.AddFanexLogSentry(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
 services.AddNapClient(configuration);
-services.AddOneBookUm(configuration);
+services.AddOneBookUmForWeb(configuration);
 services.AddFanexData(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
