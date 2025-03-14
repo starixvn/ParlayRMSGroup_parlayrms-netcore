@@ -325,7 +325,6 @@
                 ParlayWon.cachedObject.levels,
                 ParlayWon.cachedObject.sportsType,
                 ParlayWon.cachedObject.houseAmountFrom,
-                ParlayWon.cachedObject.houseAmountTo,
                 ParlayWon.cachedObject.currencies,
                 ParlayWon.cachedObject.site,
                 ParlayWon.cachedObject.liveType,
@@ -369,7 +368,6 @@
                 ParlayWon.cachedObject.levels,
                 ParlayWon.cachedObject.sportsType,
                 ParlayWon.cachedObject.houseAmountFrom,
-                ParlayWon.cachedObject.houseAmountTo,
                 ParlayWon.cachedObject.currencies,
                 ParlayWon.cachedObject.site,
                 ParlayWon.cachedObject.liveType,
@@ -417,7 +415,6 @@
                 ParlayWon.cachedObject.levels,
                 ParlayWon.cachedObject.sportsType,
                 ParlayWon.cachedObject.houseAmountFrom,
-                ParlayWon.cachedObject.houseAmountTo,
                 ParlayWon.cachedObject.currencies,
                 ParlayWon.cachedObject.site,
                 ParlayWon.cachedObject.liveType,
@@ -614,7 +611,6 @@
         ParlayWon.cachedObject.levels = null;
         ParlayWon.cachedObject.sportsType = null;
         ParlayWon.cachedObject.houseAmountFrom = 0;
-        ParlayWon.cachedObject.houseAmountTo = 0;
         ParlayWon.cachedObject.currencies = null;
         ParlayWon.cachedObject.site = '2';
         ParlayWon.cachedObject.liveType = '3';
