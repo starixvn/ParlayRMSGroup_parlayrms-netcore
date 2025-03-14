@@ -486,7 +486,6 @@
                 SportsType: param.SportsType,
                 Combos: param.Combos,
                 LiveType: param.LiveType,
-                HouseWL: param.HouseWL,
                 Username: userNameInfo
             }
 
