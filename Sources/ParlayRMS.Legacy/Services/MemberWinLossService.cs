@@ -100,7 +100,7 @@ public class MemberWinLossService(
                 }
             }
 
-            memberWinLossData = memberWinLossData ?? new MemberWinLossData();
+            memberWinLossData ??= new MemberWinLossData();
             return memberWinLossData;
         }
 

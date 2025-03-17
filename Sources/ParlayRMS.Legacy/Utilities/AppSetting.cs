@@ -10,8 +10,6 @@ public class AppSetting
 
     public static int HouseLoseAmountFrom => 500;
 
-    public static int HouseLoseAmountTo => 200000;
-
     public static int MixParlayStakeAfterPT => 5000;
 
     public static int NetWinStakeAfterPT => 5000;

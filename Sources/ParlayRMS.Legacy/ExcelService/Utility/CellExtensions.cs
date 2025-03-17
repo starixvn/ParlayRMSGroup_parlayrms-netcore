@@ -49,7 +49,7 @@ public static class CellExtensions
 
     public static void SetCellValue(this ICell cell, double? value)
     {
-            value = value ?? 0;
+            value ??= 0;
             cell.SetCellValue((double)value);
         }
 
@@ -60,7 +60,7 @@ public static class CellExtensions
 
     public static void SetCellValue(this ICell cell, decimal? value)
     {
-            value = value ?? 0;
+            value ??= 0;
             cell.SetCellValue((decimal)value);
         }
 
@@ -71,7 +71,7 @@ public static class CellExtensions
 
     public static void SetCellValue(this ICell cell, int? value)
     {
-            value = value ?? 0;
+            value ??= 0;
             cell.SetCellValue((int)value);
         }
 
@@ -82,7 +82,7 @@ public static class CellExtensions
 
     public static void SetCellValue(this ICell cell, long? value)
     {
-            value = value ?? 0;
+            value ??= 0;
             cell.SetCellValue((long)value);
         }
 
