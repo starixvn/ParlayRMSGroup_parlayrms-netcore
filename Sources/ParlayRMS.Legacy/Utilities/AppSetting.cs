@@ -6,7 +6,7 @@ public class AppSetting
 
     public static int PageSize => 100;
 
-    public static int HouseLoseAmount => -500;
+    public static int HouseLoseAmount => -300;
 
     public static int HouseLoseAmountFrom => 500;
 

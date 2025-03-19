@@ -50,8 +50,7 @@
                 </div>
 
                 <div class="group">
-                    @Html.Label("", ViewLang.HouseLoseAmount)
-                    @Html.Label("", ViewLang.From)
+                    @Html.Label("", ViewLang.HouseLoseAmount + " >=")
                     @Html.TextBox("houseLoseAmountFrom", (object)ViewBag.HouseLoseAmountFrom, new { onkeypress = "return ParlayWon.IsNumber(event)" })
                 </div>
             </div>
