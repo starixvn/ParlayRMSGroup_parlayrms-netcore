@@ -16,6 +16,8 @@ public class LeagueBettypeDetailCriteria : CriteriaBase
     public int SportType { get; set; }
     public int BetType { get; set; }
     public decimal? HouseWL { get; set; }
+    public string UserName { get; set; }
+    public string Selection { get; set; }
     public override string GetSettingKey() => "RMS_Rpt_LeagueBettype_Detail";
     public override bool IsValid() => true;
 }

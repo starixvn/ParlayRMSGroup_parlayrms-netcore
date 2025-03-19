@@ -23,7 +23,9 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         int sportType,
         int betType,
         decimal? houseWL,
-        bool isDetail)
+        bool isDetail,
+        string userName,
+        string combo)
     {
         var list = new List<RMS_Rpt_LeagueBettype_Analysis>();
         if (isDetail)
@@ -39,7 +41,9 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
                 ReportBy = reportBy,
                 SportType = sportType,
                 BetType = betType,
-                HouseWL = houseWL
+                HouseWL = houseWL,
+                UserName = userName,
+                Selection = combo
             };
             list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();
         }
@@ -55,7 +59,9 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
                 Site = site,
                 ReportBy = reportBy,
                 SportType = sportType,
-                Ratio = ratio
+                Ratio = ratio,
+                UserName = userName,
+                Selection = combo
             };
             list = repository.Fetch<RMS_Rpt_LeagueBettype_Analysis>(criteria).ToList();
         }

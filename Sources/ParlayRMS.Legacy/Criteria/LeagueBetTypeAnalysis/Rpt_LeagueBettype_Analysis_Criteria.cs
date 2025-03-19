@@ -15,6 +15,8 @@ public class Rpt_LeagueBettype_Analysis_Criteria : CriteriaBase
     public int SportType { get; set; }
     public string BetType { get; set; }
     public decimal? HouseWL { get; set; }
+    public string UserName { get; set; }
+    public string Selection { get; set; }
     public override string GetSettingKey() => "RMS_Rpt_LeagueBettype_Analysis";
     public override bool IsValid() => true;
 }

@@ -32,7 +32,7 @@
         ddlComboOfBetType: "#ddlCombo-BetType",
         txtUsername: "#username",
         txtUsernameOfLeague: "#username-League",
-        txtUssernameOfBetType: "#username-BetType"
+        txtUsernameOfBetType: "#username-BetType"
     },
     cachedObject: {},
     cachedObjectOfLeague: {},
@@ -610,6 +610,10 @@
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDate).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDate).val();
 
+                if (validator.validateRequired(LeagueBetTypeAnalysis.DOM.txtUsername)) {
+                    return;
+                }
+
                 if (validator.validateDate(LeagueBetTypeAnalysis.DOM.fromDate)) {
                     return;
                 }
@@ -621,6 +625,10 @@
                 combo = $(LeagueBetTypeAnalysis.DOM.ddlCombo).multiselect("getChecked").map(function () {
                     return this.value;
                 }).get().join(',');
+                if (combo == '') {
+                    Validators.show($(LeagueBetTypeAnalysis.DOM.ddlCombo).multiselect("getButton").get(0), 'Please select your options');
+                    return;
+                }
 
                 userName = $(LeagueBetTypeAnalysis.DOM.txtUsername).val();
 
@@ -677,6 +685,10 @@
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDateOfLeague).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDateOfLeague).val();
 
+                if (validator.validateRequired(LeagueBetTypeAnalysis.DOM.txtUsernameOfLeague)) {
+                    return;
+                }
+
                 if (validator.validateDate(LeagueBetTypeAnalysis.DOM.fromDateOfLeague)) {
                     return;
                 }
@@ -685,11 +697,16 @@
                     return;
                 }
 
+                userName = $(LeagueBetTypeAnalysis.DOM.txtUsernameOfLeague).val();
+
                 combo = $(LeagueBetTypeAnalysis.DOM.ddlComboOfLeague).multiselect("getChecked").map(function () {
                     return this.value;
                 }).get().join(',');
 
-                userName = $(LeagueBetTypeAnalysis.DOM.txtUsernameOfLeague).val();
+                if (combo == '') {
+                    Validators.show($(LeagueBetTypeAnalysis.DOM.ddlComboOfLeague).multiselect("getButton").get(0), 'Please select your options');
+                    return;
+                }
 
                 parlayType = $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfLeague).multiselect("getChecked").map(function () {
                     return this.value;
@@ -735,6 +752,10 @@
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDateOfBetType).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).val();
 
+                if (validator.validateRequired(LeagueBetTypeAnalysis.DOM.txtUsernameOfBetType)) {
+                    return;
+                }
+
                 if (validator.validateDate(LeagueBetTypeAnalysis.DOM.fromDateOfBetType)) {
                     return;
                 }
@@ -743,9 +764,13 @@
                     return;
                 }
 
-                combo = $(LeagueBetTypeAnalysis.DOM.ddlCombo).multiselect("getChecked").map(function () {
+                combo = $(LeagueBetTypeAnalysis.DOM.ddlComboOfBetType).multiselect("getChecked").map(function () {
                     return this.value;
                 }).get().join(',');
+                if (combo == '') {
+                    Validators.show($(LeagueBetTypeAnalysis.DOM.ddlComboOfBetType).multiselect("getButton").get(0), 'Please select your options');
+                    return;
+                }
 
                 userName = $(LeagueBetTypeAnalysis.DOM.txtUsernameOfBetType).val();
 
@@ -917,7 +942,7 @@
 
         $(document).on('click', '.leagueTab', function () {
             $("#tabs").tabs("option", "active", 1);
-            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfLeague).val('-5,000');
+            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfLeague).val('-1,000');
             var leagueId = this.getAttribute('data-leagueid');
             var leagueName = this.getAttribute('data-leaguename');
             var groupId = this.getAttribute('data-groupid');
@@ -946,7 +971,7 @@
 
         $(document).on('click', '.betTypeTab', function () {
             $("#tabs").tabs("option", "active", 2);
-            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfBetType).val('-5,000');
+            $(LeagueBetTypeAnalysis.DOM.txtHouseWLOfBetType).val('-1,000');
             var bettype = this.getAttribute('data-bettypeid');
             var bettypeName = this.getAttribute('data-bettypename');
             var parlayType = bettype == '38' ? '3' : LeagueBetTypeAnalysis.cachedObject.parlayType;

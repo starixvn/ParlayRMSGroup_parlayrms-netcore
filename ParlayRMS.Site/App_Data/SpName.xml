@@ -69,7 +69,7 @@
 		</Setting>
 		<Setting Key="RMS_Monitor_ComboParlay_PotentialWinningDetails" SpName="RMS_Monitor_ComboParlay_PotentialWinningDetails" DbName="DBRMS.bodb_RMS.wsv_rms" />
 		<Setting Key="RMS_ComboParlay_PotentialWinning_UserTracking" SpName="RMS_ComboParlay_PotentialWinning_UserTracking" DbName="DBRMS.bodb_RMS.wsv_rms" />
-		<Setting Key="RMS_Rpt_ParlayWon" SpName="RMS_Rpt_ParlayWon" DbName="DBRMS.bodb_RMS.wsv_rms" >
+		<Setting Key="RMS_Rpt_ParlayWon" SpName="RMS_Rpt_ParlayWon" DbName="DBRMS.bodb_RMS.wsv_rms" >RMS_Rpt_LeagueBettype_Detail
 			<Mapping DataField="currencyName" ObjectProperty="Currency" />
 		</Setting>
 		<Setting Key="RMS_Rpt_LeagueBettype_Analysis" SpName="RMS_Rpt_LeagueBettype_Analysis" DbName="DBRMS.bodb_RMS.wsv_rms" >
