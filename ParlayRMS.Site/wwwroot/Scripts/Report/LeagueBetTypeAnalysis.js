@@ -610,10 +610,6 @@
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDate).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDate).val();
 
-                if (validator.validateRequired(LeagueBetTypeAnalysis.DOM.txtUsername)) {
-                    return;
-                }
-
                 if (validator.validateDate(LeagueBetTypeAnalysis.DOM.fromDate)) {
                     return;
                 }
@@ -685,10 +681,6 @@
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDateOfLeague).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDateOfLeague).val();
 
-                if (validator.validateRequired(LeagueBetTypeAnalysis.DOM.txtUsernameOfLeague)) {
-                    return;
-                }
-
                 if (validator.validateDate(LeagueBetTypeAnalysis.DOM.fromDateOfLeague)) {
                     return;
                 }
@@ -751,10 +743,6 @@
                 $(LeagueBetTypeAnalysis.DOM.divResultOfBetType).html('');
                 fromDate = $(LeagueBetTypeAnalysis.DOM.fromDateOfBetType).val();
                 toDate = $(LeagueBetTypeAnalysis.DOM.toDateOfBetType).val();
-
-                if (validator.validateRequired(LeagueBetTypeAnalysis.DOM.txtUsernameOfBetType)) {
-                    return;
-                }
 
                 if (validator.validateDate(LeagueBetTypeAnalysis.DOM.fromDateOfBetType)) {
                     return;
