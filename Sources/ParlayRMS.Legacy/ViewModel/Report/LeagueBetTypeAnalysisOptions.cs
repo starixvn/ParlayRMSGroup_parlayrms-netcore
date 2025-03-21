@@ -48,9 +48,11 @@ public class LeagueBetTypeAnalysisOptions
     public string GetTitle(string leagueGroups)
     {
         var title =
-            $"{GetReportName()} of {UserName} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {leagueGroups} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}{GetLeagueOrBetTypeTitle()}";
+            $"{GetReportName()}{GetUserNameTitle()} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {leagueGroups} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}{GetLeagueOrBetTypeTitle()}";
         return title;
     }
+
+    private string GetUserNameTitle() => string.IsNullOrEmpty(UserName) ? string.Empty : $" of {UserName}";
 
     private string GetReportName() => ReportBy switch
     {
