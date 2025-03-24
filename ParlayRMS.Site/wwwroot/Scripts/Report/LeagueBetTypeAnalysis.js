@@ -382,8 +382,8 @@
                 if (numChecked == 0) {
                     return "Select options";
                 }
-                else if (numChecked == 1) {
-                    return $(checkedItems).attr('title');
+                else if (numChecked == 1) {                    
+                    return $(checkedItems).val();
                 }
                 else if (numChecked == numTotal) {
                     return "All";
@@ -405,7 +405,7 @@
                     return "Select options";
                 }
                 else if (numChecked == 1) {
-                    return $(checkedItems).attr('title');
+                    return $(checkedItems).val();
                 }
                 else if (numChecked == numTotal) {
                     return "All";
@@ -427,7 +427,7 @@
                     return "Select options";
                 }
                 else if (numChecked == 1) {
-                    return $(checkedItems).attr('title');
+                    return $(checkedItems).val();
                 }
                 else if (numChecked == numTotal) {
                     return "All";
