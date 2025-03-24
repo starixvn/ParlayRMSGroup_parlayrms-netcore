@@ -104,7 +104,8 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
         int betType,
         decimal? houseWL,
         string betTeam,
-        int match)
+        int match, 
+        string combo)
     {
         var criteria = new LeagueBettypeDetailCriteria
         {
@@ -119,7 +120,8 @@ public class LeagueBetTypeAnalysisDataAccess(IDynamicRepository repository)
             BetType = betType,
             HouseWL = houseWL,
             BetTeam = betTeam,
-            Match = match
+            Match = match,
+            Selection = combo
         };
         return repository.Fetch<WonTicketModel>(criteria);
     }
