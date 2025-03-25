@@ -32,6 +32,8 @@ public class MemberWinLossOptions
 
     public byte ReportBy { get; set; }
 
+    public decimal? HouseWL { get; set; }
+
     [Required(ErrorMessage = "Username is required")]
     public string Username { get; set; }
 

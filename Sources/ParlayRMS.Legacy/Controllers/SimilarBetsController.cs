@@ -113,7 +113,7 @@ public class SimilarBetsController(
     {
         ViewBag.TransId = options.TransId;
         ViewBag.Username = options.Username;
-        options.Selection = options.Selection ?? string.Empty;
+        options.Selection ??= string.Empty;
 
         var originalSelections = _betDetailService.GetSingleMatchParlaySelection(options.OriginalCustId, options.OriginalTransId).Select(s => s.SelectionType).ToList();
         var selections = _betDetailService.GetSingleMatchParlaySelection(options.CustId, options.TransId);

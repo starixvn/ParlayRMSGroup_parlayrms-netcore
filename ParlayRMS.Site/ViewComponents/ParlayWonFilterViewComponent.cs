@@ -22,8 +22,6 @@ public class ParlayWonFilterViewComponent(CommonService commonService) : ViewCom
         ViewBag.Currencies = currencies;
 
         ViewBag.HouseLoseAmountFrom = Formatter.FormatNumber3(AppSetting.HouseLoseAmountFrom);
-        ViewBag.HouseLoseAmountTo = Formatter.FormatNumber3(AppSetting.HouseLoseAmountTo);
-
         return View("Default");
     }
 }

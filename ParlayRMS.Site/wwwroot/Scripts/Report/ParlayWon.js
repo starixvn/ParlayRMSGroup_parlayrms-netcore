@@ -12,15 +12,6 @@
             aForm: false
         });
 
-        $("#houseLoseAmountTo").autoNumeric({
-            aSep: ',',
-            aDec: '.',
-            vMin: '0.00',
-            vMax: '999999999999',
-            aPad: false,
-            aForm: false
-        });
-
         $("#parlayType").multiselect({
             minWidth: 210,
             height: 165,
@@ -299,12 +290,6 @@
             var ip = $("#txtIp").val().trim();
 
             var houseLoseAmountFrom = parseFloat(($('#houseLoseAmountFrom').val()).replace(/,/g, ''));
-            var houseLoseAmountTo = parseFloat(($('#houseLoseAmountTo').val()).replace(/,/g, ''));
-
-            if (houseLoseAmountTo > 0 && houseLoseAmountFrom > houseLoseAmountTo) {
-                Validators.show($("#houseLoseAmountTo"), 'House Lose Amount From must be less than To');
-                return;
-            }
 
             houseLoseAmountFrom = isNaN(houseLoseAmountFrom) ? 0 : houseLoseAmountFrom;
             if (houseLoseAmountFrom < 1000 && validator.validateDateInOneWeek("#fromDate", "#toDate")) {
@@ -318,7 +303,6 @@
                 levels,
                 sportsTypes,
                 houseLoseAmountFrom,
-                houseLoseAmountTo,
                 currencies,
                 site,
                 liveType,
@@ -341,7 +325,6 @@
                 ParlayWon.cachedObject.levels,
                 ParlayWon.cachedObject.sportsType,
                 ParlayWon.cachedObject.houseAmountFrom,
-                ParlayWon.cachedObject.houseAmountTo,
                 ParlayWon.cachedObject.currencies,
                 ParlayWon.cachedObject.site,
                 ParlayWon.cachedObject.liveType,
@@ -385,7 +368,6 @@
                 ParlayWon.cachedObject.levels,
                 ParlayWon.cachedObject.sportsType,
                 ParlayWon.cachedObject.houseAmountFrom,
-                ParlayWon.cachedObject.houseAmountTo,
                 ParlayWon.cachedObject.currencies,
                 ParlayWon.cachedObject.site,
                 ParlayWon.cachedObject.liveType,
@@ -433,7 +415,6 @@
                 ParlayWon.cachedObject.levels,
                 ParlayWon.cachedObject.sportsType,
                 ParlayWon.cachedObject.houseAmountFrom,
-                ParlayWon.cachedObject.houseAmountTo,
                 ParlayWon.cachedObject.currencies,
                 ParlayWon.cachedObject.site,
                 ParlayWon.cachedObject.liveType,
@@ -446,7 +427,7 @@
                 ParlayWon.cachedObject.pageSize);
         });
     },
-    Data: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, houseLoseAmountTo, currencies, site, liveType, customerClass, ip, leagueGroup, sortById, isSortAsc, pageIndex, pageSize) {
+    Data: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, currencies, site, liveType, customerClass, ip, leagueGroup, sortById, isSortAsc, pageIndex, pageSize) {
         var data = {
             fromDate: fromDate,
             toDate: toDate,
@@ -455,7 +436,6 @@
             combos: combos,
             levels: levels,
             houseAmountFrom: houseLoseAmountFrom,
-            houseAmountTo: houseLoseAmountTo,
             currencies: currencies,
             site: site,
             liveType: liveType,
@@ -505,7 +485,7 @@
             }
         });
     },
-    ExportExcel: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, houseLoseAmountTo, currencies, site, liveType, customerClass, ip, leagueGroup) {
+    ExportExcel: function (parlayTypes, fromDate, toDate, combos, levels, sportsType, houseLoseAmountFrom, currencies, site, liveType, customerClass, ip, leagueGroup) {
         var data = {
             fromDate: fromDate,
             toDate: toDate,
@@ -514,7 +494,6 @@
             combos: combos,
             levels: levels,
             houseAmountFrom: houseLoseAmountFrom,
-            houseAmountTo: houseLoseAmountTo,
             currencies: currencies,
             site: site,
             liveType: liveType,
@@ -632,7 +611,6 @@
         ParlayWon.cachedObject.levels = null;
         ParlayWon.cachedObject.sportsType = null;
         ParlayWon.cachedObject.houseAmountFrom = 0;
-        ParlayWon.cachedObject.houseAmountTo = 0;
         ParlayWon.cachedObject.currencies = null;
         ParlayWon.cachedObject.site = '2';
         ParlayWon.cachedObject.liveType = '3';

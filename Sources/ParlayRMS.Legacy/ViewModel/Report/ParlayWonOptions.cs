@@ -24,8 +24,6 @@ public class ParlayWonOptions
 
     public decimal HouseAmountFrom { get; set; }
 
-    public decimal HouseAmountTo { get; set; }
-
     public string Currencies { get; set; }
 
     public byte Site { get; set; }

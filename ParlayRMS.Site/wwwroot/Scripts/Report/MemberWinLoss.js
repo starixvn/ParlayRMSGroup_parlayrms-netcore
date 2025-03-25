@@ -11,7 +11,8 @@
         IsCached: null,
         SortById: null,
         IsSortAsc: null,
-        ReportBy: null
+        ReportBy: null,
+        HouseWL: null
     },
 
     CachedFilteredObject: {
@@ -26,7 +27,8 @@
         IsCached: null,
         SortById: null,
         IsSortAsc: null,
-        ReportBy: null
+        ReportBy: null,
+        HouseWL: null
     },
 
     CachedDOM: {
@@ -40,7 +42,8 @@
         divReportByDate: null,
         lbUserExtra: null,
         filterControl: null,
-        liveType: null
+        liveType: null,
+        houseWL: null
     },
     GetCachedDOM: function () {
         MemberWinLoss.CachedDOM.username = $("#usernameOfMember");
@@ -55,6 +58,7 @@
         MemberWinLoss.CachedDOM.lbUserExtra = $("#lbUserExtra");
         MemberWinLoss.CachedDOM.filterControl = $(".filter-control");
         MemberWinLoss.CachedDOM.liveType = $("#ddlLiveType");
+        MemberWinLoss.CachedDOM.houseWL = $("#houseLoseAmount");
     },
 
     filterWidth: 0,
@@ -179,6 +183,15 @@
             }
         });
 
+        MemberWinLoss.CachedDOM.houseWL.autoNumeric({
+            aSep: ',',
+            aDec: '.',
+            vMin: '-999999999999',
+            vMax: '999999999999',
+            aPad: false,
+            aForm: false
+        });
+
         MemberWinLoss.CachedDOM.username.bind("blur", function () {
             var username = MemberWinLoss.CachedDOM.username.val().trim();
             MemberWinLoss.CachedDOM.username.val(username);
@@ -244,6 +257,7 @@
                 MemberWinLoss.CachedFilteredObject.Username,
                 1,
                 true,
+                MemberWinLoss.CachedFilteredObject.HouseWL,
                 MemberWinLoss.CachedFilteredObject.SortById,
                 MemberWinLoss.CachedFilteredObject.IsSortAsc);
         });
@@ -295,6 +309,7 @@
                 LiveType: MemberWinLoss.CachedObject.LiveType,
                 Username: MemberWinLoss.CachedObject.Username,
                 ReportBy: MemberWinLoss.CachedObject.ReportBy,
+                HouseWL: MemberWinLoss.CachedObject.HouseWL,
                 IsCached: false
             }
             MemberWinLoss.ExportExcel(data);
@@ -310,6 +325,7 @@
                 LiveType: MemberWinLoss.CachedFilteredObject.LiveType,
                 Username: MemberWinLoss.CachedFilteredObject.Username,
                 ReportBy: MemberWinLoss.CachedFilteredObject.ReportBy,
+                HouseWL: MemberWinLoss.CachedFilteredObject.HouseWL,
                 IsCached: false
             }
             MemberWinLoss.ExportExcel(data);
@@ -317,7 +333,7 @@
 
         MemberWinLoss.filterWidth = MemberWinLoss.CachedDOM.filterControl.width();
     },
-    Data: function (parlayTypes, fromDate, toDate, sportsType, liveType, combos, username, pageIndex, isCached, sortById, isSortAsc) {
+    Data: function (parlayTypes, fromDate, toDate, sportsType, liveType, combos, username, housewl, pageIndex, isCached, sortById, isSortAsc) {
         var data = {
             FromDate: fromDate,
             ToDate: toDate,
@@ -330,7 +346,8 @@
             IsCached: isCached,
             SortById: sortById,
             IsSortAsc: isSortAsc,
-            ReportBy: 1
+            ReportBy: 1,
+            HouseWL: housewl
         }
 
         MemberWinLoss.CachedFilteredObject = data;
@@ -418,7 +435,10 @@
 
         var liveType = parseInt(MemberWinLoss.CachedDOM.liveType.val());
 
-        MemberWinLoss.Data(parlayTypes, fromDate, toDate, sportsTypes, liveType, combos, username, pageIndex, isCached, null, null);
+        var houseLoseAmount = parseFloat((MemberWinLoss.CachedDOM.houseWL.val()).replace(/,/g, ''));
+        houseLoseAmount = isNaN(houseLoseAmount) ? null : houseLoseAmount;
+
+        MemberWinLoss.Data(parlayTypes, fromDate, toDate, sportsTypes, liveType, combos, username, houseLoseAmount, pageIndex, isCached, null, null);
     },
     DisplayInfoExtra: function () {
         var html = $("#inpIsAgent").val() ? '(CC: <b>' + $("#inpCustomerClass").val() + '</b>)' :
@@ -435,7 +455,7 @@
         }
         else {
             table.find('tr[info]').remove();
-            var colspanNumber = isMember ? 11 : 14;
+            var colspanNumber = isMember ? 12 : 15;
             var row = table.find("#tr_" + index);
             row.after('<tr class="details" info="' + index + '"><td colspan="' + colspanNumber + ' " class="center"></td></tr>');
             var newRow = row.next();
@@ -513,6 +533,7 @@
             LiveType: MemberWinLoss.CachedFilteredObject.LiveType,
             Combos: MemberWinLoss.CachedFilteredObject.Combos,
             Username: MemberWinLoss.clickedUserName,
+            HouseWL: MemberWinLoss.CachedFilteredObject.HouseWL,
             PageIndex: pageIndex,
             IsCached: isCached,
             SortById: MemberWinLoss.CachedObject.SortById,
@@ -555,6 +576,17 @@
         MemberWinLoss.CachedDOM.divReportByDate.hide();
         MemberWinLoss.CachedDOM.divResult.show();
         isReportByDate = false;
+    },
+
+    IsNumber: function (event) {
+        var code = event.keyCode;
+        var input = event.target.value;
+
+        if (code >= 48 && code <= 57) {
+            return true;
+        }
+
+        return false;
     }
 }
 function MovePage(pageIndex) {
@@ -568,6 +600,7 @@ function MovePage(pageIndex) {
             MemberWinLoss.CachedFilteredObject.LiveType,
             MemberWinLoss.CachedFilteredObject.Combos,
             MemberWinLoss.CachedFilteredObject.Username,
+            MemberWinLoss.CachedFilteredObject.HouseWL,
             pageIndex, true,
             MemberWinLoss.CachedFilteredObject.SortById,
             MemberWinLoss.CachedFilteredObject.IsSortAsc);

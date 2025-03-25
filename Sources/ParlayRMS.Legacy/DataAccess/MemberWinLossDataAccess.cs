@@ -19,6 +19,7 @@ public class MemberWinLossDataAccess(IDynamicRepository repository)
         byte liveType,
         string combos,
         int custId,
+        decimal? housewl,
         byte reportBy)
     {
             var criteria = new Rpt_ComboParlay_Winloss_Mem_Criteria
@@ -32,7 +33,8 @@ public class MemberWinLossDataAccess(IDynamicRepository repository)
                 LiveStatus = liveType,
                 Selection = combos,
                 Parlaytype = parlayTypes,
-                ReportBy = reportBy
+                ReportBy = reportBy,
+                HouseWL = housewl
             };
 
             var winlosses = repository.Fetch<RMS_Rpt_Parlay_MemberWinLoss>(criteria).ToList();
@@ -55,6 +57,7 @@ public class MemberWinLossDataAccess(IDynamicRepository repository)
         byte liveType,
         string combos,
         string userName,
+        decimal? housewl,
         byte reportBy)
     {
             var criteria = new Rpt_ComboParlay_Winloss_Ag_Criteria
@@ -68,7 +71,8 @@ public class MemberWinLossDataAccess(IDynamicRepository repository)
                 LiveStatus = liveType,
                 Selection = combos,
                 Parlaytype = parlayTypes,
-                ReportBy = reportBy
+                ReportBy = reportBy,
+                HouseWL = housewl
             };
 
             var winlosses = repository.Fetch<RMS_Rpt_Parlay_MemberWinLoss>(criteria).ToList();
