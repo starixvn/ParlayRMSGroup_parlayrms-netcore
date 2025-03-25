@@ -69,6 +69,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
             }
 
             ViewBag.PageSizes = pageSizes;
+            
             return PartialView(model.ToPagedList(page, options.PageSize));
         }
         catch (Exception ex)

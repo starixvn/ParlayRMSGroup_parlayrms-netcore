@@ -43,4 +43,6 @@ public class RMS_Rpt_LeagueBettype_Analysis
     public string BetTeam { get; set; }
 
     public int MatchId { get; set; }
+
+    public int CustomerClass { get; set; }
 }

@@ -6,18 +6,18 @@
     {
         1 => filterOption.IsDetail ? "_LeagueDetailData" : "_LeagueData",
         2 => filterOption.IsDetail ? "_BetTypeDetailData" : "_BetTypeData",
-	    _ => "_LeagueData"
-	};
+        _ => "_LeagueData"
+    };
     var width = filterOption.ReportBy switch
     {
         1 => filterOption.IsDetail ? "1460px" : "1290px",
         2 => filterOption.IsDetail ? "1390px" : "1190px",
-	    _ => "1290px"
-	};
+        _ => "1290px"
+    };
 }
 @if (totalRows > 0)
 {
-	<div style="width: @width" class="maintitle">
+    <div style="width: @width" class="maintitle">
         <div class="information">
             @ViewBag.Title
         </div>
@@ -27,9 +27,18 @@
 }
 @await Html.PartialAsync(view, Model)
 <br />
+@{
+    var username = @filterOption.UserName;
+    var customerClass = Model.Select(m => m.CustomerClass).FirstOrDefault();
+}
+
+<script type="text/ecmascript">
+    updateCachedCustomerClass('@username', '@customerClass' );
+</script>
+<input type="hidden" class="customer-class" value="@Model.Select(m=>m.CustomerClass).FirstOrDefault()" />
 @if (totalRows > 100)
 {
-	<div style="width: @width">
+    <div style="width: @width">
         @await Html.PartialAsync("_Pager", (object)ViewBag.Pager)
     </div>
 }

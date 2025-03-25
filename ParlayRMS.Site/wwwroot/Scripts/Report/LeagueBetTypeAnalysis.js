@@ -382,7 +382,7 @@
                 if (numChecked == 0) {
                     return "Select options";
                 }
-                else if (numChecked == 1) {                    
+                else if (numChecked == 1) {
                     return $(checkedItems).val();
                 }
                 else if (numChecked == numTotal) {
@@ -998,7 +998,7 @@
         var currentObject = element;
         var currentColIndex = parseInt($(currentObject).attr("data-col-index"));
 
-        if (currentColIndex ==data.sortById) {
+        if (currentColIndex == data.sortById) {
             if (data.isSortAsc) {
                 data.isSortAsc = false;
                 $(element).removeClass("headerSortUp").addClass("headerSortDown");
@@ -1070,7 +1070,7 @@
                 var json = $.parseJSON(result);
                 LeagueBetTypeAnalysis.totalLeagueGroup = json.Groups.length;
                 LeagueBetTypeAnalysis.LeagueList = json.Leagues;
-                
+
                 $.each(groupElements, function (index, group) {
                     LeagueBetTypeAnalysis.ReloadLeagueGroups(json.Groups, group);
                     var leagueGroups = $(group).multiselect("getChecked").map(function () {
@@ -1177,7 +1177,7 @@
                 } else {
                     $(LeagueBetTypeAnalysis.DOM.divResult).html(result);
                 }
-                
+
                 $(divResult + ' #header').find(".sortable").each(function () {
                     if ($(this).attr("data-col-index") == sortById) {
                         if (isSortAsc) {
@@ -1187,7 +1187,7 @@
                         }
                     }
                 });
-                $(divResult +' #pageSize').on('change', function () {
+                $(divResult + ' #pageSize').on('change', function () {
                     if (isDetail) {
                         if (reportBy === 1) {
                             LeagueBetTypeAnalysis.HandlePaging(LeagueBetTypeAnalysis.cachedObjectOfLeague, parseInt($(this).val()));
@@ -1198,6 +1198,7 @@
                         LeagueBetTypeAnalysis.HandlePaging(LeagueBetTypeAnalysis.cachedObject, parseInt($(this).val()));
                     }
                 });
+                LeagueBetTypeAnalysis.ShowCustomerClass();
             },
             error: function (xhr, status, err) {
                 alertBox.showError(xhr);
@@ -1291,7 +1292,7 @@
                 + '&reportBy=3' + '&sportType=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.sportType
                 + '&betType=' + bettypeId + '&houseWL=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.houseWL + '&betTeam=' + betTeam + '&match=' + match + "&title=" + title;
         }
-        
+
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             var element;
@@ -1455,12 +1456,12 @@
                 if (leagueId > 0) {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).val([leagueId]).multiselect("refresh");
                 };
-                if (LeagueBetTypeAnalysis.IsDisabled(1,groupId, leagueId)) {
+                if (LeagueBetTypeAnalysis.IsDisabled(1, groupId, leagueId)) {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).multiselect("disable");
                 } else {
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfLeague).multiselect("enable");
                 }
-        });
+            });
     },
 
     HandleElementForBetTypeTab: function (bettype) {
@@ -1496,6 +1497,38 @@
                     $(LeagueBetTypeAnalysis.DOM.ddlLeagueOfBetType).multiselect("enable");
                 }
             });
+    },
+    ShowCustomerClass: function () {
+        let labelUserExtra = null;
+        let reportBy = $("#tabs").tabs('option', 'active');
+        let username = '';
+        switch (reportBy) {
+            case 0:
+                labelUserExtra = $("#lbUserExtra");
+                username = $("#username").val()
+                break;
+            case 1:
+                labelUserExtra = $("#lbUserExtra-League");
+                username = $("#username-League").val()
+                break;
+            default:
+                labelUserExtra = $("#lbUserExtra-BetType");
+                username = $("#username-BetType").val()
+        }
+
+        username = $.trim(username);
+        if (!username) {
+            return;
+        }
+
+        let customerClass = getCustomerClass(username);
+
+        if (!isNaN(customerClass) && customerClass > 0) {
+            labelUserExtra.text(`(CC: ${customerClass})`);
+        }
+        else {
+            labelUserExtra.text(`(CC: None)`);
+        }
     }
 }
 
@@ -1571,6 +1604,41 @@ function MovePage(pageNumber) {
                 pageNumber,
                 LeagueBetTypeAnalysis.cachedObjectOfBetType.pageSize);
     }
-    
+
+}
+function updateCachedCustomerClass(key, customerClass) {
+    var value = parseInt(customerClass);
+    if (!key || isNaN(value) || value <= 0) {
+        return;
+    }
+
+    // Retrieve the cachedCustomerClass dictionary from localStorage.
+    let cachedCustomerClass = JSON.parse(localStorage.getItem('cached-customer-class'));
+
+    // If cachedCustomerClass is null, initialize it as an empty object.
+    if (!cachedCustomerClass) {
+        cachedCustomerClass = {};
+    }
+
+    // Update the value for the given key, or add a new key-value pair if the key doesn't exist.
+    cachedCustomerClass[key] = value;
+
+    // Save the updated cachedCustomerClass dictionary back to localStorage.
+    localStorage.setItem('cached-customer-class', JSON.stringify(cachedCustomerClass));
 }
 
+function getCustomerClass(username) {
+    // Retrieve the cachedCustomerClass dictionary from localStorage.
+    let cachedCustomerClass = JSON.parse(localStorage.getItem('cached-customer-class'));
+
+    // If cachedCustomerClass is null, initialize it as an empty object.
+    if (!cachedCustomerClass) {
+        cachedCustomerClass = {};
+    }
+
+    if (!cachedCustomerClass[username]) {
+        return 0;
+    }
+
+    return cachedCustomerClass[username];
+}
