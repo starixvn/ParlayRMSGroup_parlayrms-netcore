@@ -69,13 +69,13 @@
 		</Setting>
 		<Setting Key="RMS_Monitor_ComboParlay_PotentialWinningDetails" SpName="RMS_Monitor_ComboParlay_PotentialWinningDetails" DbName="DBRMS.bodb_RMS.wsv_rms" />
 		<Setting Key="RMS_ComboParlay_PotentialWinning_UserTracking" SpName="RMS_ComboParlay_PotentialWinning_UserTracking" DbName="DBRMS.bodb_RMS.wsv_rms" />
-		<Setting Key="RMS_Rpt_ParlayWon" SpName="RMS_Rpt_ParlayWon" DbName="DBRMS.bodb_RMS.wsv_rms" >RMS_Rpt_LeagueBettype_Detail
+		<Setting Key="RMS_Rpt_ParlayWon" SpName="RMS_Rpt_ParlayWon" DbName="DBRMS.bodb_RMS.wsv_rms">
 			<Mapping DataField="currencyName" ObjectProperty="Currency" />
 		</Setting>
-		<Setting Key="RMS_Rpt_LeagueBettype_Analysis" SpName="RMS_Rpt_LeagueBettype_Analysis_xtest" DbName="DBRMS.bodb_RMS.wsv_rms" >
+		<Setting Key="RMS_Rpt_LeagueBettype_Analysis" SpName="RMS_Rpt_LeagueBettype_Analysis" DbName="DBRMS.bodb_RMS.wsv_rms" >
 			<Mapping DataField="Stake" ObjectProperty="TurnOver" />
 		</Setting>
-		<Setting Key="RMS_Rpt_LeagueBettype_Detail" SpName="RMS_Rpt_LeagueBettype_Detail_xtest" DbName="DBRMS.bodb_RMS.wsv_rms">
+		<Setting Key="RMS_Rpt_LeagueBettype_Detail" SpName="RMS_Rpt_LeagueBettype_Detail" DbName="DBRMS.bodb_RMS.wsv_rms">
 			<Mapping DataField="Stake" ObjectProperty="TurnOver" />
 		</Setting>
 		<Setting Key="RMS_LeagueGroupSel" SpName="RMS_LeagueGroupSel" DbName="DBRMS.bodb_RMS.wsv_rms" >
