@@ -52,30 +52,23 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 	[HttpPost]
     public ActionResult Data(LeagueBetTypeAnalysisOptions options)
     {
-        try
+        var model = service.GetLeagueBetTypeList(options);
+        ViewBag.FilterOption = options;
+        var page = options.Page <= 0 ? 1 : options.Page;
+        ViewBag.FilterOption = options;
+        ViewBag.Title = options.GetTitle(GetLeagueGroupsName(options.LeagueGroups, options.SportType));
+        ViewBag.TotalRows = model.Count;
+        ViewBag.Pager = Pager.Items(model.Count).PerPage(options.PageSize).Move(page).Segment(5).Center();
+        var pageSizesValues = new List<int> { 100, 200, 500 };
+        var pageSizes = new List<SelectListItem>();
+        foreach (var item in pageSizesValues)
         {
-            var model = service.GetLeagueBetTypeList(options);
-            ViewBag.FilterOption = options;
-            var page = options.Page <= 0 ? 1 : options.Page;
-            ViewBag.FilterOption = options;
-            ViewBag.Title = options.GetTitle(GetLeagueGroupsName(options.LeagueGroups, options.SportType));
-            ViewBag.TotalRows = model.Count;
-            ViewBag.Pager = Pager.Items(model.Count).PerPage(options.PageSize).Move(page).Segment(5).Center();
-            var pageSizesValues = new List<int> { 100, 200, 500 };
-            var pageSizes = new List<SelectListItem>();
-            foreach (var item in pageSizesValues)
-            {
-                pageSizes.Add(new SelectListItem { Text = item.ToString(), Value = item.ToString(), Selected = item == options.PageSize });
-            }
+            pageSizes.Add(new SelectListItem { Text = item.ToString(), Value = item.ToString(), Selected = item == options.PageSize });
+        }
 
-            ViewBag.PageSizes = pageSizes;
-            
-            return PartialView(model.ToPagedList(page, options.PageSize));
-        }
-        catch (Exception ex)
-        {
-            return PartialView("_ErrorMessage", ex.Message);
-        }
+        ViewBag.PageSizes = pageSizes;
+
+        return PartialView(model.ToPagedList(page, options.PageSize));
     }
 
     [HttpPost]
