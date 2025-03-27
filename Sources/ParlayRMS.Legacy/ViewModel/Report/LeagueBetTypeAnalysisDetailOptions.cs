@@ -29,4 +29,6 @@ public class LeagueBetTypeAnalysisDetailOptions
     public string Title { get; set; }
 
     public string Combo { get; set; }
+
+    public string UserName { get; set; }
 }

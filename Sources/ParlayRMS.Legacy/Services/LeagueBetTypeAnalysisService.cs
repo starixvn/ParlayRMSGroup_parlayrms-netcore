@@ -62,7 +62,8 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
             options.HouseWL,
             options.BetTeam,
             options.Match,
-            options.Combo);
+            options.Combo,
+            options.UserName);
     }
 
     public IEnumerable<BettypeModel> GetBettypes(int sportType)
