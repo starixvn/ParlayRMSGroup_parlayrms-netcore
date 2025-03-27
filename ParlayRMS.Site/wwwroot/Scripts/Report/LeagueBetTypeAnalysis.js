@@ -1286,7 +1286,7 @@
                 + '&betType=' + bettypeId + '&houseWL=' + LeagueBetTypeAnalysis.cachedObjectOfLeague.houseWL + '&betTeam=' + betTeam + '&match=' + match + "&title=" + encodeURIComponent(title);
         } else {
             params = 'fromDate=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.fromDate + '&toDate=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.toDate
-                + '&combo=' + LeagueBetTypeAnalysis.cachedObjectOfLeague.combo + '&userName=' + LeagueBetTypeAnalysis.cachedObjectOfLeague.userName
+                + '&combo=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.combo + '&userName=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.userName
                 + '&parlayType=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.parlayType + '&leagueGroups=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.leagueGroups
                 + '&leagues=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.leagues + '&site=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.site
                 + '&reportBy=3' + '&sportType=' + LeagueBetTypeAnalysis.cachedObjectOfBetType.sportType
