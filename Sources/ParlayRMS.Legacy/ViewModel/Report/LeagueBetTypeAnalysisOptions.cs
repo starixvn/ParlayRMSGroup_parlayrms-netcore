@@ -33,6 +33,10 @@ public class LeagueBetTypeAnalysisOptions
 
     public bool IsDetail { get; set; }
 
+    public string UserName { get; set; }
+
+    public string Combo { get; set; }
+
     public byte? SortById { get; set; }
 
     public bool IsSortAsc { get; set; }
@@ -44,9 +48,11 @@ public class LeagueBetTypeAnalysisOptions
     public string GetTitle(string leagueGroups)
     {
         var title =
-            $"{GetReportName()} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {leagueGroups} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}{GetLeagueOrBetTypeTitle()}";
+            $"{GetReportName()}{GetUserNameTitle()} from {FromDate:MMM dd, yyyy} to {ToDate:MMM dd, yyyy} - [{ViewLang.ParlayType}] {ModelsHelper.GetSimpleParlayTitle(ParlayType)} - [{ViewLang.Group}] - {leagueGroups} - [{ViewLang.Site}] {ModelsHelper.GetSiteTitle(Site)}{GetLeagueOrBetTypeTitle()}";
         return title;
     }
+
+    private string GetUserNameTitle() => string.IsNullOrEmpty(UserName) ? string.Empty : $" of {UserName}";
 
     private string GetReportName() => ReportBy switch
     {

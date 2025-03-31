@@ -27,4 +27,8 @@ public class LeagueBetTypeAnalysisDetailOptions
     public decimal? HouseWL { get; set; }
 
     public string Title { get; set; }
+
+    public string Combo { get; set; }
+
+    public string UserName { get; set; }
 }

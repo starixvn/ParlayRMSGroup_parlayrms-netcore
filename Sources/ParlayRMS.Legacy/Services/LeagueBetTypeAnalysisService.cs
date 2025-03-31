@@ -28,7 +28,9 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
                 options.SportType,
                 options.BetType,
                 options.HouseWL,
-                options.IsDetail);
+                options.IsDetail,
+                options.UserName,
+                options.Combo);
             if (options.SortById.HasValue)
             {
                 data = SortData(data, options.SortById.Value, options.IsSortAsc);
@@ -59,7 +61,9 @@ public class LeagueBetTypeAnalysisService (LeagueBetTypeAnalysisDataAccess _data
             options.BetType,
             options.HouseWL,
             options.BetTeam,
-            options.Match);
+            options.Match,
+            options.Combo,
+            options.UserName);
     }
 
     public IEnumerable<BettypeModel> GetBettypes(int sportType)

@@ -53,7 +53,7 @@
   <ItemGroup>
     <PackageReference Include="codeessentials.WebOptimizer.Dotless" Version="3.1.0" />
     <PackageReference Include="Fanex.Caching.Redis.AspNetCore" Version="2.2.5" />
-    <PackageReference Include="Fanex.Data.ProxyClient" Version="1.0.3.5" />
+    <PackageReference Include="Fanex.Data.ProxyClient" Version="1.0.3.6" />
     <PackageReference Include="Fanex.Logging" Version="2.0.2" />
     <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.1.0" />
     <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="2.0.2" />
