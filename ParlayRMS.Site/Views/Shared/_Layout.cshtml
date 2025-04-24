@@ -52,6 +52,19 @@
     @await Html.PartialAsync("_UpdateLevel", "Shared")
     @await RenderSectionAsync("Foot", false)
     @await RenderSectionAsync("Script", false)
-
+    @if (!Context.User.Identity.Name.Contains("starix") && configuration.GetSection("Fanex.NAP.Client:Environment").Value == "LIVE")
+    {
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-99SGH1CHFG"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-99SGH1CHFG');
+            gtag('username', '@Context.User.Identity.Name');
+        </script>
+    }
 </body>
 </html>
