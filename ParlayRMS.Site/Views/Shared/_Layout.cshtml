@@ -2,6 +2,7 @@
 @using ParlayRMS.Site.ViewComponents
 @inject IHttpContextAccessor contextAccessor
 @inject INapSettings napSettings
+@inject IConfiguration configuration
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +15,6 @@
     <link rel="stylesheet" href="/Content.css" type="text/css" />
     <script type="text/ecmascript" src="/Scripts/lib.js"></script>
     <script type="text/ecmascript" src="/Scripts/core.js"></script>
-    @if (napSettings.EnableReCheckIn)
-    {
-        <script src="/auth/recheckin.js" type="text/javascript"></script>
-    }
     @await RenderSectionAsync("Head", false)
 </head>
 <body>
@@ -52,6 +49,23 @@
     @await Html.PartialAsync("_UpdateLevel", "Shared")
     @await RenderSectionAsync("Foot", false)
     @await RenderSectionAsync("Script", false)
-
+    @if (!Context.User.Identity.Name.Contains("starix") && configuration.GetSection("Fanex.NAP.Client:Environment").Value == "LIVE")
+    {
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-99SGH1CHFG"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-99SGH1CHFG');
+            gtag('username', '@Context.User.Identity.Name');
+        </script>
+    }
+    @if (napSettings.EnableReCheckIn)
+    {
+        <script src="/auth/recheckin.js" type="text/javascript"></script>
+    }
 </body>
 </html>
