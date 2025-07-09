@@ -27,12 +27,13 @@ services.AddFanexLogSentry(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
 services.AddNapClient(configuration);
-services.AddOneBookUmForWeb(configuration);
+services.AddOneBookUm(configuration);
 services.AddFanexData(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
 services.AddManageAlertServices();
 services.AddLegacyService();
+services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -50,5 +51,6 @@ app.UseCors("AllowOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapHealthChecks("/healthz");
 
 await app.RunAsync();
