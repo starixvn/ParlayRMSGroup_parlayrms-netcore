@@ -27,7 +27,7 @@ services.AddFanexLogSentry(configuration);
 services.AddFanex(configuration);
 services.AddNapServices();
 services.AddNapClient(configuration);
-services.AddOneBookUm(configuration);
+services.AddOneBookUmForWeb(configuration);
 services.AddFanexData(configuration);
 services.AddWinLossRiskControlServices();
 services.AddLeagueEventControlServices();
