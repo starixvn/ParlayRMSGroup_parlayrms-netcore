@@ -139,7 +139,7 @@
 			<Mapping DataField="totalWinningAmt" ObjectProperty="TotalWinningAmount" />
 			<Mapping DataField="companyLoseAmt" ObjectProperty="CompanyLoseAmount" />
 			<Mapping DataField="totalTicket" ObjectProperty="TotalTickets" />
-			<Mapping DataField="winningAmt" ObjectProperty="winningAmt" />
+			<Mapping DataField="winningAmt" ObjectProperty="WinningAmount" />
 		</Setting>
 	</Function>
 </Functions>
