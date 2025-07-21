@@ -8,6 +8,8 @@ public class RMS_Rpt_Parlay_Winloss
 
     public int SportType { get; set; }
 
+    public string ParlayType { get; set; }
+
     public int Tickets_Won { get; set; }
 
     public int Tickets_Lose { get; set; }

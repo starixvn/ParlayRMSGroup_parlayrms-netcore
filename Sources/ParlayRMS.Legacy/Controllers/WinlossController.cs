@@ -59,7 +59,12 @@ public class WinlossController(WinlossService _winlossService) : BaseController
         var header1 = new object[]
         {
             ViewLang.Date,
-            options.ReportType == ReportType.Combo ? ViewLang.Combo : "Sport Type",
+            options.ReportType switch
+            {
+                ReportType.Combo => ViewLang.Combo,
+                ReportType.SportType => "Sport Type",
+                _ => "Parlay Type"
+            },
             ViewLang.Ticket,
             string.Empty,
             ViewLang.StakeAfterPT,
@@ -129,7 +134,12 @@ public class WinlossController(WinlossService _winlossService) : BaseController
                 var values = new object[]
                 {
                     item.WinlostDate,
-                    options.ReportType == ReportType.Combo ? item.Combo : CacheRef.GetSportNameDropDown(item.SportType),
+                    options.ReportType switch
+                    {
+                        ReportType.Combo => item.Combo,
+                        ReportType.SportType => CacheRef.GetSportNameDropDown(item.SportType),
+                        _ => item.ParlayType
+                    },
                     item.Tickets_Won,
                     item.Tickets_Lose,
                     item.Stake_Won,

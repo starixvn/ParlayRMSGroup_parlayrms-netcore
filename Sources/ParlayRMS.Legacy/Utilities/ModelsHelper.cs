@@ -103,7 +103,10 @@ public static class ModelsHelper
                 case ReportType.SportType:
                     return "Sport type";
 
-                default:
+                case ReportType.ParlayType:
+                    return "Parlay type";
+
+            default:
                     throw new NotImplementedException("Report type :" + reportType);
             }
         }

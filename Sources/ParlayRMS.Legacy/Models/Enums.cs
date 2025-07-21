@@ -81,5 +81,6 @@ public enum Market
 public enum ReportType
 {
     Combo = 1,
-    SportType = 2
+    SportType = 2,
+    ParlayType = 3
 }
