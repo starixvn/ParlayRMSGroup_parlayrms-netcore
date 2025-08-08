@@ -4,6 +4,8 @@
 @model ParlayRMS.Legacy.Models.Winloss.WinlossData
 @{
     var filterOption = (Legacy.ViewModel.Report.WinlossOptions)ViewBag.FilterOption;
+    var reportType = "";
+    var reportTypeData = "";
 }
 <div style="width: 1391px;" class="maintitle">
     <div class="information">
@@ -34,14 +36,13 @@
                     @ViewLang.Date
                 </th>
                 <th rowspan="2" class="header2rows">
-                    @if (filterOption.ReportType == ReportType.Combo)
-                    {
-                        @ViewLang.Combo
-                    }
-                    else
-                    {
-                        @:Sports Type
-                    }
+	                @{ reportType = filterOption.ReportType switch
+		                {
+			                ReportType.Combo => @ViewLang.Combo,
+			                ReportType.SportType => "Sports Type",
+			                _ => "Parlay Type"
+		                }; }
+	                @reportType
                 </th>
                 <th colspan="2">
                     @ViewLang.Ticket
@@ -121,14 +122,13 @@
                             </td>
                         }
                         <td class="center">
-                            @if (filterOption.ReportType == ReportType.Combo)
-                            {
-                                @record.Combo
-                            }
-                            else
-                            {
-                                @CacheRef.GetSportNameDropDown(record.SportType)
-                            }
+	                        @{ reportTypeData = filterOption.ReportType switch
+	                           {
+                                    ReportType.Combo => record.Combo,
+                                    ReportType.SportType => CacheRef.GetSportNameDropDown(record.SportType),
+                                    _ => record.ParlayType
+	                           }; }
+	                        @reportTypeData
                         </td>
                         <td class="numeric">
                             @Formatter.FormatNumber3(record.Tickets_Won)

@@ -89,7 +89,8 @@ public static class Config
 			ReportTypes =
             [
                 new SelectListItem { Text = "Combo", Value = ((int)ReportType.Combo).ToString(), Selected = true },
-                new SelectListItem { Text = "Sport type", Value = ((int)ReportType.SportType).ToString() }
+                new SelectListItem { Text = "Sport type", Value = ((int)ReportType.SportType).ToString() },
+                new SelectListItem { Text = "Parlay type", Value = ((int)ReportType.ParlayType).ToString() }
             ];
 
             LeagueGroups =
