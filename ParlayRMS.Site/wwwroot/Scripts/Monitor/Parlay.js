@@ -331,7 +331,7 @@ $(document).ready(function () {
 
     $("#parlayType").multiselect({
         buttonWidth: 210,
-        menuHeight: 230,
+        menuHeight: 255,
         selectedList: 1,
         create: function () {
             $("#parlayType").multiselect();

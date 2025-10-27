@@ -34,7 +34,7 @@ public class FilterHandlerUnitTests
         var actionResults = await new FilterHandler(service).Handle(new ParlayTypeRequest(), CancellationToken.None);
 
         // Assert
-        Assert.Equal(5, actionResults.Count);
+        Assert.Equal(6, actionResults.Count);
     }
 
     [Fact]

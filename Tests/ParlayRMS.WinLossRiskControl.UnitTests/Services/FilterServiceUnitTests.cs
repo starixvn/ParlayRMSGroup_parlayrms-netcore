@@ -27,7 +27,7 @@ public class FilterServiceUnitTests
         var actualResults = await filterService.GetParlayTypes();
 
         // Assert
-        const int expectedItems = 5;
+        const int expectedItems = 6;
         Assert.Equal(expectedItems, actualResults.Count);
     }
 

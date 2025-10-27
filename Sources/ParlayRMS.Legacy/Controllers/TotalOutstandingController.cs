@@ -68,6 +68,12 @@ public class TotalOutstandingController(
                 Text = ViewLang.SingleMatchParlay,
                 Value = ((int)ParlayType.SingleMatchParlay).ToString(),
                 Selected = string.IsNullOrEmpty(model.ParlayTypes) || model.ParlayTypes.Contains(((int)ParlayType.SingleMatchParlay).ToString())
+            },
+            new SelectListItem
+            {
+                Text = ViewLang.HybridParlay,
+                Value = ((int)ParlayType.HybridParlay).ToString(),
+                Selected = string.IsNullOrEmpty(model.ParlayTypes) || model.ParlayTypes.Contains(((int)ParlayType.HybridParlay).ToString())
             }
         };
 

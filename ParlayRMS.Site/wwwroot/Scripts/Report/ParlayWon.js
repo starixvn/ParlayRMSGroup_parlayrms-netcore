@@ -14,7 +14,7 @@
 
         $("#parlayType").multiselect({
             minWidth: 210,
-            height: 165,
+            height: 190,
             create: function () {
                 $("#parlayType").multiselect("checkAll");
             },

@@ -31,7 +31,8 @@ public class ParlayMonitorFilterViewComponent : ViewComponent
             new() { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString(), Selected = true },
             new() { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
             new() { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
-            new() { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+            new() { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() },
+            new() { Text = ViewLang.HybridParlay, Value = ((int)ParlayType.HybridParlay).ToString() }
         };
         ViewBag.ParlayTypes = parlayTypes;
 

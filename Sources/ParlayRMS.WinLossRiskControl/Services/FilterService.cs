@@ -35,7 +35,8 @@ public class FilterServiceImp(IDynamicRepository repository, IRemotingRefService
             new() { Name = "Parlay Generator", Id = 6 },
             new() { Name = "Combo Parlay", Id = 2 },
             new() { Name = "Penalty Shootout Combo", Id = 4 },
-            new() { Name = "Single Match Parlay", Id = 3 }
+            new() { Name = "Single Match Parlay", Id = 3 },
+            new() { Name = "Hybrid Parlay", Id = 8 }
         };
 
         return Task.FromResult(parlayTypes);

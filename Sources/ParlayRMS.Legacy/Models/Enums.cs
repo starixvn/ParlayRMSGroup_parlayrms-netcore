@@ -16,7 +16,9 @@ public enum ParlayType
 
     ParlayGenerator = 6,
 
-    ParlayBoost = 7
+    ParlayBoost = 7,
+
+    HybridParlay = 8
 }
 
 public enum SportsType

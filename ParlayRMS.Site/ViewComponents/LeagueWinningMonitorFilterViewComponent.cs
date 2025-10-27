@@ -30,7 +30,8 @@ public class LeagueWinningMonitorFilterViewComponent : ViewComponent
             new() { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
             new() { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
             new() { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
-            new() { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+            new() { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() },
+            new() { Text = ViewLang.HybridParlay, Value = ((int)ParlayType.HybridParlay).ToString() }
         };
         ViewBag.ParlayTypes = parlayTypes;
 

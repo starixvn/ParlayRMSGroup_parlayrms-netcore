@@ -1006,6 +1006,15 @@ namespace ParlayRMS.Legacy {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hybrid Parlay.
+        /// </summary>
+        public static string HybridParlay {
+            get {
+                return ResourceManager.GetString("HybridParlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inactive User.
         /// </summary>
         public static string InactiveUser {

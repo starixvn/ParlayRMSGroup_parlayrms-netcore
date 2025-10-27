@@ -432,6 +432,9 @@
   <data name="HouseWinLoss" xml:space="preserve">
     <value>House Win Loss</value>
   </data>
+  <data name="HybridParlay" xml:space="preserve">
+    <value>Hybrid Parlay</value>
+  </data>
   <data name="InactiveUser" xml:space="preserve">
     <value>Inactive User</value>
   </data>
