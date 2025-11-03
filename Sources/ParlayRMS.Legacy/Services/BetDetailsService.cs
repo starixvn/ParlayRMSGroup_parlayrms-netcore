@@ -1,3 +1,5 @@
+using Fanex.BetList.Core.Builder.HybridParlayBuilder;
+
 namespace ParlayRMS.Legacy.Services;
 
 using System;
@@ -26,6 +28,7 @@ public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService
         var data = _dataAccess.RMS_Rpt_Parlay_Bet_Details(transId, refNo);
         var tickets = _betlistService.Map(refNo, data);
         var betInfo = _dataAccess.GetBetInfo(transId);
+        var hybridParlayBuilder = new HyBridParlayBuilder();
 
         for (var i = 0; i < tickets.Item2.Count; i++)
         {
@@ -42,6 +45,7 @@ public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService
                     ? $"</div><div class='ticketStatus'><div class='divstatus'>[{ticket.Status}]</div></div></div>"
                     : $"</div><div class='ticketStatus'><div class='divstatus'>[{ticket.Status}]</div></div></div><div class='line'></div>",
                 false);
+            
         }
 
         var comboTypeAndStake = GetComboTypeAndStake(tickets.Item2, betInfo);
