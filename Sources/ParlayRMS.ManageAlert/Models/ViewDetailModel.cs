@@ -19,6 +19,8 @@ public class ViewDetailModel
     public string UserName { get; set; }
 
     public int BetType { get; set; }
+
+    public int ParlayType { get; set; }
 }
 
 public class SimilarTicketDetailModel : ViewDetailModel

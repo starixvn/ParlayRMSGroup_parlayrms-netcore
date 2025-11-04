@@ -1006,7 +1006,7 @@ namespace ParlayRMS.Legacy {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hybrid Parlay.
+        ///   Looks up a localized string similar to Bet Builder+.
         /// </summary>
         public static string HybridParlay {
             get {

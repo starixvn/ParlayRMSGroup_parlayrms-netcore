@@ -9,4 +9,6 @@ public class BetDetailsOptions
     public int BetType { get; set; }
 
     public string Username { get; set; }
+
+    public int ParlayType { get; set; }
 }

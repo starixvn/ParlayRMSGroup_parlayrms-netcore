@@ -9,7 +9,8 @@ public class BetDetailsOptions
     public long RefNo { get; set; }
 
     public long OriginalRefNo { get; set; }
-
         
     public string Username { get; set; }
+
+    public int ParlayType { get; set; }
 }

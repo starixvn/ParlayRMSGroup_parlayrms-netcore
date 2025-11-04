@@ -2,9 +2,6 @@ using Fanex.BetList.Core.Builder.HybridParlayBuilder;
 
 namespace ParlayRMS.Legacy.Services;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Criteria.BetList;
 using DataAccess;
 using DTO.BetDetails;
@@ -12,9 +9,13 @@ using DTO.BetList;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.Factories;
 using Fanex.BetList.Core.TicketHelper;
+using Fanex.BetList.Core.Utils.Parsers;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Utilities;
 
 public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService _betlistService)
@@ -46,6 +47,38 @@ public class BetDetailsService (BetDetailsDataAccess _dataAccess, BetListService
                     : $"</div><div class='ticketStatus'><div class='divstatus'>[{ticket.Status}]</div></div></div><div class='line'></div>",
                 false);
             
+        }
+
+        var comboTypeAndStake = GetComboTypeAndStake(tickets.Item2, betInfo);
+
+        return new ParlayBetDetails
+        {
+            TicketDetail = builder.GetBetList(),
+            ComboTypes = comboTypeAndStake
+        };
+    }
+
+    public ParlayBetDetails GetBetDetailForHybridParlay(long transId, long refNo)
+    {
+        var factory = new BetListHTMLFactory();
+        var builder = factory.CreateBuilder();
+        ITicketHelper ticketHelper = new TicketHelper { IsShowOddsWithChoice = true };
+        var data = _dataAccess.RMS_Rpt_Parlay_Bet_Details(transId, refNo);
+
+        var tickets = _betlistService.Map(refNo, data);
+        var betInfo = _dataAccess.GetBetInfo(transId);
+
+        var groupedTickets = tickets.Item2.GroupBy(x => x.MatchId);
+        var hybridParlayBuilder = new HyBridParlayBuilder();
+
+        foreach (var group in groupedTickets)
+        {
+            var matchTickets = group.ToList();
+            var abc = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc);
+            var legOddsInfo = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc).LegOddsbyMatch
+                ?.FirstOrDefault(x => x.MatchId == group.Key);
+            var template = hybridParlayBuilder.BuildMatchTicket(ticketHelper, matchTickets, legOddsInfo, false);
+            builder.Append(template.ToString().Replace("{eventDate}", string.Empty));
         }
 
         var comboTypeAndStake = GetComboTypeAndStake(tickets.Item2, betInfo);

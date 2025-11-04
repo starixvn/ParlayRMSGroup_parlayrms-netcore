@@ -36,7 +36,8 @@ export class PotentialWinningComponent implements DetailDataComponent {
       refNo: data.refNo,
       userName: data.userName,
       custId: data.custId,
-      betType: data.betType
+      betType: data.betType,
+      parlayType: data.parlayType
     }
     this.gridService.getBetDetail(model).subscribe((body) => {
       this.body = this.sanitized.bypassSecurityTrustHtml(body);

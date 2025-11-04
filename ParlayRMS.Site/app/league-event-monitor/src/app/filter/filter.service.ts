@@ -28,7 +28,7 @@ export class FilterService {
       { name: 'Parlay Generator', id: '6', checked: true },
       { name: 'Combo Parlay', id: '2', checked: true },
       { name: 'Single Match Parlay', id: '3', checked: true },
-      { name: 'Hybrid Parlay', id: '8', checked: true }
+      { name: 'Bet Builder+', id: '8', checked: true }
     ]
   }
 

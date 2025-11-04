@@ -15,4 +15,5 @@ export interface PotentialWinningModel {
     refNo: string,
     custId: number,
     betType: number,
+    parlayType: number
 }
