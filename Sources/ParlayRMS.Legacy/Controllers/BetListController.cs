@@ -80,8 +80,7 @@ public class BetListController(BetListService _betlistService, CommonService _co
 
         foreach (var group in groupedTickets)
         {
-            var matchTickets = group.ToList();
-            var abc = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc);
+            var matchTickets = group.ToList().OrderBy(t => t.TransId).ToList();
             var legOddsInfo = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc).LegOddsbyMatch
                 ?.FirstOrDefault(x => x.MatchId == group.Key);
             var template = hybridParlayBuilder.BuildMatchTicket(ticketHelper, matchTickets, legOddsInfo, false);
