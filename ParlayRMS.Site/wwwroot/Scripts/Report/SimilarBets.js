@@ -91,24 +91,25 @@ function OpenViewIpInfo(ip, transDate) {
     window.open(url, "_blank");
 }
 
-function ViewBetDetails(username, transId, originalTransId, refNo, originalRefNo, custId, originalCustId, betType) {
+function ViewBetDetails(username, transId, originalTransId, refNo, originalRefNo, custId, originalCustId, betType, parlayType) {
     if (betType === 38) {
         ViewSingleMatchParlayDetails(transId, originalTransId, custId, originalCustId, username);
     } else if (betType === 376) {
         ViewPenaltyShootoutParlayDetails(transId, username);
     }
     else {
-        ViewSystemParlayDetails(username, transId, originalTransId, refNo, originalRefNo);
+        ViewSystemParlayDetails(username, transId, originalTransId, refNo, originalRefNo, parlayType);
     }
 }
 
-function ViewSystemParlayDetails(username, transId, originalTransId, refNo, originalRefNo) {
+function ViewSystemParlayDetails(username, transId, originalTransId, refNo, originalRefNo, parlayType) {
     var data = {
         TransId: transId,
         OriginalTransId: originalTransId,
         Username: username,
         RefNo: refNo,
-        OriginalRefNo: originalRefNo
+        OriginalRefNo: originalRefNo,
+        ParlayType: parlayType
     }
 
     $.ajax({

@@ -47,6 +47,7 @@ public class SimilarBetsDataAccess(IDynamicRepository repository)
             SiteGroup = similar.SiteGroup,
             IsParlayGenerator = similar.IsParlayGenerator,
             IsBoostBonus = similar.IsBoostBonus,
+            ParlayType = similar.ParlayType,
             Details = details.Select(row => new RMS_Similar_Parlay_Betlist_Detail
             {
                 TransId = row.TransId,
@@ -64,7 +65,8 @@ public class SimilarBetsDataAccess(IDynamicRepository repository)
                 Ip = row.Ip,
                 TransDateString = similar.Transdate.ToString("MM/dd/yyyy h:mm:ss tt"),
                 IsTrackedUser = !string.IsNullOrWhiteSpace(row.TrackingUser),
-                TrackingUser = string.IsNullOrWhiteSpace(row.TrackingUser) ? "None" : row.TrackingUser
+                TrackingUser = string.IsNullOrWhiteSpace(row.TrackingUser) ? "None" : row.TrackingUser,
+                ParlayType = row.ParlayType
             })
         };
         return result;

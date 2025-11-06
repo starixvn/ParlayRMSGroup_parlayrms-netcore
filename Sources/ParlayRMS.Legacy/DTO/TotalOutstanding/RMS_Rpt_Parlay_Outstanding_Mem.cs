@@ -39,4 +39,6 @@ public class RMS_Rpt_Parlay_Outstanding_Mem
     public bool IsParlayGenerator { get; set; }
 
     public bool IsBoostBonus { get; set; }
+
+    public int ParlayType { get; set; }
 }

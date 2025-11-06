@@ -33,4 +33,6 @@ public class RMS_Similar_Parlay_Betlist_Detail
     public string TrackingUser { get; set; }
 
     public bool IsTrackedUser { get; set; }
+
+    public int ParlayType { get; set; }
 }
