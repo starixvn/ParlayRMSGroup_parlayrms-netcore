@@ -710,7 +710,7 @@ function CreateRow(order, item) {
     } else {
         r[++j] = '<td class="numeric"><a href="#" class="' + liveClass + '"' + ' title="live"></a><a href="#" class="' + blackListClass + '"' + ' title="black list"></a><a href="#" class="' + boostBonusClass + '"' + ' title="boost bonus"></a><a style="line-height: 18px;" href="#" onclick="window.open(resolveClientUrl(\'SimilarBets?betid=' + item.TransId + '\'), \'_blank\');">' + item.TransId + '</a></td>';
     }
-    r[++j] = '<td class="center"><button class="button-disable-2" style="width:40px;" onclick="ViewBetDetails(\'' + item.Username + '\', \'' + item.TransId + '\', \'' + item.RefNo + '\', ' + item.BetType + ', ' + item.CustId + ');">View</td>';
+    r[++j] = '<td class="center"><button class="button-disable-2" style="width:40px;" onclick="ViewBetDetails(\'' + item.Username + '\', \'' + item.TransId + '\', \'' + item.RefNo + '\', ' + item.BetType + ', ' + item.CustId + ', ' + item.ParlayType + ');">View</td>';
     r[++j] = '<td class="center">' + item.SiteGroup + '</td>';
     r[++j] = CreateLinkLevelCell(item.Username, item.Level, "ViewTotalOutstanding('" + item.Username + "')");
     r[++j] = '<td class="numeric">' + item.CustomerClass + '</td>';
@@ -754,22 +754,23 @@ function ViewTotalOutstanding(username) {
     var url = resolveClientUrl('TotalOutstanding?username=') + username + '&combo=' + combos + '&sportsType=' + sportsTypes + '&parlayTypes=' + parlaysTypes;
     window.open(url, '_blank');
 }
-function ViewBetDetails(username, transId, refNo, betType, custId) {
+function ViewBetDetails(username, transId, refNo, betType, custId, parlayType) {
     if (betType === 38) {
         ViewSingleMatchParlayDetails(transId, custId, username);
     } else if (betType === 376) {
         ViewPenaltyShootoutParlayDetails(transId, username);
     }
     else {
-        ViewSystemParlayDetails(username, transId, refNo);
+        ViewSystemParlayDetails(username, transId, refNo, parlayType);
     }
 }
 
-function ViewSystemParlayDetails(username, transId, refNo) {
+function ViewSystemParlayDetails(username, transId, refNo, parlayType) {
     var data = {
         TransId: transId,
         RefNo: refNo,
-        Username: username
+        Username: username,
+        ParlayType: parlayType
     }
 
     $.ajax({
