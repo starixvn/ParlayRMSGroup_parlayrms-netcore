@@ -346,7 +346,9 @@ public class ViewIPInfoController(
             var matchTickets = group.ToList().OrderBy(t => t.TransId).ToList();
             var legOddsInfo = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc).LegOddsbyMatch
                 ?.FirstOrDefault(x => x.MatchId == group.Key);
-            var template = hybridParlayBuilder.BuildMatchTicket(ticketHelper, matchTickets, legOddsInfo, false);
+            var extraVoidTicketClass =
+                matchTickets.Where(ticket => ticket.StatusId != 102).Count() > 0 ? string.Empty : "void";
+            var template = hybridParlayBuilder.BuildMatchTicket(ticketHelper, matchTickets, legOddsInfo, extraVoidTicketClass, false);
             builder.Append(template.ToString().Replace("{eventDate}", string.Empty));
         }
         return builder.GetBetList();
