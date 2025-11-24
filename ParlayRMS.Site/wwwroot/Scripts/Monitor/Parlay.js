@@ -699,6 +699,11 @@ function CreateRow(order, item) {
         betSuffix += ' (B)';
     }
 
+    if (item.ParlayType == 8)
+    {
+        betSuffix += ' (BB+)';
+    }
+
     var r = new Array();
     var j = -1;
     r[++j] = '<tr style="height: 22px;">';

@@ -59,6 +59,16 @@ public class PotentialWinningDetailModel : ViewDetailModel
                 result += " (B)";
             }
 
+            if (IsParlayGenerator)
+            {
+                result += " (PG)";
+            }
+
+            if (ParlayType == 8)
+            {
+                result += " (BB+)";
+            }
+
             return result;
         }
     }

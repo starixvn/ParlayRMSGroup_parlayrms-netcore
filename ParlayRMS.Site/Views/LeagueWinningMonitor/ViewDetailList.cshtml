@@ -113,6 +113,11 @@
 			                    {
 				                    totalBetText += " (S)";
 			                    }
+
+								if (item.Val.ParlayType == (int)ParlayType.HybridParlay)
+			                    {
+				                    totalBetText += " (BB+)";
+			                    }
 		                    }
 
 		                    @($"{item.Val.Combo} {totalBetText}")

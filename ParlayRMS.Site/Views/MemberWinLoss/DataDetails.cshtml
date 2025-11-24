@@ -108,6 +108,11 @@
                                     parlayText += "(P)";
                                 }
 
+								if (item.ParlayType == (int)ParlayType.HybridParlay)
+                                {
+	                                parlayText += "(BB+)";
+                                }
+
                             }
 
                             @Formatter.FormatNumber3(item.TotalCombo) @betText @parlayText

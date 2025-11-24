@@ -123,6 +123,11 @@
 		                        {
 			                        betText += " (B)";
 		                        }
+
+		                        if (item.ParlayType == (int)ParlayType.HybridParlay)
+		                        {
+			                        betText += " (BB+)";
+		                        }
 	                        }
 
 	                        @Formatter.FormatNumber3(item.TotalBet) @betText

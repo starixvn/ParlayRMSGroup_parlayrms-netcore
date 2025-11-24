@@ -59,6 +59,11 @@ public class TopWinnersService (TopWinnersDataAccess _topwinnersDataAccess, Comm
             parlayText = " (P)";
         }
 
+        if (detail.ParlayType == (int)ParlayType.HybridParlay)
+        {
+            parlayText = " (BB+)";
+        }
+
         return $"{Formatter.FormatNumber3(detail.TotalCombo)} {betText} {parlayText}";
     }
 }
