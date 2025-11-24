@@ -18,7 +18,7 @@ public class TotalOutstandingController(
     public ActionResult Index(IndexModel model)
     {
         var combos = new List<SelectListItem>();
-        for (var i = 2; i <= 9; i++)
+        for (var i = 1; i <= 9; i++)
         {
             combos.Add(new SelectListItem
             {

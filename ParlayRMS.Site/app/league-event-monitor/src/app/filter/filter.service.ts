@@ -15,7 +15,7 @@ export class FilterService {
 
   public getComboes(): ItemModel[] {
     let result: ItemModel[] = [];
-    for (let i = 2; i < 10; i++) {
+    for (let i = 1; i < 10; i++) {
       result.push({ name: i.toString(), id: i.toString(), checked: i <= 6 });
     }
     result.push({ name: '10 UP', id: '10', checked: false });

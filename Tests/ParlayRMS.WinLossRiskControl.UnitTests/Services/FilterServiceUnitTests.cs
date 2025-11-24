@@ -63,7 +63,7 @@ public class FilterServiceUnitTests
         var actualResults = await filterService.GetComboes();
 
         // Assert
-        const int expectedItems = 9;
+        const int expectedItems = 10;
         Assert.Equal(expectedItems, actualResults.Count);
     }
 }

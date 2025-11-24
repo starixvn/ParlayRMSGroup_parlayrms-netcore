@@ -47,7 +47,7 @@ public class FilterHandlerUnitTests
         var actionResults = await new FilterHandler(service).Handle(new ComboRequest(), CancellationToken.None);
 
         // Assert
-        Assert.Equal(9, actionResults.Count);
+        Assert.Equal(10, actionResults.Count);
     }
 
     [Fact]
