@@ -57,7 +57,7 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
             list.ForEach(l =>
             {
                 l.CustomerClass = string.IsNullOrWhiteSpace(l.CustomerClass)?"None":l.CustomerClass;
-                l.TotalBet = GetTotalBet(l.TotalBet, l.IsParlayGenerator, l.IsBoostBonus, l.BetType);
+                l.TotalBet = GetTotalBet(l.TotalBet, l.IsParlayGenerator, l.IsBoostBonus, l.BetType, l.ParlayType);
             });
 
             totalRows = criteria.TotalRows;
@@ -65,7 +65,7 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
             return list;
         }
 
-    private string GetTotalBet(string totalBet, bool isParlayGenerator, bool isBoostBonus, int betType)
+    private string GetTotalBet(string totalBet, bool isParlayGenerator, bool isBoostBonus, int betType, int parlayType)
     {
 	        var result = totalBet;
 	        if (isParlayGenerator)
@@ -79,6 +79,10 @@ public class ParlayWonDataAccess(IDynamicRepository repository)
             if (betType == (int)BetType.SingleMatchParlay)
             {
                 result += " (S)";
+            }
+            if (parlayType == (int)ParlayType.HybridParlay)
+            {
+                result += " (BB+)";
             }
         return result;
         }

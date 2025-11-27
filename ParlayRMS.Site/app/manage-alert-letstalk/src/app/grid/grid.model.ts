@@ -18,6 +18,7 @@ export interface DataModelItem {
     checkedBy: string;
     action: string;
     isViewedDetail: boolean;
+    parlayType: number;
 }
 
 export interface DataModel {
@@ -35,6 +36,7 @@ export interface BetDetails {
     refNo: string;
     betType: number;
     custId: number;
+    parlayType: number;
 }
 
 export interface TakeActionModel {

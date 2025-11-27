@@ -20,4 +20,6 @@ public class ParlayBetTypeViewModel
     public string BetTeam { get; set; }
 
     public string BetCheck { get; set; }
+
+    public int ParlayType { get; set; }
 }

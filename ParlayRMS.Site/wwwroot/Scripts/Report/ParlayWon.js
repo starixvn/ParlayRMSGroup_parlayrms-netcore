@@ -14,7 +14,7 @@
 
         $("#parlayType").multiselect({
             minWidth: 210,
-            height: 165,
+            height: 190,
             create: function () {
                 $("#parlayType").multiselect("checkAll");
             },
@@ -509,13 +509,13 @@
         var url = 'ParlayWon/Excel?' + $.param(data);
         window.location.href = resolveClientUrl(url);
     },
-    ViewBetDetail: function (refNo, transId, username, custId, bettype) {
+    ViewBetDetail: function (refNo, transId, username, custId, bettype, parlayType) {
         if (bettype == 38) {
             ParlayRMS.Core.OpenWindow(resolveClientUrl('ParlayWon/SingleMatchParlayBetDetails?custid=' + custId + '&TransId=' + transId + '&username=' + username), 700, 600);
         } else if (bettype == 376) {
             ParlayRMS.Core.OpenWindow(resolveClientUrl('ParlayWon/PenaltyShootoutParlayBetDetails?&TransId=' + transId + '&username=' + username), 700, 600);
         } else {
-            ParlayRMS.Core.OpenWindow(resolveClientUrl('ParlayWon/BetDetails?refno=' + refNo + '&TransId=' + transId + '&username=' + username), 700, 600);
+            ParlayRMS.Core.OpenWindow(resolveClientUrl('ParlayWon/BetDetails?refno=' + refNo + '&TransId=' + transId + '&username=' + username + '&parlayType=' + parlayType), 700, 600);
         }
     },
     Paging: function (totalRows, pageIndex) {

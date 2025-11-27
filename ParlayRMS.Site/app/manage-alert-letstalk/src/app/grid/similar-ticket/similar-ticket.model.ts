@@ -10,4 +10,5 @@ export interface SimilarTicketModel {
     refNo: string,
     custId: number,
     betType: number,
+    parlayType: number
 }

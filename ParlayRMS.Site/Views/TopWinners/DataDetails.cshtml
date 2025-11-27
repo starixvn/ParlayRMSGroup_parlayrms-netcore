@@ -66,7 +66,7 @@
                     </td>
                     <td class="numeric">
 
-                        <a href="#@item.RefNo" onclick="ViewTopWinnerBetDetail('@item.RefNo','@item.TransId','@ViewBag.Username', @ViewBag.CustId, @item.BetType);">@item.TransId</a>
+                        <a href="#@item.RefNo" onclick="ViewTopWinnerBetDetail('@item.RefNo','@item.TransId','@ViewBag.Username', @ViewBag.CustId, @item.BetType, @item.ParlayType);">@item.TransId</a>
                     </td>
                     <td class="numeric columneven">
                         @item.Stake.ToString("#,##0")
@@ -108,6 +108,11 @@
 	                        if (item.ParlayType == (int)ParlayType.PenaltyShootoutCombo)
 	                        {
 								parlayText += "(P)";
+	                        }
+
+	                        if (item.ParlayType == (int)ParlayType.HybridParlay)
+	                        {
+		                        parlayText += "(BB+)";
 	                        }
 
                         }

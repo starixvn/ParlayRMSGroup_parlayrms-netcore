@@ -27,7 +27,7 @@ public class FilterServiceUnitTests
         var actualResults = await filterService.GetParlayTypes();
 
         // Assert
-        const int expectedItems = 5;
+        const int expectedItems = 6;
         Assert.Equal(expectedItems, actualResults.Count);
     }
 
@@ -63,7 +63,7 @@ public class FilterServiceUnitTests
         var actualResults = await filterService.GetComboes();
 
         // Assert
-        const int expectedItems = 9;
+        const int expectedItems = 10;
         Assert.Equal(expectedItems, actualResults.Count);
     }
 }

@@ -15,7 +15,7 @@ export class FilterService {
 
   public getComboes(): ItemModel[] {
     let result: ItemModel[] = [];
-    for (let i = 2; i < 10; i++) {
+    for (let i = 1; i < 10; i++) {
       result.push({ name: i.toString(), id: i.toString(), checked: i <= 6 });
     }
     result.push({ name: '10 UP', id: '10', checked: false });
@@ -28,6 +28,7 @@ export class FilterService {
       { name: 'Parlay Generator', id: '6', checked: true },
       { name: 'Combo Parlay', id: '2', checked: true },
       { name: 'Single Match Parlay', id: '3', checked: true },
+      { name: 'Bet Builder+', id: '8', checked: true }
     ]
   }
 

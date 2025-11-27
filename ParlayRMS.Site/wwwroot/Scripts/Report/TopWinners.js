@@ -227,7 +227,7 @@ $(function () {
 
     $("#parlayType").multiselect({
         minWidth: 210,
-        height: 165,
+        height: 190,
         create: function () {
             $("#parlayType").multiselect('checkAll');
         },
@@ -549,7 +549,7 @@ function ViewDetails(custId) {
     return false;
 }
 
-function ViewTopWinnerBetDetail(refNo, transId, username, custId, bettype) {
+function ViewTopWinnerBetDetail(refNo, transId, username, custId, bettype, parlayType) {
     if (bettype == 38) {
         ParlayRMS.Core.OpenWindow(resolveClientUrl('TopWinners/SingleMatchParlayBetDetails?custid=' + custId + '&TransId=' + transId + '&username=' + username), 700, 600);
     }
@@ -557,7 +557,7 @@ function ViewTopWinnerBetDetail(refNo, transId, username, custId, bettype) {
         ParlayRMS.Core.OpenWindow(resolveClientUrl('TopWinners/PenaltyShootoutParlayBetDetails?&TransId=' + transId + '&username=' + username), 700, 600);
     }
     else {
-        ParlayRMS.Core.OpenWindow(resolveClientUrl('TopWinners/BetDetails?refno=' + refNo + '&TransId=' + transId + '&username=' + username), 700, 600);
+        ParlayRMS.Core.OpenWindow(resolveClientUrl('TopWinners/BetDetails?refno=' + refNo + '&TransId=' + transId + '&username=' + username + '&parlayType=' + parlayType), 700, 600);
     }
 }
 

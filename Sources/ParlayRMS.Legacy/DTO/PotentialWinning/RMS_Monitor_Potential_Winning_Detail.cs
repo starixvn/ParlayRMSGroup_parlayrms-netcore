@@ -43,4 +43,6 @@ public class RMS_Monitor_Potential_Winning_Detail
     public bool IsParlayGenerator { get; set; }
 
     public bool IsBoostBonus { get; set; }
+
+    public int ParlayType { get; set; }
 }

@@ -29,4 +29,6 @@ public class WonTicketModel
 	public string IP { get; set; }
 
 	public bool IsSMP { get; set; }
+
+	public int ParlayType { get; set; }
 }

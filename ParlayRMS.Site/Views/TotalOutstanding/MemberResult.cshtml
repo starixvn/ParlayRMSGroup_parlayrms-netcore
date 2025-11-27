@@ -123,6 +123,11 @@
 		                        {
 			                        betText += " (B)";
 		                        }
+
+		                        if (item.ParlayType == (int)ParlayType.HybridParlay)
+		                        {
+			                        betText += " (BB+)";
+		                        }
 	                        }
 
 	                        @Formatter.FormatNumber3(item.TotalBet) @betText
@@ -141,7 +146,7 @@
                             @item.SportTypeName
                         </td>
                         <td class="center">
-                            <button class="button-disable" style="width:40px;" onclick="ParlayRMS.TotalOutstanding.ViewBetDetails('@ViewBag.Username', '@item.TransId', '@item.Refno', @item.BetType, @ViewBag.CustId);">
+                            <button class="button-disable" style="width:40px;" onclick="ParlayRMS.TotalOutstanding.ViewBetDetails('@ViewBag.Username', '@item.TransId', '@item.Refno', @item.BetType, @ViewBag.CustId, @item.ParlayType);">
                                 @ViewLang.View
                             </button>
                         </td>

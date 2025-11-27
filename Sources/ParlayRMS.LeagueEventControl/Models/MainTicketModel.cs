@@ -26,6 +26,8 @@ public class MainTicketModel
 
     public int TotalBet { get; set; }
 
+    public int ParlayType { get; set; }
+
     public string TotalBetString
     {
         get
@@ -44,6 +46,11 @@ public class MainTicketModel
             if (IsSMP)
             {
                 result += " (S)";
+            }
+
+            if (ParlayType == 8)
+            {
+                result += " (BB+)";
             }
 
             return result;

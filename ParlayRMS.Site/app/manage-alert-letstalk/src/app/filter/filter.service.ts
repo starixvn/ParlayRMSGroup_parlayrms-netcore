@@ -41,7 +41,7 @@ export class FilterService {
 
   public getCombos(): ItemModel[] {
     var combos: ItemModel[] = [];
-    for(let i = 2; i <= 9; i++) {
+    for(let i = 1; i <= 9; i++) {
       combos.push({ id: i.toString(), name: i.toString(), checked: true})
     };
     combos.push({ id: '10', name: '10 UP', checked: true});

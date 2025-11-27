@@ -335,7 +335,9 @@ public class MemberWinLossController(MemberWinLossService _memberWinLossService,
     {
         ViewBag.BetId = options.TransId;
         ViewBag.Username = options.Username;
-        var data = _betDetailsService.GetBetDetail(options.TransId, options.RefNo);
+        var data = options.ParlayType == 8 ?
+            _betDetailsService.GetBetDetailForHybridParlay(options.TransId, options.RefNo)
+            : _betDetailsService.GetBetDetail(options.TransId, options.RefNo);
 
         var model = new BetDetails
         {

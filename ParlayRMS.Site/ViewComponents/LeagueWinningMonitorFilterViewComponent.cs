@@ -12,7 +12,7 @@ public class LeagueWinningMonitorFilterViewComponent : ViewComponent
     public IViewComponentResult Invoke()
     {
         var combos = new List<SelectListItem>();
-        for (var i = 2; i <= 9; i++)
+        for (var i = 1; i <= 9; i++)
         {
             combos.Add(new SelectListItem
             {
@@ -30,7 +30,8 @@ public class LeagueWinningMonitorFilterViewComponent : ViewComponent
             new() { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
             new() { Text = ViewLang.ParlayGenerator, Value = ((int)ParlayType.ParlayGenerator).ToString() },
             new() { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
-            new() { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+            new() { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() },
+            new() { Text = ViewLang.HybridParlay, Value = ((int)ParlayType.HybridParlay).ToString() }
         };
         ViewBag.ParlayTypes = parlayTypes;
 

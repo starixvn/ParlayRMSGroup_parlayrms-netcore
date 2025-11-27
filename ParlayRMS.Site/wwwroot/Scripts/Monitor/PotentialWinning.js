@@ -654,21 +654,22 @@ function ViewTotalBetDetails(custId, agentid) {
     return false;
 }
 
-function ViewBetDetails(username, transId, refNo, betType, custId) {
+function ViewBetDetails(username, transId, refNo, betType, custId, parlayType) {
     if (betType === 38) {
         ViewSingleMatchParlayDetails(transId, custId, username);
     } else if (betType === 376) {
         ViewPenaltyShootoutParlayDetails(transId, username);
     }
     else {
-        ViewSystemParlayDetails(username, transId, refNo);
+        ViewSystemParlayDetails(username, transId, refNo, parlayType);
     }
 
-    function ViewSystemParlayDetails(username, transId, refNo) {
+    function ViewSystemParlayDetails(username, transId, refNo, parlayType) {
         var data = {
             TransId: transId,
             RefNo: refNo,
-            Username: username
+            Username: username,
+            ParlayType: parlayType
         }
 
         $.ajax({

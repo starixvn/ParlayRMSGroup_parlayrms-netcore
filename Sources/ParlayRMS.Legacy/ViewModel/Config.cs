@@ -43,7 +43,7 @@ public static class Config
             ];
 
             Combos = [];
-            for (var i = 2; i <= 9; i++)
+            for (var i = 1; i <= 9; i++)
             {
                 Combos.Add(new SelectListItem
                 {
@@ -64,14 +64,18 @@ public static class Config
                 new SelectListItem
                     { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
                 new SelectListItem
-                    { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+                    { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.HybridParlay, Value = ((int)ParlayType.HybridParlay).ToString() }
             ];
 
             SimpleParlayTypes =
             [
                 new SelectListItem { Text = ViewLang.MixparLay, Value = ((int)ParlayType.MixParlay).ToString() },
                 new SelectListItem { Text = ViewLang.ComboParlay, Value = ((int)ParlayType.ComboParlay).ToString() },
-                new SelectListItem { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+                new SelectListItem { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.HybridParlay, Value = ((int)ParlayType.HybridParlay).ToString() }
             ];
 
             SpecialParlayTypes =
@@ -83,7 +87,9 @@ public static class Config
                 new SelectListItem
                     { Text = ViewLang.PenaltyShootoutCombo, Value = ((int)ParlayType.PenaltyShootoutCombo).ToString() },
                 new SelectListItem
-                    { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() }
+                    { Text = ViewLang.SingleMatchParlay, Value = ((int)ParlayType.SingleMatchParlay).ToString() },
+                new SelectListItem
+                    { Text = ViewLang.HybridParlay, Value = ((int)ParlayType.HybridParlay).ToString() }
             ];
 
 			ReportTypes =

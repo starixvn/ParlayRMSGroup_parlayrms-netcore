@@ -43,7 +43,7 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
         SetStartRowIndex(settings.StartRowIndex);
         SetEndRowIndex(settings.StartRowIndex, list.Count);
         SetSheetName(settings.SheetName);
-        BuildTitle(settings.Title);
+        BuildTitle(settings.Title, settings.RoleId == 2);
         ApplyBody(list);
         ApplyTotal(total);
         MergeTotalCell(settings.IsMerged);
@@ -64,9 +64,10 @@ public class WinLossExcelBuilderImp : WinLossExcelBuilder
         bodySheet.Name = sheetName;
     }
 
-    private void BuildTitle(string title)
+    private void BuildTitle(string title, bool isMember)
     {
-        bodySheet.Cells["A1:K1"].Value = title;
+        var addressCell = isMember ? "A1:J1" : "A1:K1";
+        bodySheet.Cells[addressCell].Value = title;
     }
 
     private void ApplyBody<T>(IEnumerable<T> list) where T : class, new()

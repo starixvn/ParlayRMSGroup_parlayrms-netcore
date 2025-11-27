@@ -13,7 +13,8 @@
             var betTeam = this.getAttribute('data-bet-team');
             var hdp1 = this.getAttribute('data-hdp1');
             var hdp2 = this.getAttribute('data-hdp2');
-            LoadReport(transId, refno, betType, betCheck, betTeam, hdp1, hdp2, Expand);
+            var parlayType = this.getAttribute('data-parlay-type');
+            LoadReport(transId, refno, betType, betCheck, betTeam, hdp1, hdp2, parlayType, Expand);
         }
         else {
             Expand(null, refno);
@@ -65,7 +66,7 @@
     }
 
     /*Load report from server and expand choice. */
-    function LoadReport(transId, refno, betType, betCheck, betTeam, hdp1, hdp2, expand) {
+    function LoadReport(transId, refno, betType, betCheck, betTeam, hdp1, hdp2, parlayType, expand) {
         var queryData = {
             TransId: transId,
             RefNo: refno,
@@ -73,7 +74,8 @@
             betCheck: betCheck,
             betTeam: betTeam,
             hdp1: hdp1,
-            hdp2: hdp2
+            hdp2: hdp2,
+            ParlayType: parlayType
         };
 
         $.ajax({

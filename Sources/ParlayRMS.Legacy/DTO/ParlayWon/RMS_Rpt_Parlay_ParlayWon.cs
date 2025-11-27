@@ -42,4 +42,6 @@ public class RMS_Rpt_Parlay_ParlayWon
 
     public bool IsBoostBonus { get; set; }
 
+    public int ParlayType { get; set; }
+
 }

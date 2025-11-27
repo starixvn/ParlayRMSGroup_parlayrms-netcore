@@ -106,6 +106,11 @@
 			            {
 				            totalBetText += " (B)";
 			            }
+
+			            if (Model.ParlayType == (int)ParlayType.HybridParlay)
+			            {
+                            totalBetText += " (BB+)";
+			            }
 		            }
 
 		            @($"{Model.TotalBet} {totalBetText}")
@@ -124,7 +129,7 @@
                     @Model.SportTypeName
                 </td>
                 <td class="center">
-                    <button class="button-disable" style="width:40px;" onclick="ViewBetDetails('@Model.Username', '@Model.Transid', '@Model.Transid', '@Model.Refno', '@Model.Refno', @Model.CustId, @Model.CustId, @Model.BetType);">
+                    <button class="button-disable" style="width:40px;" onclick="ViewBetDetails('@Model.Username', '@Model.Transid', '@Model.Transid', '@Model.Refno', '@Model.Refno', @Model.CustId, @Model.CustId, @Model.BetType, @Model.ParlayType);">
                         @ViewLang.View
                     </button>
                 </td>
@@ -265,7 +270,7 @@
                             <a href="#" onclick="OpenViewIpInfo('@item.Ip', '@item.TransDateString')">@item.Ip</a>
 	                    </td>
 	                    <td class="center">
-		                    <button class="button-disable" style="width:40px;" onclick="ViewBetDetails('@item.Username', '@item.TransId', '@Model.Transid', '@item.Refno','@Model.Refno', @Model.CustId, @item.CustId, @Model.BetType);">
+		                    <button class="button-disable" style="width:40px;" onclick="ViewBetDetails('@item.Username', '@item.TransId', '@Model.Transid', '@item.Refno','@Model.Refno', @Model.CustId, @item.CustId, @Model.BetType, @Model.ParlayType);">
 			                    @ViewLang.View
 		                    </button>
 	                    </td>

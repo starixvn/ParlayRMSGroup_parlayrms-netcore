@@ -37,6 +37,8 @@ public class ManageAlertModel
     public string? CheckedBy { get; set; }
 
     public string Action { get; set; }
+
+    public int ParlayType { get; set; }
 }
 
 public class ManageAlertViewModel

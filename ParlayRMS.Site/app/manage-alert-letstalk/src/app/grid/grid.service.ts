@@ -64,7 +64,7 @@ export class GridService {
          break; 
       } 
       default: { 
-        url = `BetList/BetDetails?transId=${betDetails.transId}&refNo=${betDetails.refNo}&username${betDetails.userName}`;
+        url = `BetList/BetDetails?transId=${betDetails.transId}&refNo=${betDetails.refNo}&username${betDetails.userName}&parlayType=${betDetails.parlayType}`;
          break; 
       }
     }

@@ -35,7 +35,8 @@ public class FilterServiceImp(IDynamicRepository repository, IRemotingRefService
             new() { Name = "Parlay Generator", Id = 6 },
             new() { Name = "Combo Parlay", Id = 2 },
             new() { Name = "Penalty Shootout Combo", Id = 4 },
-            new() { Name = "Single Match Parlay", Id = 3 }
+            new() { Name = "Single Match Parlay", Id = 3 },
+            new() { Name = "Bet Builder+", Id = 8 }
         };
 
         return Task.FromResult(parlayTypes);
@@ -81,6 +82,7 @@ public class FilterServiceImp(IDynamicRepository repository, IRemotingRefService
     {
         var comboes = new List<SelectItemModel>
         {
+            new() { Name = "1", Id = 1 },
             new() { Name = "2", Id = 2 },
             new() { Name = "3", Id = 3 },
             new() { Name = "4", Id = 4 },

@@ -1,16 +1,18 @@
 namespace ParlayRMS.Legacy.Controllers;
 
-using System.Text;
 using Criteria.BetList;
 using DTO.BetList;
+using Fanex.BetList.Core.Builder.HybridParlayBuilder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.Factories;
 using Fanex.BetList.Core.TicketHelper;
+using Fanex.BetList.Core.Utils.Parsers;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+using System.Text;
 using Utilities;
 using ViewModel.BetList;
 
@@ -18,6 +20,15 @@ public class BetListController(BetListService _betlistService, CommonService _co
 {
     [HttpPost]
     public ActionResult BetDetails(BetDetailsOptions options)
+    {
+        ViewBag.TransId = options.TransId;
+        ViewBag.Username = options.Username;
+
+        var model = options.ParlayType == 8 ? GetBetDetailForHybridParlay(options) : GetBetDetails(options);
+        return View(model);
+    }
+
+    private BetDetails GetBetDetails(BetDetailsOptions options)
     {
         ViewBag.TransId = options.TransId;
         ViewBag.Username = options.Username;
@@ -49,12 +60,42 @@ public class BetListController(BetListService _betlistService, CommonService _co
 
         var comboTypeAndStake = GetComboTypeAndStake(tickets.Item2, betInfo);
 
-        var model = new BetDetails
+        return new BetDetails
         {
             TicketDetail = builder.GetBetList(),
             ComboTypes = comboTypeAndStake
         };
-        return View(model);
+    }
+
+    private BetDetails GetBetDetailForHybridParlay(BetDetailsOptions options)
+    {
+        var factory = new BetListHTMLFactory();
+        var builder = factory.CreateBuilder();
+        ITicketHelper ticketHelper = new TicketHelper { IsShowOddsWithChoice = true };
+        var tickets = _betlistService.CreateChoice(options.TransId, options.RefNo);
+        var betInfo = _betlistService.GetBetInfo(options.TransId);
+
+        var groupedTickets = tickets.Item2.GroupBy(x => x.MatchId);
+        var hybridParlayBuilder = new HyBridParlayBuilder();
+
+        foreach (var group in groupedTickets)
+        {
+            var matchTickets = group.ToList().OrderBy(t => t.TransId).ToList();
+            var legOddsInfo = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc).LegOddsbyMatch
+                ?.FirstOrDefault(x => x.MatchId == group.Key);
+            var extraVoidTicketClass =
+                matchTickets.Where(ticket => ticket.StatusId != 102).Count() > 0 ? string.Empty : "void";
+            var template = hybridParlayBuilder.BuildMatchTicket(ticketHelper, matchTickets, legOddsInfo, extraVoidTicketClass, false);
+            builder.Append(template.ToString().Replace("{eventDate}", string.Empty));
+        }
+
+        var comboTypeAndStake = GetComboTypeAndStake(tickets.Item2, betInfo);
+
+        return new BetDetails
+        {
+            TicketDetail = builder.GetBetList(),
+            ComboTypes = comboTypeAndStake
+        };
     }
 
     private static List<string> GetComboTypeAndStake(IEnumerable<ITicket> tickets, RMS_Monitor_Parlay_BetInfo betInfo)

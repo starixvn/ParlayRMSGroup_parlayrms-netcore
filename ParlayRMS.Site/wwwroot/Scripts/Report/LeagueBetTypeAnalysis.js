@@ -94,7 +94,7 @@
 
         $(LeagueBetTypeAnalysis.DOM.ddlParlayType).multiselect({
             buttonWidth: 165,
-            menuHeight: 155,
+            menuHeight: 180,
             create: function () {
                 $(LeagueBetTypeAnalysis.DOM.ddlParlayType).multiselect("checkAll");
             },
@@ -116,7 +116,7 @@
 
         $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfLeague).multiselect({
             buttonWidth: 165,
-            menuHeight: 155,
+            menuHeight: 180,
             create: function () {
                 $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfLeague).multiselect("checkAll");
             },
@@ -138,7 +138,7 @@
 
         $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfBetType).multiselect({
             buttonWidth: 165,
-            menuHeight: 155,
+            menuHeight: 180,
             create: function () {
                 $(LeagueBetTypeAnalysis.DOM.ddlParlayTypeOfBetType).multiselect("checkAll");
             },

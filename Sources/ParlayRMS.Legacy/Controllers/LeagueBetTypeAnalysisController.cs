@@ -10,6 +10,7 @@ using Fanex.NAP.Client.Helpers.Business;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ParlayRMS.Legacy.DTO.LeagueBetTypeAnalysis;
+using ParlayRMS.Legacy.Models;
 using ParlayRMS.Models.Functions;
 using Services;
 using System;
@@ -320,7 +321,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
 		    x.StakeAfterPT,
 		    x.WinningAmount,
             x.NetWinAfterPT,
-		    TotalBet = x.IsSMP ? $"{x.TotalBet} (S)" : x.TotalBet.ToString(),
+		    TotalBet = x.IsSMP ? $"{x.TotalBet} (S)" : GetTotalBet(x.TotalBet, x.ParlayType),
             x.TotalSelection,
             SportType = CacheRef.GetSportNameDropDown(x.SportType),
             x.IP
@@ -344,4 +345,7 @@ public class LeagueBetTypeAnalysisController(LeaguesService leagueService, Leagu
         if (filterLeagueGroups.Length == 1) return leagueGroups.FirstOrDefault(l => l.Id.ToString() == data)?.Name;
         return $"{filterLeagueGroups.Length} options";
     }
+
+    private string GetTotalBet(int totalBet, int parlayType)
+        => parlayType == (int)ParlayType.HybridParlay ? $"{totalBet} (BB+)" : totalBet.ToString();
 }

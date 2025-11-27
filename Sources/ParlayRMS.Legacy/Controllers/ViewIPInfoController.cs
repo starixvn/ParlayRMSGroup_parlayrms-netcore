@@ -2,9 +2,12 @@ namespace ParlayRMS.Legacy.Controllers;
 
 using DTO.ViewIPInfo;
 using ExcelService.Writers;
+using Fanex.BetList.Core.Builder;
+using Fanex.BetList.Core.Builder.HybridParlayBuilder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.Factories;
 using Fanex.BetList.Core.TicketHelper;
+using Fanex.BetList.Core.Utils.Parsers;
 using Fanex.NAP.Client.Attributes;
 using Fanex.NAP.Client.Helpers.Business;
 using Fizzler.Systems.HtmlAgilityPack;
@@ -305,6 +308,15 @@ public class ViewIPInfoController(
             openTag += "<br />";
         }
 
+        var result = options.ParlayType == 8
+            ? GetBetListForHybridParlay(ticketHelper, builder, tickets, openTag)
+            : GetBetList(ticketHelper, builder, tickets, openTag, endTag);
+        return result;
+    }
+
+    private string GetBetList(ITicketHelper ticketHelper, BetListHTMLBuilder builder, Tuple<List<bool>, List<ITicket>> tickets, string openTag, string endTag)
+    {
+        var countTicket = 1;
         foreach (var ticket in tickets.Item2)
         {
             if (countTicket != 1)
@@ -321,6 +333,24 @@ public class ViewIPInfoController(
             countTicket++;
         }
 
+        return builder.GetBetList();
+    }
+
+    private string GetBetListForHybridParlay(ITicketHelper ticketHelper, BetListHTMLBuilder builder, Tuple<List<bool>, List<ITicket>> tickets, string tag)
+    {
+        var groupedTickets = tickets.Item2.GroupBy(x => x.MatchId);
+        var hybridParlayBuilder = new HyBridParlayBuilder();
+        builder.Append(tag);
+        foreach (var group in groupedTickets)
+        {
+            var matchTickets = group.ToList().OrderBy(t => t.TransId).ToList();
+            var legOddsInfo = ExtraInfoParser.ParseLegOddsTransDesc(matchTickets.First().TransDesc).LegOddsbyMatch
+                ?.FirstOrDefault(x => x.MatchId == group.Key);
+            var extraVoidTicketClass =
+                matchTickets.Where(ticket => ticket.StatusId != 102).Count() > 0 ? string.Empty : "void";
+            var template = hybridParlayBuilder.BuildMatchTicket(ticketHelper, matchTickets, legOddsInfo, extraVoidTicketClass, false);
+            builder.Append(template.ToString().Replace("{eventDate}", string.Empty));
+        }
         return builder.GetBetList();
     }
 

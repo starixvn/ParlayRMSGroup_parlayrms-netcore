@@ -73,7 +73,7 @@
 
         MemberWinLoss.CachedDOM.parlayType.multiselect({
             minWidth: 210,
-            height: 138,
+            height: 163,
             create: function () {
                 MemberWinLoss.CachedDOM.parlayType.multiselect("checkAll");
             },
@@ -612,7 +612,7 @@ String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/g, '');
 };
 
-function ViewBetDetail(refNo, transId, username, custId, bettype) {
+function ViewBetDetail(refNo, transId, username, custId, bettype, parlayType) {
     if (bettype == 38) {
         ParlayRMS.Core.OpenWindow(resolveClientUrl('MemberWinLoss/SingleMatchParlayBetDetails?custid=' + custId + '&TransId=' + transId + '&username=' + username), 700, 600);
     }
@@ -620,7 +620,7 @@ function ViewBetDetail(refNo, transId, username, custId, bettype) {
         ParlayRMS.Core.OpenWindow(resolveClientUrl('MemberWinLoss/PenaltyShootoutParlayBetDetails?&TransId=' + transId + '&username=' + username), 700, 600);
     }
     else {
-        ParlayRMS.Core.OpenWindow(resolveClientUrl('MemberWinLoss/BetDetails?refno=' + refNo + '&TransId=' + transId + '&username=' + username), 700, 600);
+        ParlayRMS.Core.OpenWindow(resolveClientUrl('MemberWinLoss/BetDetails?refno=' + refNo + '&TransId=' + transId + '&username=' + username + '&parlayType=' + parlayType), 700, 600);
     }
 }
 

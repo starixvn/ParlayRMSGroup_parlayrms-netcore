@@ -176,7 +176,7 @@ public static class ModelsHelper
 
     public static string GetParlayTitle(string parlayTypes)
     {
-            if (parlayTypes == "1,7,6,2,4,3")
+            if (parlayTypes == "1,7,6,2,4,3,8")
             {
                 return ViewLang.All;
             }
@@ -187,12 +187,13 @@ public static class ModelsHelper
                 .Replace("2", ViewLang.ComboParlay)
                 .Replace("3", ViewLang.SingleMatchParlay)
                 .Replace("4", ViewLang.PenaltyShootoutCombo)
+                .Replace("8", ViewLang.HybridParlay)
                 .Replace(",", ", ");
         }
 
     public static string GetSpecialParlayTitle(string parlayTypes)
     {
-            if (parlayTypes == "1,6,2,4,3")
+            if (parlayTypes == "1,6,2,4,3,8")
             {
                 return ViewLang.All;
             }
@@ -202,12 +203,13 @@ public static class ModelsHelper
                 .Replace("2", ViewLang.ComboParlay)
                 .Replace("3", ViewLang.SingleMatchParlay)
                 .Replace("4", ViewLang.PenaltyShootoutCombo)
+                .Replace("8", ViewLang.HybridParlay)
                 .Replace(",", ", ");
         }
 
     public static string GetSimpleParlayTitle(string parlayTypes)
     {
-            if (parlayTypes == "1,2,3")
+            if (parlayTypes == "1,2,3,8")
             {
                 return ViewLang.All;
             }
@@ -215,6 +217,7 @@ public static class ModelsHelper
             return parlayTypes.Replace("1", ViewLang.MixparLay)
                 .Replace("2", ViewLang.ComboParlay)
                 .Replace("3", ViewLang.SingleMatchParlay)
+                .Replace("8", ViewLang.HybridParlay)
                 .Replace(",", ", ");
         }
 

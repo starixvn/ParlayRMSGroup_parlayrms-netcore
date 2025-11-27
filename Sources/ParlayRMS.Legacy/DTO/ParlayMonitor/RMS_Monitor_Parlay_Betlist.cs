@@ -54,4 +54,6 @@ public class RMS_Monitor_Parlay_Betlist
 
     public bool IsBoostBonus { get; set; }
     public bool IsParlayGenerator { get; set; }
+
+    public int ParlayType { get; set; }
 }
